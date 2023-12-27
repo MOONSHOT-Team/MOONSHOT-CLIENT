@@ -1,16 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
-
+import svgr from 'vite-plugin-svgr';
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react({
-    jsxImportSource: "@emotion/react",
-    babel: {
-      plugins: ["@emotion/babel-plugin"],
-    },
-  }), tsconfigPaths()],
+  plugins: [
+    svgr(),
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
+    tsconfigPaths(),
+  ],
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src/common') },
@@ -24,4 +28,4 @@ export default defineConfig({
       { find: '@utils', replacement: path.resolve(__dirname, 'src/common/utils') },
     ],
   },
-})
+});

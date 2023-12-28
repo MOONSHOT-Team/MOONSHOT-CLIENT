@@ -8,6 +8,7 @@ const Text = styled.p`
   height: 100%;
   border: 1rem;
   font-size: 2rem;
+  border-radius: 2rem;
 
   &:hover {
   width: 1010px;

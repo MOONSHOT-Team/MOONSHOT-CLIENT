@@ -10,6 +10,17 @@
     "declaration-property-unit-allowed-list": {
       "/^border/": [
         "px"
+      ],
+      "unit-allowed-list": [
+        "%",
+        "deg",
+        "px",
+        "rem",
+        "ms",
+        "s",
+        "em",
+        "vw",
+        "vh"
       ]
     },
     "order/order": [

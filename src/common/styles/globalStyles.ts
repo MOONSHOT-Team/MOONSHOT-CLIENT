@@ -1,7 +1,7 @@
-import { Global, css } from "@emotion/react";
+import { css } from '@emotion/react';
 import emotionNormalize from 'emotion-normalize';
 
-const style = css`
+const globalStyles = css`
   ${emotionNormalize}
 
    * {
@@ -14,10 +14,11 @@ const style = css`
       }
       button {
         cursor: pointer;
+        border: none;
+        background: none;
       }
 
 `
 
-const GlobalStyles = ()=> <Global styles={style} />
 
-export default GlobalStyles;
+export default globalStyles;

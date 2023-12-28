@@ -1,9 +1,11 @@
+import { IcArrow } from './common/assets/icons';
 const App = () => {
-  return (
-    <>
-      Go MoonShot!
-    </>
-  )
-}
+	return (
+		<>
+			<IcArrow />
+			Go MoonShot!
+		</>
+	);
+};
 
-export default App
+export default App;

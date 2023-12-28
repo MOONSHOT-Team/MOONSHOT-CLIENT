@@ -15,8 +15,10 @@ const GlobalStyles = () => (
       * {
         box-sizing: border-box;
       }
+
       button {
         border: none;
+
         &:hover {
           cursor: pointer;
         }

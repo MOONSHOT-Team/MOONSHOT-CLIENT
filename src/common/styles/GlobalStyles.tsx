@@ -1,28 +1,23 @@
 import { Global, css } from "@emotion/react";
-import reset from "./reset";
+import emotionNormalize from 'emotion-normalize';
 
+const style = css`
+  ${emotionNormalize}
 
-const GlobalStyles = () => (
-  <Global
-    styles={css`
-      ${reset}
-
-      /* @font-face {
-        font-family: ;
-        src: url();
-      } */
-
-      * {
+   * {
         box-sizing: border-box;
+        padding : 0;
+        margin: 0;
+      }
+      html{
+        font-size: 62.5%;
       }
       button {
-        border: none;
-        &:hover {
-          cursor: pointer;
-        }
+        cursor: pointer;
       }
-    `}
-  />
-);
+
+`
+
+const GlobalStyles = ()=> <Global styles={style} />
 
 export default GlobalStyles;

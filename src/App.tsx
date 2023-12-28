@@ -1,6 +1,6 @@
 import GlobalStyles from "./common/styles/GlobalStyles"
 import { ThemeProvider } from "@emotion/react"
-import {theme} from "./common/styles/theme"
+import { theme } from "./common/styles/theme"
 const App = () => {
   return (
     <ThemeProvider theme={theme}>

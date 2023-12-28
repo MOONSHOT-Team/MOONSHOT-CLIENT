@@ -1,6 +1,6 @@
-import { Global, ThemeProvider } from "@emotion/react";
-import globalStyles from "./common/styles/globalStyles";
-import { theme } from "./common/styles/theme"
+import { Global, ThemeProvider } from '@emotion/react';
+import globalStyles from './common/styles/globalStyles';
+import { theme } from './common/styles/theme';
 
 const App = () => {
   return (
@@ -8,7 +8,7 @@ const App = () => {
       <Global styles={globalStyles} />
       Go MoonShot!
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;

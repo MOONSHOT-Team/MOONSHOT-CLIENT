@@ -9,13 +9,15 @@ const globalStyles = css`
         padding : 0;
         margin: 0;
       }
+
       html{
         font-size: 62.5%;
       }
+
       button {
         cursor: pointer;
-        border: none;
         background: none;
+        border: none;
       }
 
 `

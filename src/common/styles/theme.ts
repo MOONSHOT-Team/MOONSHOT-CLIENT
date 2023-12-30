@@ -30,7 +30,7 @@ const FONT = ({
 
 
 const fonts = {
-   medium: FONT({ family: 'Arial', weight: 500, size: 1, lineHeight: 1.5 }),
+  medium: FONT({ family: 'Arial', weight: 500, size: 1, lineHeight: 1.5 }),
 };
 
 export type ColorsTypes = typeof colors;

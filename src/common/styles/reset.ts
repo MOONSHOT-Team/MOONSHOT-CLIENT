@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 
 const reset = css`
-  /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
+/* http://meyerweb.com/eric/tools/css/reset/ 
+  v2.0 | 20110126
+  License: none (public domain)
 */
 
 html, body, div, span, applet, object, iframe,
@@ -19,11 +19,11 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
 	padding: 0;
-	border: 0;
+	margin: 0;
 	font-size: 100%;
 	vertical-align: baseline;
+	border: 0;
 
 	/* font: inherit; */
 }
@@ -53,8 +53,8 @@ q::before, q::after {
 }
 
 table {
-	border-collapse: collapse;
 	border-spacing: 0;
+	border-collapse: collapse;
 }
 `
 export default reset

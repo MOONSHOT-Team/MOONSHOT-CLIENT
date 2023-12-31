@@ -6,6 +6,7 @@
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"types": ["vite-plugin-svgr/client"],
+		"jsxImportSource": "@emotion/react",
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",
@@ -19,7 +20,20 @@
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+
+		/* path and alias */
+		"baseUrl": "./src/common",
+		"paths": {
+			"@apis/*": ["apis/*"],
+			"@assets/*": ["assets/*"],
+			"@components/*": ["components/*"],
+			"@constants/*": ["constants/*"],
+			"@hooks/*": ["hooks/*"],
+			"@styles/*": ["styles/*"],
+			"@type/*": ["type/*"],
+			"@utils/*": ["utils/*"]
+		}
 	},
 	"include": ["src", "svg.d.ts"],
 	"references": [{ "path": "./tsconfig.node.json" }]

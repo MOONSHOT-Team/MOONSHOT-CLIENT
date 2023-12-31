@@ -1,3 +1,3 @@
-import IcArrow from './IcArrow.svg?react';
+// import IcArrow from './IcArrow.svg?react';
 
-export { IcArrow };
+// export { IcArrow };

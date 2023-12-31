@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "prettier pages components --write && eslint pages components --fix",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0, prettier pages components --write && eslint pages components --fix",
     "preview": "vite preview",
     "postinstall": "husky install",
-    "format": "prettier --cache --write ."
+    "format": "prettier --cache --write .",
+    "stylelint": "stylelint './src/**/*.{ts,tsx}' --fix"
   },
   "husky": {
     "hooks": {
@@ -18,15 +19,19 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --fix"
     ]
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "emotion-normalize": "^11.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@emotion/babel-plugin": "^11.11.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -37,7 +42,14 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
+    "postcss": "^8.4.32",
+    "postcss-styled-syntax": "^0.6.0",
+    "postcss-syntax": "^0.36.2",
+    "stylelint": "^16.1.0",
+    "stylelint-config-recess-order": "^4.4.0",
+    "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-tsconfig-paths": "^4.2.2"
   }
 }

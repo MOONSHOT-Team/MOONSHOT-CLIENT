@@ -2,17 +2,13 @@
 	"arrowParens": "always",
 	"bracketSameLine": false,
 	"bracketSpacing": true,
-	"semi": true,
+	"semi": false,
 	"singleQuote": true,
 	"jsxSingleQuote": false,
 	"quoteProps": "as-needed",
 	"trailingComma": "all",
 	"htmlWhitespaceSensitivity": "css",
-	"vueIndentScriptAndStyle": false,
-	"proseWrap": "preserve",
-	"insertPragma": false,
 	"printWidth": 100,
-	"requirePragma": false,
-	"tabWidth": 2,
-	"useTabs": true
+	"useTabs": false,
+	"tabWidth": 2
 }

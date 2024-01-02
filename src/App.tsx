@@ -1,9 +1,15 @@
-const App = () => {
-  return (
-    <>
-      Go MoonShot!
-    </>
-  )
-}
+import { Global, ThemeProvider } from '@emotion/react';
+import globalStyles from './common/styles/globalStyles';
+import { theme } from './common/styles/theme';
 
-export default App
+const App = () => {
+  
+  return (
+    <ThemeProvider theme={theme}>
+      <Global styles={globalStyles} />
+      Go MoonShot!
+    </ThemeProvider>
+  );
+};
+
+export default App;

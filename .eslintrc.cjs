@@ -32,7 +32,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'react', 'simple-import-sort', 'import', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react', 'simple-import-sort', 'import', 'react-hooks','@emotion'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'error',

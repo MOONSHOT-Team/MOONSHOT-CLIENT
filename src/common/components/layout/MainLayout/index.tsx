@@ -1,11 +1,12 @@
+import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 
-const MainLayout = () => {
+const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <header>header</header>
       <main>
-        <Outlet />
+        {children || <Outlet />}
       </main>
       {/* <footer>footer</footer> */}
     </>

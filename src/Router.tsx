@@ -1,18 +1,18 @@
-import {createBrowserRouter}  from 'react-router-dom';
+import { createBrowserRouter }  from 'react-router-dom';
 import Error from '@components/Error';
 import AddOkr from './AddOkr';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
-import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
 import MainLayout from '@components/layout/MainLayout';
+import Drawer from '@components/layout/Drawer';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout/>,
+    element: <MainLayout />,
     errorElement: <Error />,
     children: [
       {
@@ -20,20 +20,26 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/add-okr',
-        element: <AddOkr />
-      },
-      {
-        path: '/history',
+        path: 'history',
         element: <History />
       },
       {
-        path: '/main-dashboard',
+        path: 'social',
+        element: <Social />
+      },
+    ]
+  },
+  {
+    path: '/',
+    element:  <><MainLayout><Drawer /></MainLayout></>,
+    children: [
+      {
+        path: 'dashboard',
         element: <MainDashBoard />
       },
       {
-        path: '/social',
-        element: <Social />
+        path: 'add-okr',
+        element: <AddOkr />
       },
     ]
   },

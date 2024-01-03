@@ -6,7 +6,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={globalStyles} />
-      <p>Go MoonShot!</p>
     </ThemeProvider>
   )
 }

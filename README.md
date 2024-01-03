@@ -208,27 +208,31 @@ ex. feat: 회원 가입 기능 구현
     │   └── utils 📂 (8) 공통 util 관련 파일들 저장
     │
     ├── AddOkr 🗂 OKR 추가 페이지 관련 파일들 저장
-    │   ├── index.ts OKR 추가 페이지(AddOkrPage) 파일
+    │   ├── index.ts OKR 추가 페이지(AddOkr) 파일
+    │   └── //세부 폴더구조 common과 동일
+    │
+    ├── DashBoard 🗂 대시보드 페이지 관련 파일들 저장
+    │   ├── index.ts 대시보드 페이지(Dashboard) 파일
     │   └── //세부 폴더구조 common과 동일
     │
     ├── History 🗂 히스토리 페이지 관련 파일들 저장
-    │   ├── index.ts 히스토리 페이지(HistoryPage) 파일
+    │   ├── index.ts 히스토리 페이지(History) 파일
     │   └── //세부 폴더구조 common과 동일
     │
     ├── Home 🗂 홈(온보딩) 페이지 관련 파일들 저장
-    │   ├── index.ts 홈 페이지(HomePage) 파일
-    │   └── //세부 폴더구조 common과 동일
-    │
-    ├── MainDashBoard 🗂 대시보드 페이지 관련 파일들 저장
-    │   ├── index.ts 대시보드 페이지(MainDashboardPage) 파일
+    │   ├── index.ts 홈 페이지(Home) 파일
     │   └── //세부 폴더구조 common과 동일
     │
     ├── My 🗂 마이 페이지 관련 파일들 저장
-    │   ├── index.ts 마이 페이지(MYPage)
+    │   ├── index.ts 마이 페이지(My)
     │   └── //세부 폴더구조 common과 동일
     │
     └── SignIn 🗂 로그인 페이지 관련 파일들 저장
-    │   ├── index.ts 로그인 페이지(SignInPage) 파일
+    │   ├── index.ts 로그인 페이지(SignIn) 파일
+    │   └── //세부 폴더구조 common과 동일
+    │
+    ├── Social 🗂 소셜 페이지 관련 파일들 저장
+    │   ├── index.ts 소셜 페이지(Social)
     │   └── //세부 폴더구조 common과 동일
     │
 

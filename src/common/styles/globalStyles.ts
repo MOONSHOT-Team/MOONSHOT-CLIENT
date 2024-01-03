@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import emotionNormalize from 'emotion-normalize';
 
+import { theme } from './theme';
+
 const globalStyles = css`
   ${emotionNormalize}
 
@@ -160,6 +162,11 @@ const globalStyles = css`
     padding: 0;
     margin: 0;
     font-family: Pretendard, sans-serif;
+  }
+
+  body {
+    color: #fff;
+    background-color: ${theme.colors.background};
   }
 
   button {

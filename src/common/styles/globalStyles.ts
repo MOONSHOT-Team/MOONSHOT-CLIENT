@@ -157,6 +157,10 @@ const globalStyles = css`
     font-display: swap;
   }
 
+  html {
+    font-size: 62.5%;
+  }
+
   * {
     box-sizing: border-box;
     padding: 0;

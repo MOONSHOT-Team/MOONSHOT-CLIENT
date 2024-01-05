@@ -1,26 +1,31 @@
 import { css } from '@emotion/react';
 import emotionNormalize from 'emotion-normalize';
 
+import { theme } from './theme';
+
 const globalStyles = css`
   ${emotionNormalize}
 
-   * {
-        box-sizing: border-box;
-        padding : 0;
-        margin: 0;
-      }
+  html {
+    font-size: 62.5%;
+  }
 
-      html{
-        font-size: 62.5%;
-      }
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 
-      button {
-        cursor: pointer;
-        background: none;
-        border: none;
-      }
+  body {
+    color: #fff;
+    background-color: ${theme.colors.background};
+  }
 
-`
-
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+`;
 
 export default globalStyles;

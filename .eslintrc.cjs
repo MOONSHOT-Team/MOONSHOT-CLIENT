@@ -32,13 +32,21 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'react', 'simple-import-sort', 'import', 'react-hooks','@emotion'],
+  plugins: [
+    '@typescript-eslint',
+    'react',
+    'simple-import-sort',
+    'import',
+    'react-hooks',
+    '@emotion',
+  ],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },
   settings: {
     'import/parsers': {

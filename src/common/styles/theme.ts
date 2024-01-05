@@ -17,6 +17,7 @@ const colors = {
   gray_600: '#242424',
   gray_650: '#222222',
   main_purple: '#8D7EFD',
+  main_darkpurple: '#7165CA',
   sub_yellow: '#FFD749',
   sub_green: '#63D7C6',
   sub_red: '#D96D6D',
@@ -30,6 +31,8 @@ const colors = {
   transparent_blue_10: '#6CA4F61A',
   transparent_yellow_10: '#FFD7491A',
   transparent_yellowgreen_10: '#86DC681A',
+  transparent_black: '#1E1E201A',
+  transparent_black_50: '#1E1E2080',
 };
 
 type Font = {

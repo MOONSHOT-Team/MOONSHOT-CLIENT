@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
+    "@emotion/eslint-plugin": "^11.11.0",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.17",
@@ -43,10 +44,9 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "prettier": "^3.1.1",
     "postcss": "^8.4.32",
     "postcss-styled-syntax": "^0.6.0",
     "postcss-syntax": "^0.36.2",
@@ -55,7 +55,7 @@
     "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
-    "vite-tsconfig-paths": "^4.2.2",
-    "vite-plugin-svgr": "^4.2.0"
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.2.2"
   }
 }

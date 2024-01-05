@@ -1,7 +1,5 @@
 const AddOkr = () => {
-  return (
-    <div>AddOkr</div>
-  )
-}
+  return <div>AddOkr</div>;
+};
 
-export default AddOkr
+export default AddOkr;

@@ -1,7 +1,5 @@
 const PreviewOkr = () => {
-  return (
-    <div>PreviewOkr</div>
-  )
-}
+  return <div>PreviewOkr</div>;
+};
 
-export default PreviewOkr
+export default PreviewOkr;

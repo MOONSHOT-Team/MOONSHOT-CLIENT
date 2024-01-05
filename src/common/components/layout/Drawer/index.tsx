@@ -7,13 +7,12 @@ const Drawer = () => {
       <div>Drawer</div>
       <Outlet />
     </div>
-    
-  )
-}
+  );
+};
 
 const drawerStyle = css`
   display: flex;
   gap: 2rem;
-`
+`;
 
-export default Drawer
+export default Drawer;

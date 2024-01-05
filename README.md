@@ -128,16 +128,16 @@ ex. feat: 회원 가입 기능 구현
   ```jsx
   // 분기 그래프
   main
-  	ㄴ develop
-  			ㄴ feat/페이지명(camelCase)
-  				ㄴ 페이지명(camelCase)/#이슈번호/기능명(camelCase)
+    ㄴ develop
+       ㄴ feat/페이지명(camelCase)
+          ㄴ 페이지명(camelCase)/#이슈번호/기능명(camelCase)
   ```
   ```jsx
   // 브랜치 전략 예시
   main
-  	ㄴ develop
-  		ㄴfeat/loginPage //페이지 브랜치
-  				ㄴloginPage/#1/kakaoOauth //이슈 브랜치
+    ㄴ develop
+      ㄴfeat/loginPage //페이지 브랜치
+        ㄴloginPage/#1/kakaoOauth //이슈 브랜치
   ```
 
 <br/>
@@ -562,7 +562,7 @@ ex. feat: 회원 가입 기능 구현
     - 작업을 시작 했으나 다른 작업을 먼저 진행 해야 하는 등 중단 후 추후 다시 진행 해야 하는 작업이 있을 때 사용한다.
 - 작업(이슈)의 상태에 따라 칸반보드의 알맞은 field로 옮겨준다.
 
-      ```j
+      ```
       [Project 활용 예시]
 
       이슈 생성 → Todo

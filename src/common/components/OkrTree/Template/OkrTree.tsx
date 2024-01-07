@@ -26,8 +26,6 @@ const StOkrTreeContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
 `;
 
 const StKrTreeWrapper = styled.div`

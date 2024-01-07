@@ -16,7 +16,7 @@ interface ITaskNodesProps {
 export const PreviewTaskNodes = ({ isFirstChild, title }: ITaskNodesProps) => {
   return (
     <StNodesContainer>
-      {isFirstChild && <StTaskLabel>Task</StTaskLabel>}
+      {isFirstChild && <StTaskLabel>Tasks</StTaskLabel>}
       <StTaskNodeContainer>
         <NodeLines />
         <StTaskBoxWrapper>

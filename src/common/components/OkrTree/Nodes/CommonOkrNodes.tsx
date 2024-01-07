@@ -1,53 +1,86 @@
 import styled from '@emotion/styled';
 
-export const ObjectiveNodes = () => {
+import NodeLines from '../Lines/NodeLines';
+import StraightLine from '../Lines/StraightLine';
+
+export const ObjectiveNodes = ({ title }: { title: string }) => {
   return (
     <StNodesContainer>
-      <StObjectiveLabel>O</StObjectiveLabel>
-      <StObjectiveBox>
-        <StOBoxText>더 많은 구매 전환을 일으키는 높은 품질의 웹사이트를 런칭한다</StOBoxText>
-      </StObjectiveBox>
+      <StObjLabel>O</StObjLabel>
+      <StObjBoxWrapper>
+        <StObjectiveBox>
+          <StOBoxText>{title}</StOBoxText>
+        </StObjectiveBox>
+        <StraightLine />
+      </StObjBoxWrapper>
     </StNodesContainer>
   );
 };
 
-export const KeyResultNodes = () => {
+interface IKeyResultNodesProps {
+  idx: number;
+  title: string;
+}
+
+export const KeyResultNodes = ({ idx, title }: IKeyResultNodesProps) => {
   return (
     <StNodesContainer>
-      <StKrLabel>KR 1</StKrLabel>
-      <StKrBox>
-        {/*여기 children으로 넣을수 있게 추상화로 수정 필요 */}
-        구매 전환 30% 증가
-      </StKrBox>
+      <StKrLabel>KR {idx + 1}</StKrLabel>
+      <StKrBoxWrapper>
+        <StraightLine />
+        <StKrBox>
+          {/*여기 children으로 넣을수 있게 추상화로 수정 필요 */}
+          {title}
+        </StKrBox>
+      </StKrBoxWrapper>
     </StNodesContainer>
   );
 };
 
-export const TaskNodes = ({ isFirstChild = false }: { isFirstChild?: boolean }) => {
+interface ITaskNodesProps {
+  isFirstChild?: boolean;
+  title: string;
+}
+
+export const TaskNodes = ({ isFirstChild, title }: ITaskNodesProps) => {
   return (
-    <>
-      <StNodesContainer>
-        {isFirstChild && <StTaskLabel>Task</StTaskLabel>}
-        {/* 여기 부분 children으로 추상화 필요 */}
-        <StTaskBox>task 1</StTaskBox>
-      </StNodesContainer>
-    </>
+    <StNodesContainer>
+      {isFirstChild && <StTaskLabel>Task</StTaskLabel>}
+      {/* 여기 부분 children으로 추상화 필요 */}
+      <StTaskNodeContainer>
+        <NodeLines />
+        <StTaskBoxWrapper>
+          <StraightLine />
+          <StTaskBox>{title}</StTaskBox>
+        </StTaskBoxWrapper>
+      </StTaskNodeContainer>
+    </StNodesContainer>
   );
 };
 
 /* style definition */
 //common
 const StNodesContainer = styled.div`
-  display: flex;
+  position: relative;
+
+  /* display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.4rem; */
 `;
 
 //Objective
-const StObjectiveLabel = styled.span`
-  margin-left: 3.2rem;
+const StObjLabel = styled.span`
+  position: absolute;
+  top: -2.2rem;
+  left: 3.2rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_11_bold};
+`;
+
+const StObjBoxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StObjectiveBox = styled.div`
@@ -71,9 +104,16 @@ const StOBoxText = styled.p`
 
 // KeyResult
 const StKrLabel = styled.span`
-  margin-left: 2.4rem;
+  position: absolute;
+  top: -2.2rem;
+  left: 5.4rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_11_bold};
+`;
+
+const StKrBoxWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const StKrBox = styled.div`
@@ -89,9 +129,19 @@ const StKrBox = styled.div`
 
 //Task
 const StTaskLabel = styled.span`
-  margin-left: 1.6rem;
+  position: absolute;
+  top: -2.2rem;
+  left: 4.7rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_11_bold};
+`;
+
+const StTaskNodeContainer = styled.div`
+  display: flex;
+`;
+const StTaskBoxWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const StTaskBox = styled.div`

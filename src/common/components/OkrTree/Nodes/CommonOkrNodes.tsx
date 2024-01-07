@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import { StNodesContainer } from '@styles/OkrTree/CommonNodeStyle';
 
-import NodeLines from '../Lines/NodeLines';
 import StraightLine from '../Lines/StraightLine';
 
 export const ObjectiveNodes = ({ title }: { title: string }) => {
@@ -9,7 +9,7 @@ export const ObjectiveNodes = ({ title }: { title: string }) => {
       <StObjLabel>O</StObjLabel>
       <StObjBoxWrapper>
         <StObjectiveBox>
-          <StOBoxText>{title}</StOBoxText>
+          <StObjBoxText>{title}</StObjBoxText>
         </StObjectiveBox>
         <StraightLine />
       </StObjBoxWrapper>
@@ -17,52 +17,7 @@ export const ObjectiveNodes = ({ title }: { title: string }) => {
   );
 };
 
-interface IKeyResultNodesProps {
-  idx: number;
-  title: string;
-}
-
-export const KeyResultNodes = ({ idx, title }: IKeyResultNodesProps) => {
-  return (
-    <StNodesContainer>
-      <StKrLabel>KR {idx + 1}</StKrLabel>
-      <StKrBoxWrapper>
-        <StraightLine />
-        <StKrBox>
-          {/*여기 children으로 넣을수 있게 추상화로 수정 필요 */}
-          {title}
-        </StKrBox>
-      </StKrBoxWrapper>
-    </StNodesContainer>
-  );
-};
-
-interface ITaskNodesProps {
-  isFirstChild?: boolean;
-  title: string;
-}
-
-export const TaskNodes = ({ isFirstChild, title }: ITaskNodesProps) => {
-  return (
-    <StNodesContainer>
-      {isFirstChild && <StTaskLabel>Task</StTaskLabel>}
-      {/* 여기 부분 children으로 추상화 필요 */}
-      <StTaskNodeContainer>
-        <NodeLines />
-        <StTaskBoxWrapper>
-          <StraightLine />
-          <StTaskBox>{title}</StTaskBox>
-        </StTaskBoxWrapper>
-      </StTaskNodeContainer>
-    </StNodesContainer>
-  );
-};
-
 /* style definition */
-//common
-const StNodesContainer = styled.div`
-  position: relative;
-`;
 
 //Objective
 const StObjLabel = styled.span`
@@ -92,62 +47,8 @@ const StObjectiveBox = styled.div`
   outline: 1px solid ${({ theme }) => theme.colors.gray_500};
 `;
 
-const StOBoxText = styled.p`
+const StObjBoxText = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_13_medium};
   word-break: keep-all;
-`;
-
-// KeyResult
-const StKrLabel = styled.span`
-  position: absolute;
-  top: -2.2rem;
-  left: 5.4rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.title_11_bold};
-`;
-
-const StKrBoxWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const StKrBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  padding: 1.4rem 2.4rem;
-  background-color: ${({ theme }) => theme.colors.gray_600};
-  border-radius: 75px;
-  outline: 1px solid ${({ theme }) => theme.colors.gray_500};
-`;
-
-//Task
-const StTaskLabel = styled.span`
-  position: absolute;
-  top: -2.2rem;
-  left: 4.7rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.title_11_bold};
-`;
-
-const StTaskNodeContainer = styled.div`
-  display: flex;
-`;
-const StTaskBoxWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const StTaskBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 14.4rem;
-  height: 3rem;
-  margin-bottom: 1.2rem; /* taskbox 사이 margin */
-  background-color: ${({ theme }) => theme.colors.gray_600};
-  border-radius: 75px;
-  outline: 1px solid ${({ theme }) => theme.colors.gray_500};
 `;

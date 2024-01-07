@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <header>header</header>
+      <header css={{ position: 'fixed' }}>header</header>
       <main>{children || <Outlet />}</main>
       {/* <footer>footer</footer> */}
     </>

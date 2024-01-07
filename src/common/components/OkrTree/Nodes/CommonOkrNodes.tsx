@@ -62,10 +62,6 @@ export const TaskNodes = ({ isFirstChild, title }: ITaskNodesProps) => {
 //common
 const StNodesContainer = styled.div`
   position: relative;
-
-  /* display: flex;
-  flex-direction: column;
-  gap: 0.4rem; */
 `;
 
 //Objective
@@ -150,6 +146,7 @@ const StTaskBox = styled.div`
   justify-content: center;
   width: 14.4rem;
   height: 3rem;
+  margin-bottom: 1.2rem; /* taskbox 사이 margin */
   background-color: ${({ theme }) => theme.colors.gray_600};
   border-radius: 75px;
   outline: 1px solid ${({ theme }) => theme.colors.gray_500};

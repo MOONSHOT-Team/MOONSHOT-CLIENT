@@ -41,5 +41,26 @@ const StKrTaskContainer = styled.div`
 const StTaskNodesWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5rem 0; /* 여기 값으로 KR 사이 조정 */
+  padding: 2.6rem 0; /* 여기 값으로 KR 사이 조정 */
+
+  & > div:first-child {
+    > div {
+      > div:first-child {
+        > div:first-child {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  /* stylelint-disable */
+  & > div:last-child {
+    > div {
+      > div:first-child {
+        > div:last-child {
+          background-color: transparent;
+        }
+      }
+    }
+  }
 `;

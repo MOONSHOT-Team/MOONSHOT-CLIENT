@@ -5,13 +5,9 @@ import {
   StKrLabel,
   StNodesContainer,
 } from '@styles/OkrTree/CommonNodeStyle';
+import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 
-interface IPreviewKrNodesProps {
-  idx: number;
-  title: string;
-}
-
-export const PreviewKrNodes = ({ idx, title }: IPreviewKrNodesProps) => {
+export const PreviewKrNodes = ({ idx, title }: IKeyResultTypes) => {
   return (
     <StNodesContainer>
       <StKrLabel>KR {idx + 1}</StKrLabel>

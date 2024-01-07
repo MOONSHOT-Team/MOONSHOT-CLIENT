@@ -1,26 +1,26 @@
 import StraightLine from '@components/OkrTree/Lines/StraightLine';
-import { KeyResultNodes, TaskNodes } from '@components/OkrTree/Nodes/CommonOkrNodes';
+import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
 interface IKrTaskContainerProps {
-  //   //   KrBox: () => React.ReactNode;
-  //   title: string;
-  //   tasks: ITaskTypes[];
   krProp: IKeyResultTypes;
+  KrNodes: ({ idx, title }: IKeyResultTypes) => jsx.JSX.Element;
+  TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 
-const KrTaskContainer = ({ krProp }: IKrTaskContainerProps) => {
+const KrTaskContainer = ({ krProp, KrNodes, TaskNodes }: IKrTaskContainerProps) => {
   const { title, idx, taskList } = krProp;
   return (
     <StKrTaskContainer>
-      <KeyResultNodes title={title} idx={idx} />
+      <KrNodes title={title} idx={idx} />
       {taskList?.length !== 0 && (
         <>
           <StraightLine />
           <StTaskNodesWrapper>
             {taskList?.map(({ title, idx }) => {
-              return <TaskNodes key={idx} title={title} isFirstChild={idx === 0} />;
+              return <TaskNodes key={idx} idx={idx} title={title} isFirstChild={idx === 0} />;
             })}
           </StTaskNodesWrapper>
         </>

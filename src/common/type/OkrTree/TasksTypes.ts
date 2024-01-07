@@ -1,4 +1,4 @@
 export interface ITaskTypes {
-  title?: string;
-  idx?: number;
+  title: string;
+  idx: number;
 }

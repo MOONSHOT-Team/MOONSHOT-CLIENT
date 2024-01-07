@@ -8,18 +8,18 @@ interface SideSheetProps {
 
 const SideSheet = ({ isOpen, onClose }: SideSheetProps) => {
   return (
-    <StParent>
+    <StBackground>
       <StContainer $isOpen={isOpen}>
         sidesheet
         <button onClick={onClose}>close X</button>
       </StContainer>
-    </StParent>
+    </StBackground>
   );
 };
 
 export default SideSheet;
 
-const StParent = styled.section`
+const StBackground = styled.section`
   position: absolute;
   top: 0;
   left: 0;

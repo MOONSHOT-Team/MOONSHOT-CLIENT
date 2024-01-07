@@ -11,5 +11,4 @@ const StContainer = styled.aside`
   min-width: 23.2rem;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.gray_600};
-  border: 1px solid red;
 `;

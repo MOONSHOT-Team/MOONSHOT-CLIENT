@@ -54,6 +54,15 @@ const router = createBrowserRouter([
     path: '/sign-in',
     element: <SignIn />,
   },
+  {
+    path: '/redirect',
+    children: [
+      {
+        path: 'kakao',
+        element: <SignIn />,
+      },
+    ],
+  },
 ]);
 
 export default router;

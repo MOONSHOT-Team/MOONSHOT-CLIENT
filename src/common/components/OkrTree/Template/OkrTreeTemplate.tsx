@@ -36,7 +36,7 @@ export default OkrTreeTemplate;
 const StOkrTreeContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding-top: 1.2rem;
 `;
 

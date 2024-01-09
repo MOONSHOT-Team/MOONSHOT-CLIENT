@@ -10,8 +10,13 @@ const DynamicInput = ({ defaultValue }: { defaultValue?: string }) => {
 
   useEffect(() => {
     if (!mirrorRef.current) return;
-    setWidth(mirrorRef.current.clientWidth);
+    setWidth(mirrorRef.current.offsetWidth);
   }, [value]);
+
+  useEffect(() => {
+    if (!mirrorRef.current) return;
+    setWidth(mirrorRef.current.offsetWidth);
+  }, []);
 
   return (
     <div css={dynamicInputContainerStyle}>
@@ -41,7 +46,6 @@ const StDynamicInput = styled.input<{ width: number }>`
   text-align: center;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray_000};
   outline: none;
 
   ${({ theme }) => theme.fonts.body_13_medium};

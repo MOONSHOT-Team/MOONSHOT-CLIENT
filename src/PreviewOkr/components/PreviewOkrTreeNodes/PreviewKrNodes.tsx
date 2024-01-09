@@ -22,12 +22,12 @@ export const PreviewKrNodes = ({
       <StKrBoxWrapper>
         <StraightLine />
         <StPreviewKrBox>
-          <DynamicInput defaultValue={descriptionBefore} />
+          {descriptionBefore && <DynamicInput defaultValue={descriptionBefore} />}
           <StPreviewKrBoxValue>
             {target}
             {metric}
           </StPreviewKrBoxValue>
-          <DynamicInput defaultValue={descriptionAfter} />
+          {descriptionAfter && <DynamicInput defaultValue={descriptionAfter} />}
         </StPreviewKrBox>
       </StKrBoxWrapper>
     </StNodesContainer>

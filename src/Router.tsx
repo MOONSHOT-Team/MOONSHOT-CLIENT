@@ -7,6 +7,7 @@ import AddOkr from './AddOkr';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
+import NickName from './NickName';
 import SignIn from './SignIn';
 import Social from './Social';
 
@@ -26,7 +27,10 @@ const router = createBrowserRouter([
       },
       {
         path: 'sign-in',
-        element: <SignIn />,
+        children: [
+          { index: true, element: <SignIn /> },
+          { path: 'nickname', element: <NickName /> },
+        ],
       },
       {
         path: 'social',

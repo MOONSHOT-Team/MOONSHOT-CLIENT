@@ -19,6 +19,9 @@ const PreviewOkrAlertMsg = () => {
 export default PreviewOkrAlertMsg;
 
 const StAlertMsgBox = styled.div`
+  position: absolute;
+  top: 2rem;
+  left: 3.6rem;
   display: flex;
   gap: 1rem;
   align-items: center;

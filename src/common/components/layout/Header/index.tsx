@@ -54,5 +54,7 @@ const StSignInButton = styled.div`
   ${({ theme }) => theme.fonts.btn_14_semibold};
 
   background-color: ${({ theme }) => theme.colors.main_darkpurple};
+  border-color: ${({ theme }) => theme.colors.transparent_white};
+  border-bottom: 1px solid;
   border-radius: 6px;
 `;

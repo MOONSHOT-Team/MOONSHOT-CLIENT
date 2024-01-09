@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { THEME } from '../constants/theme';
+import ThemeButton from './ThemeButton';
 
 const HistoryDrawer = () => {
   return (
@@ -10,7 +11,7 @@ const HistoryDrawer = () => {
         <Theme>테마</Theme>
         <ThemeWrapper>
           {THEME.map(({ text }, idx) => (
-            <ThemeButton key={idx}>{text}</ThemeButton>
+            <ThemeButton key={idx} name={text} />
           ))}
         </ThemeWrapper>
       </ThemeContainer>
@@ -49,14 +50,6 @@ const Theme = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-const ThemeButton = styled.button`
-  padding: 0.8rem 1rem;
-  ${({ theme }) => theme.fonts.btn_11_semibold};
-
-  color: ${({ theme }) => theme.colors.gray_000};
-  border: 1px solid ${({ theme }) => theme.colors.gray_350};
-  border-radius: 6px;
-`;
 const ThemeWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;

@@ -1,3 +1,4 @@
+import Modal from '@components/Modal';
 import { Global, ThemeProvider } from '@emotion/react';
 import { RouterProvider } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Global styles={globalStyles} />
       <RouterProvider router={router} />
+      <Modal />
     </ThemeProvider>
   );
 };

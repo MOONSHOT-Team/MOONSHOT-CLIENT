@@ -54,7 +54,7 @@ const StObjectiveBox = styled.div<{ $objStroke: undefined | string }>`
 
 const StObjBoxText = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.body_13_medium};
-
   word-break: keep-all;
+
+  ${({ theme }) => theme.fonts.body_13_medium};
 `;

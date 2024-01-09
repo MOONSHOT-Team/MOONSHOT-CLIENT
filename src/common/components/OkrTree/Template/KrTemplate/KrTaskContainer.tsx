@@ -20,7 +20,7 @@ const KrTaskContainer = ({ krProp, KrNodes, TaskNodes }: IKrTaskContainerProps) 
           <StraightLine />
           <StTaskNodesWrapper>
             {taskList?.map(({ title, idx }) => {
-              return <TaskNodes key={idx} idx={idx} title={title} isFirstChild={idx === 0} />;
+              return <TaskNodes key={title} idx={idx} title={title} isFirstChild={idx === 0} />;
             })}
           </StTaskNodesWrapper>
         </>

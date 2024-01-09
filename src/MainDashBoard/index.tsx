@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 import { useState } from 'react';
 
-// import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
+import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import SideSheet from './components/sideSheet/SideSheet';
 
 interface IMainDashboardOKRTreeProps {
@@ -19,7 +19,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) =
 };
 
 const MainDashBoard = () => {
-  const [showSideSheet, setShowSideSheet] = useState<boolean>(true);
+  const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
 
   const handleShowSideSheet = () => {
     setShowSideSheet(true);
@@ -32,7 +32,7 @@ const MainDashBoard = () => {
   return (
     <>
       <section css={mainDashboardStyle}>
-        {/* <MainDashBoardDrawer /> */}
+        <MainDashBoardDrawer />
         <MainDashboardOKRTree onShowSideSheet={handleShowSideSheet} />
       </section>
 

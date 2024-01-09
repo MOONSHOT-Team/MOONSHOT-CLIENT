@@ -1,4 +1,4 @@
-import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
+import OkrTreeTemplate from '@components/OkrTree/template/OkrTreeTemplate';
 import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 
 import { PreviewKrNodes } from './components/previewOkrTreeNodes/PreviewKrNodes';

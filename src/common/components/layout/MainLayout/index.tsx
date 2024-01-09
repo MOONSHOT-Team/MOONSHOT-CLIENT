@@ -6,7 +6,7 @@ import Header from '../Header';
 const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <Header css={{ width: '100%', position: 'fixed' }} />
+      <Header />
       <main>{children || <Outlet />}</main>
       {/* <footer>footer</footer> */}
     </>

@@ -23,9 +23,7 @@ const Header = () => {
           </StNavigation>
         ))}
 
-        <StSignInButton>
-          <Link to="/sign-in">로그인</Link>
-        </StSignInButton>
+        <StSignInButton to="/sign-in">로그인</StSignInButton>
       </StNavigationBar>
     </StHeader>
   );
@@ -59,7 +57,7 @@ const StNavigation = styled.li`
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_14_regular};
 `;
-const StSignInButton = styled.li`
+const StSignInButton = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;

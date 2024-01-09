@@ -35,13 +35,12 @@ const StKrTaskContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: fit-content;
+  height: 18.8rem;
 `;
 
 const StTaskNodesWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: calc((7.4rem - 1.2rem) / 2) 0;
 
   & > div:first-of-type {
     > div {

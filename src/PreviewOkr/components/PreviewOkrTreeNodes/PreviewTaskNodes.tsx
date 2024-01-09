@@ -7,13 +7,9 @@ import {
   StTaskLabel,
   StTaskNodeContainer,
 } from '@styles/OkrTree/CommonNodeStyle';
+import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
-interface ITaskNodesProps {
-  isFirstChild?: boolean;
-  title: string;
-}
-
-export const PreviewTaskNodes = ({ isFirstChild, title }: ITaskNodesProps) => {
+export const PreviewTaskNodes = ({ isFirstChild, title, idx }: ITaskNodesTypes) => {
   return (
     <StNodesContainer>
       {isFirstChild && <StTaskLabel>Tasks</StTaskLabel>}
@@ -21,7 +17,7 @@ export const PreviewTaskNodes = ({ isFirstChild, title }: ITaskNodesProps) => {
         <NodeLines />
         <StTaskBoxWrapper>
           <StraightLine />
-          <StTaskBox>{title}</StTaskBox>
+          <StTaskBox $idx={idx}>{title}</StTaskBox>
         </StTaskBoxWrapper>
       </StTaskNodeContainer>
     </StNodesContainer>

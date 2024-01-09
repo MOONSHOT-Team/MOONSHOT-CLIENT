@@ -47,13 +47,13 @@ export const StTaskBoxWrapper = styled.div`
   align-items: center;
 `;
 
-export const StTaskBox = styled.div`
+export const StTaskBox = styled.div<{ $idx: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 14.4rem;
   height: 3rem;
-  margin-bottom: 1.2rem; /* taskbox 사이 margin */
+  margin: calc(1.2rem / 2) 0; /* task와 task 사이 간격 */
   background-color: ${({ theme }) => theme.colors.gray_600};
   border-radius: 75px;
   outline: 1px solid ${({ theme }) => theme.colors.gray_500};

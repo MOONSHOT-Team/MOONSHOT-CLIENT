@@ -2,7 +2,7 @@ import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const NickName = () => {
+const Nickname = () => {
   return (
     <section css={nicknameSection}>
       <h1 css={wordMark}>
@@ -15,7 +15,7 @@ const NickName = () => {
   );
 };
 
-export default NickName;
+export default Nickname;
 
 const nicknameSection = css`
   display: flex;

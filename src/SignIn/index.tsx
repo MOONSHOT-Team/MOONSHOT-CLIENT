@@ -1,9 +1,9 @@
+import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import imgGoogleLoginButton from './assets/images/imgGoogleLoginButton.png';
 import imgKakaoLoginButton from './assets/images/imgKakaoLoginButton.png';
-import imgWordmarkWhite from './assets/images/imgWordmarkWhite.png';
 
 /** Sign-in page */
 const SignIn = () => {

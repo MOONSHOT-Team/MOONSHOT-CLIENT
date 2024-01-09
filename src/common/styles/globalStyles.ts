@@ -26,6 +26,11 @@ const globalStyles = css`
     background: none;
     border: none;
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 export default globalStyles;

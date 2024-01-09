@@ -7,6 +7,7 @@ import AddOkr from './AddOkr';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
+import My from './My';
 import SignIn from './SignIn';
 import Social from './Social';
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'history',
         element: <History />,
+      },
+      {
+        path: 'my',
+        element: <My />,
       },
       {
         path: 'social',

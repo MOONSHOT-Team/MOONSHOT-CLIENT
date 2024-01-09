@@ -7,6 +7,7 @@ import AddOkr from './AddOkr';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
+import Nickname from './Nickname';
 import SignIn from './SignIn';
 import Social from './Social';
 
@@ -23,6 +24,13 @@ const router = createBrowserRouter([
       {
         path: 'history',
         element: <History />,
+      },
+      {
+        path: 'sign-in',
+        children: [
+          { index: true, element: <SignIn /> },
+          { path: 'nickname', element: <Nickname /> },
+        ],
       },
       {
         path: 'social',
@@ -49,10 +57,6 @@ const router = createBrowserRouter([
         element: <AddOkr />,
       },
     ],
-  },
-  {
-    path: '/sign-in',
-    element: <SignIn />,
   },
 ]);
 

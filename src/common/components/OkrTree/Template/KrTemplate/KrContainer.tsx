@@ -8,7 +8,14 @@ import KrTaskContainer from './KrTaskContainer';
 
 interface IKrContainerProps {
   keyResultList: IKeyResultTypes[];
-  KrNodes: ({ idx, title }: IKeyResultTypes) => jsx.JSX.Element;
+  KrNodes: ({
+    idx,
+    title,
+    descriptionBefore,
+    target,
+    metric,
+    descriptionAfter,
+  }: IKeyResultTypes) => jsx.JSX.Element;
   TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 

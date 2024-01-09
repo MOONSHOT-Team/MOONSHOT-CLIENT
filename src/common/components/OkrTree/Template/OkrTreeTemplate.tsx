@@ -10,13 +10,21 @@ interface IOkrTreeProps {
   objTitle: string;
   objStroke?: undefined | string;
   keyResultList: IKeyResultTypes[];
-  KrNodes: ({ idx, title }: IKeyResultTypes) => jsx.JSX.Element;
+  KrNodes: ({
+    idx,
+    title,
+    descriptionBefore,
+    target,
+    metric,
+    descriptionAfter,
+  }: IKeyResultTypes) => jsx.JSX.Element;
   TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 
 const OkrTreeTemplate = ({
   objTitle,
   objStroke,
+
   keyResultList,
   KrNodes,
   TaskNodes,

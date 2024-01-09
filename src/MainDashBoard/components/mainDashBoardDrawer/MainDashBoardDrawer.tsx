@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import React from 'react';
 
-const MainDashBoardDrawer: React.FC = () => {
+const MainDashBoardDrawer = () => {
   return <StContainer>MainDashBoardDrawer</StContainer>;
 };
 

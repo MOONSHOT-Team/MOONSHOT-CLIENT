@@ -34,9 +34,9 @@ const StKrContainer = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  & > div:first-child {
-    > div:first-child {
-      div:first-child {
+  & > div:first-of-type {
+    > div:first-of-type {
+      div:first-of-type {
         background-color: transparent;
       }
     }
@@ -44,7 +44,7 @@ const StKrContainer = styled.div`
 
   /* stylelint-disable */
   & > div:last-child {
-    > div:first-child {
+    > div:first-of-type {
       div:last-child {
         background-color: transparent;
       }

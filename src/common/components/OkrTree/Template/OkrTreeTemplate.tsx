@@ -8,15 +8,22 @@ import KrContainer from './KrTemplate/KrContainer';
 
 interface IOkrTreeProps {
   objTitle: string;
+  objStroke?: undefined | string;
   keyResultList: IKeyResultTypes[];
   KrNodes: ({ idx, title }: IKeyResultTypes) => jsx.JSX.Element;
   TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 
-const OkrTreeTemplate = ({ objTitle, keyResultList, KrNodes, TaskNodes }: IOkrTreeProps) => {
+const OkrTreeTemplate = ({
+  objTitle,
+  objStroke,
+  keyResultList,
+  KrNodes,
+  TaskNodes,
+}: IOkrTreeProps) => {
   return (
     <StOkrTreeContainer>
-      <ObjectiveNodes title={objTitle} />
+      <ObjectiveNodes title={objTitle} objStroke={objStroke} />
       <StKrTreeWrapper>
         <KrContainer keyResultList={keyResultList} KrNodes={KrNodes} TaskNodes={TaskNodes} />
       </StKrTreeWrapper>

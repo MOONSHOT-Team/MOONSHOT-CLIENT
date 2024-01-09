@@ -3,12 +3,17 @@ import { StNodesContainer } from '@styles/OkrTree/CommonNodeStyle';
 
 import StraightLine from '../Lines/StraightLine';
 
-export const ObjectiveNodes = ({ title }: { title: string }) => {
+interface IObjectiveNodesStroke {
+  title: string;
+  objStroke: undefined | string;
+}
+
+export const ObjectiveNodes = ({ title, objStroke }: IObjectiveNodesStroke) => {
   return (
     <StNodesContainer>
       <StObjLabel>O</StObjLabel>
       <StObjBoxWrapper>
-        <StObjectiveBox>
+        <StObjectiveBox $objStroke={objStroke}>
           <StObjBoxText>{title}</StObjBoxText>
         </StObjectiveBox>
         <StraightLine />
@@ -34,7 +39,7 @@ const StObjBoxWrapper = styled.div`
   justify-content: center;
 `;
 
-const StObjectiveBox = styled.div`
+const StObjectiveBox = styled.div<{ $objStroke: undefined | string }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,11 +49,12 @@ const StObjectiveBox = styled.div`
   text-align: center;
   background-color: ${({ theme }) => theme.colors.background};
   border-radius: 75px;
-  outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+  outline: 1px solid ${({ $objStroke, theme }) => ($objStroke ? $objStroke : theme.colors.gray_500)};
 `;
 
 const StObjBoxText = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_13_medium};
+
   word-break: keep-all;
 `;

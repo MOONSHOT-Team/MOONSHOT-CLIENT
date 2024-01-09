@@ -1,9 +1,13 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const DynamicInput = ({ defaultValue }: { defaultValue?: string }) => {
-  const [value, setValue] = useState(defaultValue ? defaultValue : '');
+interface IDynamicInputProps {
+  value: string;
+  handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const DynamicInput = ({ value, handleChangeValue }: IDynamicInputProps) => {
   const [width, setWidth] = useState(0);
 
   const mirrorRef = useRef<HTMLInputElement>(null);
@@ -20,12 +24,7 @@ const DynamicInput = ({ defaultValue }: { defaultValue?: string }) => {
 
   return (
     <div css={dynamicInputContainerStyle}>
-      <StDynamicInput
-        type="text"
-        width={width}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
+      <StDynamicInput type="text" width={width} value={value} onChange={handleChangeValue} />
       <StInputMirror ref={mirrorRef} aria-hidden>
         {value}
       </StInputMirror>

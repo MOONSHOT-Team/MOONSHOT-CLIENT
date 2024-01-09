@@ -8,6 +8,7 @@ import {
   StNodesContainer,
 } from '@styles/okrTree/CommonNodeStyle';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+import { useState } from 'react';
 
 export const PreviewKrNodes = ({
   idx,
@@ -16,18 +17,31 @@ export const PreviewKrNodes = ({
   metric,
   descriptionAfter,
 }: IKeyResultTypes) => {
+  const [beforeValue, setBeforeValue] = useState(descriptionBefore);
+  const [afterValue, setAfterValue] = useState(descriptionAfter);
+
   return (
     <StNodesContainer>
       <StKrLabel>KR {idx + 1}</StKrLabel>
       <StKrBoxWrapper>
         <StraightLine />
         <StPreviewKrBox>
-          {descriptionBefore && <DynamicInput defaultValue={descriptionBefore} />}
+          {beforeValue && (
+            <DynamicInput
+              value={beforeValue}
+              handleChangeValue={(e) => setBeforeValue(e.target.value)}
+            />
+          )}
           <StPreviewKrBoxValue>
             {target}
             {metric}
           </StPreviewKrBoxValue>
-          {descriptionAfter && <DynamicInput defaultValue={descriptionAfter} />}
+          {afterValue && (
+            <DynamicInput
+              value={afterValue}
+              handleChangeValue={(e) => setAfterValue(e.target.value)}
+            />
+          )}
         </StPreviewKrBox>
       </StKrBoxWrapper>
     </StNodesContainer>

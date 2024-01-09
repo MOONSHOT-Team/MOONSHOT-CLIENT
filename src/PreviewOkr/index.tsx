@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import PreviewOkrAlertMsg from '../PrviewOkr/components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/previewOkrTreeNodes/PreviewKrNodes';
-import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
+import { PreviewTaskInputNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
 
 const PreviewOkr = () => {
   const handleClickSaveOkrBtn = () => {
@@ -21,7 +21,7 @@ const PreviewOkr = () => {
           objTitle={objTitle}
           keyResultList={krList}
           KrNodes={PreviewKrNodes}
-          TaskNodes={PreviewTaskNodes}
+          TaskNodes={PreviewTaskInputNodes}
         />
       </div>
 

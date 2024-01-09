@@ -25,6 +25,18 @@ const globalStyles = css`
     margin: 0;
   }
 
+  input,
+  textarea,
+  select {
+    all: unset;
+  }
+
+  /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+  input,
+  textarea {
+    user-select: auto;
+  }
+
   button {
     cursor: pointer;
     background: none;

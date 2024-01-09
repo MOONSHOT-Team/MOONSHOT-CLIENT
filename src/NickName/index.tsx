@@ -58,4 +58,8 @@ const StNicknameInput = styled.input`
   text-align: center;
   border: 1px solid ${({ theme }) => theme.colors.gray_450};
   border-radius: 6px;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray_450};
+  }
 `;

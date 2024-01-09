@@ -2,6 +2,7 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { IcClose } from '../../assets/icons';
+import KRPeriodSelect from '../KRPeriodSelect';
 import KrStatus from './KrStatus';
 
 interface ISideSheetProps {
@@ -30,9 +31,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
           </StKrStatus>
           <StKrPeriodContainer>
             <StKrDetailLabel>일정</StKrDetailLabel>
-            <StKrPeriod>
-              {`2023. 01. 01`} - {`2023. 12. 31`}
-            </StKrPeriod>
+            <KRPeriodSelect />
           </StKrPeriodContainer>
           <StKrCheckInBtn type="button">체크인</StKrCheckInBtn>
         </StKRDetailUpper>
@@ -99,14 +98,9 @@ const StKrStatus = styled.div`
 
 const StKrPeriodContainer = styled.div`
   display: flex;
-  gap: 3.2rem;
+  gap: 2.2rem;
   align-items: center;
   margin-bottom: 2.4rem;
-`;
-
-const StKrPeriod = styled.p`
-  color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
 const StKrDetailLabel = styled.p`

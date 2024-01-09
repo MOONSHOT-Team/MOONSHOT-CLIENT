@@ -1,18 +1,26 @@
 import styled from '@emotion/styled';
 import { ConfigProvider, DatePicker } from 'antd';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
+import { useState } from 'react';
 
 const { RangePicker } = DatePicker;
 
-const OKRPeriod = () => {
-  const handleCalendarChange = (
+const KRPeriodSelect = () => {
+  const [period, setPeriod] = useState(['2024-01-08', '2024-01-09']);
+
+  const handleKrPeriodChange = (
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
   ): void => {
-    console.log([formatString[0], formatString[1]]);
+    formatString[0] && formatString[1] ? setPeriod(formatString) : {};
+  };
+
+  const formatDate = (dateString: string) => {
+    const formattedDate = dateString.replace(/\./g, '-');
+    return formattedDate;
   };
   return (
-    <Test>
+    <KRPeriodContainer>
       <ConfigProvider
         theme={{
           token: {
@@ -22,15 +30,21 @@ const OKRPeriod = () => {
           },
         }}
       >
-        <RangePicker bordered={false} onCalendarChange={handleCalendarChange} />
+        <RangePicker
+          bordered={false}
+          onChange={handleKrPeriodChange}
+          value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
+          defaultValue={[dayjs(), dayjs()]}
+          format={'YYYY. MM. DD'}
+        />
       </ConfigProvider>
-    </Test>
+    </KRPeriodContainer>
   );
 };
 
-export default OKRPeriod;
+export default KRPeriodSelect;
 
-const Test = styled.div`
+const KRPeriodContainer = styled.div`
   * {
     color: ${({ theme }) => theme.colors.gray_000};
     background-color: ${({ theme }) => theme.colors.gray_600};
@@ -42,6 +56,7 @@ const Test = styled.div`
   }
 
   .ant-picker-input > input {
+    width: 7rem;
     color: ${({ theme }) => theme.colors.gray_000};
     border: none;
     ${({ theme }) => theme.fonts.body_12_regular};

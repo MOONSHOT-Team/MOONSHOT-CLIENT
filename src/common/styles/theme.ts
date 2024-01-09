@@ -21,7 +21,7 @@ const colors = {
   gray_650: '#222222',
   main_purple: '#8D7EFD',
   main_darkpurple: '#7165CA',
-  sub_yellow: '#FFD749',
+  sub_yellow: '#FFF9C6',
   sub_green: '#63D7C6',
   sub_red: '#D96D6D',
   sub_blue: '#6CA4F6',

@@ -1,8 +1,8 @@
-import OkrTreeTemplate from '@components/OkrTree/Template/OkrTreeTemplate';
+import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 
-import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
-import { PreviewTaskNodes } from './components/PreviewOkrTreeNodes/PreviewTaskNodes';
+import { PreviewKrNodes } from './components/previewOkrTreeNodes/PreviewKrNodes';
+import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
 
 const PreviewOkr = () => {
   const { objTitle, krList } = MOCK_OKR_DATA;

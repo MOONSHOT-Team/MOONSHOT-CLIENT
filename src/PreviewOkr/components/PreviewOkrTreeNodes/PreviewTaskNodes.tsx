@@ -1,12 +1,12 @@
-import NodeLines from '@components/OkrTree/Lines/NodeLines';
-import StraightLine from '@components/OkrTree/Lines/StraightLine';
+import NodeLines from '@components/okrTree/lines/NodeLines';
+import StraightLine from '@components/okrTree/lines/StraightLine';
 import {
   StNodesContainer,
   StTaskBox,
   StTaskBoxWrapper,
   StTaskLabel,
   StTaskNodeContainer,
-} from '@styles/OkrTree/CommonNodeStyle';
+} from '@styles/okrTree/CommonNodeStyle';
 import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
 export const PreviewTaskNodes = ({ isFirstChild, title, idx }: ITaskNodesTypes) => {

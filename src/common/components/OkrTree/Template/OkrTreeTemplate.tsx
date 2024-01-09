@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
-import { ObjectiveNodes } from '../Nodes/CommonOkrNodes';
-import KrContainer from './KrTemplate/KrContainer';
+import { ObjectiveNodes } from '../nodes/CommonOkrNodes';
+import KrContainer from './krTemplate/KrContainer';
 
 interface IOkrTreeProps {
   objTitle: string;

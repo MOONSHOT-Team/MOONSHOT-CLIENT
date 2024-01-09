@@ -1,4 +1,4 @@
-import StraightLine from '@components/OkrTree/Lines/StraightLine';
+import StraightLine from '@components/okrTree/lines/StraightLine';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { StNodesContainer } from '@styles/OkrTree/CommonNodeStyle';
+import { StNodesContainer } from '@styles/okrTree/CommonNodeStyle';
 
-import StraightLine from '../Lines/StraightLine';
+import StraightLine from '../lines/StraightLine';
 
 interface IObjectiveNodesStroke {
   title: string;

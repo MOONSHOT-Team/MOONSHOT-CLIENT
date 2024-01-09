@@ -1,4 +1,4 @@
-import NodeLines from '@components/OkrTree/Lines/NodeLines';
+import NodeLines from '@components/okrTree/lines/NodeLines';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';

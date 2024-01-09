@@ -1,10 +1,10 @@
-import StraightLine from '@components/OkrTree/Lines/StraightLine';
+import StraightLine from '@components/okrTree/lines/StraightLine';
 import {
   StKrBox,
   StKrBoxWrapper,
   StKrLabel,
   StNodesContainer,
-} from '@styles/OkrTree/CommonNodeStyle';
+} from '@styles/okrTree/CommonNodeStyle';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 
 export const PreviewKrNodes = ({ idx, title }: IKeyResultTypes) => {

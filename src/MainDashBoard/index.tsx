@@ -19,7 +19,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) =
 };
 
 const MainDashBoard = () => {
-  const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
+  const [showSideSheet, setShowSideSheet] = useState<boolean>(true);
 
   const handleShowSideSheet = () => {
     setShowSideSheet(true);
@@ -47,5 +47,4 @@ const mainDashboardStyle = css`
   display: flex;
   width: 100vw;
   height: 100vh;
-  padding-top: 7.6rem;
 `;

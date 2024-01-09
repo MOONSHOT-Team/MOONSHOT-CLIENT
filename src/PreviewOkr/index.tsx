@@ -5,13 +5,15 @@ import styled from '@emotion/styled';
 
 import PreviewOkrAlertMsg from '../PrviewOkr/components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/previewOkrTreeNodes/PreviewKrNodes';
-import { PreviewTaskInputNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
+import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
 
 const PreviewOkr = () => {
+  const { objTitle, krList } = MOCK_OKR_DATA;
+
   const handleClickSaveOkrBtn = () => {
     console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
   };
-  const { objTitle, krList } = MOCK_OKR_DATA;
+
   return (
     // O 노드<의 위치 고정을 위해 트리 가져올때 항상 상위 요소에 높이 값(100vh or 100%), 세로 가운데 정렬해야함 !
     <section css={previewOkrContainer}>
@@ -21,7 +23,7 @@ const PreviewOkr = () => {
           objTitle={objTitle}
           keyResultList={krList}
           KrNodes={PreviewKrNodes}
-          TaskNodes={PreviewTaskInputNodes}
+          TaskNodes={PreviewTaskNodes}
         />
       </div>
 

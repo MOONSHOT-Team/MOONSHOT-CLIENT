@@ -26,6 +26,10 @@ const globalStyles = css`
     background: none;
     border: none;
   }
+
+  svg {
+    cursor: pointer;
+  }
 `;
 
 export default globalStyles;

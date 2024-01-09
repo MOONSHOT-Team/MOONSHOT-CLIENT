@@ -5,12 +5,20 @@ import React, { useEffect, useRef, useState } from 'react';
 interface IDynamicInputProps {
   value: string;
   handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  minWidth?: string;
+  isAutoFocus?: boolean;
 }
 
-const DynamicInput = ({ value, handleChangeValue }: IDynamicInputProps) => {
-  const [width, setWidth] = useState(0);
+const DynamicInput = ({
+  value,
+  handleChangeValue,
+  minWidth,
+  isAutoFocus = false,
+}: IDynamicInputProps) => {
+  const [width, setWidth] = useState(minWidth ? Number(minWidth) : 0);
 
   const mirrorRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!mirrorRef.current) return;
@@ -20,11 +28,20 @@ const DynamicInput = ({ value, handleChangeValue }: IDynamicInputProps) => {
   useEffect(() => {
     if (!mirrorRef.current) return;
     setWidth(mirrorRef.current.offsetWidth);
-  }, []);
+
+    if (!isAutoFocus) return;
+    if (inputRef.current) inputRef.current.focus();
+  }, [isAutoFocus]);
 
   return (
     <div css={dynamicInputContainerStyle}>
-      <StDynamicInput type="text" width={width} value={value} onChange={handleChangeValue} />
+      <StDynamicInput
+        type="text"
+        width={width}
+        value={value}
+        onChange={handleChangeValue}
+        ref={inputRef}
+      />
       <StInputMirror ref={mirrorRef} aria-hidden>
         {value}
       </StInputMirror>

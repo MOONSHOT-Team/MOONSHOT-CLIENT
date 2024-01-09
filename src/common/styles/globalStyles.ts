@@ -26,6 +26,11 @@ const globalStyles = css`
     background: none;
     border: none;
   }
+
+  ul,
+  li {
+    list-style: none;
+  }
 `;
 
 export default globalStyles;

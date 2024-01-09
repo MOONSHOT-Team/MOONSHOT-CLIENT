@@ -28,6 +28,19 @@ const data: IKrDetailTypes = {
       content:
         '새롭게 시도한 인스타그램 마케팅으로 회원가입수가 생각보다 빠르게 늘고 있다. 이대로만 쭉쭉 갔으면 좋겠다! 이대로만 쭉쭉 갔으면 좋겠다! 이대로만 쭉쭉 갔으면 좋겠다! 좋겠다!',
     },
+    {
+      state: '진척상황 기록',
+      date: '2023-12-14 19:09',
+      title: '800건 → 3,000건',
+      content:
+        '새롭게 시도한 인스타그램 마케팅으로 회원가입수가 생각보다 빠르게 늘고 있다. 이대로만 쭉쭉 갔으면 좋겠다! 이대로만 쭉쭉 갔으면 좋겠다! 이대로만 쭉쭉 갔으면 좋겠다! 좋겠다!',
+    },
+    {
+      state: 'kr 생성',
+      date: '2023-12-14 19:09',
+      title: '통합 회원가입수 200,000건 돌파 KR 생성',
+      content: '',
+    },
   ],
 };
 
@@ -49,7 +62,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
             </span>
           </StKrDetailHeader>
           <StKrTitle>통합 회원수 200,000건 돌파</StKrTitle>
-          <div>프로그래스바(공통컴포넌트)</div>
+          <div css={{ height: '3.8rem' }}>프로그래스바(공통컴포넌트)</div>
           <StKrStatus>
             <StKrDetailLabel>상태</StKrDetailLabel>
             <span>{/* <KrStatus /> */}</span>
@@ -86,7 +99,7 @@ const StContainer = styled.aside<{ $isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   width: 34.2rem;
-  height: 100%;
+  height: 100vh;
   background-color: ${({ theme }) => theme.colors.gray_600};
   transform: translateX(${({ $isOpen }) => ($isOpen ? '0' : '100%')});
   animation: ${({ $isOpen }) => ($isOpen ? slideIn : 'none')} 0.3s forwards;

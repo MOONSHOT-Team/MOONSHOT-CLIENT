@@ -6,6 +6,7 @@ import AddOkr from './AddOkr';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
+// import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
 

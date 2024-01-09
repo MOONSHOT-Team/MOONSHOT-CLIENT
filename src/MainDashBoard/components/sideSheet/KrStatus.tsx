@@ -45,6 +45,7 @@ const KrStatus = () => {
   const handleKrStatus = (currentStatusLabel: string) => {
     setKrStatusLabel(currentStatusLabel);
     setIsDrop(false);
+    //서버통신
   };
 
   const handleIsDrop = () => {
@@ -102,6 +103,7 @@ const StStateContainer = styled.button`
 
 const StStatusContainer = styled.div`
   position: absolute;
+  z-index: 1;
 `;
 
 const getColorFromLabel = (theme: Theme, label: string) => {

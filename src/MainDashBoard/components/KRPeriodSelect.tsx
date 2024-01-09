@@ -25,8 +25,15 @@ const KRPeriodSelect = () => {
         theme={{
           token: {
             colorPrimary: '#8D7EFD',
-            borderRadius: 2,
+            controlItemBgHover: '#8D7EFD',
+            borderRadius: 10,
             colorBgContainer: '#1E1E20',
+            colorBgElevated: '#2F2F2F',
+            colorText: '#fff',
+            colorTextHeading: '#fff',
+            colorIcon: '#fff',
+            colorTextQuaternary: 'rgba(255,255,255,50%)',
+            controlItemBgActive: '#8D7EFD2D',
           },
         }}
       >

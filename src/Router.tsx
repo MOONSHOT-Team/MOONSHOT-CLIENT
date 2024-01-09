@@ -25,6 +25,10 @@ const router = createBrowserRouter([
         element: <History />,
       },
       {
+        path: 'sign-in',
+        element: <SignIn />,
+      },
+      {
         path: 'social',
         element: <Social />,
       },
@@ -49,10 +53,6 @@ const router = createBrowserRouter([
         element: <AddOkr />,
       },
     ],
-  },
-  {
-    path: '/sign-in',
-    element: <SignIn />,
   },
 ]);
 

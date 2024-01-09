@@ -21,6 +21,10 @@ const globalStyles = css`
     background-color: ${theme.colors.background};
   }
 
+  h1 {
+    margin: 0;
+  }
+
   button {
     cursor: pointer;
     background: none;

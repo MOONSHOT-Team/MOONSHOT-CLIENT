@@ -1,14 +1,15 @@
 import { ImgLogo } from '@assets/icons';
 import { NAVIGATIONS } from '@constants/NavigationLink';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
     <StHeader>
-      <StMainLogo>
+      <div css={HeaderLogo}>
         <ImgLogo />
-      </StMainLogo>
+      </div>
       <StNavigationBar>
         {NAVIGATIONS.map(({ id, text, path }) => (
           <StNavigation key={id}>
@@ -41,7 +42,7 @@ const StHeader = styled.header`
   padding: 0 3.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.transparent_white};
 `;
-const StMainLogo = styled.div`
+const HeaderLogo = css`
   width: 150%;
 `;
 

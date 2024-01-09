@@ -18,7 +18,7 @@ const OkrTreeTemplate = ({ objTitle, keyResultList, KrNodes, TaskNodes }: IOkrTr
     <StOkrTreeContainer>
       <ObjectiveNodes title={objTitle} />
       <StKrTreeWrapper>
-        <KrContainer keyResultsProps={keyResultList} KrNodes={KrNodes} TaskNodes={TaskNodes} />
+        <KrContainer keyResultList={keyResultList} KrNodes={KrNodes} TaskNodes={TaskNodes} />
       </StKrTreeWrapper>
     </StOkrTreeContainer>
   );

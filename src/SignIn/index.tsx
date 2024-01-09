@@ -2,8 +2,8 @@ import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import imgGoogleLoginButton from './assets/images/imgGoogleLoginButton.png';
-import imgKakaoLoginButton from './assets/images/imgKakaoLoginButton.png';
+import imgGoogleLogin from './assets/images/imgGoogleLogin.png';
+import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
 
 /** Sign-in page */
 const SignIn = () => {
@@ -17,10 +17,10 @@ const SignIn = () => {
           유난한 도전을 위한 체계적인 목표 관리와 성과 트래킹, 지금 바로 문샷에서 시작해보세요.
         </StSubText>
         <button>
-          <img src={imgKakaoLoginButton} alt="kakao-login-button" width={300} height={45} />
+          <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />
         </button>
         <button>
-          <img src={imgGoogleLoginButton} alt="google-login-button" width={300} height={45} />
+          <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
         </button>
       </section>
       <section css={brandingSection}>

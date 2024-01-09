@@ -1,12 +1,12 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-interface SideSheetProps {
+interface ISideSheetProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const SideSheet = ({ isOpen, onClose }: SideSheetProps) => {
+const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
   return (
     <StBackground>
       <StContainer $isOpen={isOpen}>
@@ -25,7 +25,7 @@ const StBackground = styled.section`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(0 0 0 / 50%);
+  background-color: ${({ theme }) => theme.colors.transparent_black_50};
 `;
 
 const StContainer = styled.aside<{ $isOpen: boolean }>`

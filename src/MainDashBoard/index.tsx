@@ -5,11 +5,11 @@ import { useState } from 'react';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import SideSheet from './components/sideSheet/SideSheet';
 
-interface MainDashboardOKRTreeProps {
+interface IMainDashboardOKRTreeProps {
   onShowSideSheet: () => void;
 }
 
-const MainDashboardOKRTree = ({ onShowSideSheet }: MainDashboardOKRTreeProps) => {
+const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) => {
   return (
     <article css={{ flex: '1', backgroundColor: '#ccc' }}>
       okr트리부분

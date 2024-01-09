@@ -19,7 +19,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) =
 };
 
 const MainDashBoard = () => {
-  const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
+  const [showSideSheet, setShowSideSheet] = useState<boolean>(true);
 
   const handleShowSideSheet = () => {
     setShowSideSheet(true);

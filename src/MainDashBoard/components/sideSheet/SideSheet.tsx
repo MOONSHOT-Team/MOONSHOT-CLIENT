@@ -2,6 +2,7 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { IcClose } from '../../assets/icons';
+import KrStatus from './KrStatus';
 
 interface ISideSheetProps {
   isOpen: boolean;
@@ -23,7 +24,9 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
           <div>프로그래스바(공통컴포넌트)</div>
           <StKrStatus>
             <StKrDetailLabel>상태</StKrDetailLabel>
-            <span></span>
+            <span>
+              <KrStatus />
+            </span>
           </StKrStatus>
           <StKrPeriod>
             <StKrDetailLabel>일정</StKrDetailLabel>
@@ -87,6 +90,7 @@ const StKrTitle = styled.h2`
 const StKrStatus = styled.div`
   display: flex;
   gap: 3.2rem;
+  align-items: center;
   margin-top: 1.2rem;
   margin-bottom: 1rem;
 `;

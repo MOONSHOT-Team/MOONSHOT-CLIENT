@@ -28,10 +28,12 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
               <KrStatus />
             </span>
           </StKrStatus>
-          <StKrPeriod>
+          <StKrPeriodContainer>
             <StKrDetailLabel>일정</StKrDetailLabel>
-            <span></span>
-          </StKrPeriod>
+            <StKrPeriod>
+              {`2023. 01. 01`} - {`2023. 12. 31`}
+            </StKrPeriod>
+          </StKrPeriodContainer>
           <StKrCheckInBtn type="button">체크인</StKrCheckInBtn>
         </StKRDetailUpper>
       </StContainer>
@@ -95,10 +97,16 @@ const StKrStatus = styled.div`
   margin-bottom: 1rem;
 `;
 
-const StKrPeriod = styled.div`
+const StKrPeriodContainer = styled.div`
   display: flex;
   gap: 3.2rem;
+  align-items: center;
   margin-bottom: 2.4rem;
+`;
+
+const StKrPeriod = styled.p`
+  color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
 const StKrDetailLabel = styled.p`

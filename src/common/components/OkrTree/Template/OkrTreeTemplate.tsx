@@ -30,6 +30,7 @@ const StOkrTreeContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 1.2rem;
 `;
 
 const StKrTreeWrapper = styled.div`

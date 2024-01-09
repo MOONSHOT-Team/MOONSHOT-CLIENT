@@ -41,7 +41,7 @@ const StKrTaskContainer = styled.div`
 const StTaskNodesWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2.6rem 0; /* 여기 값으로 KR 사이 조정 */
+  padding: calc((7.4rem - 1.2rem) / 2) 0;
 
   & > div:first-of-type {
     > div {

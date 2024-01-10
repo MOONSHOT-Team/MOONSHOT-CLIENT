@@ -5,6 +5,7 @@ import useModal from '@hooks/useModal';
 import { useState } from 'react';
 
 const DrawerModal = () => {
+  const [activeExtend, setActiveExtend] = useState(false);
   const [year, setYear] = useState<number | undefined>(undefined);
   const [month, setMonth] = useState<number | undefined>(undefined);
   const [day, setDay] = useState<number | undefined>(undefined);
@@ -25,7 +26,10 @@ const DrawerModal = () => {
           <StSubText>완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.</StSubText>
           <StDateContainer>
             <YearInput
+              $activeExtend={activeExtend}
+              disabled={!activeExtend}
               value={year}
+              defaultValue={2024}
               type="number"
               placeholder="2024"
               onChange={(e) => {
@@ -34,7 +38,10 @@ const DrawerModal = () => {
             />
             <span>년</span>
             <DateInput
+              $activeExtend={activeExtend}
+              disabled={!activeExtend}
               value={month}
+              defaultValue={1}
               type="number"
               placeholder="01"
               onChange={(e) => {
@@ -43,7 +50,10 @@ const DrawerModal = () => {
             />
             <span>월</span>
             <DateInput
+              $activeExtend={activeExtend}
+              disabled={!activeExtend}
               value={day}
+              defaultValue={9}
               type="number"
               placeholder="09"
               onChange={(e) => {
@@ -53,16 +63,47 @@ const DrawerModal = () => {
             <span>일</span>
           </StDateContainer>
           <div css={buttonStyle}>
-            <form method="dialog">
-              <StCompleteButton type="button">목표 완료하기</StCompleteButton>
-            </form>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <StExtendButton type="submit">기간 연장하기</StExtendButton>
-            </form>
+            {!activeExtend && (
+              <>
+                <StCompleteButton
+                  type="button"
+                  onClick={() => {
+                    // 해당 목표 히스토리로 이동시키기 + /history로 페이지 이동
+                  }}
+                >
+                  목표 완료하기
+                </StCompleteButton>
+                <StExtendButton
+                  type="button"
+                  onClick={() => {
+                    setActiveExtend(true);
+                  }}
+                >
+                  기간 연장하기
+                </StExtendButton>
+              </>
+            )}
+            {activeExtend && (
+              <>
+                <StCompleteButton
+                  type="button"
+                  onClick={() => {
+                    modalRef.current?.close();
+                    setActiveExtend(false);
+                  }}
+                >
+                  취소하기
+                </StCompleteButton>
+                <StExtendButton
+                  type="button"
+                  onClick={() => {
+                    // 목표 기한 수정 API
+                  }}
+                >
+                  저장하기
+                </StExtendButton>
+              </>
+            )}
           </div>
         </div>
       </Modal>
@@ -118,17 +159,17 @@ const StDateContainer = styled.div`
   color: ${({ theme }) => theme.colors.gray_400};
 `;
 
-const InputStyle = styled.input`
+interface IInputStyleProps {
+  $activeExtend: boolean;
+}
+
+const InputStyle = styled.input<IInputStyleProps>`
   height: 3.2rem;
   padding: 0 0.2rem;
-  color: ${({ theme }) => theme.colors.gray_000};
+  color: ${({ theme, $activeExtend }) =>
+    $activeExtend ? theme.colors.gray_000 : theme.colors.gray_400};
   text-align: center;
-  border-bottom: 1px solid
-    ${({ theme, value }) => (value !== undefined ? theme.colors.gray_000 : theme.colors.gray_400)};
-
-  &:focus {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.gray_000};
-  }
+  border-bottom: 1px solid currentcolor;
 `;
 
 const YearInput = styled(InputStyle)`

@@ -27,6 +27,10 @@ const globalStyles = css`
     border: none;
   }
 
+  svg {
+    cursor: pointer;
+  }
+
   ul,
   li {
     list-style: none;

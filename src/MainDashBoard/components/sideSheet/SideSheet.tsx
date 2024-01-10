@@ -15,7 +15,7 @@ interface ISideSheetProps {
 }
 
 const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
-  const [isCheckinView, setIsCheckinView] = useState(false);
+  const [isCheckinView, setIsCheckinView] = useState(true);
 
   const handleCheckInView = () => {
     setIsCheckinView(true);
@@ -46,7 +46,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
           </StKrPeriodContainer>
         </section>
 
-        <StKRDetailLower>
+        <section css={StKRDetailLowerStyles}>
           {isCheckinView ? (
             <StKrCheck>
               <KrCheckIn />
@@ -59,7 +59,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
               <CheckInLogs data={KRDETAILDATA.Log} />
             </>
           )}
-        </StKRDetailLower>
+        </section>
       </StContainer>
     </StBackground>
   );
@@ -137,7 +137,7 @@ const StKrDetailLabel = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-const StKRDetailLower = styled.div`
+const StKRDetailLowerStyles = css`
   display: flex;
   flex-direction: column;
   align-items: center;

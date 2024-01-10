@@ -29,22 +29,32 @@ const StCharacterCountContainer = styled.div`
 
 /** 진척 정도 입력하는 뷰입니다 */
 const 진척정도입력하기 = () => {
+  const [logNum, setLogNum] = useState<string>('');
+
+  const handelInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value.replace(/,/g, '');
+    const num = Number(rawValue).toLocaleString();
+    setLogNum(num);
+  };
   return (
     <section css={enterLayoutStyles}>
       <article css={enterArticleStyles}>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgress">진척 정도</StLabel>
-          <div style={{ position: 'relative' }}>
+          <div css={inputBoxStyles}>
             <StEnterProgressInput
+              type="text"
               id="enterProgress"
               placeholder="진척 정도를 확인할 수 있는 수치값을 입력하세요."
+              value={logNum.toLocaleString()}
+              onChange={handelInputChange}
             />
-            <CharacterCount currentCnt={10} maxCnt={30} />
+            {logNum && <CharacterCount currentCnt={logNum.length} maxCnt={11} />}
           </div>
         </span>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
-          <div style={{ position: 'relative' }}>
+          <div css={inputBoxStyles}>
             <StCheckInTextArea id="enterProgressCheckin" placeholder={CHECKINPLACEHOLDER} />
             <CharacterCount currentCnt={10} maxCnt={10} />
           </div>
@@ -295,4 +305,8 @@ const StEditNumInput = styled.input`
     color: ${({ theme }) => theme.colors.gray_350};
     ${({ theme }) => theme.fonts.body_12_regular};
   }
+`;
+
+const inputBoxStyles = css`
+  position: relative;
 `;

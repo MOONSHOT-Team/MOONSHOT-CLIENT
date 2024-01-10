@@ -1,11 +1,11 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { IcClose } from '../../assets/icons';
 import { KRDETAILDATA } from '../../constants/KrDetailData';
+import KRPeriodSelect from '../KRPeriodSelect';
 import CheckInLogs from './CheckInLogs';
-
-// import { IcClose } from '../../assets/icons';
-// import KrStatus from './KrStatus';
+import KrStatus from './KrStatus';
 
 interface ISideSheetProps {
   isOpen: boolean;
@@ -20,21 +20,21 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
           <StKrDetailHeader>
             <span>kr</span>
             <span>
-              {/* <IcClose onClick={onClose} /> */}
+              <IcClose onClick={onClose} />
               <button onClick={onClose}>x</button>
             </span>
           </StKrDetailHeader>
           <StKrTitle>통합 회원수 200,000건 돌파</StKrTitle>
-          <div css={{ height: '3.8rem' }}>프로그래스바(공통컴포넌트)</div>
+          <div css={{ height: '3rem' }}>프로그래스바(공통컴포넌트)</div>
           <StKrStatus>
             <StKrDetailLabel>상태</StKrDetailLabel>
-            <span>{/* <KrStatus /> */}</span>
+            <span>
+              <KrStatus />
+            </span>
           </StKrStatus>
           <StKrPeriodContainer>
             <StKrDetailLabel>일정</StKrDetailLabel>
-            <StKrPeriod>
-              {`2023. 01. 01`} - {`2023. 12. 31`}
-            </StKrPeriod>
+            <KRPeriodSelect />
           </StKrPeriodContainer>
           <StKrCheckInBtn type="button">체크인</StKrCheckInBtn>
         </section>
@@ -80,7 +80,7 @@ const krDetailUpperStyles = css`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 2.6rem 2.2rem;
+  padding: 2.6rem 2.2rem 2.1rem;
 `;
 
 const StKrDetailHeader = styled.div`
@@ -99,19 +99,14 @@ const StKrStatus = styled.div`
   gap: 3.2rem;
   align-items: center;
   margin-top: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const StKrPeriodContainer = styled.div`
   display: flex;
-  gap: 3.2rem;
+  gap: 2rem;
   align-items: center;
   margin-bottom: 2.4rem;
-`;
-
-const StKrPeriod = styled.p`
-  color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
 const StKrDetailLabel = styled.p`

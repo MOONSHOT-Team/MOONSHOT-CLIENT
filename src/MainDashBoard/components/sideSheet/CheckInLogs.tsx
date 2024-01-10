@@ -23,7 +23,7 @@ const CheckInLogs = ({ data }: { data: ICheckInLogTypes[] }) => {
       <StCheckInLogScroll>
         <ul css={checkInLogContainer}>
           {data.map((item, idx) => {
-            return <CheckInLogItem key={idx} {...item} />;
+            return <CheckInLogItem key={item.title + idx} {...item} />;
           })}
         </ul>
       </StCheckInLogScroll>
@@ -48,18 +48,18 @@ const StCheckInLogP = styled.p`
 const StCheckInLogScroll = styled.article`
   height: 100%;
   overflow-y: scroll;
-  background-color: ${({ theme }) => theme.colors.transparent_white};
+  background-color: ${({ theme }) => theme.colors.gray_550};
   border-top: 1px solid ${({ theme }) => theme.colors.transparent_white};
 
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 13px;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.colors.gray_650};
     background-clip: padding-box; /* 스크롤에 여백넣기 -> background에 테두리영역 제외하여 표현 */
-    border: 3px solid transparent;
-    border-radius: 20px;
+    border: 4px solid transparent;
+    border-radius: 50px;
   }
 
   &::-webkit-scrollbar-track {
@@ -77,7 +77,7 @@ const checkInLogContainer = css`
 
 const StCheckInLogItemContainer = styled.li`
   height: 13.9rem;
-  padding: 1.6rem 2.2rem 2rem;
+  padding: 1.6rem 2.2rem 2rem 1.6rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.transparent_white};
 `;
 

@@ -2,14 +2,13 @@ import NodeLines from '@components/OkrTree/lines/NodeLines';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
-import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
 import KrTaskContainer from './KrTaskContainer';
 
 interface IKrContainerProps {
   keyResultList: IKeyResultTypes[];
   KrNodes: (krIdx: number) => jsx.JSX.Element;
-  TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
+  TaskNodes: (isFirstChild: boolean, krIdx: number, taskIdx: number) => jsx.JSX.Element;
 }
 
 const KrContainer = ({ keyResultList, KrNodes, TaskNodes }: IKrContainerProps) => {

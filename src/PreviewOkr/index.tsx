@@ -32,7 +32,9 @@ const PreviewOkr = () => {
           )}
           keyResultList={krList}
           KrNodes={(krIdx) => <PreviewKrNodes krIdx={krIdx} />}
-          TaskNodes={PreviewTaskNodes}
+          TaskNodes={(isFirstChild, krIdx, taskIdx) => (
+            <PreviewTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
+          )}
         />
       </div>
 

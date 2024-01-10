@@ -1,6 +1,7 @@
 import DynamicInput from '@components/input/DynamicInput';
 import NodeLines from '@components/OkrTree/lines/NodeLines';
 import StraightLine from '@components/OkrTree/lines/StraightLine';
+import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import styled from '@emotion/styled';
 import {
   StNodesContainer,
@@ -14,7 +15,8 @@ import { useState } from 'react';
 
 import { IcPlusSmall } from '../../assets/icons';
 
-export const PreviewTaskNodes = ({ isFirstChild, title, idx }: ITaskNodesTypes) => {
+export const PreviewTaskNodes = ({ isFirstChild, krIdx, taskIdx }: ITaskNodesTypes) => {
+  const { title, idx } = MOCK_OKR_DATA.krList[krIdx].taskList[taskIdx]; //krIdx번의 kr의 taskIdx task의 데이터를 다루는 tasknode
   const [taskValue, setTaskValue] = useState(title);
   const [isClikcedPlusBtn, setIsClickedPlusBtn] = useState(false);
 

@@ -2,31 +2,32 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { CheckIcon } from '../assets/icons';
-interface IThemeBtnProps {
-  name: string;
+interface IYearBtnProps {
+  key: number;
+  year: number;
+  count: number;
 }
-const ThemeButton = ({ name }: IThemeBtnProps) => {
-  // const [isContent, setIsContent] = useState(false); 드롭다운 내용과 연결지어서 비활성화 버튼 만들겠습니다.
+const YearButton = ({ year, count }: IYearBtnProps) => {
   const [isCheckIc, setIsCheckIc] = useState(false);
-  const handleSelectThemeBtn = () => {
+  const handleSelectYearBtn = () => {
     setIsCheckIc(!isCheckIc);
   };
   return (
-    <ThemeBtn
+    <YearBtn
       onClick={() => {
-        handleSelectThemeBtn();
+        handleSelectYearBtn();
       }}
       isCheckIc={isCheckIc}
     >
       {isCheckIc && <CheckIcon />}
-      {name}
-    </ThemeBtn>
+      {year}({count})
+    </YearBtn>
   );
 };
 
-export default ThemeButton;
+export default YearButton;
 
-const ThemeBtn = styled.button<{ isCheckIc: boolean }>`
+const YearBtn = styled.button<{ isCheckIc: boolean }>`
   display: flex;
   gap: 0.4rem;
   align-items: center;

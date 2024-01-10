@@ -5,6 +5,28 @@ import { ChangeEvent, useState } from 'react';
 const CHECKINPLACEHOLDER =
   '회고 내용을 입력하세요.\n\n  • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n  • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n  • 실행 과정에 얼마나 만족하는지 알려주세요.';
 
+interface ICharacterCountProps {
+  currentCnt: number;
+  maxCnt: number;
+}
+
+/** 글자 수 띄워주는 컴포 */
+const CharacterCount = ({ currentCnt, maxCnt }: ICharacterCountProps) => {
+  return (
+    <StCharacterCountContainer>
+      {currentCnt}/{maxCnt}
+    </StCharacterCountContainer>
+  );
+};
+
+const StCharacterCountContainer = styled.div`
+  position: absolute;
+  right: 1rem;
+  bottom: 1.2rem;
+  color: ${({ theme }) => theme.colors.gray_350};
+  ${({ theme }) => theme.fonts.body_12_regular};
+`;
+
 /** 진척 정도 입력하는 뷰입니다 */
 const 진척정도입력하기 = () => {
   return (
@@ -12,14 +34,20 @@ const 진척정도입력하기 = () => {
       <article css={enterArticleStyles}>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgress">진척 정도</StLabel>
-          <StEnterProgressInput
-            id="enterProgress"
-            placeholder="진척 정도를 확인할 수 있는 수치값을 입력하세요."
-          />
+          <div style={{ position: 'relative' }}>
+            <StEnterProgressInput
+              id="enterProgress"
+              placeholder="진척 정도를 확인할 수 있는 수치값을 입력하세요."
+            />
+            <CharacterCount currentCnt={10} maxCnt={30} />
+          </div>
         </span>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
-          <StCheckInTextArea id="enterProgressCheckin" placeholder={CHECKINPLACEHOLDER} />
+          <div style={{ position: 'relative' }}>
+            <StCheckInTextArea id="enterProgressCheckin" placeholder={CHECKINPLACEHOLDER} />
+            <CharacterCount currentCnt={10} maxCnt={10} />
+          </div>
         </span>
       </article>
       <footer css={enterFooterStyles}>
@@ -233,6 +261,10 @@ const StCheckInTextArea = styled.textarea`
 
   &:focus {
     outline: none;
+  }
+
+  &::placeholder {
+    ${({ theme }) => theme.fonts.body_12_regular};
   }
 `;
 

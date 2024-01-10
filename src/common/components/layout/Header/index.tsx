@@ -53,6 +53,7 @@ const NavStyle = styled(NavLink)`
 
 const StSignInButton = styled(Link)`
   padding: 0.8rem 2.05rem;
+  margin: 2rem 0 2.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.btn_14_semibold};
 

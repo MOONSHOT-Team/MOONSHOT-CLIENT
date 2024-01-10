@@ -3,19 +3,63 @@ import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
 
 /** 진척 정도 입력하는 뷰입니다 */
+const 진척정도입력하기 = () => {
+  return (
+    <section css={enterLayoutStyles}>
+      <article css={enterArticleStyles}>
+        <span css={enterInputBoxStyles}>
+          <StLabel htmlFor="enterProgress">진척 정도 입력하기</StLabel>
+          <StEnterProgressInput id="enterProgress" />
+        </span>
+        <span css={enterInputBoxStyles}>
+          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
+          <input id="enterProgressCheckin" />
+        </span>
+      </article>
+      <footer css={enterFooterStyles}>
+        <EnterBtn isActiveBtn={false} isCancel={true}>
+          취소
+        </EnterBtn>
+        <EnterBtn isActiveBtn={true} isCancel={false}>
+          체크인 완료
+        </EnterBtn>
+      </footer>
+    </section>
+  );
+};
 
-/** 체크인을 할 수 있는 뷰 입니다 (진척상황입력, kr수정) */
+const StEnterProgressInput = styled.input`
+  width: 100%;
+  padding: 1.1rem 1.2rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.gray_450};
+  border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.body_12_medium};
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const enterInputBoxStyles = css`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+/** 체크인을 할 수 있는 뷰 입니다 (진척정도입력, kr수정) */
 const KrCheckIn = () => {
   const [isActive, setIsActive] = useState('진척 정도 입력하기');
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setIsActive(e.target.value);
   };
   return (
-    <div>
-      <form css={checkRadioContainerStyles}>
-        <StRadiodLabel htmlFor="krCheckInput" css={checkRadioStyles}>
+    <KrCheckInContainer>
+      <div css={checkRadioContainerStyles}>
+        <StRadiodLabel htmlFor="krCheckInput">
           <StRadioInput
             id="krCheckInput"
             type="radio"
@@ -26,7 +70,7 @@ const KrCheckIn = () => {
           ></StRadioInput>
           <span>진척 정도 입력하기</span>
         </StRadiodLabel>
-        <StRadiodLabel htmlFor="krCheckEdit" css={checkRadioStyles}>
+        <StRadiodLabel htmlFor="krCheckEdit">
           <StRadioInput
             id="krCheckEdit"
             type="radio"
@@ -36,13 +80,22 @@ const KrCheckIn = () => {
           ></StRadioInput>
           <span>kr 수정하기</span>
         </StRadiodLabel>
-      </form>
-      {isActive === '진척 정도 입력하기' ? <div>아래부분</div> : <div>kr 수정</div>}
-    </div>
+      </div>
+      {isActive === '진척 정도 입력하기' ? <진척정도입력하기 /> : <div>kr 수정</div>}
+    </KrCheckInContainer>
   );
 };
 
 export default KrCheckIn;
+
+const KrCheckInContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.gray_550};
+`;
 
 const checkRadioContainerStyles = css`
   display: flex;
@@ -72,6 +125,7 @@ const StRadioInput = styled.input`
 
     width: 100%;
     height: 100%;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.transparent_white};
   }
 
   &:checked + span {
@@ -79,6 +133,42 @@ const StRadioInput = styled.input`
   }
 `;
 
-const checkRadioStyles = css`
+const enterLayoutStyles = css`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 2rem 2.2rem 3.6rem;
+`;
+
+const enterArticleStyles = css`
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+`;
+
+const enterFooterStyles = css`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const EnterBtn = styled.button<{ isActiveBtn: boolean; isCancel: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14.5rem;
+  height: 3rem;
+  color: ${({ theme, isCancel }) => (isCancel ? theme.colors.gray_000 : theme.colors.gray_600)};
+  background-color: ${({ theme, isCancel }) =>
+    isCancel ? theme.colors.gray_500 : theme.colors.sub_mint};
+  ${({ theme }) => theme.fonts.btn_14_semibold};
+
+  border-radius: 6px;
+`;
+
+const StLabel = styled.label`
+  color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme }) => theme.fonts.body_12_medium};
 `;

@@ -48,9 +48,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
 
         <section css={StKRDetailLowerStyles}>
           {isCheckinView ? (
-            <StKrCheck>
-              <KrCheckIn />
-            </StKrCheck>
+            <KrCheckIn />
           ) : (
             <>
               <StKrCheckInBtn type="button" onClick={handleCheckInView}>
@@ -129,7 +127,7 @@ const StKrPeriodContainer = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
-  margin-bottom: 2.4rem;
+  margin-bottom: 3rem;
 `;
 
 const StKrDetailLabel = styled.p`
@@ -139,10 +137,10 @@ const StKrDetailLabel = styled.p`
 
 const StKRDetailLowerStyles = css`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: calc(100vh - 20rem);
 `;
 
 const StKrCheckInBtn = styled.button`
@@ -161,10 +159,4 @@ const StKrCheckInBtn = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray_450};
   }
-`;
-
-const StKrCheck = styled.section`
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.gray_550};
 `;

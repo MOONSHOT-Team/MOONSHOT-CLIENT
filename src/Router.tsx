@@ -8,6 +8,7 @@ import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
 import My from './My';
+import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'social',
         element: <Social />,
+      },
+      {
+        path: 'preview-okr',
+        element: <PreviewOkr />,
       },
     ],
   },

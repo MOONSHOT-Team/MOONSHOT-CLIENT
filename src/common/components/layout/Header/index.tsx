@@ -1,26 +1,18 @@
 import { ImgLogo } from '@assets/icons';
 import { NAVIGATIONS } from '@constants/NavigationLink';
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
     <StHeader>
-      <div css={HeaderLogo}>
+      <Link to="/">
         <ImgLogo />
-      </div>
+      </Link>
       <StNavigationBar>
         {NAVIGATIONS.map(({ id, text, path }) => (
           <StNavigation key={id}>
-            <NavLink
-              to={path}
-              style={({ isActive }) => {
-                return { color: isActive ? 'white' : '' };
-              }}
-            >
-              {text}
-            </NavLink>
+            <NavStyle to={path}>{text}</NavStyle>
           </StNavigation>
         ))}
 
@@ -42,31 +34,29 @@ const StHeader = styled.header`
   padding: 0 3.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.transparent_white};
 `;
-const HeaderLogo = css`
-  width: 150%;
-`;
-
-const StNavigationBar = styled.ul`
+const StNavigationBar = styled.ol`
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  gap: 5rem;
+  align-items: center;
 `;
 const StNavigation = styled.li`
   display: flex;
-  gap: 5rem;
-  align-items: flex-end;
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_14_regular};
 `;
+
+const NavStyle = styled(NavLink)`
+  &.active {
+    color: ${({ theme }) => theme.colors.gray_000};
+  }
+`;
+
 const StSignInButton = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 7.8rem;
-  height: 3rem;
+  padding: 0.8rem 2.05rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.btn_14_semibold};
 
+  text-align: center;
   background-color: ${({ theme }) => theme.colors.main_darkpurple};
   border-radius: 6px;
 `;

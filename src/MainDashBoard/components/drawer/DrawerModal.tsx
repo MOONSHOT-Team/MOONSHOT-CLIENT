@@ -2,8 +2,13 @@ import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
+import { useState } from 'react';
 
 const DrawerModal = () => {
+  const [year, setYear] = useState<number | undefined>(undefined);
+  const [month, setMonth] = useState<number | undefined>(undefined);
+  const [day, setDay] = useState<number | undefined>(undefined);
+
   const { modalRef, handleShowModal } = useModal();
 
   return (
@@ -19,11 +24,32 @@ const DrawerModal = () => {
           </StMainText>
           <StSubText>완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.</StSubText>
           <StDateContainer>
-            <input css={inputStyle} type="number" placeholder="2024" />
+            <YearInput
+              value={year}
+              type="number"
+              placeholder="2024"
+              onChange={(e) => {
+                setYear(Number(e.target.value));
+              }}
+            />
             <span>년</span>
-            <input css={inputStyle} type="number" placeholder="01" />
+            <DateInput
+              value={month}
+              type="number"
+              placeholder="01"
+              onChange={(e) => {
+                setMonth(Number(e.target.value));
+              }}
+            />
             <span>월</span>
-            <input css={inputStyle} type="number" placeholder="09" />
+            <DateInput
+              value={day}
+              type="number"
+              placeholder="09"
+              onChange={(e) => {
+                setDay(Number(e.target.value));
+              }}
+            />
             <span>일</span>
           </StDateContainer>
           <div css={buttonStyle}>
@@ -56,13 +82,6 @@ const modalContainer = css`
   padding: 0 5.4rem;
 `;
 
-const inputStyle = css`
-  width: 7rem;
-  height: 3.2rem;
-  text-align: center;
-  border-bottom: 1px solid currentcolor;
-`;
-
 const buttonStyle = css`
   display: flex;
   gap: 1.2rem;
@@ -91,8 +110,33 @@ const StSubText = styled.p`
 const StDateContainer = styled.div`
   ${({ theme }) => theme.fonts.title_20_semibold};
 
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 8.8rem;
   color: ${({ theme }) => theme.colors.gray_400};
+`;
+
+const InputStyle = styled.input`
+  height: 3.2rem;
+  padding: 0 0.2rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  text-align: center;
+  border-bottom: 1px solid
+    ${({ theme, value }) => (value !== undefined ? theme.colors.gray_000 : theme.colors.gray_400)};
+
+  &:focus {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray_000};
+  }
+`;
+
+const YearInput = styled(InputStyle)`
+  width: 5.4rem;
+`;
+
+const DateInput = styled(InputStyle)`
+  width: 3.5rem;
 `;
 
 const StModalButton = styled.button`

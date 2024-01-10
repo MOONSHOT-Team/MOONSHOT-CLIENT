@@ -12,8 +12,8 @@ const HistoryDrawer = () => {
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
-          {THEME.map(({ text, id }) => (
-            <ThemeButton key={id} name={text} />
+          {THEME.map(({ text, category }) => (
+            <ThemeButton key={category} name={text} />
           ))}
         </ul>
       </article>
@@ -37,8 +37,6 @@ const HistoryAside = styled.aside`
   gap: 4rem;
   width: 23.2rem;
   padding: 2.4rem 2.2rem;
-
-  /* background-color: ${({ theme }) => theme.colors.gray_650}; */
 `;
 
 const themeContainer = css`

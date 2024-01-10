@@ -6,7 +6,6 @@ interface IThemeBtnProps {
   name: string;
 }
 const ThemeButton = ({ name }: IThemeBtnProps) => {
-  // const [isContent, setIsContent] = useState(false); 드롭다운 내용과 연결지어서 비활성화 버튼 만들겠습니다.
   const [isCheckIc, setIsCheckIc] = useState(false);
   const handleSelectThemeBtn = () => {
     setIsCheckIc(!isCheckIc);

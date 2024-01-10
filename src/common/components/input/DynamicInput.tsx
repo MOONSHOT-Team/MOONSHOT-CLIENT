@@ -5,7 +5,8 @@ import React, { useEffect, useRef, useState } from 'react';
 interface IDynamicInputProps {
   value: string;
   handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  minWidth?: string;
+  minWidth?: number;
+  maxLength?: number;
   isAutoFocus?: boolean;
 }
 
@@ -13,9 +14,10 @@ const DynamicInput = ({
   value,
   handleChangeValue,
   minWidth,
+  maxLength,
   isAutoFocus = false,
 }: IDynamicInputProps) => {
-  const [width, setWidth] = useState(minWidth ? Number(minWidth) : 0);
+  const [width, setWidth] = useState(minWidth ? minWidth : 0);
 
   const mirrorRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -41,6 +43,7 @@ const DynamicInput = ({
         value={value}
         onChange={handleChangeValue}
         ref={inputRef}
+        maxLength={maxLength}
       />
       <StInputMirror ref={mirrorRef} aria-hidden>
         {value}
@@ -57,7 +60,7 @@ const dynamicInputContainerStyle = css`
 `;
 
 const StDynamicInput = styled.input<{ width: number }>`
-  width: ${({ width }) => width}px;
+  width: ${({ width }) => width / 10}rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
   background-color: transparent;

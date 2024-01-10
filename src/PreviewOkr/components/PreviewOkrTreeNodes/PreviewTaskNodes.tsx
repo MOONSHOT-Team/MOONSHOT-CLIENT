@@ -30,10 +30,10 @@ export const PreviewTaskNodes = ({ isFirstChild, krIdx, taskIdx }: ITaskNodesTyp
           {isClikcedPlusBtn ? (
             <StPreviewTaskBox $idx={idx}>
               <DynamicInput
-                minWidth={'100%'}
                 value={taskValue}
                 handleChangeValue={(e) => setTaskValue(e.target.value)}
                 isAutoFocus={true}
+                maxLength={10}
               />
             </StPreviewTaskBox>
           ) : (

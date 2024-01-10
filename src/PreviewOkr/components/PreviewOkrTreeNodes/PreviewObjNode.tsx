@@ -1,6 +1,6 @@
 import { CommonObjNode } from '@components/OkrTree/Nodes/CommonObjNode';
 import styled from '@emotion/styled';
-
+import TextareaAutosize from 'react-textarea-autosize';
 export interface IPreviewObjNodeProps {
   objValue: string;
   handleChangeObjValue: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -8,12 +8,12 @@ export interface IPreviewObjNodeProps {
 
 const PreviewObjNode = ({ objValue, handleChangeObjValue }: IPreviewObjNodeProps) => {
   return (
-    <CommonObjNode>
+    <CommonObjNode hoverStyle={true}>
       <StPreviewObjTextArea
         value={objValue}
         onChange={handleChangeObjValue}
         maxLength={30}
-        rows={2}
+        maxRows={2}
       />
     </CommonObjNode>
   );
@@ -21,7 +21,7 @@ const PreviewObjNode = ({ objValue, handleChangeObjValue }: IPreviewObjNodeProps
 
 export default PreviewObjNode;
 
-const StPreviewObjTextArea = styled.textarea`
+const StPreviewObjTextArea = styled(TextareaAutosize)`
   padding: 0;
   margin: 0;
   color: ${({ theme }) => theme.colors.gray_000};
@@ -31,10 +31,6 @@ const StPreviewObjTextArea = styled.textarea`
   background: transparent;
   border: none;
   outline: none;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_500};
-  }
 
   ${({ theme }) => theme.fonts.body_13_medium};
 `;

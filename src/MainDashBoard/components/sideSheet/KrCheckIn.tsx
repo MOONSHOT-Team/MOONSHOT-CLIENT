@@ -28,26 +28,22 @@ const 진척정도입력하기 = () => {
   );
 };
 
-const StEnterProgressInput = styled.input`
-  width: 100%;
-  padding: 1.1rem 1.2rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.colors.gray_450};
-  border-radius: 6px;
-
-  ${({ theme }) => theme.fonts.body_12_medium};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const enterInputBoxStyles = css`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
+/** kr을 수정하는 뷰입니다 */
+const 케이알수정하기 = () => {
+  return (
+    <section css={enterLayoutStyles}>
+      <article css={enterArticleStyles}>kr 수정 뷰</article>
+      <footer css={enterFooterStyles}>
+        <EnterBtn isActiveBtn={false} isCancel={true}>
+          취소
+        </EnterBtn>
+        <EnterBtn isActiveBtn={true} isCancel={false}>
+          체크인 완료
+        </EnterBtn>
+      </footer>
+    </section>
+  );
+};
 
 /** 체크인을 할 수 있는 뷰 입니다 (진척정도입력, kr수정) */
 const KrCheckIn = () => {
@@ -81,7 +77,7 @@ const KrCheckIn = () => {
           <span>kr 수정하기</span>
         </StRadiodLabel>
       </div>
-      {isActive === '진척 정도 입력하기' ? <진척정도입력하기 /> : <div>kr 수정</div>}
+      {isActive === '진척 정도 입력하기' ? <진척정도입력하기 /> : <케이알수정하기 />}
     </KrCheckInContainer>
   );
 };
@@ -171,4 +167,25 @@ const EnterBtn = styled.button<{ isActiveBtn: boolean; isCancel: boolean }>`
 const StLabel = styled.label`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_12_medium};
+`;
+
+const StEnterProgressInput = styled.input`
+  width: 100%;
+  padding: 1.1rem 1.2rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.gray_450};
+  border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.body_12_medium};
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const enterInputBoxStyles = css`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

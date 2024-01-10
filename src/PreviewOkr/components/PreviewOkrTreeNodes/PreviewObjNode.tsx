@@ -32,5 +32,9 @@ const StPreviewObjTextArea = styled.textarea`
   border: none;
   outline: none;
 
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_500};
+  }
+
   ${({ theme }) => theme.fonts.body_13_medium};
 `;

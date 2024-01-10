@@ -6,7 +6,7 @@ import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 import KrContainer from './krTemplate/KrContainer';
 
 interface IOkrTreeProps {
-  ObjNodes: () => jsx.JSX.Element;
+  ObjNode: () => jsx.JSX.Element;
   keyResultList: IKeyResultTypes[];
   KrNodes: ({
     idx,
@@ -19,10 +19,10 @@ interface IOkrTreeProps {
   TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 
-const OkrTreeTemplate = ({ ObjNodes, keyResultList, KrNodes, TaskNodes }: IOkrTreeProps) => {
+const OkrTreeTemplate = ({ ObjNode, keyResultList, KrNodes, TaskNodes }: IOkrTreeProps) => {
   return (
     <StOkrTreeContainer>
-      <ObjNodes />
+      {ObjNode()}
       <StKrTreeWrapper>
         <KrContainer keyResultList={keyResultList} KrNodes={KrNodes} TaskNodes={TaskNodes} />
       </StKrTreeWrapper>

@@ -30,6 +30,11 @@ const globalStyles = css`
   svg {
     cursor: pointer;
   }
+
+  ul,
+  li {
+    list-style: none;
+  }
 `;
 
 export default globalStyles;

@@ -41,7 +41,11 @@ const 케이알수정하기 = () => {
       <article css={enterArticleStyles}>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgress">kr 수정</StLabel>
-          <div>kr 수정 부분</div>
+          <StEditNum>
+            <span>통합 가입 수</span>
+            <StEditNumInput id="enterProgress" placeholder="200,000" />
+            <span>건 돌파</span>
+          </StEditNum>
         </span>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
@@ -229,5 +233,34 @@ const StCheckInTextArea = styled.textarea`
 
   &:focus {
     outline: none;
+  }
+`;
+
+const StEditNum = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.gray_350};
+  ${({ theme }) => theme.fonts.body_12_regular};
+`;
+
+const StEditNumInput = styled.input`
+  width: 12rem;
+  padding: 1.1rem 1.2rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.gray_450};
+  border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.body_12_medium};
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray_350};
+    ${({ theme }) => theme.fonts.body_12_regular};
   }
 `;

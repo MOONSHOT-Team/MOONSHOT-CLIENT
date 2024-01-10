@@ -8,21 +8,21 @@ const 진척정도입력하기 = () => {
     <section css={enterLayoutStyles}>
       <article css={enterArticleStyles}>
         <span css={enterInputBoxStyles}>
-          <StLabel htmlFor="enterProgress">진척 정도 입력하기</StLabel>
+          <StLabel htmlFor="enterProgress">진척 정도</StLabel>
           <StEnterProgressInput id="enterProgress" />
         </span>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
-          <input id="enterProgressCheckin" />
+          <StCheckInTextArea id="enterProgressCheckin" />
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <EnterBtn isActiveBtn={false} isCancel={true}>
+        <StEnterBtn isActiveBtn={false} isCancel={true}>
           취소
-        </EnterBtn>
-        <EnterBtn isActiveBtn={true} isCancel={false}>
+        </StEnterBtn>
+        <StEnterBtn isActiveBtn={true} isCancel={false}>
           체크인 완료
-        </EnterBtn>
+        </StEnterBtn>
       </footer>
     </section>
   );
@@ -32,14 +32,23 @@ const 진척정도입력하기 = () => {
 const 케이알수정하기 = () => {
   return (
     <section css={enterLayoutStyles}>
-      <article css={enterArticleStyles}>kr 수정 뷰</article>
+      <article css={enterArticleStyles}>
+        <span css={enterInputBoxStyles}>
+          <StLabel htmlFor="enterProgress">kr 수정</StLabel>
+          <div>kr 수정 부분</div>
+        </span>
+        <span css={enterInputBoxStyles}>
+          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
+          <StCheckInTextArea id="enterProgressCheckin" />
+        </span>
+      </article>
       <footer css={enterFooterStyles}>
-        <EnterBtn isActiveBtn={false} isCancel={true}>
+        <StEnterBtn isActiveBtn={false} isCancel={true}>
           취소
-        </EnterBtn>
-        <EnterBtn isActiveBtn={true} isCancel={false}>
+        </StEnterBtn>
+        <StEnterBtn isActiveBtn={true} isCancel={false}>
           체크인 완료
-        </EnterBtn>
+        </StEnterBtn>
       </footer>
     </section>
   );
@@ -148,9 +157,10 @@ const enterFooterStyles = css`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 5rem;
 `;
 
-const EnterBtn = styled.button<{ isActiveBtn: boolean; isCancel: boolean }>`
+const StEnterBtn = styled.button<{ isActiveBtn: boolean; isCancel: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,4 +198,24 @@ const enterInputBoxStyles = css`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+const StCheckInTextArea = styled.textarea`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 17.7rem;
+  padding: 1.1rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  word-break: keep-all;
+  resize: none;
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.gray_450};
+  border-radius: 6px;
+  ${({ theme }) => theme.fonts.body_12_medium};
+
+  &:focus {
+    outline: none;
+  }
 `;

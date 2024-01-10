@@ -52,6 +52,8 @@ const StPreviewTaskBox = styled(StTaskBox)<{ $idx: number }>`
   width: fit-content;
   min-width: 18rem;
   padding: 0.6rem 1.6rem;
+  background-color: ${({ theme }) => theme.colors.gray_550};
+  outline: 1px solid ${({ theme }) => theme.colors.gray_500};
 `;
 
 const StPreviewPlusBtn = styled.button`
@@ -64,4 +66,9 @@ const StPreviewPlusBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.gray_600};
   border-radius: 75px;
   outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+    outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+  }
 `;

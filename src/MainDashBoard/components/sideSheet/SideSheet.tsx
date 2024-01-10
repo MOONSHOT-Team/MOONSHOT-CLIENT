@@ -1,8 +1,10 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
-import KRPeriodSelect from '../KRPeriodSelect';
+import KrCheckIn from './KrCheckIn';
+import KRPeriodSelect from './KRPeriodSelect';
 import KrStatus from './KrStatus';
 
 interface ISideSheetProps {
@@ -11,6 +13,12 @@ interface ISideSheetProps {
 }
 
 const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
+  const [isCheckinView, setIsCheckinView] = useState(false);
+
+  const handleCheckInView = () => {
+    setIsCheckinView(true);
+  };
+
   return (
     <StBackground>
       <StContainer $isOpen={isOpen}>
@@ -33,8 +41,19 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
             <StKrDetailLabel>일정</StKrDetailLabel>
             <KRPeriodSelect />
           </StKrPeriodContainer>
-          <StKrCheckInBtn type="button">체크인</StKrCheckInBtn>
         </StKRDetailUpper>
+
+        <StKRDetailLower>
+          {isCheckinView ? (
+            <StKrCheck>
+              <KrCheckIn />
+            </StKrCheck>
+          ) : (
+            <StKrCheckInBtn type="button" onClick={handleCheckInView}>
+              체크인
+            </StKrCheckInBtn>
+          )}
+        </StKRDetailLower>
       </StContainer>
     </StBackground>
   );
@@ -55,6 +74,9 @@ const StContainer = styled.aside<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 34.2rem;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.gray_600};
@@ -74,7 +96,7 @@ const StKRDetailUpper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 2.6rem 2.2rem;
+  padding: 2.6rem 2.2rem 0;
 `;
 
 const StKrDetailHeader = styled.div`
@@ -108,6 +130,14 @@ const StKrDetailLabel = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
+const StKRDetailLower = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 20rem);
+`;
+
 const StKrCheckInBtn = styled.button`
   display: flex;
   align-items: center;
@@ -118,4 +148,14 @@ const StKrCheckInBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
   ${({ theme }) => theme.fonts.btn_14_semibold};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_450};
+  }
+`;
+
+const StKrCheck = styled.section`
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.gray_550};
 `;

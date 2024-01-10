@@ -140,6 +140,7 @@ const StRadioInput = styled.input`
   }
 
   &:checked + span {
+    color: ${({ theme }) => theme.colors.sub_mint};
     border-bottom: 2px solid ${({ theme }) => theme.colors.sub_mint};
   }
 `;

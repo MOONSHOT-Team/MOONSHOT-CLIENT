@@ -14,11 +14,13 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Global styles={globalStyles} />
       <RouterProvider router={router} />
-      <button onClick={handleShowModal}>CLICK ME!!!</button>
+      <button style={{ color: 'red' }} onClick={handleShowModal}>
+        CLICK ME!!!
+      </button>
       <Modal ref={modalRef}>
         <p>Modal</p>
         <form method="dialog">
-          <button>123</button>
+          <button style={{ color: 'red' }}>CLOSE ME</button>
         </form>
       </Modal>
     </ThemeProvider>

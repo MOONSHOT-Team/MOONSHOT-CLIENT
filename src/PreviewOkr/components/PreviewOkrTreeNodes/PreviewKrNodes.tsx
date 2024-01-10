@@ -1,5 +1,6 @@
 import DynamicInput from '@components/input/DynamicInput';
 import StraightLine from '@components/OkrTree/lines/StraightLine';
+import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import styled from '@emotion/styled';
 import {
   StKrBox,
@@ -7,22 +8,16 @@ import {
   StKrLabel,
   StNodesContainer,
 } from '@styles/okrTree/CommonNodeStyle';
-import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 import { useState } from 'react';
 
-export const PreviewKrNodes = ({
-  idx,
-  descriptionBefore,
-  target,
-  metric,
-  descriptionAfter,
-}: IKeyResultTypes) => {
+export const PreviewKrNodes = ({ krIdx }: { krIdx: number }) => {
+  const { descriptionBefore, descriptionAfter, target, metric } = MOCK_OKR_DATA.krList[krIdx];
   const [beforeValue, setBeforeValue] = useState(descriptionBefore);
   const [afterValue, setAfterValue] = useState(descriptionAfter);
 
   return (
     <StNodesContainer>
-      <StKrLabel>KR {idx + 1}</StKrLabel>
+      <StKrLabel>KR {krIdx + 1}</StKrLabel>
       <StKrBoxWrapper>
         <StraightLine />
         <StPreviewKrBox>

@@ -6,29 +6,15 @@ import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
 interface IKrTaskContainerProps {
   krProp: IKeyResultTypes;
-  KrNodes: ({
-    idx,
-    title,
-    descriptionBefore,
-    target,
-    metric,
-    descriptionAfter,
-  }: IKeyResultTypes) => jsx.JSX.Element;
+  KrNodes: (krIdx: number) => jsx.JSX.Element;
   TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 
 const KrTaskContainer = ({ krProp, KrNodes, TaskNodes }: IKrTaskContainerProps) => {
-  const { title, idx, taskList, descriptionBefore, target, metric, descriptionAfter } = krProp;
+  const { taskList, idx: krIdx } = krProp;
   return (
     <StKrTaskContainer>
-      <KrNodes
-        title={title}
-        idx={idx}
-        descriptionBefore={descriptionBefore}
-        target={target}
-        metric={metric}
-        descriptionAfter={descriptionAfter}
-      />
+      {KrNodes(krIdx)}
       {taskList?.length !== 0 && (
         <>
           <StraightLine />

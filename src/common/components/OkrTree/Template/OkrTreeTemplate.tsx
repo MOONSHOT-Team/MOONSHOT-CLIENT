@@ -8,14 +8,7 @@ import KrContainer from './krTemplate/KrContainer';
 interface IOkrTreeProps {
   ObjNode: () => jsx.JSX.Element;
   keyResultList: IKeyResultTypes[];
-  KrNodes: ({
-    idx,
-    title,
-    descriptionBefore,
-    target,
-    metric,
-    descriptionAfter,
-  }: IKeyResultTypes) => jsx.JSX.Element;
+  KrNodes: (krIdx: number) => jsx.JSX.Element;
   TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 

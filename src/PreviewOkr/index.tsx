@@ -31,7 +31,7 @@ const PreviewOkr = () => {
             <PreviewObjNode objValue={objValue} handleChangeObjValue={handlechangeObjTextArea} />
           )}
           keyResultList={krList}
-          KrNodes={PreviewKrNodes}
+          KrNodes={(krIdx) => <PreviewKrNodes krIdx={krIdx} />}
           TaskNodes={PreviewTaskNodes}
         />
       </div>

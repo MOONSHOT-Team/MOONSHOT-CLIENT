@@ -3,12 +3,10 @@ import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
-import { ObjectiveNodes } from '../nodes/CommonOkrNodes';
 import KrContainer from './krTemplate/KrContainer';
 
 interface IOkrTreeProps {
-  objTitle: string;
-  objStroke?: undefined | string;
+  ObjNodes: () => jsx.JSX.Element;
   keyResultList: IKeyResultTypes[];
   KrNodes: ({
     idx,
@@ -21,17 +19,10 @@ interface IOkrTreeProps {
   TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
 }
 
-const OkrTreeTemplate = ({
-  objTitle,
-  objStroke,
-
-  keyResultList,
-  KrNodes,
-  TaskNodes,
-}: IOkrTreeProps) => {
+const OkrTreeTemplate = ({ ObjNodes, keyResultList, KrNodes, TaskNodes }: IOkrTreeProps) => {
   return (
     <StOkrTreeContainer>
-      <ObjectiveNodes title={objTitle} objStroke={objStroke} />
+      <ObjNodes />
       <StKrTreeWrapper>
         <KrContainer keyResultList={keyResultList} KrNodes={KrNodes} TaskNodes={TaskNodes} />
       </StKrTreeWrapper>

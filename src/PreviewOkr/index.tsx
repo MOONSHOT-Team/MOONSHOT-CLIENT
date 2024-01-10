@@ -1,7 +1,9 @@
+import { ObjectiveNodes } from '@components/OkrTree/Nodes/CommonOkrNodes';
 import OkrTreeTemplate from '@components/OkrTree/template/OkrTreeTemplate';
 import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 import PreviewOkrAlertMsg from '../PrviewOkr/components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/previewOkrTreeNodes/PreviewKrNodes';
@@ -9,9 +11,13 @@ import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNo
 
 const PreviewOkr = () => {
   const { objTitle, krList } = MOCK_OKR_DATA;
+  const [objValue, setObjValue] = useState(objTitle);
+
+  console.log(objValue);
 
   const handleClickSaveOkrBtn = () => {
     console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
+    c;
   };
 
   return (
@@ -20,13 +26,31 @@ const PreviewOkr = () => {
       <PreviewOkrAlertMsg />
       <div css={okrTreeDiv}>
         <OkrTreeTemplate
-          objTitle={objTitle}
+          ObjNodes={() => (
+            <ObjectiveNodes>
+              <textarea
+                value={objValue}
+                onChange={(e) => setObjValue(e.target.value)}
+                onKeyDown={(e) => {
+                  setObjValue(e.currentTarget.value);
+                }}
+              />
+            </ObjectiveNodes>
+          )}
           keyResultList={krList}
           KrNodes={PreviewKrNodes}
           TaskNodes={PreviewTaskNodes}
         />
       </div>
 
+      <textarea
+        style={{ resize: 'none', height: 'fit-content' }}
+        value={objValue}
+        onChange={(e) => setObjValue(e.target.value)}
+        onKeyDown={(e) => {
+          setObjValue(e.currentTarget.value);
+        }}
+      />
       <StSaveOkrBtn type="button" onClick={handleClickSaveOkrBtn}>
         저장하기
       </StSaveOkrBtn>

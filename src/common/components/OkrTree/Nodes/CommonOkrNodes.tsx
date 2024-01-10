@@ -1,21 +1,20 @@
 import styled from '@emotion/styled';
 import { StNodesContainer } from '@styles/okrTree/CommonNodeStyle';
+import React from 'react';
 
 import StraightLine from '../lines/StraightLine';
 
 interface IObjectiveNodesStroke {
-  title: string;
-  objStroke: undefined | string;
+  children: React.ReactNode;
+  objStroke?: undefined | string;
 }
 
-export const ObjectiveNodes = ({ title, objStroke }: IObjectiveNodesStroke) => {
+export const ObjectiveNodes = ({ children, objStroke }: IObjectiveNodesStroke) => {
   return (
     <StNodesContainer>
       <StObjLabel>O</StObjLabel>
       <StObjBoxWrapper>
-        <StObjectiveBox $objStroke={objStroke}>
-          <StObjBoxText>{title}</StObjBoxText>
-        </StObjectiveBox>
+        <StObjectiveBox $objStroke={objStroke}>{children}</StObjectiveBox>
         <StraightLine />
       </StObjBoxWrapper>
     </StNodesContainer>
@@ -25,7 +24,7 @@ export const ObjectiveNodes = ({ title, objStroke }: IObjectiveNodesStroke) => {
 /* style definition */
 
 //Objective
-const StObjLabel = styled.span`
+export const StObjLabel = styled.span`
   position: absolute;
   top: -2.2rem;
   left: 3.2rem;
@@ -33,7 +32,7 @@ const StObjLabel = styled.span`
   ${({ theme }) => theme.fonts.title_11_bold};
 `;
 
-const StObjBoxWrapper = styled.div`
+export const StObjBoxWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,9 +51,9 @@ const StObjectiveBox = styled.div<{ $objStroke: undefined | string }>`
   outline: 1px solid ${({ $objStroke, theme }) => ($objStroke ? $objStroke : theme.colors.gray_500)};
 `;
 
-const StObjBoxText = styled.p`
-  color: ${({ theme }) => theme.colors.gray_000};
-  word-break: keep-all;
+// const StObjBoxText = styled.p`
+//   color: ${({ theme }) => theme.colors.gray_000};
+//   word-break: keep-all;
 
-  ${({ theme }) => theme.fonts.body_13_medium};
-`;
+//   ${({ theme }) => theme.fonts.body_13_medium};
+// `;

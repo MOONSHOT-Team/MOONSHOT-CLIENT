@@ -1,5 +1,13 @@
 import { useRef } from 'react';
 
+/**
+ * 사용법 :
+ * 원하는 component 내에서
+ * const { modalRef, handleShowModal } = useModal();
+ * 받아온 후,
+ * `<Modal ref={modalRef}>`
+ * Modal에 ref로 넣어주세요.
+ */
 const useModal = () => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 

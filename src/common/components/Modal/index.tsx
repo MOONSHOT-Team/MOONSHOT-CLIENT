@@ -3,6 +3,14 @@ import styled from '@emotion/styled';
 import { forwardRef, PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 
+/**
+ * modal component :
+ * 1. children으로 code 넘기기.
+ * 2. close button은
+ * `<form method="dialog">`
+ * 태그로 감싸주면
+ * 별다른 로직 없이 close 기능 구현 가능합니다.
+ */
 const Modal = forwardRef<HTMLDialogElement, PropsWithChildren>(({ children }, ref) => {
   return createPortal(
     <ModalDialog ref={ref}>{children}</ModalDialog>,

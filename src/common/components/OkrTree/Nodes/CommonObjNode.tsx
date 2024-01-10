@@ -7,14 +7,17 @@ import StraightLine from '../lines/StraightLine';
 interface IObjectiveNodeProps {
   children: React.ReactNode;
   objStroke?: undefined | string;
+  hoverStyle?: undefined | boolean;
 }
 
-export const CommonObjNode = ({ children, objStroke }: IObjectiveNodeProps) => {
+export const CommonObjNode = ({ children, objStroke, hoverStyle }: IObjectiveNodeProps) => {
   return (
     <StNodesContainer>
       <StObjLabel>O</StObjLabel>
       <StObjBoxWrapper>
-        <StObjectiveBox $objStroke={objStroke}>{children}</StObjectiveBox>
+        <StObjectiveBox $objStroke={objStroke} $hoverStyle={hoverStyle}>
+          {children}
+        </StObjectiveBox>
         <StraightLine />
       </StObjBoxWrapper>
     </StNodesContainer>
@@ -38,7 +41,10 @@ export const StObjBoxWrapper = styled.div`
   justify-content: center;
 `;
 
-const StObjectiveBox = styled.div<{ $objStroke: undefined | string }>`
+const StObjectiveBox = styled.div<{
+  $objStroke: undefined | string;
+  $hoverStyle: undefined | boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,11 +55,8 @@ const StObjectiveBox = styled.div<{ $objStroke: undefined | string }>`
   background-color: ${({ theme }) => theme.colors.background};
   border-radius: 75px;
   outline: 1px solid ${({ $objStroke, theme }) => ($objStroke ? $objStroke : theme.colors.gray_500)};
+
+  &:hover {
+    background-color: ${({ theme, $hoverStyle }) => $hoverStyle && theme.colors.gray_550};
+  }
 `;
-
-// const StObjBoxText = styled.p`
-//   color: ${({ theme }) => theme.colors.gray_000};
-//   word-break: keep-all;
-
-//   ${({ theme }) => theme.fonts.body_13_medium};
-// `;

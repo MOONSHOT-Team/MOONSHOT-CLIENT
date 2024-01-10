@@ -33,7 +33,6 @@ export const PreviewTaskNodes = ({ isFirstChild, krIdx, taskIdx }: ITaskNodesTyp
                 value={taskValue}
                 handleChangeValue={(e) => setTaskValue(e.target.value)}
                 isAutoFocus={true}
-                maxLength={10}
               />
             </StPreviewTaskBox>
           ) : (

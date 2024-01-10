@@ -1,4 +1,3 @@
-import { ObjectiveNodes } from '@components/OkrTree/Nodes/CommonOkrNodes';
 import OkrTreeTemplate from '@components/OkrTree/template/OkrTreeTemplate';
 import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import { css } from '@emotion/react';
@@ -6,37 +5,30 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import PreviewOkrAlertMsg from './components/PreviewOkrAlertMsg';
-import { PreviewKrNodes } from './components/previewOkrTreeNodes/PreviewKrNodes';
+import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
+import PreviewObjNode from './components/PreviewOkrTreeNodes/PreviewObjNode';
 import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
 
 const PreviewOkr = () => {
   const { objTitle, krList } = MOCK_OKR_DATA;
   const [objValue, setObjValue] = useState(objTitle);
 
-  console.log(objValue);
-
   const handleClickSaveOkrBtn = () => {
     console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
-    c;
+  };
+
+  const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setObjValue(e.target.value);
   };
 
   return (
     // O 노드<의 위치 고정을 위해 트리 가져올때 항상 상위 요소에 높이 값(100vh or 100%), 세로 가운데 정렬해야함 !
     <section css={previewOkrContainer}>
       <PreviewOkrAlertMsg />
-
       <div css={okrTreeDiv}>
         <OkrTreeTemplate
-          ObjNodes={() => (
-            <ObjectiveNodes>
-              <textarea
-                value={objValue}
-                onChange={(e) => setObjValue(e.target.value)}
-                onKeyDown={(e) => {
-                  setObjValue(e.currentTarget.value);
-                }}
-              />
-            </ObjectiveNodes>
+          ObjNode={() => (
+            <PreviewObjNode objValue={objValue} handleChangeObjValue={handlechangeObjTextArea} />
           )}
           keyResultList={krList}
           KrNodes={PreviewKrNodes}
@@ -44,14 +36,6 @@ const PreviewOkr = () => {
         />
       </div>
 
-      <textarea
-        style={{ resize: 'none', height: 'fit-content' }}
-        value={objValue}
-        onChange={(e) => setObjValue(e.target.value)}
-        onKeyDown={(e) => {
-          setObjValue(e.currentTarget.value);
-        }}
-      />
       <StSaveOkrBtn type="button" onClick={handleClickSaveOkrBtn}>
         저장하기
       </StSaveOkrBtn>

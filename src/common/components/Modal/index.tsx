@@ -1,14 +1,16 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { PropsWithChildren } from 'react';
+import { forwardRef, PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 
-const Modal = ({ children }: PropsWithChildren) => {
+const Modal = forwardRef<HTMLDialogElement, PropsWithChildren>(({ children }, ref) => {
   return createPortal(
-    <ModalDialog open>{children}</ModalDialog>,
+    <ModalDialog ref={ref}>{children}</ModalDialog>,
     document.getElementById('modal')!,
   );
-};
+});
+
+Modal.displayName = 'Modal';
 
 export default Modal;
 

@@ -47,14 +47,32 @@ const StCheckInLogP = styled.p`
 
 const StCheckInLogScroll = styled.article`
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
   background-color: ${({ theme }) => theme.colors.transparent_white};
   border-top: 1px solid ${({ theme }) => theme.colors.transparent_white};
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.gray_650};
+    background-clip: padding-box; /* 스크롤에 여백넣기 -> background에 테두리영역 제외하여 표현 */
+    border: 3px solid transparent;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    background-size: cover;
+  }
 `;
 
 const checkInLogContainer = css`
   display: flex;
+  flex-basis: 0;
   flex-direction: column;
+  width: 100%;
 `;
 
 const StCheckInLogItemContainer = styled.li`

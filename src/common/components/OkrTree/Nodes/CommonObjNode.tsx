@@ -4,12 +4,12 @@ import React from 'react';
 
 import StraightLine from '../lines/StraightLine';
 
-interface IObjectiveNodesStroke {
+interface IObjectiveNodeProps {
   children: React.ReactNode;
   objStroke?: undefined | string;
 }
 
-export const ObjectiveNodes = ({ children, objStroke }: IObjectiveNodesStroke) => {
+export const CommonObjNode = ({ children, objStroke }: IObjectiveNodeProps) => {
   return (
     <StNodesContainer>
       <StObjLabel>O</StObjLabel>

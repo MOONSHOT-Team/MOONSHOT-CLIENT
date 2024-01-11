@@ -1,7 +1,8 @@
 import HistoryDrawer from './components/HistoryDrawer';
 
 const History = () => {
-  return <HistoryDrawer />;
+  const themeData = [{ category: 'GROWTH' }, { category: 'HEALTH' }, { category: 'ECONOMY' }];
+  return <HistoryDrawer themeData={themeData} />;
 };
 
 export default History;

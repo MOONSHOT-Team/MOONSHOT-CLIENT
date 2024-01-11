@@ -1,27 +1,54 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 import { THEME } from '../constants/theme';
 import { YEAR } from '../constants/year';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
 
-const HistoryDrawer = () => {
+const HistoryDrawer = ({ themeData }: { themeData: { category: string }[] }) => {
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+
+  const handleSelectTheme = (theme: string) => {
+    setSelectedTheme(theme === selectedTheme ? null : theme);
+  };
+
+  const handleSelectYear = (year: number) => {
+    setSelectedYear(year === selectedYear ? null : year);
+  };
+
   return (
     <HistoryAside>
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
-          {THEME.map(({ text, category }) => (
-            <ThemeButton key={category} name={text} />
-          ))}
+          {THEME.map(({ text, category }) => {
+            const isDisabled = !themeData.some((data) => data.category === category);
+            return (
+              <ThemeButton
+                key={category}
+                name={text}
+                onSelectTheme={() => handleSelectTheme(category)}
+                isActive={category === selectedTheme}
+                isDisabled={isDisabled}
+              />
+            );
+          })}
         </ul>
       </article>
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
           {YEAR.map(({ year, count }) => (
-            <YearButton key={year} year={year} count={count} />
+            <YearButton
+              key={year}
+              year={year}
+              count={count}
+              onSelectYear={() => handleSelectYear(year)}
+              isActive={year === selectedYear}
+            />
           ))}
         </ul>
       </article>

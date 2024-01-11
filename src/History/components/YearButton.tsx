@@ -1,25 +1,17 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
 
 import { CheckIcon } from '../assets/icons';
+
 interface IYearBtnProps {
-  key: number;
   year: number;
   count: number;
+  onSelectYear: () => void;
+  isActive: boolean;
 }
-const YearButton = ({ year, count }: IYearBtnProps) => {
-  const [isCheckIc, setIsCheckIc] = useState(false);
-  const handleSelectYearBtn = () => {
-    setIsCheckIc(!isCheckIc);
-  };
+const YearButton = ({ year, count, onSelectYear, isActive }: IYearBtnProps) => {
   return (
-    <YearBtn
-      onClick={() => {
-        handleSelectYearBtn();
-      }}
-      isCheckIc={isCheckIc}
-    >
-      {isCheckIc && <CheckIcon />}
+    <YearBtn onClick={onSelectYear} isActive={isActive}>
+      {isActive && <CheckIcon />}
       {year}({count})
     </YearBtn>
   );
@@ -27,7 +19,7 @@ const YearButton = ({ year, count }: IYearBtnProps) => {
 
 export default YearButton;
 
-const YearBtn = styled.button<{ isCheckIc: boolean }>`
+const YearBtn = styled.button<{ isActive: boolean }>`
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -36,7 +28,8 @@ const YearBtn = styled.button<{ isCheckIc: boolean }>`
   ${({ theme }) => theme.fonts.btn_11_medium};
 
   color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ isCheckIc, theme }) => (isCheckIc ? theme.colors.gray_550 : '#1E1E20')};
-  border: 1px solid ${({ theme }) => theme.colors.gray_350};
+  background-color: ${({ isActive, theme }) => (isActive ? theme.colors.gray_550 : '#1E1E20')};
+  border: 1px solid
+    ${({ isActive, theme }) => (isActive ? theme.colors.gray_300 : theme.colors.gray_350)};
   border-radius: 6px;
 `;

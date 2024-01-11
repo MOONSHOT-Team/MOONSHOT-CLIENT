@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
 
 interface ProgressBarProps {
-  // 현재 단계 (전체 페이지에 비례하는 단계)
   currentProgress: number;
-  // 전체 페이지 수
   maximumProgress: number;
 }
 
@@ -11,9 +9,8 @@ const ProgressBar = ({ currentProgress, maximumProgress }: ProgressBarProps) => 
   return (
     <div>
       <StProgressBarWrapper>
-        <progress value={currentProgress} max={maximumProgress}>
-          {currentProgress}%
-        </progress>
+        <progress value={currentProgress} max={maximumProgress}></progress>
+        <StCurrentProgressBox>{currentProgress}%</StCurrentProgressBox>
       </StProgressBarWrapper>
     </div>
   );
@@ -22,20 +19,30 @@ const ProgressBar = ({ currentProgress, maximumProgress }: ProgressBarProps) => 
 export default ProgressBar;
 
 const StProgressBarWrapper = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: end;
 
   & > progress {
-    width: 100%;
+    width: 38rem;
     height: 0.4rem;
-    color: ${({ theme }) => theme.colors.gray_250};
+    color: ${({ theme }) => theme.colors.gray_450};
     appearance: none;
   }
 
   & > progress::-webkit-progress-bar {
     background-color: ${({ theme }) => theme.colors.gray_450};
+    border-radius: 5px;
   }
 
   & > progress::-webkit-progress-value {
-    background-color: ${({ theme }) => theme.colors.gray_250};
+    background-color: ${({ theme }) => theme.colors.gray_200};
+    border-radius: 5px;
   }
+`;
+const StCurrentProgressBox = styled.p`
+  ${({ theme }) => theme.fonts.btn_11_medium};
+
+  color: ${({ theme }) => theme.colors.gray_300};
 `;

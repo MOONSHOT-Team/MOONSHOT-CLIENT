@@ -1,4 +1,3 @@
-import ProgressBar from '@components/ProgressBar';
 import { css } from '@emotion/react';
 import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -9,7 +8,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Header />
-      <ProgressBar currentProgress={1} maximumProgress={5} />
       <main css={mainHeight}>{children || <Outlet />}</main>
       {/* <footer>footer</footer> */}
     </>

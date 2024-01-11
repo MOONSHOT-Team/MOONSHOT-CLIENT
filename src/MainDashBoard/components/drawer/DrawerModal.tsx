@@ -2,8 +2,40 @@ import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
-import { useState } from 'react';
+import { ComponentProps, useId, useState } from 'react';
 
+interface IModalInputProps extends ComponentProps<'input'> {
+  isActive: boolean;
+  label: string;
+}
+
+/** 날짜 입력 받는 인풋창 */
+const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
+  const uniqueId = useId();
+  const isYear = props.placeholder?.length === 4;
+  const InputComponent = isYear ? YearInput : DateInput;
+
+  return (
+    <>
+      <InputComponent
+        required
+        id={uniqueId}
+        $activeExtend={isActive}
+        disabled={!isActive}
+        value={props.value}
+        defaultValue={props.defaultValue}
+        type="text"
+        placeholder={props.placeholder}
+        pattern={props.pattern}
+        title={props.title}
+        onChange={props.onChange}
+      />
+      <label htmlFor={uniqueId}>{label}</label>
+    </>
+  );
+};
+
+/** Drawer Modal 창 */
 const DrawerModal = () => {
   const [activeExtend, setActiveExtend] = useState(false);
   const [year, setYear] = useState<number | undefined>(undefined);
@@ -25,9 +57,10 @@ const DrawerModal = () => {
           </StMainText>
           <StSubText>완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.</StSubText>
           <StDateContainer>
-            <YearInput
+            <ModalInput
               required
-              $activeExtend={activeExtend}
+              label="년"
+              isActive={activeExtend}
               disabled={!activeExtend}
               value={year}
               defaultValue={2024}
@@ -39,10 +72,10 @@ const DrawerModal = () => {
                 setYear(Number(e.target.value));
               }}
             />
-            <span>년</span>
-            <DateInput
+            <ModalInput
               required
-              $activeExtend={activeExtend}
+              label="월"
+              isActive={activeExtend}
               disabled={!activeExtend}
               value={month}
               defaultValue={1}
@@ -54,10 +87,10 @@ const DrawerModal = () => {
                 setMonth(Number(e.target.value));
               }}
             />
-            <span>월</span>
-            <DateInput
+            <ModalInput
               required
-              $activeExtend={activeExtend}
+              label="일"
+              isActive={activeExtend}
               disabled={!activeExtend}
               value={day}
               defaultValue={9}
@@ -69,7 +102,6 @@ const DrawerModal = () => {
                 setDay(Number(e.target.value));
               }}
             />
-            <span>일</span>
           </StDateContainer>
           <div css={buttonStyle}>
             {!activeExtend && (

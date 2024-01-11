@@ -60,39 +60,6 @@ const DrawerModal = () => {
     // 날짜 수정 API 붙이기
   };
 
-  /** 상황에 따른 button */
-  const renderButtons = () =>
-    !activeExtend ? (
-      <>
-        <StCompleteButton
-          type="button"
-          onClick={() => {
-            // 해당 목표 히스토리로 이동시키기 + /history로 페이지 이동
-          }}
-        >
-          목표 완료하기
-        </StCompleteButton>
-        <StExtendButton type="button" onClick={() => setActiveExtend(true)}>
-          기간 연장하기
-        </StExtendButton>
-      </>
-    ) : (
-      <>
-        <StCompleteButton
-          type="button"
-          onClick={() => {
-            modalRef.current?.close();
-            setActiveExtend(false);
-          }}
-        >
-          취소하기
-        </StCompleteButton>
-        <StExtendButton type="submit" disabled={!isSave}>
-          저장하기
-        </StExtendButton>
-      </>
-    );
-
   return (
     <>
       <button style={{ color: 'red' }} type="button" onClick={handleShowModal}>
@@ -160,7 +127,44 @@ const DrawerModal = () => {
               onBlur={handleMakeTwoDigits}
             />
           </StDateContainer>
-          <div css={buttonStyle}>{renderButtons()}</div>
+          <div css={buttonStyle}>
+            {!activeExtend && (
+              <>
+                <StCompleteButton
+                  type="button"
+                  onClick={() => {
+                    // 해당 목표 히스토리로 이동시키기 + /history로 페이지 이동
+                  }}
+                >
+                  목표 완료하기
+                </StCompleteButton>
+                <StExtendButton
+                  type="button"
+                  onClick={() => {
+                    setActiveExtend(true);
+                  }}
+                >
+                  기간 연장하기
+                </StExtendButton>
+              </>
+            )}
+            {activeExtend && (
+              <>
+                <StCompleteButton
+                  type="button"
+                  onClick={() => {
+                    modalRef.current?.close();
+                    setActiveExtend(false);
+                  }}
+                >
+                  취소하기
+                </StCompleteButton>
+                <StExtendButton type="submit" disabled={!isSave}>
+                  저장하기
+                </StExtendButton>
+              </>
+            )}
+          </div>
         </form>
       </Modal>
     </>

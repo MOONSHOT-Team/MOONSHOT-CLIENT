@@ -44,12 +44,20 @@ const DrawerModal = () => {
   const [year, setYear] = useState<string | undefined>(undefined);
   const [month, setMonth] = useState<string | undefined>(undefined);
   const [day, setDay] = useState<string | undefined>(undefined);
+  const [isValidInput, setIsValidInput] = useState(true);
   const { modalRef, handleShowModal } = useModal();
 
-  const isSave = year !== '' && month !== '' && day !== '';
+  const isSave = isValidInput && year !== '' && month !== '' && day !== '';
 
   const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
+    setIsValidInput(true);
+
     const isMonth = e.target.name === 'month';
+    const maxDay = month === '02' ? 29 : ['04', '06', '09', '11'].includes(month!) ? 30 : 31;
+
+    if (day && Number(day) > maxDay) {
+      setIsValidInput(false);
+    }
 
     if (e.target.value.length === 1) {
       isMonth ? setMonth(`0${e.target.value}`) : setDay(`0${e.target.value}`);

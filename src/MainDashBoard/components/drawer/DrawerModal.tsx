@@ -22,6 +22,7 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
         id={uniqueId}
         $activeExtend={isActive}
         disabled={!isActive}
+        name={props.name}
         value={props.value}
         defaultValue={props.defaultValue}
         type="text"
@@ -48,12 +49,16 @@ const DrawerModal = () => {
   const isSave = year !== '' && month !== '' && day !== '';
 
   const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
+    const isMonth = e.target.name === 'month';
+
     if (e.target.value.length === 1) {
-      setMonth(`0${e.target.value}`);
+      isMonth ? setMonth(`0${e.target.value}`) : setDay(`0${e.target.value}`);
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    // 날짜 수정 API 붙이기
+  };
 
   return (
     <>
@@ -73,6 +78,7 @@ const DrawerModal = () => {
               label="년"
               isActive={activeExtend}
               disabled={!activeExtend}
+              name="year"
               value={year}
               defaultValue="2024"
               type="text"
@@ -89,6 +95,7 @@ const DrawerModal = () => {
               label="월"
               isActive={activeExtend}
               disabled={!activeExtend}
+              name="month"
               value={month}
               defaultValue="01"
               type="text"
@@ -106,6 +113,7 @@ const DrawerModal = () => {
               label="일"
               isActive={activeExtend}
               disabled={!activeExtend}
+              name="day"
               value={day}
               defaultValue="09"
               type="text"

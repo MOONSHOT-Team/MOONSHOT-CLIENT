@@ -18,7 +18,7 @@ const DrawerModal = () => {
         CLICK ME!!
       </button>
       <Modal ref={modalRef}>
-        <div css={modalContainer}>
+        <form css={modalForm}>
           <StMainText>
             <p>해당 목표의 달성 기간이 종료되었습니다.</p>
             <p>더 도전하기 위해 기간을 연장할까요?</p>
@@ -26,36 +26,45 @@ const DrawerModal = () => {
           <StSubText>완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.</StSubText>
           <StDateContainer>
             <YearInput
+              required
               $activeExtend={activeExtend}
               disabled={!activeExtend}
               value={year}
               defaultValue={2024}
-              type="number"
+              type="text"
               placeholder="2024"
+              pattern="^[0-9]{4}$"
+              title="숫자 4자리를 입력해 주세요."
               onChange={(e) => {
                 setYear(Number(e.target.value));
               }}
             />
             <span>년</span>
             <DateInput
+              required
               $activeExtend={activeExtend}
               disabled={!activeExtend}
               value={month}
               defaultValue={1}
-              type="number"
+              type="text"
               placeholder="01"
+              pattern="^[0-9]{2}$"
+              title="숫자 2자리를 입력해 주세요."
               onChange={(e) => {
                 setMonth(Number(e.target.value));
               }}
             />
             <span>월</span>
             <DateInput
+              required
               $activeExtend={activeExtend}
               disabled={!activeExtend}
               value={day}
               defaultValue={9}
-              type="number"
+              type="text"
               placeholder="09"
+              pattern="^[0-9]{2}$"
+              title="숫자 2자리를 입력해 주세요."
               onChange={(e) => {
                 setDay(Number(e.target.value));
               }}
@@ -95,7 +104,7 @@ const DrawerModal = () => {
                   취소하기
                 </StCompleteButton>
                 <StExtendButton
-                  type="button"
+                  type="submit"
                   onClick={() => {
                     // 목표 기한 수정 API
                   }}
@@ -105,7 +114,7 @@ const DrawerModal = () => {
               </>
             )}
           </div>
-        </div>
+        </form>
       </Modal>
     </>
   );
@@ -113,7 +122,7 @@ const DrawerModal = () => {
 
 export default DrawerModal;
 
-const modalContainer = css`
+const modalForm = css`
   display: flex;
   flex-direction: column;
   align-items: center;

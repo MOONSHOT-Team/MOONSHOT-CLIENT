@@ -3,12 +3,13 @@ import styled from '@emotion/styled';
 interface IMethodBtnProps {
   title: string;
   description: string;
+  handleClickMethodBtn: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isClicked?: boolean;
 }
 
-const MethodBtn = ({ title, description, isClicked }: IMethodBtnProps) => {
+const MethodBtn = ({ title, description, isClicked, handleClickMethodBtn }: IMethodBtnProps) => {
   return (
-    <StMethodBtn type="button" $isClicked={isClicked}>
+    <StMethodBtn id={title} type="button" $isClicked={isClicked} onClick={handleClickMethodBtn}>
       <StMethodBtnTitle>{title}</StMethodBtnTitle>
       <StMethodBtnDescription>{description}</StMethodBtnDescription>
     </StMethodBtn>
@@ -21,10 +22,12 @@ const StMethodBtn = styled.button<{ $isClicked: boolean | undefined }>`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  justify-content: flex-start;
   width: 40rem;
   height: 32rem;
   padding: 3.2rem 11.8rem 3.2rem 3rem;
   color: ${({ theme }) => theme.colors.gray_100};
+  text-align: start;
   background-color: ${({ theme, $isClicked }) =>
     $isClicked ? theme.colors.transparent_purple : theme.colors.transparent_white};
   ${({ theme, $isClicked }) => $isClicked && `outline: 1px solid ${theme.colors.main_darkpurple}`};

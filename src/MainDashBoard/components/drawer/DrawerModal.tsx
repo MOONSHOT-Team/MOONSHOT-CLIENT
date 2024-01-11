@@ -67,11 +67,13 @@ const DrawerModal = () => {
       </button>
       <Modal ref={modalRef}>
         <form css={modalForm} onSubmit={handleSubmit}>
-          <StMainText>
+          <StMainTextContainer>
             <p>해당 목표의 달성 기간이 종료되었습니다.</p>
             <p>더 도전하기 위해 기간을 연장할까요?</p>
-          </StMainText>
-          <StSubText>완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.</StSubText>
+          </StMainTextContainer>
+          <StSubTextContainer>
+            완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.
+          </StSubTextContainer>
           <StDateContainer>
             <ModalInput
               required
@@ -190,7 +192,7 @@ const buttonStyle = css`
   justify-content: center;
 `;
 
-const StMainText = styled.p`
+const StMainTextContainer = styled.div`
   ${({ theme }) => theme.fonts.title_20_semibold};
 
   display: flex;
@@ -201,7 +203,7 @@ const StMainText = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
 `;
 
-const StSubText = styled.p`
+const StSubTextContainer = styled.div`
   ${({ theme }) => theme.fonts.body_14_regular};
 
   margin-bottom: 7.4rem;

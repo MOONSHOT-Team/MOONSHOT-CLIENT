@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 import { useState } from 'react';
 
+import CelebrateMotion from './components/celebrateMotion/CelebrateMotion';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import SideSheet from './components/sideSheet/SideSheet';
 
@@ -20,6 +21,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) =
 
 const MainDashBoard = () => {
   const [showSideSheet, setShowSideSheet] = useState<boolean>(true);
+  const [showCelebrate] = useState(true);
 
   const handleShowSideSheet = () => {
     setShowSideSheet(true);
@@ -31,12 +33,20 @@ const MainDashBoard = () => {
 
   return (
     <>
-      <section css={mainDashboardStyle}>
-        <MainDashBoardDrawer />
-        <MainDashboardOKRTree onShowSideSheet={handleShowSideSheet} />
-      </section>
+      {showCelebrate ? (
+        <>
+          <CelebrateMotion />
+        </>
+      ) : (
+        <>
+          <section css={mainDashboardStyle}>
+            <MainDashBoardDrawer />
+            <MainDashboardOKRTree onShowSideSheet={handleShowSideSheet} />
+          </section>
 
-      {showSideSheet && <SideSheet isOpen={showSideSheet} onClose={handleCloseSideSheet} />}
+          {showSideSheet && <SideSheet isOpen={showSideSheet} onClose={handleCloseSideSheet} />}
+        </>
+      )}
     </>
   );
 };

@@ -2,7 +2,7 @@ import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
-import { ComponentProps, FocusEvent, useId, useState } from 'react';
+import { ComponentProps, FocusEvent, FormEvent, useId, useState } from 'react';
 
 interface IModalInputProps extends ComponentProps<'input'> {
   isActive: boolean;
@@ -64,7 +64,8 @@ const DrawerModal = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     // 날짜 수정 API 붙이기
   };
 

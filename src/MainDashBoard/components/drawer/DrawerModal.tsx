@@ -2,7 +2,7 @@ import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
-import { ComponentProps, useId, useState } from 'react';
+import { ComponentProps, FocusEvent, useId, useState } from 'react';
 
 interface IModalInputProps extends ComponentProps<'input'> {
   isActive: boolean;
@@ -45,6 +45,12 @@ const DrawerModal = () => {
   const [day, setDay] = useState<string | undefined>(undefined);
 
   const { modalRef, handleShowModal } = useModal();
+
+  const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
+    if (e.target.value.length === 1) {
+      setMonth(`0${e.target.value}`);
+    }
+  };
 
   return (
     <>
@@ -90,11 +96,7 @@ const DrawerModal = () => {
               onChange={(e) => {
                 setMonth(e.target.value);
               }}
-              onBlur={(e) => {
-                if (e.target.value.length === 1) {
-                  setMonth(`0${e.target.value}`);
-                }
-              }}
+              onBlur={handleMakeTwoDigits}
             />
             <ModalInput
               required
@@ -111,11 +113,7 @@ const DrawerModal = () => {
               onChange={(e) => {
                 setDay(e.target.value);
               }}
-              onBlur={(e) => {
-                if (e.target.value.length === 1) {
-                  setDay(`0${e.target.value}`);
-                }
-              }}
+              onBlur={handleMakeTwoDigits}
             />
           </StDateContainer>
           <div css={buttonStyle}>

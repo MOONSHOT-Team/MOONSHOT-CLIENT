@@ -25,6 +25,7 @@ const PreviewOkr = () => {
     // O 노드<의 위치 고정을 위해 트리 가져올때 항상 상위 요소에 높이 값(100vh or 100%), 세로 가운데 정렬해야함 !
     <section css={previewOkrContainer}>
       <PreviewOkrAlertMsg />
+
       <div css={okrTreeDiv}>
         <OkrTreeTemplate
           ObjNode={() => (

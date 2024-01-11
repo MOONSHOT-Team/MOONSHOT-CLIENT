@@ -21,16 +21,21 @@ export const PreviewKrNodes = ({ krIdx }: { krIdx: number }) => {
       <StKrBoxWrapper>
         <StraightLine />
         <StPreviewKrBox>
+          {/*수치 값 앞 문장*/}
           {beforeValue && (
             <DynamicInput
               value={beforeValue}
               handleChangeValue={(e) => setBeforeValue(e.target.value)}
             />
           )}
+
+          {/*수치 값*/}
           <StPreviewKrBoxValue>
             {target}
             {metric}
           </StPreviewKrBoxValue>
+
+          {/*수치 값 뒤 문장*/}
           {afterValue && (
             <DynamicInput
               value={afterValue}

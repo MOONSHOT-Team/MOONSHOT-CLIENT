@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 const CHECKINPLACEHOLDER =
   '회고 내용을 입력하세요.\n\n  • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n  • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n  • 실행 과정에 얼마나 만족하는지 알려주세요.';
@@ -29,12 +29,24 @@ const StCharacterCountContainer = styled.div`
 
 /** 진척 정도 입력하는 뷰입니다 */
 const 진척정도입력하기 = () => {
-  const [logNum, setLogNum] = useState<string>('');
+  const [logNum, setLogNum] = useState('');
+  const [logContent, setLogContent] = useState('');
+  const [isActiveBtn, setIsActiveBtn] = useState(false);
 
-  const handelInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/,/g, '');
-    const num = Number(rawValue).toLocaleString();
-    setLogNum(num);
+  useEffect(() => {
+    logNum && logContent ? setIsActiveBtn(true) : setIsActiveBtn(false);
+  }, [logNum, logContent]);
+
+  const handleLogNumChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, 9);
+    if (/^\d*$/.test(rawValue)) {
+      const num = Number(rawValue).toLocaleString();
+      setLogNum(num);
+    }
+  };
+
+  const handleLogContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setLogContent(e.target.value.slice(0, 100));
   };
   return (
     <section css={enterLayoutStyles}>
@@ -47,7 +59,7 @@ const 진척정도입력하기 = () => {
               id="enterProgress"
               placeholder="진척 정도를 확인할 수 있는 수치값을 입력하세요."
               value={logNum.toLocaleString()}
-              onChange={handelInputChange}
+              onChange={handleLogNumChange}
             />
             {logNum && <CharacterCount currentCnt={logNum.length} maxCnt={11} />}
           </div>
@@ -55,16 +67,21 @@ const 진척정도입력하기 = () => {
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
           <div css={inputBoxStyles}>
-            <StCheckInTextArea id="enterProgressCheckin" placeholder={CHECKINPLACEHOLDER} />
-            <CharacterCount currentCnt={10} maxCnt={10} />
+            <StCheckInTextArea
+              id="enterProgressCheckin"
+              placeholder={CHECKINPLACEHOLDER}
+              value={logContent}
+              onChange={handleLogContentChange}
+            />
+            {logContent && <CharacterCount currentCnt={logContent.length} maxCnt={100} />}
           </div>
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StEnterBtn isActiveBtn={false} isCancel={true}>
+        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={true}>
           취소
         </StEnterBtn>
-        <StEnterBtn isActiveBtn={true} isCancel={false}>
+        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={false}>
           체크인 완료
         </StEnterBtn>
       </footer>
@@ -215,9 +232,10 @@ const StEnterBtn = styled.button<{ isActiveBtn: boolean; isCancel: boolean }>`
   justify-content: center;
   width: 14.5rem;
   height: 3rem;
-  color: ${({ theme, isCancel }) => (isCancel ? theme.colors.gray_000 : theme.colors.gray_600)};
-  background-color: ${({ theme, isCancel }) =>
-    isCancel ? theme.colors.gray_500 : theme.colors.sub_mint};
+  color: ${({ theme, isCancel, isActiveBtn }) =>
+    isCancel ? theme.colors.gray_000 : isActiveBtn ? theme.colors.gray_600 : '#fff'};
+  background-color: ${({ theme, isCancel, isActiveBtn }) =>
+    isCancel ? theme.colors.gray_500 : isActiveBtn ? theme.colors.sub_mint : '#fff'};
   ${({ theme }) => theme.fonts.btn_14_semibold};
 
   border-radius: 6px;

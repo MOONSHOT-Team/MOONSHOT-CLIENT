@@ -2,8 +2,12 @@ import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
+import { useState } from 'react';
 
 const PreviewModal = () => {
+  const [addOkrOption] = useState<'직접 생성하기' | '가이드에 따라 설정하기'>(
+    '가이드에 따라 설정하기',
+  );
   const { modalRef, handleShowModal } = useModal();
 
   return (
@@ -13,7 +17,7 @@ const PreviewModal = () => {
       </button>
       <Modal ref={modalRef}>
         <div css={modalForm}>
-          <AddOkrOptionText>직접 생성하기</AddOkrOptionText>
+          <AddOkrOptionText>{addOkrOption}</AddOkrOptionText>
           <StMainTextContainer>
             <p>목표 저장 전 내용을 수정하고</p>
             <p>KR을 달성할 수 있는 task를 추가해보세요!</p>
@@ -25,7 +29,11 @@ const PreviewModal = () => {
           <form method="dialog">
             <StConfirmButton>확인</StConfirmButton>
           </form>
-          <ProgressBox>&nbsp;</ProgressBox>
+          <ProgressBox>
+            {addOkrOption === '직접 생성하기' && <ProgressLeftText>5/5</ProgressLeftText>}
+            {addOkrOption === '가이드에 따라 설정하기' && <ProgressLeftText>7/7</ProgressLeftText>}
+            <ProgressRightText>100%</ProgressRightText>
+          </ProgressBox>
         </div>
       </Modal>
     </>
@@ -87,43 +95,26 @@ const StConfirmButton = styled.button`
   border-radius: 6px;
 `;
 
-const ProgressBox = styled.progress`
+const ProgressBox = styled.div`
   position: relative;
   width: 38rem;
   height: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray_250};
   border-radius: 4px;
+`;
 
-  /* progress bar border radius 적용 */
-  &::-webkit-progress-bar {
-    border-radius: 4px;
-  }
+const ProgressText = styled.span`
+  ${({ theme }) => theme.fonts.btn_11_medium};
 
-  &::-webkit-progress-value {
-    border-radius: 4px;
-  }
+  position: absolute;
+  top: 1.6rem;
+  color: ${({ theme }) => theme.colors.gray_300};
+`;
 
-  &::-moz-progress-bar {
-    border-radius: 4px;
-  }
+const ProgressLeftText = styled(ProgressText)`
+  left: 0;
+`;
 
-  &::before {
-    ${({ theme }) => theme.fonts.btn_11_medium};
-
-    position: absolute;
-    top: 1.6rem;
-    left: 0;
-    color: ${({ theme }) => theme.colors.gray_300};
-    content: '5/5';
-  }
-
-  &::after {
-    ${({ theme }) => theme.fonts.btn_11_medium};
-
-    position: absolute;
-    top: 1.6rem;
-    right: 0;
-    color: ${({ theme }) => theme.colors.gray_300};
-    content: '100%';
-  }
+const ProgressRightText = styled(ProgressText)`
+  right: 0;
 `;

@@ -58,4 +58,6 @@ const StPreviewKrBoxValue = styled.p`
   color: ${({ theme }) => theme.colors.gray_400};
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  cursor: default;
 `;

@@ -91,6 +91,25 @@ const 진척정도입력하기 = () => {
 
 /** kr을 수정하는 뷰입니다 */
 const 케이알수정하기 = () => {
+  const [target, setTarget] = useState('');
+  const [logContent, setLogContent] = useState('');
+  const [isActiveBtn, setIsActiveBtn] = useState(false);
+
+  const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, 9);
+    if (/^\d*$/.test(rawValue)) {
+      const num = Number(rawValue).toLocaleString();
+      setTarget(num);
+    }
+  };
+
+  const handleLogContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setLogContent(e.target.value.slice(0, 100));
+  };
+
+  useEffect(() => {
+    target && logContent ? setIsActiveBtn(true) : setIsActiveBtn(false);
+  }, [target, logContent]);
   return (
     <section css={enterLayoutStyles}>
       <article css={enterArticleStyles}>
@@ -98,20 +117,33 @@ const 케이알수정하기 = () => {
           <StLabel htmlFor="enterProgress">kr 수정</StLabel>
           <StEditNum>
             <span>통합 가입 수</span>
-            <StEditNumInput id="enterProgress" placeholder="200,000" />
+            <StEditNumInput
+              id="enterProgress"
+              placeholder="200,000"
+              value={target}
+              onChange={handleTargetChange}
+            />
             <span>건 돌파</span>
           </StEditNum>
         </span>
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
-          <StCheckInTextArea id="enterProgressCheckin" placeholder={CHECKINPLACEHOLDER} />
+          <div css={inputBoxStyles}>
+            <StCheckInTextArea
+              id="enterProgressCheckin"
+              placeholder={CHECKINPLACEHOLDER}
+              value={logContent}
+              onChange={handleLogContentChange}
+            />
+            {logContent && <CharacterCount currentCnt={logContent.length} maxCnt={100} />}
+          </div>
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StEnterBtn isActiveBtn={false} isCancel={true}>
+        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={true}>
           취소
         </StEnterBtn>
-        <StEnterBtn isActiveBtn={true} isCancel={false}>
+        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={false}>
           체크인 완료
         </StEnterBtn>
       </footer>
@@ -233,9 +265,9 @@ const StEnterBtn = styled.button<{ isActiveBtn: boolean; isCancel: boolean }>`
   width: 14.5rem;
   height: 3rem;
   color: ${({ theme, isCancel, isActiveBtn }) =>
-    isCancel ? theme.colors.gray_000 : isActiveBtn ? theme.colors.gray_600 : '#fff'};
+    isCancel ? theme.colors.gray_000 : isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
   background-color: ${({ theme, isCancel, isActiveBtn }) =>
-    isCancel ? theme.colors.gray_500 : isActiveBtn ? theme.colors.sub_mint : '#fff'};
+    isCancel ? theme.colors.gray_500 : isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
   ${({ theme }) => theme.fonts.btn_14_semibold};
 
   border-radius: 6px;

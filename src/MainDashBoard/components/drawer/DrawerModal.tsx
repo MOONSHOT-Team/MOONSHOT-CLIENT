@@ -27,8 +27,10 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
         type="text"
         placeholder={props.placeholder}
         pattern={props.pattern}
+        maxLength={props.maxLength}
         title={props.title}
         onChange={props.onChange}
+        onBlur={props.onBlur}
       />
       <label htmlFor={uniqueId}>{label}</label>
     </>
@@ -38,9 +40,9 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
 /** Drawer Modal 창 */
 const DrawerModal = () => {
   const [activeExtend, setActiveExtend] = useState(false);
-  const [year, setYear] = useState<number | undefined>(undefined);
-  const [month, setMonth] = useState<number | undefined>(undefined);
-  const [day, setDay] = useState<number | undefined>(undefined);
+  const [year, setYear] = useState<string | undefined>(undefined);
+  const [month, setMonth] = useState<string | undefined>(undefined);
+  const [day, setDay] = useState<string | undefined>(undefined);
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -63,13 +65,14 @@ const DrawerModal = () => {
               isActive={activeExtend}
               disabled={!activeExtend}
               value={year}
-              defaultValue={2024}
+              defaultValue="2024"
               type="text"
               placeholder="2024"
-              pattern="^[0-9]{4}$"
-              title="숫자 4자리를 입력해 주세요."
+              pattern="^(19|20)\d{2}$"
+              maxLength={4}
+              title="유효한 숫자가 아닙니다."
               onChange={(e) => {
-                setYear(Number(e.target.value));
+                setYear(e.target.value);
               }}
             />
             <ModalInput
@@ -78,13 +81,19 @@ const DrawerModal = () => {
               isActive={activeExtend}
               disabled={!activeExtend}
               value={month}
-              defaultValue={1}
+              defaultValue="01"
               type="text"
               placeholder="01"
-              pattern="^[0-9]{2}$"
-              title="숫자 2자리를 입력해 주세요."
+              pattern="^(0?[1-9]|1[012])$"
+              maxLength={2}
+              title="유효한 숫자가 아닙니다."
               onChange={(e) => {
-                setMonth(Number(e.target.value));
+                setMonth(e.target.value);
+              }}
+              onBlur={(e) => {
+                if (e.target.value.length === 1) {
+                  setMonth(`0${e.target.value}`);
+                }
               }}
             />
             <ModalInput
@@ -93,13 +102,19 @@ const DrawerModal = () => {
               isActive={activeExtend}
               disabled={!activeExtend}
               value={day}
-              defaultValue={9}
+              defaultValue="09"
               type="text"
               placeholder="09"
-              pattern="^[0-9]{2}$"
-              title="숫자 2자리를 입력해 주세요."
+              pattern="^(0[1-9]|[12]\d|3[01])$"
+              maxLength={2}
+              title="유효한 숫자가 아닙니다."
               onChange={(e) => {
-                setDay(Number(e.target.value));
+                setDay(e.target.value);
+              }}
+              onBlur={(e) => {
+                if (e.target.value.length === 1) {
+                  setDay(`0${e.target.value}`);
+                }
               }}
             />
           </StDateContainer>

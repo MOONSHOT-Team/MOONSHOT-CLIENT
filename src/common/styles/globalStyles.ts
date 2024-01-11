@@ -27,6 +27,11 @@ const globalStyles = css`
     border: none;
   }
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   svg {
     cursor: pointer;
   }

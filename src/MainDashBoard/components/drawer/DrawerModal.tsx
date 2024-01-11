@@ -43,8 +43,9 @@ const DrawerModal = () => {
   const [year, setYear] = useState<string | undefined>(undefined);
   const [month, setMonth] = useState<string | undefined>(undefined);
   const [day, setDay] = useState<string | undefined>(undefined);
-
   const { modalRef, handleShowModal } = useModal();
+
+  const isSave = year !== '' && month !== '' && day !== '';
 
   const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
     if (e.target.value.length === 1) {
@@ -52,13 +53,15 @@ const DrawerModal = () => {
     }
   };
 
+  const handleSubmit = () => {};
+
   return (
     <>
       <button style={{ color: 'red' }} type="button" onClick={handleShowModal}>
         CLICK ME!!
       </button>
       <Modal ref={modalRef}>
-        <form css={modalForm}>
+        <form css={modalForm} onSubmit={handleSubmit}>
           <StMainText>
             <p>해당 목표의 달성 기간이 종료되었습니다.</p>
             <p>더 도전하기 위해 기간을 연장할까요?</p>
@@ -148,12 +151,7 @@ const DrawerModal = () => {
                 >
                   취소하기
                 </StCompleteButton>
-                <StExtendButton
-                  type="submit"
-                  onClick={() => {
-                    // 목표 기한 수정 API
-                  }}
-                >
+                <StExtendButton type="submit" disabled={!isSave}>
                   저장하기
                 </StExtendButton>
               </>

@@ -18,7 +18,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
   const [isCheckinView, setIsCheckinView] = useState(false);
 
   const handleCheckInView = () => {
-    setIsCheckinView(true);
+    setIsCheckinView(!isCheckinView);
   };
 
   return (
@@ -47,7 +47,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
         </section>
 
         <section css={StKRDetailLowerStyles}>
-          {isCheckinView && <KrCheckIn />}
+          {isCheckinView && <KrCheckIn onCancle={handleCheckInView} />}
           {!isCheckinView && (
             <>
               <StKrCheckInBtn type="button" onClick={handleCheckInView}>

@@ -44,8 +44,12 @@ const CheckInInput = ({
   );
 };
 
+interface IKrCheckInProps {
+  onCancle: () => void;
+}
+
 /** 진척 정도 입력하는 뷰입니다 */
-export const 진척정도입력하기 = () => {
+export const 진척정도입력하기 = ({ onCancle }: IKrCheckInProps) => {
   const [logNum, setLogNum] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
@@ -103,7 +107,7 @@ export const 진척정도입력하기 = () => {
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StCnclBtn>취소</StCnclBtn>
+        <StCnclBtn onClick={onCancle}>취소</StCnclBtn>
         <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
       </footer>
     </section>
@@ -111,7 +115,7 @@ export const 진척정도입력하기 = () => {
 };
 
 /** kr을 수정하는 뷰입니다 */
-export const KR수정하기 = () => {
+export const KR수정하기 = ({ onCancle }: IKrCheckInProps) => {
   const [target, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
@@ -170,7 +174,7 @@ export const KR수정하기 = () => {
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StCnclBtn>취소</StCnclBtn>
+        <StCnclBtn onClick={onCancle}>취소</StCnclBtn>
         <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
       </footer>
     </section>

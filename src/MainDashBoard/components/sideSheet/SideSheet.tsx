@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { IcClose } from '../../assets/icons';
 import { KRDETAILDATA } from '../../constants/KrDetailData';
 import CheckInLogs from './CheckInLogs';
-import KrCheckIn from './KrCheckIn';
+import KrCheckIn from './krCheckIn/KrCheckIn';
 import KRPeriodSelect from './KRPeriodSelect';
 import KrStatus from './KrStatus';
 

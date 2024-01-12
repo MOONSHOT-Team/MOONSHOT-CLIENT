@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { limitMaxLength } from '@utils/limitMaxLength';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 const CHECKINPLACEHOLDER =
@@ -10,7 +11,7 @@ interface ICharacterCountProps {
   maxCnt: number;
 }
 
-/** 글자 수 띄워주는 컴포 */
+/** 글자 수 띄워주는 컴포넌트 입니다*/
 const CharacterCount = ({ currentCnt, maxCnt }: ICharacterCountProps) => {
   return (
     <StCharacterCountContainer>
@@ -19,18 +20,38 @@ const CharacterCount = ({ currentCnt, maxCnt }: ICharacterCountProps) => {
   );
 };
 
-const StCharacterCountContainer = styled.div`
-  position: absolute;
-  right: 1rem;
-  bottom: 1.2rem;
-  color: ${({ theme }) => theme.colors.gray_350};
-  ${({ theme }) => theme.fonts.body_12_regular};
-`;
+interface ICheckInInputProps {
+  logContent: string;
+  handleLogContentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  logContentCount: number;
+}
+/** 체크인 회고 Input 컴포넌트입니다*/
+const CheckInInput = ({
+  logContent,
+  handleLogContentChange,
+  logContentCount,
+}: ICheckInInputProps) => {
+  return (
+    <span css={enterInputBoxStyles}>
+      <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
+      <div css={inputBoxStyles}>
+        <StCheckInTextArea
+          id="enterProgressCheckin"
+          placeholder={CHECKINPLACEHOLDER}
+          value={logContent}
+          onChange={handleLogContentChange}
+        />
+        {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={100} />}
+      </div>
+    </span>
+  );
+};
 
 /** 진척 정도 입력하는 뷰입니다 */
-const 진척정도입력하기 = () => {
+export const 진척정도입력하기 = () => {
   const [logNum, setLogNum] = useState('');
   const [logContent, setLogContent] = useState('');
+  const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
 
   useEffect(() => {
@@ -38,7 +59,7 @@ const 진척정도입력하기 = () => {
   }, [logNum, logContent]);
 
   const handleLogNumChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/,/g, '').slice(0, 9);
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, 11);
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
       setLogNum(num);
@@ -46,7 +67,15 @@ const 진척정도입력하기 = () => {
   };
 
   const handleLogContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setLogContent(e.target.value.slice(0, 100));
+    if (e.target.value === '') {
+      setLogContentCount(0);
+      setLogContent('');
+    }
+    const lengthCount = limitMaxLength(e, 100);
+
+    if (!lengthCount) return;
+    setLogContentCount(lengthCount);
+    setLogContent(e.target.value);
   };
   return (
     <section css={enterLayoutStyles}>
@@ -61,21 +90,13 @@ const 진척정도입력하기 = () => {
               value={logNum.toLocaleString()}
               onChange={handleLogNumChange}
             />
-            {logNum && <CharacterCount currentCnt={logNum.length} maxCnt={11} />}
           </div>
         </span>
-        <span css={enterInputBoxStyles}>
-          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
-          <div css={inputBoxStyles}>
-            <StCheckInTextArea
-              id="enterProgressCheckin"
-              placeholder={CHECKINPLACEHOLDER}
-              value={logContent}
-              onChange={handleLogContentChange}
-            />
-            {logContent && <CharacterCount currentCnt={logContent.length} maxCnt={100} />}
-          </div>
-        </span>
+        <CheckInInput
+          logContent={logContent}
+          handleLogContentChange={handleLogContentChange}
+          logContentCount={logContentCount}
+        />
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn>취소</StCnclBtn>
@@ -86,13 +107,14 @@ const 진척정도입력하기 = () => {
 };
 
 /** kr을 수정하는 뷰입니다 */
-const KR수정하기 = () => {
+export const KR수정하기 = () => {
   const [target, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
+  const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/,/g, '').slice(0, 9);
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, 11);
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
       setTarget(num);
@@ -100,7 +122,15 @@ const KR수정하기 = () => {
   };
 
   const handleLogContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setLogContent(e.target.value.slice(0, 100));
+    if (e.target.value === '') {
+      setLogContentCount(0);
+      setLogContent('');
+    }
+    const lengthCount = limitMaxLength(e, 100);
+
+    if (!lengthCount) return;
+    setLogContentCount(lengthCount);
+    setLogContent(e.target.value);
   };
 
   useEffect(() => {
@@ -122,18 +152,11 @@ const KR수정하기 = () => {
             <span>건 돌파</span>
           </StEditNum>
         </span>
-        <span css={enterInputBoxStyles}>
-          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
-          <div css={inputBoxStyles}>
-            <StCheckInTextArea
-              id="enterProgressCheckin"
-              placeholder={CHECKINPLACEHOLDER}
-              value={logContent}
-              onChange={handleLogContentChange}
-            />
-            {logContent && <CharacterCount currentCnt={logContent.length} maxCnt={100} />}
-          </div>
-        </span>
+        <CheckInInput
+          logContent={logContent}
+          handleLogContentChange={handleLogContentChange}
+          logContentCount={logContentCount}
+        />
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn>취소</StCnclBtn>
@@ -142,88 +165,6 @@ const KR수정하기 = () => {
     </section>
   );
 };
-
-/** 체크인을 할 수 있는 뷰 입니다 (진척정도입력, kr수정) */
-const KrCheckIn = () => {
-  const [isActive, setIsActive] = useState('진척 정도 입력하기');
-
-  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsActive(e.target.value);
-  };
-  return (
-    <KrCheckInContainer>
-      <div css={checkRadioContainerStyles}>
-        <StRadioLabel htmlFor="krCheckInput">
-          <StRadioInput
-            id="krCheckInput"
-            type="radio"
-            name="krCheck"
-            value={'진척 정도 입력하기'}
-            defaultChecked
-            onChange={handleRadioChange}
-          />
-          <StRadioSpan>진척 정도 입력하기</StRadioSpan>
-        </StRadioLabel>
-        <StRadioLabel htmlFor="krCheckEdit">
-          <StRadioInput
-            id="krCheckEdit"
-            type="radio"
-            name="krCheck"
-            value={'kr 수정하기'}
-            onChange={handleRadioChange}
-          />
-          <StRadioSpan>KR 수정하기</StRadioSpan>
-        </StRadioLabel>
-      </div>
-      {isActive === '진척 정도 입력하기' ? <진척정도입력하기 /> : <KR수정하기 />}
-    </KrCheckInContainer>
-  );
-};
-
-export default KrCheckIn;
-
-const KrCheckInContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.gray_550};
-`;
-
-const checkRadioContainerStyles = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
-
-const StRadioLabel = styled.label`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  height: 4.7rem;
-  cursor: pointer;
-`;
-
-const StRadioInput = styled.input`
-  display: none;
-`;
-const StRadioSpan = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${({ theme }) => theme.fonts.body_12_medium};
-
-  width: 100%;
-  height: 100%;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.transparent_white};
-  ${StRadioInput}:checked + & {
-    color: ${({ theme }) => theme.colors.sub_mint};
-    border-bottom: 2px solid ${({ theme }) => theme.colors.sub_mint};
-  }
-`;
 
 const enterLayoutStyles = css`
   display: flex;
@@ -352,4 +293,12 @@ const StEditNumInput = styled.input`
 
 const inputBoxStyles = css`
   position: relative;
+`;
+
+const StCharacterCountContainer = styled.div`
+  position: absolute;
+  right: 1rem;
+  bottom: 1.2rem;
+  color: ${({ theme }) => theme.colors.gray_350};
+  ${({ theme }) => theme.fonts.body_12_regular};
 `;

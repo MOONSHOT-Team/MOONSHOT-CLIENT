@@ -4,6 +4,7 @@ import MainLayout from '@components/layout/MainLayout';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AddOkr from './AddOkr';
+import AuthKakao from './Auth';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
@@ -63,11 +64,11 @@ const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: '/redirect',
+    path: '/auth',
     children: [
       {
         path: 'kakao',
-        element: <SignIn />,
+        element: <AuthKakao />,
       },
     ],
   },

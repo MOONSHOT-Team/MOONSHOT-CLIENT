@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Redirect = () => {
+const AuthKakao = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
 
@@ -16,4 +16,4 @@ const Redirect = () => {
   return <div>{kakaoCode}</div>;
 };
 
-export default Redirect;
+export default AuthKakao;

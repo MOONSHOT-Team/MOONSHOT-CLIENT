@@ -15,7 +15,7 @@ interface ISideSheetProps {
 }
 
 const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
-  const [isCheckinView, setIsCheckinView] = useState(true);
+  const [isCheckinView, setIsCheckinView] = useState(false);
 
   const handleCheckInView = () => {
     setIsCheckinView(true);
@@ -47,9 +47,8 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
         </section>
 
         <section css={StKRDetailLowerStyles}>
-          {isCheckinView ? (
-            <KrCheckIn />
-          ) : (
+          {isCheckinView && <KrCheckIn />}
+          {!isCheckinView && (
             <>
               <StKrCheckInBtn type="button" onClick={handleCheckInView}>
                 체크인
@@ -137,10 +136,10 @@ const StKrDetailLabel = styled.p`
 
 const StKRDetailLowerStyles = css`
   display: flex;
-  flex: 1;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: calc(100% - 20rem);
 `;
 
 const StKrCheckInBtn = styled.button`

@@ -57,7 +57,7 @@ const StCheckInLogScroll = styled.article`
 
   &::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.colors.gray_650};
-    background-clip: padding-box; /* 스크롤에 여백넣기 -> background에 테두리영역 제외하여 표현 */
+    background-clip: padding-box;
     border: 4px solid transparent;
     border-radius: 50px;
   }

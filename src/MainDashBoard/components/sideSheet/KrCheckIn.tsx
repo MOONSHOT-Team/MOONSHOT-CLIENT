@@ -78,19 +78,15 @@ const 진척정도입력하기 = () => {
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={true}>
-          취소
-        </StEnterBtn>
-        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={false}>
-          체크인 완료
-        </StEnterBtn>
+        <StCnclBtn>취소</StCnclBtn>
+        <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
       </footer>
     </section>
   );
 };
 
 /** kr을 수정하는 뷰입니다 */
-const 케이알수정하기 = () => {
+const KR수정하기 = () => {
   const [target, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
   const [isActiveBtn, setIsActiveBtn] = useState(false);
@@ -140,12 +136,8 @@ const 케이알수정하기 = () => {
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={true}>
-          취소
-        </StEnterBtn>
-        <StEnterBtn isActiveBtn={isActiveBtn} isCancel={false}>
-          체크인 완료
-        </StEnterBtn>
+        <StCnclBtn>취소</StCnclBtn>
+        <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
       </footer>
     </section>
   );
@@ -161,7 +153,7 @@ const KrCheckIn = () => {
   return (
     <KrCheckInContainer>
       <div css={checkRadioContainerStyles}>
-        <StRadiodLabel htmlFor="krCheckInput">
+        <StRadioLabel htmlFor="krCheckInput">
           <StRadioInput
             id="krCheckInput"
             type="radio"
@@ -169,21 +161,21 @@ const KrCheckIn = () => {
             value={'진척 정도 입력하기'}
             defaultChecked
             onChange={handleRadioChange}
-          ></StRadioInput>
-          <span>진척 정도 입력하기</span>
-        </StRadiodLabel>
-        <StRadiodLabel htmlFor="krCheckEdit">
+          />
+          <StRadioSpan>진척 정도 입력하기</StRadioSpan>
+        </StRadioLabel>
+        <StRadioLabel htmlFor="krCheckEdit">
           <StRadioInput
             id="krCheckEdit"
             type="radio"
             name="krCheck"
             value={'kr 수정하기'}
             onChange={handleRadioChange}
-          ></StRadioInput>
-          <span>kr 수정하기</span>
-        </StRadiodLabel>
+          />
+          <StRadioSpan>KR 수정하기</StRadioSpan>
+        </StRadioLabel>
       </div>
-      {isActive === '진척 정도 입력하기' ? <진척정도입력하기 /> : <케이알수정하기 />}
+      {isActive === '진척 정도 입력하기' ? <진척정도입력하기 /> : <KR수정하기 />}
     </KrCheckInContainer>
   );
 };
@@ -206,7 +198,7 @@ const checkRadioContainerStyles = css`
   width: 100%;
 `;
 
-const StRadiodLabel = styled.label`
+const StRadioLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,20 +209,17 @@ const StRadiodLabel = styled.label`
 
 const StRadioInput = styled.input`
   display: none;
+`;
+const StRadioSpan = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.fonts.body_12_medium};
 
-  + span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    ${({ theme }) => theme.fonts.body_12_medium};
-
-    width: 100%;
-    height: 100%;
-    border-bottom: 2px solid ${({ theme }) => theme.colors.transparent_white};
-  }
-
-  &:checked + span {
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.transparent_white};
+  ${StRadioInput}:checked + & {
     color: ${({ theme }) => theme.colors.sub_mint};
     border-bottom: 2px solid ${({ theme }) => theme.colors.sub_mint};
   }
@@ -258,19 +247,23 @@ const enterFooterStyles = css`
   margin-top: 5rem;
 `;
 
-const StEnterBtn = styled.button<{ isActiveBtn: boolean; isCancel: boolean }>`
+const StCnclBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 14.5rem;
   height: 3rem;
-  color: ${({ theme, isCancel, isActiveBtn }) =>
-    isCancel ? theme.colors.gray_000 : isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
-  background-color: ${({ theme, isCancel, isActiveBtn }) =>
-    isCancel ? theme.colors.gray_500 : isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
-  ${({ theme }) => theme.fonts.btn_14_semibold};
-
+  color: ${({ theme }) => theme.colors.gray_000};
+  background-color: ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
+  ${({ theme }) => theme.fonts.btn_14_semibold};
+`;
+
+const StEnterBtn1 = styled(StCnclBtn)<{ isActiveBtn: boolean }>`
+  color: ${({ theme, isActiveBtn }) =>
+    isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
+  background-color: ${({ theme, isActiveBtn }) =>
+    isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
 `;
 
 const StLabel = styled.label`

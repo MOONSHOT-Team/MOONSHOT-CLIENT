@@ -1,4 +1,3 @@
-import ProgressBar from '@components/ProgressBar';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -6,6 +5,7 @@ import { useState } from 'react';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import { GOAL_DATA } from '../../constants/GOAL_DATA';
 import { IobjListTypes } from '../../type/goalItemTypes';
+import MainDashProgressBar from './MainDashProgressBar';
 
 const GoalItem = ({ id, title, content, category, date, progress }: IobjListTypes) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
@@ -37,7 +37,7 @@ const GoalItem = ({ id, title, content, category, date, progress }: IobjListType
         {isDetailOpen && <StGoalItemContent>{content}</StGoalItemContent>}
       </GoalItemContainer>
       <footer css={ProgressBarContainer}>
-        <StyledProgressBar
+        <MainDashProgressBar
           currentProgress={progress}
           progressBarColor={'#5B5B5B'}
           progressValueColor={'#C2C2C2'}
@@ -52,6 +52,7 @@ const GoalItem = ({ id, title, content, category, date, progress }: IobjListType
 const GoalItemli = styled.li`
   position: relative;
   width: 18.8rem;
+  overflow: hidden;
   background-color: ${({ theme }) => theme.colors.gray_550};
   border-radius: 6px;
 `;
@@ -106,16 +107,6 @@ const ProgressBarContainer = css`
   position: absolute;
   bottom: 0;
   width: 100%;
-`;
-
-const StyledProgressBar = styled(ProgressBar)`
-  & > div > div > progress::-webkit-progress-bar {
-    border-radius: 0;
-  }
-
-  & > div > div > progress::-webkit-progress-value {
-    border-radius: 0;
-  }
 `;
 
 const MainDashBoardDrawer = () => {

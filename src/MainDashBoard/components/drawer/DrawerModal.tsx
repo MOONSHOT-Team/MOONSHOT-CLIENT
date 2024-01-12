@@ -14,8 +14,7 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
   const uniqueId = useId();
   const isYear = props.placeholder?.length === 4;
   const InputComponent = isYear ? YearInput : DateInput;
-  const { name, value, defaultValue, placeholder, pattern, maxLength, title, onChange, onBlur } =
-    props;
+  const { name, value, defaultValue, placeholder, maxLength, onChange, onBlur } = props;
 
   return (
     <>
@@ -29,9 +28,7 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
         defaultValue={defaultValue}
         type="text"
         placeholder={placeholder}
-        pattern={pattern}
         maxLength={maxLength}
-        title={title}
         onChange={onChange}
         onBlur={onBlur}
       />
@@ -71,7 +68,6 @@ const dateReducer = (state: dateStateType, action: actionType): dateStateType =>
 const DrawerModal = () => {
   const [activeExtend, setActiveExtend] = useState(false);
   const [isValidInput, setIsValidInput] = useState(true);
-  const [isError] = useState(true);
   const [dateState, dispatchDate] = useReducer(dateReducer, {
     year: '2024',
     month: '01',
@@ -103,6 +99,18 @@ const DrawerModal = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // 날짜 수정 API 붙이기
+
+    year.length === 4 &&
+    month.length === 2 &&
+    day.length === 2 &&
+    Number(year) > 1900 &&
+    Number(year) < 2100 &&
+    Number(month) > 0 &&
+    Number(month) < 13 &&
+    Number(day) > 0 &&
+    Number(day) < 32
+      ? setIsValidInput(true)
+      : setIsValidInput(false);
   };
 
   return (
@@ -130,11 +138,10 @@ const DrawerModal = () => {
               defaultValue="2024"
               type="text"
               placeholder="2024"
-              pattern="^(19|20)\d{2}$"
               maxLength={4}
-              title="유효한 숫자가 아닙니다."
               onChange={(e) => {
                 dispatchDate({ type: 'INPUT_YEAR', value: e.target.value });
+                setIsValidInput(true);
               }}
             />
             <ModalInput
@@ -147,11 +154,10 @@ const DrawerModal = () => {
               defaultValue="01"
               type="text"
               placeholder="01"
-              pattern="^(0?[1-9]|1[012])$"
               maxLength={2}
-              title="유효한 숫자가 아닙니다."
               onChange={(e) => {
                 dispatchDate({ type: 'INPUT_MONTH', value: e.target.value });
+                setIsValidInput(true);
               }}
               onBlur={handleMakeTwoDigits}
             />
@@ -165,15 +171,14 @@ const DrawerModal = () => {
               defaultValue="09"
               type="text"
               placeholder="09"
-              pattern="^(0[1-9]|[12]\d|3[01])$"
               maxLength={2}
-              title="유효한 숫자가 아닙니다."
               onChange={(e) => {
                 dispatchDate({ type: 'INPUT_DAY', value: e.target.value });
+                setIsValidInput(true);
               }}
               onBlur={handleMakeTwoDigits}
             />
-            {isError && <ErrorText>올바른 날짜를 입력해 주세요.</ErrorText>}
+            {!isValidInput && <ErrorText>올바른 날짜를 입력해 주세요.</ErrorText>}
           </StDateContainer>
           <div css={buttonStyle}>
             {!activeExtend && (

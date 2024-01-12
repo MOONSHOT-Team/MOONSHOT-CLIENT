@@ -71,6 +71,7 @@ const dateReducer = (state: dateStateType, action: actionType): dateStateType =>
 const DrawerModal = () => {
   const [activeExtend, setActiveExtend] = useState(false);
   const [isValidInput, setIsValidInput] = useState(true);
+  const [isError] = useState(true);
   const [dateState, dispatchDate] = useReducer(dateReducer, {
     year: '2024',
     month: '01',
@@ -81,7 +82,6 @@ const DrawerModal = () => {
   const { modalRef, handleShowModal } = useModal();
 
   const isSave = isValidInput && year !== '' && month !== '' && day !== '';
-  console.log(year, month, day, isSave);
 
   const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
     setIsValidInput(true);
@@ -173,6 +173,7 @@ const DrawerModal = () => {
               }}
               onBlur={handleMakeTwoDigits}
             />
+            {isError && <ErrorText>올바른 날짜를 입력해 주세요.</ErrorText>}
           </StDateContainer>
           <div css={buttonStyle}>
             {!activeExtend && (
@@ -258,6 +259,7 @@ const StSubTextContainer = styled.div`
 const StDateContainer = styled.div`
   ${({ theme }) => theme.fonts.title_20_semibold};
 
+  position: relative;
   display: flex;
   gap: 0.6rem;
   align-items: center;
@@ -297,6 +299,18 @@ const StModalButton = styled.button`
   height: 3.4rem;
   color: ${({ theme }) => theme.colors.gray_000};
   border-radius: 6px;
+`;
+
+const ErrorText = styled.p`
+  ${({ theme }) => theme.fonts.btn_14_medium};
+
+  position: absolute;
+  top: 6.2rem;
+  left: 50%;
+  width: 16rem;
+  height: 1.4rem;
+  color: ${({ theme }) => theme.colors.sub_lightred};
+  transform: translateX(-50%);
 `;
 
 const StCompleteButton = styled(StModalButton)`

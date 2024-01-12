@@ -64,13 +64,8 @@ const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: '/auth',
-    children: [
-      {
-        path: 'kakao',
-        element: <AuthKakao />,
-      },
-    ],
+    path: '/login/oauth2/code/kakao',
+    element: <AuthKakao />,
   },
 ]);
 

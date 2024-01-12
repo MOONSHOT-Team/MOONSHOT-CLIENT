@@ -1,19 +1,21 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { fetcherPost } from '@apis/fetcher';
+import useSWR from 'swr';
 
 const AuthKakao = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate('/');
-    }, 3000);
+  const { data, error, isLoading } = useSWR('http://prod.moonshotyou.com/v1/user/login', (url) =>
+    fetcherPost(url, kakaoCode!),
+  );
 
-    return () => clearTimeout(timer);
-  });
-
-  return <div>{kakaoCode}</div>;
+  return (
+    <>
+      <p>{kakaoCode}</p>
+      {isLoading && <p style={{ fontSize: '12rem' }}>loading,,,</p>}
+      {error && <p style={{ fontSize: '12rem' }}>Error,,,</p>}
+      {data && <p style={{ fontSize: '12rem' }}>Success!!!</p>}
+    </>
+  );
 };
 
 export default AuthKakao;

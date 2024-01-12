@@ -3,6 +3,8 @@ export interface ITaskTypes {
   idx: number;
 }
 
-export interface ITaskNodesTypes extends ITaskTypes {
+export interface ITaskNodesTypes {
   isFirstChild?: boolean;
+  krIdx: number;
+  taskIdx: number;
 }

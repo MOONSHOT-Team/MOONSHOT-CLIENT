@@ -1,8 +1,7 @@
-import instance from '@apis/instance';
 import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useGoogleLogin } from '@react-oauth/google';
+import { Link } from 'react-router-dom';
 
 import imgGoogleLogin from './assets/images/imgGoogleLogin.png';
 import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
@@ -18,25 +17,6 @@ const SignIn = () => {
     window.location.href = kakaoURL;
   };
 
-  const googleSocialLogin = useGoogleLogin({
-    scope: 'email profile',
-    flow: 'auth-code',
-    onSuccess: async ({ code }) => {
-      const response = await instance.post(
-        'v1/user/login',
-        {
-          socialPlatform: 'GOOGLE',
-        },
-        {
-          headers: {
-            Authorization: code,
-          },
-        },
-      );
-      return response;
-    },
-  });
-
   return (
     <div css={signInContainer}>
       <section css={loginSection}>
@@ -49,9 +29,9 @@ const SignIn = () => {
         <button type="button" onClick={handleLogin}>
           <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />
         </button>
-        <button type="button" onClick={googleSocialLogin}>
+        <Link to="https://prod.moonshotyou.com/v1/user/googleLogin">
           <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
-        </button>
+        </Link>
       </section>
       <section css={brandingSection}>
         image / gif 브랜딩 관련 소스 or 프로토타입 소스가 들어갈 예정. 합숙 1주차 내 전달

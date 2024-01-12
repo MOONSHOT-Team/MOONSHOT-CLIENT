@@ -21,7 +21,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) =
 
 const MainDashBoard = () => {
   const [showSideSheet, setShowSideSheet] = useState<boolean>(true);
-  const [showCelebrate] = useState(true);
+  const [showCelebrate] = useState(false); //축하 모션 보이는 여부 플래그
 
   const handleShowSideSheet = () => {
     setShowSideSheet(true);

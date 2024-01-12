@@ -6,6 +6,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
+import My from './My';
 import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'history',
         element: <History />,
+      },
+      {
+        path: 'my',
+        element: <My />,
       },
       {
         path: 'social',

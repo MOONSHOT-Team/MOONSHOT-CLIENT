@@ -95,7 +95,7 @@ const fonts = {
     size: 1.4,
     fontStyle: 'normal',
     weight: 400,
-    lineHeight: 2,
+    lineHeight: 2.0,
   }),
   body_13_medium: FONT({
     family: PRETENDARDFAMILY,

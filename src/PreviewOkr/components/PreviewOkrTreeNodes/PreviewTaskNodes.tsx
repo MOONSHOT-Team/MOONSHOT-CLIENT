@@ -1,5 +1,5 @@
-import NodeLines from '@components/okrTree/lines/NodeLines';
-import StraightLine from '@components/okrTree/lines/StraightLine';
+import NodeLines from '@components/OkrTree/lines/NodeLines';
+import StraightLine from '@components/OkrTree/lines/StraightLine';
 import {
   StNodesContainer,
   StTaskBox,

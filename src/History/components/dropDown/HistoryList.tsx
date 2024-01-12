@@ -16,17 +16,32 @@ const HistoryList = () => {
           <StDropDownCategory>생산성</StDropDownCategory>
           <StDropDownObject>팔로워 1000명을 달성한다</StDropDownObject>
         </StDropDownButtonWrapper>
-        <div css={isProgressBar}>프로그래스 바 입니다.</div>
+        <div css={OProgressBar}>프로그래스 바 입니다.</div>
 
         <StDropDownPeriod>2023.09.01 - 2023.12.25</StDropDownPeriod>
       </StDropDownButtonContainer>
       <HistoryDropDown visibility={dropdownVisibility}>
-        <ul>
-          <li>item 1</li>
-          <li>item 2</li>
-          <li>item 3</li>
-          <li>item 4</li>
-        </ul>
+        <StDropDownKeyResult>
+          <StKeyResultWrapper>
+            <StKeyResult>KR 1</StKeyResult>
+            <StkeyResultText>방문자 지속시간 100% 상승</StkeyResultText>
+          </StKeyResultWrapper>
+          <div css={KrProgressBar}> 프로그래스 바 입니다.</div>
+        </StDropDownKeyResult>
+        <StDropDownKeyResult>
+          <StKeyResultWrapper>
+            <StKeyResult>KR 2</StKeyResult>
+            <StkeyResultText>방문자 지속시간 100% 상승</StkeyResultText>
+          </StKeyResultWrapper>
+          <div css={KrProgressBar}> 프로그래스 바 입니다.</div>
+        </StDropDownKeyResult>
+        <StDropDownKeyResult>
+          <StKeyResultWrapper>
+            <StKeyResult>KR 3</StKeyResult>
+            <StkeyResultText>방문자 지속시간 100% 상승</StkeyResultText>
+          </StKeyResultWrapper>
+          <div css={KrProgressBar}> 프로그래스 바 입니다.</div>
+        </StDropDownKeyResult>
       </HistoryDropDown>
     </div>
   );
@@ -36,6 +51,7 @@ export default HistoryList;
 
 const StDropDownButtonContainer = styled.button`
   display: flex;
+  gap: 1.6rem;
   align-items: center;
   width: 105.8rem;
   height: 6rem;
@@ -68,13 +84,51 @@ const StDropDownObject = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
 `;
 
-const isProgressBar = css`
+const OProgressBar = css`
   width: 29.8rem;
   margin: 0 2.5rem 0 0.4rem;
 `;
 
 const StDropDownPeriod = styled.p`
+  width: 15.5rem;
   ${({ theme }) => theme.fonts.body_12_regular};
 
   color: ${({ theme }) => theme.colors.gray_250};
+`;
+
+const StDropDownKeyResult = styled.li`
+  display: flex;
+  align-items: center;
+  width: 105.8rem;
+  height: 5.2rem;
+  list-style-type: none;
+  background: ${({ theme }) => theme.colors.gray_550};
+  border-radius: 6px;
+`;
+
+const StKeyResultWrapper = styled.div`
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+  width: 44.6rem;
+  padding-left: 2rem;
+`;
+
+const StKeyResult = styled.p`
+  display: flex;
+  align-items: center;
+  ${({ theme }) => theme.fonts.btn_11_medium};
+
+  color: ${({ theme }) => theme.colors.gray_000};
+`;
+
+const StkeyResultText = styled.p`
+  ${({ theme }) => theme.fonts.body_14_regular};
+
+  color: ${({ theme }) => theme.colors.gray_000};
+`;
+
+const KrProgressBar = css`
+  width: 27.6rem;
+  margin-left: 11rem;
 `;

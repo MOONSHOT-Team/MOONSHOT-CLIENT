@@ -8,6 +8,9 @@ const HistoryDropDown = (props: { visibility: boolean; children: React.ReactNode
 };
 
 export default HistoryDropDown;
-const StArticle = styled.article`
-  color: ${({ theme }) => theme.colors.gray_000};
+const StArticle = styled.li`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-top: 1.6rem;
 `;

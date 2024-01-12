@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
+import { GOAL_CATEGORY } from '../../constants/GOAL_CATEGORY';
 import { GOAL_DATA } from '../../constants/GOAL_DATA';
 import { IobjListTypes } from '../../type/goalItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
@@ -14,12 +15,15 @@ const GoalItem = ({ id, title, content, category, date, progress }: IobjListType
   const handleOnClick = () => {
     setIsDetailOpen(!isDetailOpen);
   };
+
+  const color = GOAL_CATEGORY.find((item) => item.category === category).color;
+
   return (
     <GoalItemli>
       <GoalItemContainer>
         <header css={goalItemHeader}>
           <span css={goalItemCategoryBox}>
-            <IcEllipse />
+            <StyledIcEllipse color={color} />
             <StGoalItemCategory>{category}</StGoalItemCategory>
           </span>
           <StGoalItemDate>{date}</StGoalItemDate>
@@ -103,6 +107,12 @@ const StGoalItemContent = styled.p`
   ${({ theme }) => theme.fonts.body_10_regular};
 `;
 
+const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`
+  & > circle {
+    fill: ${({ color }) => color};
+  }
+`;
+
 const ProgressBarContainer = css`
   position: absolute;
   bottom: 0;
@@ -110,6 +120,7 @@ const ProgressBarContainer = css`
 `;
 
 const MainDashBoardDrawer = () => {
+  // const [currentGoalId, setCurrentGoalId] = useState(0);
   console.log(GOAL_DATA);
   const { objList } = GOAL_DATA;
   console.log(objList);

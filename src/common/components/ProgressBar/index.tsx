@@ -35,7 +35,10 @@ const ProgressBar = ({
 
 export default ProgressBar;
 
-const StProgressBarWrapper = styled.div<{ progressBarColor: string; progressValueColor: string }>`
+export const StProgressBarWrapper = styled.div<{
+  progressBarColor: string;
+  progressValueColor: string;
+}>`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;

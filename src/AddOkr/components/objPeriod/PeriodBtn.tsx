@@ -5,14 +5,22 @@ import { IcCalender } from '../../assets/icons';
 interface IPeriodBtnProps {
   period: string;
   isClicked: boolean;
-  isDate?: boolean;
+  isDate: boolean;
 }
 
 const PeriodBtn = ({ period, isClicked, isDate = false }: IPeriodBtnProps) => {
+  const SELECT_PERIOD_TEXT = '기간 선택하기';
+
   return (
     <StPeriodBtnBox $isClicked={isClicked}>
-      {isDate && <IcCalender />}
-      <StPeriodText>{period}</StPeriodText>
+      {isDate ? (
+        <>
+          <IcCalender />
+          <StPeriodText>{SELECT_PERIOD_TEXT}</StPeriodText>
+        </>
+      ) : (
+        <StPeriodText>{period}</StPeriodText>
+      )}
     </StPeriodBtnBox>
   );
 };

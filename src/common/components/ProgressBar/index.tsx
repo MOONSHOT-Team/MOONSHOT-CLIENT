@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 interface ProgressBarProps {
   currentProgress: number;
-  maximumProgress: number;
+  maximumProgress?: number;
   progressBarColor?: string;
   progressValueColor?: string;
   textColor?: string;
@@ -11,12 +11,13 @@ interface ProgressBarProps {
 
 const ProgressBar = ({
   currentProgress,
-  maximumProgress,
+  maximumProgress = 100,
   progressBarColor = '#5B5B5B',
   progressValueColor = '#C2C2C2',
   textColor = '#A7A7A7',
-  isCurrentProgress = true,
+  isCurrentProgress = false,
 }: ProgressBarProps) => {
+  const percentValue = (currentProgress / maximumProgress) * 100;
   return (
     <div>
       <StProgressBarWrapper
@@ -25,7 +26,7 @@ const ProgressBar = ({
       >
         <progress value={currentProgress} max={maximumProgress}></progress>
         {isCurrentProgress && (
-          <StCurrentProgressBox textColor={textColor}>{currentProgress}%</StCurrentProgressBox>
+          <StCurrentProgressBox textColor={textColor}>{percentValue}%</StCurrentProgressBox>
         )}
       </StProgressBarWrapper>
     </div>

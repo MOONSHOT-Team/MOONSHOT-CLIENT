@@ -2,7 +2,7 @@ import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
-import { ComponentProps, FocusEvent, FormEvent, useId, useState } from 'react';
+import { ComponentProps, FocusEvent, FormEvent, useId, useReducer, useState } from 'react';
 
 interface IModalInputProps extends ComponentProps<'input'> {
   isActive: boolean;
@@ -40,16 +40,48 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
   );
 };
 
+type dateStateType = {
+  year: string;
+  month: string;
+  day: string;
+};
+
+type actionType = {
+  type: string;
+  value: string;
+};
+
+const dateReducer = (state: dateStateType, action: actionType): dateStateType => {
+  switch (action.type) {
+    case 'INPUT_YEAR': {
+      return { year: action.value, month: state.month, day: state.day };
+    }
+    case 'INPUT_MONTH': {
+      return { year: state.year, month: action.value, day: state.day };
+    }
+    case 'INPUT_DAY': {
+      return { year: state.year, month: state.month, day: action.value };
+    }
+    default:
+      throw Error;
+  }
+};
+
 /** Drawer Modal 창 */
 const DrawerModal = () => {
   const [activeExtend, setActiveExtend] = useState(false);
-  const [year, setYear] = useState<string | undefined>(undefined);
-  const [month, setMonth] = useState<string | undefined>(undefined);
-  const [day, setDay] = useState<string | undefined>(undefined);
   const [isValidInput, setIsValidInput] = useState(true);
+  const [dateState, dispatchDate] = useReducer(dateReducer, {
+    year: '2024',
+    month: '01',
+    day: '09',
+  });
+  const { year, month, day } = dateState;
+
   const { modalRef, handleShowModal } = useModal();
 
   const isSave = isValidInput && year !== '' && month !== '' && day !== '';
+  console.log(year, month, day, isSave);
 
   const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
     setIsValidInput(true);
@@ -62,7 +94,9 @@ const DrawerModal = () => {
     }
 
     if (e.target.value.length === 1) {
-      isMonth ? setMonth(`0${e.target.value}`) : setDay(`0${e.target.value}`);
+      isMonth
+        ? dispatchDate({ type: 'INPUT_MONTH', value: `0${e.target.value}` })
+        : dispatchDate({ type: 'INPUT_DAY', value: `0${e.target.value}` });
     }
   };
 
@@ -100,7 +134,7 @@ const DrawerModal = () => {
               maxLength={4}
               title="유효한 숫자가 아닙니다."
               onChange={(e) => {
-                setYear(e.target.value);
+                dispatchDate({ type: 'INPUT_YEAR', value: e.target.value });
               }}
             />
             <ModalInput
@@ -117,7 +151,7 @@ const DrawerModal = () => {
               maxLength={2}
               title="유효한 숫자가 아닙니다."
               onChange={(e) => {
-                setMonth(e.target.value);
+                dispatchDate({ type: 'INPUT_MONTH', value: e.target.value });
               }}
               onBlur={handleMakeTwoDigits}
             />
@@ -135,7 +169,7 @@ const DrawerModal = () => {
               maxLength={2}
               title="유효한 숫자가 아닙니다."
               onChange={(e) => {
-                setDay(e.target.value);
+                dispatchDate({ type: 'INPUT_DAY', value: e.target.value });
               }}
               onBlur={handleMakeTwoDigits}
             />

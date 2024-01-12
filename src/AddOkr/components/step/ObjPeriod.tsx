@@ -91,6 +91,7 @@ const ObjPeriodContainer = css`
 `;
 
 const StPeriodBtnTitle = styled.h1`
+  margin-bottom: 2.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_20_semibold};
 `;
@@ -99,6 +100,7 @@ const PeriodBtnWrapper = css`
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
+  margin-bottom: 4.2rem;
 `;
 
 const PeriodDateBox = css`

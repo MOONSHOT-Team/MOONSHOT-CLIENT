@@ -9,4 +9,6 @@ export interface IobjListTypes {
   category: string;
   date: string;
   progress: number;
+  currentGoalId?: number;
+  onClickGoal?: (id: number) => void;
 }

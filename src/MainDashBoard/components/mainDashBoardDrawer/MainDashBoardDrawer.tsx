@@ -8,18 +8,26 @@ import { GOAL_DATA } from '../../constants/GOAL_DATA';
 import { IobjListTypes } from '../../type/goalItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
 
-const GoalItem = ({ id, title, content, category, date, progress }: IobjListTypes) => {
+const GoalItem = ({
+  id,
+  title,
+  content,
+  category,
+  date,
+  progress,
+  currentGoalId,
+  onClickGoal,
+}: IobjListTypes) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
-  console.log(id);
 
   const handleOnClick = () => {
     setIsDetailOpen(!isDetailOpen);
   };
 
-  const color = GOAL_CATEGORY.find((item) => item.category === category).color;
+  const color = GOAL_CATEGORY.find((item) => item.category === category)?.color;
 
   return (
-    <GoalItemli>
+    <GoalItemli bgColor={currentGoalId === id} onClick={() => onClickGoal?.(id)}>
       <GoalItemContainer>
         <header css={goalItemHeader}>
           <span css={goalItemCategoryBox}>
@@ -44,7 +52,7 @@ const GoalItem = ({ id, title, content, category, date, progress }: IobjListType
         <MainDashProgressBar
           currentProgress={progress}
           progressBarColor={'#5B5B5B'}
-          progressValueColor={'#C2C2C2'}
+          progressValueColor={currentGoalId === id ? '#FFFFFF' : '#C2C2C2'}
           textColor={'#A7A7A7'}
           isCurrentProgress={false}
         />
@@ -53,18 +61,24 @@ const GoalItem = ({ id, title, content, category, date, progress }: IobjListType
   );
 };
 
-const GoalItemli = styled.li`
+const GoalItemli = styled.li<{ bgColor: boolean }>`
   position: relative;
   width: 18.8rem;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.gray_550};
+  cursor: pointer;
+  background-color: ${({ theme, bgColor }) =>
+    bgColor ? theme.colors.gray_500 : theme.colors.gray_550};
   border-radius: 6px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_500};
+  }
 `;
 
 const GoalItemContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding: 0.9rem 1.2rem 1.1rem;
+  padding: 0.9rem 1.2rem 1.6rem;
 `;
 
 const goalItemHeader = css`
@@ -100,6 +114,8 @@ const goalItemArticle = css`
 const StGoalItemTitle = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_11_bold};
+
+  word-break: keep-all;
 `;
 
 const StGoalItemContent = styled.p`
@@ -120,10 +136,14 @@ const ProgressBarContainer = css`
 `;
 
 const MainDashBoardDrawer = () => {
-  // const [currentGoalId, setCurrentGoalId] = useState(0);
-  console.log(GOAL_DATA);
+  const [currentGoalId, setCurrentGoalId] = useState(7);
+
   const { objList } = GOAL_DATA;
-  console.log(objList);
+
+  const handleClickGoal = (id: number) => {
+    setCurrentGoalId(id);
+  };
+
   return (
     <StContainer>
       <div>
@@ -136,7 +156,14 @@ const MainDashBoardDrawer = () => {
         </div>
         <ul style={{ padding: '2.2rem' }}>
           {objList.map((objListItem) => {
-            return <GoalItem key={objListItem.id} {...objListItem} />;
+            return (
+              <GoalItem
+                key={objListItem.id}
+                {...objListItem}
+                currentGoalId={currentGoalId}
+                onClickGoal={handleClickGoal}
+              />
+            );
           })}
         </ul>
       </div>

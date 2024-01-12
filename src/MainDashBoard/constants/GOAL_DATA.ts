@@ -9,7 +9,7 @@ export const GOAL_DATA: IgoalItemTypes = {
         '매력적이고 생산적인 브랜드를 만든다. 매력적이고 생산적인 브랜드를 만든다. 매력적이고 생산적인 브랜드를 만든다. 매력적이고 생산적인 브랜드를 만든다. 브랜드를 만든다.  만든다.',
       category: '경제',
       date: '24.01.11 - 24.02.05',
-      progress: 0,
+      progress: 80,
     },
     {
       id: 6,
@@ -17,7 +17,7 @@ export const GOAL_DATA: IgoalItemTypes = {
       content: '제발 성공하자!!',
       category: '성장',
       date: '24.01.04 - 24.01.29',
-      progress: 0,
+      progress: 50,
     },
     {
       id: 5,
@@ -25,7 +25,7 @@ export const GOAL_DATA: IgoalItemTypes = {
       content: '제발 성공하자!!',
       category: '성장',
       date: '24.01.04 - 24.01.29',
-      progress: 0,
+      progress: 100,
     },
     {
       id: 4,
@@ -33,7 +33,7 @@ export const GOAL_DATA: IgoalItemTypes = {
       content: '제발 성공하자!!',
       category: '성장',
       date: '24.01.04 - 24.01.29',
-      progress: 0,
+      progress: 40,
     },
     {
       id: 3,
@@ -41,10 +41,26 @@ export const GOAL_DATA: IgoalItemTypes = {
       content: '제발 성공하자!!',
       category: '성장',
       date: '24.01.04 - 24.01.29',
-      progress: 0,
+      progress: 20,
     },
     {
       id: 2,
+      title: '통합 회원가입수 200,000건 돌파',
+      content: '제발 성공하자!!',
+      category: '성장',
+      date: '24.01.04 - 24.01.01',
+      progress: 33,
+    },
+    {
+      id: 21,
+      title: '통합 회원가입수 200,000건 돌파',
+      content: '제발 성공하자!!',
+      category: '성장',
+      date: '24.01.04 - 24.01.01',
+      progress: 33,
+    },
+    {
+      id: 22,
       title: '통합 회원가입수 200,000건 돌파',
       content: '제발 성공하자!!',
       category: '성장',

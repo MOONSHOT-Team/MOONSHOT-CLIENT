@@ -166,7 +166,6 @@ const StObjTextArea = styled.textarea`
   ${({ theme }) => theme.fonts.body_14_medium};
 
   &::placeholder {
-    line-height: 1.5;
     color: ${({ theme }) => theme.colors.gray_350};
   }
 `;

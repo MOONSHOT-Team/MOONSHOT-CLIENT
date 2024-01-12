@@ -41,7 +41,7 @@ const StProgressBarWrapper = styled.div<{ progressBarColor: string; progressValu
   align-items: end;
 
   & > progress {
-    width: 38rem;
+    width: 100%;
     height: 0.4rem;
     color: ${({ progressValueColor }) => progressValueColor};
     appearance: none;

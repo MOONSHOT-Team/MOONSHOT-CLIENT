@@ -1,5 +1,12 @@
+import ObjContent from './step/ObjContent';
+
 const AddOkr = () => {
-  return <div>AddOkr</div>;
+  return (
+    <div>
+      AddOkr
+      <ObjContent />
+    </div>
+  );
 };
 
 export default AddOkr;

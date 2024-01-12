@@ -1,25 +1,50 @@
 import styled from '@emotion/styled';
+import { Dayjs } from 'dayjs';
 
 import { IcCalender } from '../../assets/icons';
+import PeriodSelectInput from './PeriodSelectInput';
 
 interface IPeriodBtnProps {
-  period: string;
+  length: string;
+  periodName: string;
   isClicked: boolean;
   isDate: boolean;
+  handleClickPeriodBtn: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClickSelectDate: (
+    _values: [Dayjs | null, Dayjs | null] | null,
+    formatString: [string, string],
+  ) => void;
+  period: string[];
 }
 
-const PeriodBtn = ({ period, isClicked, isDate = false }: IPeriodBtnProps) => {
+const PeriodBtn = ({
+  length,
+  periodName,
+  isClicked,
+  isDate = false,
+  handleClickPeriodBtn,
+  handleClickSelectDate,
+  period,
+}: IPeriodBtnProps) => {
   const SELECT_PERIOD_TEXT = '기간 선택하기';
 
   return (
-    <StPeriodBtnBox $isClicked={isClicked}>
+    <StPeriodBtnBox id={length} $isClicked={isClicked} onClick={handleClickPeriodBtn}>
       {isDate ? (
         <>
-          <IcCalender />
-          <StPeriodText>{SELECT_PERIOD_TEXT}</StPeriodText>
+          {isClicked ? (
+            <>
+              <PeriodSelectInput handleClickSelectDate={handleClickSelectDate} period={period} />
+            </>
+          ) : (
+            <>
+              <IcCalender />
+              <StPeriodText>{SELECT_PERIOD_TEXT}</StPeriodText>
+            </>
+          )}
         </>
       ) : (
-        <StPeriodText>{period}</StPeriodText>
+        <StPeriodText>{periodName}</StPeriodText>
       )}
     </StPeriodBtnBox>
   );
@@ -44,7 +69,7 @@ const StPeriodBtnBox = styled.button<{ $isClicked: boolean }>`
   border-radius: 6px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_550};
+    background-color: ${({ theme, $isClicked }) => !$isClicked && theme.colors.gray_550};
   }
 `;
 

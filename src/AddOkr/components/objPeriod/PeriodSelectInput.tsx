@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { ConfigProvider, DatePicker } from 'antd';
+import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs, { Dayjs } from 'dayjs';
 
 const { RangePicker } = DatePicker;
@@ -17,6 +18,11 @@ const PeriodSelectInput = ({ handleClickSelectDate, period }: IPeriodSelectInput
     const formattedDate = dateString.replace(/\./g, '-');
     return formattedDate;
   };
+
+  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+    return current && current < dayjs().startOf('day');
+  };
+
   return (
     <KRPeriodContainer>
       <ConfigProvider
@@ -41,6 +47,7 @@ const PeriodSelectInput = ({ handleClickSelectDate, period }: IPeriodSelectInput
           value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
           defaultValue={[dayjs(), dayjs()]}
           format={'YYYY. MM. DD'}
+          disabledDate={disabledDate}
         />
       </ConfigProvider>
     </KRPeriodContainer>

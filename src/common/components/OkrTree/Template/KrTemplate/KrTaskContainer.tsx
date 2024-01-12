@@ -2,25 +2,29 @@ import StraightLine from '@components/OkrTree/lines/StraightLine';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
-import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
+import React from 'react';
 
 interface IKrTaskContainerProps {
   krProp: IKeyResultTypes;
-  KrNodes: ({ idx, title }: IKeyResultTypes) => jsx.JSX.Element;
-  TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
+  KrNodes: (krIdx: number) => jsx.JSX.Element;
+  TaskNodes: (isFirstChild: boolean, krIdx: number, taskIdx: number) => jsx.JSX.Element;
 }
 
 const KrTaskContainer = ({ krProp, KrNodes, TaskNodes }: IKrTaskContainerProps) => {
-  const { title, idx, taskList } = krProp;
+  const { taskList, idx: krIdx } = krProp;
   return (
     <StKrTaskContainer>
-      <KrNodes title={title} idx={idx} />
+      {KrNodes(krIdx)}
       {taskList?.length !== 0 && (
         <>
           <StraightLine />
           <StTaskNodesWrapper>
-            {taskList?.map(({ title, idx }) => {
-              return <TaskNodes key={title} idx={idx} title={title} isFirstChild={idx === 0} />;
+            {taskList?.map(({ title, idx: taskIdx }) => {
+              return (
+                <React.Fragment key={`${title}-${taskIdx}`}>
+                  {TaskNodes(taskIdx === 0, krIdx, taskIdx)}
+                </React.Fragment>
+              );
             })}
           </StTaskNodesWrapper>
         </>

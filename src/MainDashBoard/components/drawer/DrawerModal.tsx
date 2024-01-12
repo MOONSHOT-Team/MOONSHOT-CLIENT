@@ -14,6 +14,8 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
   const uniqueId = useId();
   const isYear = props.placeholder?.length === 4;
   const InputComponent = isYear ? YearInput : DateInput;
+  const { name, value, defaultValue, placeholder, pattern, maxLength, title, onChange, onBlur } =
+    props;
 
   return (
     <>
@@ -22,16 +24,16 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
         id={uniqueId}
         $activeExtend={isActive}
         disabled={!isActive}
-        name={props.name}
-        value={props.value}
-        defaultValue={props.defaultValue}
+        name={name}
+        value={value}
+        defaultValue={defaultValue}
         type="text"
-        placeholder={props.placeholder}
-        pattern={props.pattern}
-        maxLength={props.maxLength}
-        title={props.title}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
+        placeholder={placeholder}
+        pattern={pattern}
+        maxLength={maxLength}
+        title={title}
+        onChange={onChange}
+        onBlur={onBlur}
       />
       <label htmlFor={uniqueId}>{label}</label>
     </>

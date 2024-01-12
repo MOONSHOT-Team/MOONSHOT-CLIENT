@@ -64,6 +64,7 @@ const HistoryAside = styled.aside`
   gap: 4rem;
   width: 23.2rem;
   padding: 2.4rem 2.2rem;
+  background-color: ${({ theme }) => theme.colors.gray_650};
 `;
 
 const themeContainer = css`

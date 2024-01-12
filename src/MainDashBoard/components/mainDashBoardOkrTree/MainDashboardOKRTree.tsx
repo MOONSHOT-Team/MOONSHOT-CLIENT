@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import { MOCK_MAIN_OKR_DATA } from '../../constants/MOCK_MAIN_OKR_DATA';
 import { MainDashKrNodes } from './MainDashKrNodes';
 import MainDashObjectNode from './MainDashObjectNode';
+import { MainDashTaskNodes } from './MainDashTaskNodes';
 
 interface IMainDashboardOKRTreeProps {
   onShowSideSheet: () => void;
@@ -23,7 +24,9 @@ const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) =
           )}
           keyResultList={krList}
           KrNodes={(krIdx) => <MainDashKrNodes krIdx={krIdx} onShowSideSheet={onShowSideSheet} />}
-          TaskNodes={() => <div></div>}
+          TaskNodes={(isFirstChild, krIdx, taskIdx) => (
+            <MainDashTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
+          )}
         />
       </div>
     </article>
@@ -35,15 +38,12 @@ export default MainDashboardOKRTree;
 const okrTreeContainer = css`
   position: relative;
   display: flex;
-  flex: 1;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 100%;
 `;
 
 const okrTree = css`
-  display: flex;
-  align-self: flex-start;
-  padding-left: 26.9rem;
+  padding: 5rem 9.8rem 5rem 5rem;
 `;

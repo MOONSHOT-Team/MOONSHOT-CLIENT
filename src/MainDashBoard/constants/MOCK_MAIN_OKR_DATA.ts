@@ -8,44 +8,44 @@ export const MOCK_MAIN_OKR_DATA = {
     {
       keyResultId: 4,
       idx: 0,
-      keyResultTitle: '1번째 Key Result',
+      keyResultTitle: '구매 전환 30% 증가',
       taskList: [
         {
           id: 10,
           idx: 0,
-          title: 'Acheck',
+          title: '새로운 디자인 시안 3개를 월요일까지 만들어 전달드린다',
         },
         {
           id: 11,
           idx: 1,
-          title: 'Bcheck',
+          title: '새로운 디자인 시안 3개를 만든다',
         },
         {
           id: 12,
           idx: 2,
-          title: 'Ccheck',
+          title: '새로운 디자인 시안 3개를 만든다',
         },
       ],
     },
     {
       keyResultId: 5,
       idx: 1,
-      keyResultTitle: '2번째 Key Result',
+      keyResultTitle: '구매 전환 30% 증가',
       taskList: [
         {
           id: 13,
           idx: 0,
-          title: 'Acheck',
+          title: '새로운 디자인 시안 3개를 만든다',
         },
         {
           id: 14,
           idx: 1,
-          title: 'Bcheck',
+          title: '새로운 디자인 시안 3개를 만든다',
         },
         {
           id: 15,
           idx: 2,
-          title: 'Ccheck',
+          title: '새로운 디자인 시안 3개를 만든다',
         },
       ],
     },

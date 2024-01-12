@@ -33,6 +33,6 @@ export default MainDashBoard;
 
 const mainDashboardStyle = css`
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 `;

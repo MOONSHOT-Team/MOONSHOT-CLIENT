@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const customAxios = axios.create({
+const instance = axios.create({
   baseURL: import.meta.env.BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-export default customAxios;
+export default instance;

@@ -26,8 +26,6 @@ const colors = {
   sub_pink: '#F4B5FA',
   sub_blue: '#6CA4F6',
   sub_yellowgreen: '#86DC68',
-  sub_pink: '#F4B5FA',
-  sub_mint: '#A6EEF6',
   transparent_purple: '#8D7EFD29',
   transparent_white: '#FFFFFF1A',
   transparent_purple_10: '#8D7EFD1A',

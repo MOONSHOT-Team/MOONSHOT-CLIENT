@@ -3,14 +3,30 @@ import styled from '@emotion/styled';
 interface ProgressBarProps {
   currentProgress: number;
   maximumProgress: number;
+  progressBarColor?: string;
+  progressValueColor?: string;
+  textColor?: string;
+  isCurrentProgress?: boolean;
 }
 
-const ProgressBar = ({ currentProgress, maximumProgress }: ProgressBarProps) => {
+const ProgressBar = ({
+  currentProgress,
+  maximumProgress,
+  progressBarColor = '#5B5B5B',
+  progressValueColor = '#C2C2C2',
+  textColor = '#A7A7A7',
+  isCurrentProgress = true,
+}: ProgressBarProps) => {
   return (
     <div>
-      <StProgressBarWrapper>
+      <StProgressBarWrapper
+        progressBarColor={progressBarColor}
+        progressValueColor={progressValueColor}
+      >
         <progress value={currentProgress} max={maximumProgress}></progress>
-        <StCurrentProgressBox>{currentProgress}%</StCurrentProgressBox>
+        {isCurrentProgress && (
+          <StCurrentProgressBox textColor={textColor}>{currentProgress}%</StCurrentProgressBox>
+        )}
       </StProgressBarWrapper>
     </div>
   );
@@ -18,7 +34,7 @@ const ProgressBar = ({ currentProgress, maximumProgress }: ProgressBarProps) => 
 
 export default ProgressBar;
 
-const StProgressBarWrapper = styled.div`
+const StProgressBarWrapper = styled.div<{ progressBarColor: string; progressValueColor: string }>`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -27,22 +43,22 @@ const StProgressBarWrapper = styled.div`
   & > progress {
     width: 38rem;
     height: 0.4rem;
-    color: ${({ theme }) => theme.colors.gray_450};
+    color: ${({ progressValueColor }) => progressValueColor};
     appearance: none;
   }
 
   & > progress::-webkit-progress-bar {
-    background-color: ${({ theme }) => theme.colors.gray_450};
+    background-color: ${({ progressBarColor }) => progressBarColor};
     border-radius: 5px;
   }
 
   & > progress::-webkit-progress-value {
-    background-color: ${({ theme }) => theme.colors.gray_200};
+    background-color: ${({ progressValueColor }) => progressValueColor};
     border-radius: 5px;
   }
 `;
-const StCurrentProgressBox = styled.p`
+const StCurrentProgressBox = styled.p<{ textColor: string }>`
   ${({ theme }) => theme.fonts.btn_11_medium};
 
-  color: ${({ theme }) => theme.colors.gray_300};
+  color: ${({ textColor }) => textColor};
 `;

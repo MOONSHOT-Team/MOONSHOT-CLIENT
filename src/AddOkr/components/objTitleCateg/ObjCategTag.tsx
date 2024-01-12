@@ -3,13 +3,15 @@ import styled from '@emotion/styled';
 import { IcCheck } from '../../assets/icons';
 
 interface IObjCategTagProps {
+  id: string;
   text: string;
   isClicked: boolean;
+  handleClickObjTag: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ObjCategTag = ({ text, isClicked }: IObjCategTagProps) => {
+const ObjCategTag = ({ id, text, isClicked, handleClickObjTag }: IObjCategTagProps) => {
   return (
-    <StObjCategTagBox $isClicked={isClicked}>
+    <StObjCategTagBox $isClicked={isClicked} id={id} onClick={handleClickObjTag}>
       {isClicked && <IcCheck />}
       <StObjCategText>{text}</StObjCategText>
     </StObjCategTagBox>
@@ -18,7 +20,7 @@ const ObjCategTag = ({ text, isClicked }: IObjCategTagProps) => {
 
 export default ObjCategTag;
 
-const StObjCategTagBox = styled.div<{ $isClicked: boolean }>`
+const StObjCategTagBox = styled.button<{ $isClicked: boolean }>`
   display: flex;
   gap: 0.4rem;
   align-items: center;

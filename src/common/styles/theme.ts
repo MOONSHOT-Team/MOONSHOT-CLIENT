@@ -90,6 +90,13 @@ const fonts = {
     weight: 500,
     lineHeight: 1.4,
   }),
+  body_14_regular: FONT({
+    family: PRETENDARDFAMILY,
+    size: 1.4,
+    fontStyle: 'normal',
+    weight: 400,
+    lineHeight: 2.0,
+  }),
   body_13_medium: FONT({
     family: PRETENDARDFAMILY,
     size: 1.3,

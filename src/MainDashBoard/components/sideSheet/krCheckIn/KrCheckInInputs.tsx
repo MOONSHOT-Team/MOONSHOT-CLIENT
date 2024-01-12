@@ -32,18 +32,15 @@ const CheckInInput = ({
   logContentCount,
 }: ICheckInInputProps) => {
   return (
-    <span css={enterInputBoxStyles}>
-      <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
-      <div css={inputBoxStyles}>
-        <StCheckInTextArea
-          id="enterProgressCheckin"
-          placeholder={CHECKINPLACEHOLDER}
-          value={logContent}
-          onChange={handleLogContentChange}
-        />
-        {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={100} />}
-      </div>
-    </span>
+    <div css={inputBoxStyles}>
+      <StCheckInTextArea
+        id="enterProgressCheckin"
+        placeholder={CHECKINPLACEHOLDER}
+        value={logContent}
+        onChange={handleLogContentChange}
+      />
+      {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={100} />}
+    </div>
   );
 };
 
@@ -59,6 +56,10 @@ export const 진척정도입력하기 = () => {
   }, [logNum, logContent]);
 
   const handleLogNumChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === '') {
+      setLogNum('');
+      return;
+    }
     const rawValue = e.target.value.replace(/,/g, '').slice(0, 11);
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
@@ -92,11 +93,14 @@ export const 진척정도입력하기 = () => {
             />
           </div>
         </span>
-        <CheckInInput
-          logContent={logContent}
-          handleLogContentChange={handleLogContentChange}
-          logContentCount={logContentCount}
-        />
+        <span css={enterInputBoxStyles}>
+          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
+          <CheckInInput
+            logContent={logContent}
+            handleLogContentChange={handleLogContentChange}
+            logContentCount={logContentCount}
+          />
+        </span>
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn>취소</StCnclBtn>
@@ -114,6 +118,10 @@ export const KR수정하기 = () => {
   const [isActiveBtn, setIsActiveBtn] = useState(false);
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === '') {
+      setTarget('');
+      return;
+    }
     const rawValue = e.target.value.replace(/,/g, '').slice(0, 11);
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
@@ -152,11 +160,14 @@ export const KR수정하기 = () => {
             <span>건 돌파</span>
           </StEditNum>
         </span>
-        <CheckInInput
-          logContent={logContent}
-          handleLogContentChange={handleLogContentChange}
-          logContentCount={logContentCount}
-        />
+        <span css={enterInputBoxStyles}>
+          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
+          <CheckInInput
+            logContent={logContent}
+            handleLogContentChange={handleLogContentChange}
+            logContentCount={logContentCount}
+          />
+        </span>
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn>취소</StCnclBtn>

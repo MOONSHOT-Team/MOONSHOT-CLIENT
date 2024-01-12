@@ -1,12 +1,17 @@
-import ObjTitleCateg from './components/step/ObjTitleCateg';
+import { css } from '@emotion/react';
 
 const AddOkr = () => {
-  return (
-    <div>
-      AddOkr
-      <ObjTitleCateg selectedMethod="가이드에 따라 설정하기" />
-    </div>
-  );
+  return <section css={AddOkrContainer}>{/* <ObjTitleCateg isGuide={true} /> */}</section>;
 };
 
 export default AddOkr;
+
+const AddOkrContainer = css`
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%; */
+
+  /* 추후 확인 */
+`;

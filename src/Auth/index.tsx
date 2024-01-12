@@ -4,7 +4,7 @@ import useSWR from 'swr';
 const AuthKakao = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
-  const { data, error, isLoading } = useSWR('http://prod.moonshotyou.com/v1/user/login', (url) =>
+  const { data, error, isLoading } = useSWR('/v1/user/login', (url) =>
     fetcherPost(url, kakaoCode!),
   );
 

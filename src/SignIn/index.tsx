@@ -1,6 +1,8 @@
+import instance from '@apis/instance';
 import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useGoogleLogin } from '@react-oauth/google';
 
 import imgGoogleLogin from './assets/images/imgGoogleLogin.png';
 import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
@@ -11,33 +13,51 @@ const SignIn = () => {
   const redirect_uri = 'http://localhost:5173/login/oauth2/code/kakao';
 
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+
   const handleLogin = () => {
     window.location.href = kakaoURL;
   };
 
+  const googleSocialLogin = useGoogleLogin({
+    scope: 'email profile',
+    flow: 'auth-code',
+    onSuccess: async ({ code }) => {
+      const response = await instance.post(
+        'v1/user/login',
+        {
+          socialPlatform: 'GOOGLE',
+        },
+        {
+          headers: {
+            Authorization: code,
+          },
+        },
+      );
+      return response;
+    },
+  });
+
   return (
-    <>
-      <div css={signInContainer}>
-        <section css={loginSection}>
-          <h1>
-            <img src={imgWordmarkWhite} alt="work" width={257} height={68} />
-          </h1>
-          <StSubText>
-            유난한 도전을 위한 체계적인 목표 관리와 성과 트래킹, 지금 바로 문샷에서 시작해보세요.
-          </StSubText>
-          <button type="button" onClick={handleLogin}>
-            <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />
-          </button>
-          <button type="button">
-            <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
-          </button>
-        </section>
-        <section css={brandingSection}>
-          image / gif 브랜딩 관련 소스 or 프로토타입 소스가 들어갈 예정. 합숙 1주차 내 전달
-          예정입니다!
-        </section>
-      </div>
-    </>
+    <div css={signInContainer}>
+      <section css={loginSection}>
+        <h1>
+          <img src={imgWordmarkWhite} alt="work" width={257} height={68} />
+        </h1>
+        <StSubText>
+          유난한 도전을 위한 체계적인 목표 관리와 성과 트래킹, 지금 바로 문샷에서 시작해보세요.
+        </StSubText>
+        <button type="button" onClick={handleLogin}>
+          <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />
+        </button>
+        <button type="button" onClick={googleSocialLogin}>
+          <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
+        </button>
+      </section>
+      <section css={brandingSection}>
+        image / gif 브랜딩 관련 소스 or 프로토타입 소스가 들어갈 예정. 합숙 1주차 내 전달
+        예정입니다!
+      </section>
+    </div>
   );
 };
 

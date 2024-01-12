@@ -32,7 +32,8 @@ const globalStyles = css`
     text-decoration: none;
   }
 
-  input:focus {
+  input:focus,
+  textarea:focus {
     border-color: ${theme.colors.gray_200};
     outline: none;
   }

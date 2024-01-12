@@ -7,11 +7,26 @@ interface IObjCategTagProps {
   text: string;
   isClicked: boolean;
   handleClickObjTag: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleHoverObjCateg: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleLeaveObjCateg: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ObjCategTag = ({ id, text, isClicked, handleClickObjTag }: IObjCategTagProps) => {
+const ObjCategTag = ({
+  id,
+  text,
+  isClicked,
+  handleClickObjTag,
+  handleHoverObjCateg,
+  handleLeaveObjCateg,
+}: IObjCategTagProps) => {
   return (
-    <StObjCategTagBox $isClicked={isClicked} id={id} onClick={handleClickObjTag}>
+    <StObjCategTagBox
+      $isClicked={isClicked}
+      id={id}
+      onClick={handleClickObjTag}
+      onMouseEnter={handleHoverObjCateg}
+      onMouseLeave={handleLeaveObjCateg}
+    >
       {isClicked && <IcCheck />}
       <StObjCategText>{text}</StObjCategText>
     </StObjCategTagBox>

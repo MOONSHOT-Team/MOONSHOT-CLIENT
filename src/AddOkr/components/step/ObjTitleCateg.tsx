@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
 import { useState } from 'react';
 
+import { GUIDE_OBJ_TITLE_PLACEHOLDER } from '../../constants/GUIDE_OBJ_TITLE_PLACEHOLDER';
 import { OBJ_CATEG_LIST } from '../../constants/OBJ_CATEG_LIST';
 import ObjCategTag from '../objTitleCateg/ObjCategTag';
 
@@ -14,21 +15,39 @@ const ObjTitleCateg = ({ selectedMethod }: IObjTitleCategProps) => {
   // 카테고리 태그 상태
   const [selectedObjCatg, setSelectedObjCateg] = useState('');
   // 직접 입력 뷰 - input 글자 수 상태
-  const [currObjInputCount, setCurrObjInputCount] = useState(0);
+  const [currObjCount, setCurrObjCount] = useState(0);
   const MAX_OBJ_INPUT_CNT = 30;
+
+  //카테고리 선택 뷰 - place holder 색상
+  const DEFAULT_PLACEHOLDER = '목표를 입력하세요.';
+  const [hoverObjPlaceHolder, setHoverObjPlaceHolder] = useState(DEFAULT_PLACEHOLDER);
 
   // 카테고리 태그 선택 핸들러
   const handleClickObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedObjCateg(e.currentTarget.id);
   };
 
-  const handleChangeObjInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '') setCurrObjInputCount(0);
+  const handleHoverObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { placeholder: targetPlaceholder } = GUIDE_OBJ_TITLE_PLACEHOLDER.filter(
+      (tag) => tag.id === e.currentTarget.id,
+    )[0];
+    setHoverObjPlaceHolder(targetPlaceholder);
+  };
+
+  const handleLeaveObjCateg = () => {
+    // setHoverObjPlaceHolder(DEFAULT_PLACEHOLDER);
+  };
+
+  //obj input change 핸들러
+  const handleChangeObjValue = (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    if (e.target.value === '') setCurrObjCount(0);
 
     const objInputCnt = limitMaxLength(e, MAX_OBJ_INPUT_CNT);
 
     if (!objInputCnt) return;
-    setCurrObjInputCount(objInputCnt);
+    setCurrObjCount(objInputCnt);
   };
 
   return (
@@ -46,6 +65,8 @@ const ObjTitleCateg = ({ selectedMethod }: IObjTitleCategProps) => {
               text={text}
               isClicked={selectedObjCatg === id}
               handleClickObjTag={handleClickObjCateg}
+              handleHoverObjCateg={handleHoverObjCateg}
+              handleLeaveObjCateg={handleLeaveObjCateg}
             />
           );
         })}
@@ -53,12 +74,19 @@ const ObjTitleCateg = ({ selectedMethod }: IObjTitleCategProps) => {
 
       {selectedMethod === '직접 설정하기' && (
         <div css={ObjInputBox}>
-          <StObjInput type="text" placeholder="목표를 입력하세요" onChange={handleChangeObjInput} />
+          <StObjInput type="text" placeholder="목표를 입력하세요" onChange={handleChangeObjValue} />
           <StObjInputCntTxt>
-            {currObjInputCount} / {MAX_OBJ_INPUT_CNT}
+            {currObjCount} / {MAX_OBJ_INPUT_CNT}
           </StObjInputCntTxt>
         </div>
       )}
+
+      <div css={ObjTextAreaBox}>
+        <StObjTextArea placeholder={hoverObjPlaceHolder} onChange={handleChangeObjValue} />
+        <StObjTextAreaCntTxt>
+          {currObjCount}/{MAX_OBJ_INPUT_CNT}
+        </StObjTextAreaCntTxt>
+      </div>
     </section>
   );
 };
@@ -114,6 +142,39 @@ const StObjInputCntTxt = styled.p`
   position: absolute;
   top: 2.4rem;
   right: 2rem;
+  color: ${({ theme }) => theme.colors.gray_350};
+  ${({ theme }) => theme.fonts.body_12_regular};
+`;
+
+//가이드에 따라 설정 스타일
+const ObjTextAreaBox = css`
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+`;
+
+const StObjTextArea = styled.textarea`
+  width: 42rem;
+  height: 16.8rem;
+  padding: 1.2rem 1.6rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  resize: none;
+  background-color: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.gray_450};
+  border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.body_14_medium};
+
+  &::placeholder {
+    line-height: 1.5;
+    color: ${({ theme }) => theme.colors.gray_350};
+  }
+`;
+
+const StObjTextAreaCntTxt = styled.p`
+  position: absolute;
+  right: 1.6rem;
+  bottom: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_12_regular};
 `;

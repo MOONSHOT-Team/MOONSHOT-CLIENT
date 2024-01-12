@@ -4,7 +4,7 @@ const AddOkr = () => {
   return (
     <div>
       AddOkr
-      <ObjTitleCateg selectedMethod="직접 설정하기" />
+      <ObjTitleCateg selectedMethod="가이드에 따라 설정하기" />
     </div>
   );
 };

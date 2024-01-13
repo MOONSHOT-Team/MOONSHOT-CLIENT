@@ -71,7 +71,7 @@ const dateReducer = (state: dateStateType, action: actionType): dateStateType =>
 /** Drawer Modal 창 */
 const DrawerModal = () => {
   const [activeExtend, setActiveExtend] = useState(false);
-  const [isValidInput, setIsValidInput] = useState(true);
+  const [isValidInput, setIsValidInput] = useState('');
   const [dateState, dispatchDate] = useReducer(dateReducer, {
     year: '2024',
     month: '01',
@@ -81,11 +81,11 @@ const DrawerModal = () => {
 
   const { modalRef, handleShowModal } = useModal();
 
-  const isSave = isValidInput && year !== '' && month !== '' && day !== '';
+  const isSave = isValidInput === '' && year !== '' && month !== '' && day !== '';
 
   /** 월, 일 한 자리 입력 시 두 자리 수로 변환 */
   const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
-    setIsValidInput(true);
+    setIsValidInput('');
 
     const isMonth = e.target.name === 'month';
 
@@ -112,8 +112,8 @@ const DrawerModal = () => {
     Number(month) < 13 &&
     Number(day) > 0 &&
     Number(day) < 32
-      ? setIsValidInput(true)
-      : setIsValidInput(false);
+      ? setIsValidInput('')
+      : setIsValidInput('올바른 날짜를 입력해 주세요.');
 
     // 입력 달에 따른 일 수 제한
     const maxDay = ['04', '06', '09', '11'].includes(month!) // 30일
@@ -125,7 +125,7 @@ const DrawerModal = () => {
           : 28; // 윤년 아닌 2월
 
     if (day && Number(day) > maxDay) {
-      setIsValidInput(false);
+      setIsValidInput('올바른 날짜를 입력해 주세요.');
     }
   };
 
@@ -157,7 +157,7 @@ const DrawerModal = () => {
               maxLength={4}
               onChange={(e) => {
                 dispatchDate({ type: 'INPUT_YEAR', value: e.target.value });
-                setIsValidInput(true);
+                setIsValidInput('');
               }}
             />
             <ModalInput
@@ -174,7 +174,7 @@ const DrawerModal = () => {
               onChange={(e) => {
                 e.preventDefault();
                 dispatchDate({ type: 'INPUT_MONTH', value: e.target.value });
-                setIsValidInput(true);
+                setIsValidInput('');
               }}
               onBlur={handleMakeTwoDigits}
             />
@@ -192,11 +192,11 @@ const DrawerModal = () => {
               onChange={(e) => {
                 e.preventDefault();
                 dispatchDate({ type: 'INPUT_DAY', value: e.target.value });
-                setIsValidInput(true);
+                setIsValidInput('');
               }}
               onBlur={handleMakeTwoDigits}
             />
-            {!isValidInput && <ErrorText>올바른 날짜를 입력해 주세요.</ErrorText>}
+            {isValidInput !== '' && <ErrorText>{isValidInput}</ErrorText>}
           </StDateContainer>
           <div css={buttonStyle}>
             {!activeExtend && (

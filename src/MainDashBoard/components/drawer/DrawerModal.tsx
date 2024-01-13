@@ -2,7 +2,8 @@ import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
-import { ComponentProps, FocusEvent, FormEvent, useId, useReducer, useState } from 'react';
+import type { ComponentProps, FocusEvent } from 'react';
+import { useId, useReducer, useState } from 'react';
 
 interface IModalInputProps extends ComponentProps<'input'> {
   isActive: boolean;
@@ -12,14 +13,15 @@ interface IModalInputProps extends ComponentProps<'input'> {
 /** 날짜 입력 받는 인풋창 */
 const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
   const uniqueId = useId();
-  const isYear = props.placeholder?.length === 4;
-  const InputComponent = isYear ? YearInput : DateInput;
   const { name, value, defaultValue, placeholder, maxLength, onChange, onBlur } = props;
+  const isYear = placeholder?.length === 4;
+  const InputComponent = isYear ? YearInput : DateInput;
 
   return (
     <>
       <InputComponent
         required
+        autoComplete="off"
         id={uniqueId}
         $activeExtend={isActive}
         disabled={!isActive}
@@ -49,6 +51,8 @@ type actionType = {
 };
 
 const dateReducer = (state: dateStateType, action: actionType): dateStateType => {
+  if (isNaN(Number(action.value))) return { year: state.year, month: state.month, day: state.day };
+
   switch (action.type) {
     case 'INPUT_YEAR': {
       return { year: action.value, month: state.month, day: state.day };
@@ -60,7 +64,7 @@ const dateReducer = (state: dateStateType, action: actionType): dateStateType =>
       return { year: state.year, month: state.month, day: action.value };
     }
     default:
-      throw Error;
+      return { year: state.year, month: state.month, day: state.day };
   }
 };
 
@@ -79,15 +83,11 @@ const DrawerModal = () => {
 
   const isSave = isValidInput && year !== '' && month !== '' && day !== '';
 
+  /** 월, 일 한 자리 입력 시 두 자리 수로 변환 */
   const handleMakeTwoDigits = (e: FocusEvent<HTMLInputElement, Element>) => {
     setIsValidInput(true);
 
     const isMonth = e.target.name === 'month';
-    const maxDay = month === '02' ? 29 : ['04', '06', '09', '11'].includes(month!) ? 30 : 31;
-
-    if (day && Number(day) > maxDay) {
-      setIsValidInput(false);
-    }
 
     if (e.target.value.length === 1) {
       isMonth
@@ -96,13 +96,16 @@ const DrawerModal = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+
     // 날짜 수정 API 붙이기
 
+    // 입력값 길이 제한
     year.length === 4 &&
     month.length === 2 &&
     day.length === 2 &&
+    // 입력값 범위 제한
     Number(year) > 1900 &&
     Number(year) < 2100 &&
     Number(month) > 0 &&
@@ -111,6 +114,19 @@ const DrawerModal = () => {
     Number(day) < 32
       ? setIsValidInput(true)
       : setIsValidInput(false);
+
+    // 입력 달에 따른 일 수 제한
+    const maxDay = ['04', '06', '09', '11'].includes(month!) // 30일
+      ? 30
+      : ['01', '03', '05', '07', '08', '10', '12'].includes(month!) // 31일
+        ? 31
+        : (Number(year) % 4 == 0 && Number(year) % 100 != 0) || Number(year) % 400 == 0 // 윤년
+          ? 29
+          : 28; // 윤년 아닌 2월
+
+    if (day && Number(day) > maxDay) {
+      setIsValidInput(false);
+    }
   };
 
   return (
@@ -119,7 +135,7 @@ const DrawerModal = () => {
         CLICK ME!!
       </button>
       <Modal ref={modalRef}>
-        <form css={modalForm} onSubmit={handleSubmit}>
+        <div css={modalForm}>
           <StMainTextContainer>
             <p>해당 목표의 달성 기간이 종료되었습니다.</p>
             <p>더 도전하기 위해 기간을 연장할까요?</p>
@@ -156,6 +172,7 @@ const DrawerModal = () => {
               placeholder="01"
               maxLength={2}
               onChange={(e) => {
+                e.preventDefault();
                 dispatchDate({ type: 'INPUT_MONTH', value: e.target.value });
                 setIsValidInput(true);
               }}
@@ -173,6 +190,7 @@ const DrawerModal = () => {
               placeholder="09"
               maxLength={2}
               onChange={(e) => {
+                e.preventDefault();
                 dispatchDate({ type: 'INPUT_DAY', value: e.target.value });
                 setIsValidInput(true);
               }}
@@ -212,13 +230,13 @@ const DrawerModal = () => {
                 >
                   취소하기
                 </StCompleteButton>
-                <StExtendButton type="submit" disabled={!isSave}>
+                <StExtendButton type="submit" disabled={!isSave} onClick={handleSubmit}>
                   저장하기
                 </StExtendButton>
               </>
             )}
           </div>
-        </form>
+        </div>
       </Modal>
     </>
   );

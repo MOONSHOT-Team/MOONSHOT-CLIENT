@@ -61,9 +61,113 @@ const GoalItem = ({
   );
 };
 
+const MainDashBoardDrawer = () => {
+  const [currentGoalId, setCurrentGoalId] = useState(7);
+
+  const { objList } = GOAL_DATA;
+
+  const handleClickGoal = (id: number) => {
+    setCurrentGoalId(id);
+  };
+
+  return (
+    <StContainer>
+      <div>
+        <StAddGoalBtn type="button">목표 추가하기</StAddGoalBtn>
+      </div>
+      <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
+        <div css={goalListHeader}>
+          <St목표리스트>목표 리스트</St목표리스트>
+          <St목표리스트개수>{0}/10</St목표리스트개수>
+        </div>
+        <StScrollContainer>
+          <ul css={ulStyles}>
+            {objList.map((objListItem) => {
+              return (
+                <GoalItem
+                  key={objListItem.id}
+                  {...objListItem}
+                  currentGoalId={currentGoalId}
+                  onClickGoal={handleClickGoal}
+                />
+              );
+            })}
+          </ul>
+        </StScrollContainer>
+      </div>
+    </StContainer>
+  );
+};
+
+export default MainDashBoardDrawer;
+
+const StContainer = styled.aside`
+  display: flex;
+  flex-direction: column;
+  width: 23.2rem;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.gray_600};
+`;
+
+const StAddGoalBtn = styled.button`
+  width: 18.8rem;
+  height: 3.6rem;
+  margin: 2.4rem 2.2rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+
+  ${({ theme }) => theme.fonts.btn_14_semibold};
+
+  background-color: ${({ theme }) => theme.colors.main_darkpurple};
+  border-radius: 6px;
+`;
+
+const goalListHeader = css`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.2rem 1.4rem;
+`;
+const St목표리스트 = styled.div`
+  color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme }) => theme.fonts.body_12_medium};
+`;
+
+const St목표리스트개수 = styled.p`
+  color: ${({ theme }) => theme.colors.gray_200};
+  ${({ theme }) => theme.fonts.body_12_regular};
+`;
+
+const StScrollContainer = styled.div`
+  flex: 1;
+  padding: 0 1rem 2.2rem 2.2rem;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.gray_500};
+    background-clip: padding-box; /* 스크롤에 여백넣기 -> background에 테두리영역 제외하여 표현 */
+    border: 4px solid transparent;
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    background-size: cover;
+  }
+`;
+
+const ulStyles = css`
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 2rem;
+`;
+
 const GoalItemli = styled.li<{ bgColor: boolean }>`
   position: relative;
-  width: 18.8rem;
+  width: 100%;
   overflow: hidden;
   cursor: pointer;
   background-color: ${({ theme, bgColor }) =>
@@ -78,6 +182,7 @@ const GoalItemli = styled.li<{ bgColor: boolean }>`
 const GoalItemContainer = styled.section`
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: 0.9rem 1.2rem 1.6rem;
 `;
 
@@ -133,48 +238,4 @@ const ProgressBarContainer = css`
   position: absolute;
   bottom: 0;
   width: 100%;
-`;
-
-const MainDashBoardDrawer = () => {
-  const [currentGoalId, setCurrentGoalId] = useState(7);
-
-  const { objList } = GOAL_DATA;
-
-  const handleClickGoal = (id: number) => {
-    setCurrentGoalId(id);
-  };
-
-  return (
-    <StContainer>
-      <div>
-        <button type="button">목표 추가하기</button>
-      </div>
-      <div>
-        <div>
-          <span>목표 리스트</span>
-          <span>0/0</span>
-        </div>
-        <ul style={{ padding: '2.2rem' }}>
-          {objList.map((objListItem) => {
-            return (
-              <GoalItem
-                key={objListItem.id}
-                {...objListItem}
-                currentGoalId={currentGoalId}
-                onClickGoal={handleClickGoal}
-              />
-            );
-          })}
-        </ul>
-      </div>
-    </StContainer>
-  );
-};
-
-export default MainDashBoardDrawer;
-
-const StContainer = styled.aside`
-  min-width: 23.2rem;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.gray_600};
 `;

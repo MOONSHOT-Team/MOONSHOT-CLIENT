@@ -1,14 +1,21 @@
 /* eslint-disable react/prop-types */
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
 import SideSheet from './components/sideSheet/SideSheet';
+import { GOAL_DATA } from './constants/GOAL_DATA';
+import { IobjListTypes } from './type/goalItemTypes';
 
 const MainDashBoard = () => {
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
-  const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
+  const [objList, setObjList] = useState<IobjListTypes[]>([]);
+
+  useEffect(() => {
+    //서버통신
+    setObjList(GOAL_DATA.objList);
+  }, []);
 
   const handleShowSideSheet = () => {
     setShowSideSheet(true);
@@ -21,7 +28,7 @@ const MainDashBoard = () => {
   return (
     <>
       <section css={mainDashboardStyle}>
-        <MainDashBoardDrawer />
+        <MainDashBoardDrawer objList={objList} />
         <MainDashboardOKRTree onShowSideSheet={handleShowSideSheet} />
       </section>
 

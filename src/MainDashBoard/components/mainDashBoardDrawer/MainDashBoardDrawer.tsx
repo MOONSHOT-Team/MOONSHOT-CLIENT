@@ -5,11 +5,17 @@ import { useState } from 'react';
 import { IobjListTypes } from '../../type/goalItemTypes';
 import GoalItem from './GoalItem';
 
-const MainDashBoardDrawer = ({ objList }: { objList: IobjListTypes[] }) => {
+interface IDrawerProps {
+  objList: IobjListTypes[];
+  onChangeCurrentGoalId: (id: number) => void;
+}
+
+const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(7);
 
   const handleClickGoal = (id: number) => {
     setCurrentGoalId(id);
+    onChangeCurrentGoalId(id);
   };
 
   return (

@@ -19,14 +19,19 @@ const GoalItem = ({
 }: IobjListTypes) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-  const handleOnClick = () => {
+  const handleOnClickIcon = (event: React.MouseEvent) => {
     setIsDetailOpen(!isDetailOpen);
+    event.stopPropagation();
+  };
+
+  const handleOnClick = () => {
+    onClickGoal?.(id);
   };
 
   const color = GOAL_CATEGORY.find((item) => item.category === category)?.color;
 
   return (
-    <GoalItemli bgColor={currentGoalId === id} onClick={() => onClickGoal?.(id)}>
+    <GoalItemli bgColor={currentGoalId === id} onClick={handleOnClick}>
       <GoalItemContainer>
         <header css={goalItemHeader}>
           <span css={goalItemCategoryBox}>
@@ -39,9 +44,9 @@ const GoalItem = ({
           <StGoalItemTitle>{title}</StGoalItemTitle>
           <i>
             {isDetailOpen ? (
-              <IcDropUp onClick={handleOnClick} />
+              <IcDropUp onClick={handleOnClickIcon} />
             ) : (
-              <IcDropDown onClick={handleOnClick} />
+              <IcDropDown onClick={handleOnClickIcon} />
             )}
           </i>
         </article>

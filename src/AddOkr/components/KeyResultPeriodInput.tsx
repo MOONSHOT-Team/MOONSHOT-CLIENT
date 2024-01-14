@@ -70,18 +70,18 @@ const KRPeriodContainer = styled.div`
   .ant-picker-input > input {
     width: 7rem;
     color: ${({ theme }) => theme.colors.gray_000};
-    background-color: ${({ theme }) => theme.colors.gray_600};
+    background-color: ${({ theme }) => theme.colors.gray_550};
     border: none;
     ${({ theme }) => theme.fonts.body_12_regular};
   }
 
   .ant-picker-range-separator {
     padding: 0;
-    background-color: ${({ theme }) => theme.colors.gray_600};
+    background-color: ${({ theme }) => theme.colors.gray_550};
   }
 
   .ant-picker-separator,
   .anticon-swap-right > svg {
-    background-color: ${({ theme }) => theme.colors.gray_600};
+    background-color: ${({ theme }) => theme.colors.gray_550};
   }
 `;

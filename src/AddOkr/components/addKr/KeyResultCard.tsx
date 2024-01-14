@@ -28,16 +28,18 @@ const KeyResultCard = () => {
   const [metric, setMetric] = useState('');
   const [isClickMetric, setIsClickMetric] = useState(false);
 
+  const [isClickDescription, setIsClickDescription] = useState(false);
   const [description, setDescription] = useState('');
 
-  const [isShowCalender, setIsShowCalender] = useState(false);
-
+  /** 
+  캘린더 관련 요소
+  **/
   const today = new Date();
-
   const CALE_START_DATE = returnParsedDate(today, '-');
   const CALE_END_DATE = returnParsedDate(new Date(today.setMonth(today.getMonth() + 1)), '-');
-  const [, setStartDate] = useState(CALE_START_DATE);
-  const [, setExpireDate] = useState<string>('');
+  //캘린더 보여주는 플래그
+  const [isShowCalender, setIsShowCalender] = useState(false);
+  //캘린더 선택한 값
   const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
 
   const handleClickSelectDate = (
@@ -46,8 +48,6 @@ const KeyResultCard = () => {
   ) => {
     if (formatString[0] && formatString[1]) {
       setKrPeriod(formatString);
-      setStartDate(formatString[0]);
-      setExpireDate(formatString[1]);
     }
   };
 
@@ -64,6 +64,7 @@ const KeyResultCard = () => {
 
   const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
+    setIsClickDescription(true);
   };
 
   return (
@@ -71,7 +72,7 @@ const KeyResultCard = () => {
       <div css={TopKrDescription}>
         <div css={KrDescriptionBox}>
           <StKrDescripText>핵심 지표의 수치 값은</StKrDescripText>
-          <StKrInputBox>
+          <StKrInputBox $isHoverStyle={isClickTarget}>
             {isClickTarget ? (
               <DynamicInput
                 value={target}
@@ -88,7 +89,7 @@ const KeyResultCard = () => {
 
         <div css={KrDescriptionBox}>
           <StKrDescripText>단위는</StKrDescripText>
-          <StKrInputBox>
+          <StKrInputBox $isHoverStyle={isClickMetric}>
             {isClickMetric ? (
               <DynamicInput
                 value={metric}
@@ -109,9 +110,10 @@ const KeyResultCard = () => {
           value={description}
           placeholder={'ex) 홈페이지 방문자수 100% 상승 기록'}
           onChange={handleChangeDescription}
+          $isHoverStyle={isClickDescription}
         />
         <StKrDescripText>이며, 핵심 지표를 달성할 기간은</StKrDescripText>
-        <StKrPeriodBox onClick={() => setIsShowCalender(true)}>
+        <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
           {isShowCalender ? (
             <KeyResultPeriodInput handleClickSelectDate={handleClickSelectDate} period={krPeriod} />
           ) : (
@@ -158,7 +160,7 @@ const StKrDescripText = styled.span`
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StKrInputBox = styled.div`
+const StKrInputBox = styled.div<{ $isHoverStyle: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,8 +169,14 @@ const StKrInputBox = styled.div`
   height: 3.2rem;
   padding: 1.4rem 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
+  background-color: ${({ theme, $isHoverStyle }) =>
+    $isHoverStyle ? theme.colors.gray_550 : theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_450};
   border-radius: 6px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+  }
 
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
@@ -178,19 +186,20 @@ const StKrMetricTxt = styled.p`
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StKrDescripInput = styled.input`
+const StKrDescripInput = styled.input<{ $isHoverStyle: boolean }>`
   width: 30.7rem;
   height: 3.2rem;
   padding: 0.6rem 2rem;
   color: ${({ theme }) => theme.colors.gray_350};
-  background-color: ${({ theme }) => theme.colors.gray_600};
+  background-color: ${({ theme, $isHoverStyle }) =>
+    $isHoverStyle ? theme.colors.gray_550 : theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
 
-const StKrPeriodBox = styled.div`
+const StKrPeriodBox = styled.div<{ $isHoverStyle: boolean }>`
   display: flex;
   align-items: center;
   width: 22.6rem;
@@ -198,6 +207,8 @@ const StKrPeriodBox = styled.div`
   padding: 0.6rem 2rem;
   color: ${({ theme }) => theme.colors.gray_400};
   text-align: center;
+  background-color: ${({ theme, $isHoverStyle }) =>
+    $isHoverStyle ? theme.colors.gray_550 : theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 

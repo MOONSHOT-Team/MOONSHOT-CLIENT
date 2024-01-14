@@ -10,16 +10,16 @@ interface IYearBtnProps {
 }
 const YearButton = ({ year, count, onSelectYear, isActive }: IYearBtnProps) => {
   return (
-    <YearBtn onClick={onSelectYear} isActive={isActive}>
+    <StYearBtn onClick={onSelectYear} isActive={isActive}>
       {isActive && <CheckIcon />}
       {year}({count})
-    </YearBtn>
+    </StYearBtn>
   );
 };
 
 export default YearButton;
 
-const YearBtn = styled.button<{ isActive: boolean }>`
+const StYearBtn = styled.button<{ isActive: boolean }>`
   display: flex;
   gap: 0.4rem;
   align-items: center;

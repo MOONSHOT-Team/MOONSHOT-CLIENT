@@ -135,6 +135,7 @@ const StKeyResultCardWrapper = styled.article`
   height: 29.8rem;
   padding: 2.4rem;
   background-color: ${({ theme }) => theme.colors.gray_600};
+  border-radius: 10px;
 `;
 
 const KrDescriptionBox = css`

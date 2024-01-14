@@ -13,7 +13,7 @@ import { IMainData } from './type/MainDashboardDataTypes';
 const MainDashBoard = () => {
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [objList, setObjList] = useState<IobjListTypes[]>([]);
-  const [setCurrentGoalId] = useState(0);
+  const [, setCurrentGoalId] = useState<number>(0);
   const [currentOKRData, setCurrentOKRData] = useState<IMainData>();
 
   useEffect(() => {
@@ -31,7 +31,6 @@ const MainDashBoard = () => {
   };
 
   const handleCurrentGoalId = (id: number) => {
-    console.log(id);
     setCurrentGoalId(id);
   };
 

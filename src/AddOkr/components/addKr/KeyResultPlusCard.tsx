@@ -25,5 +25,9 @@ const StKeyResultPlusCardContainer = styled.article`
   background-color: ${({ theme }) => theme.colors.gray_600};
   border-radius: 10px;
 
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_450};
+  }
+
   ${({ theme }) => theme.fonts.body_10_regular};
 `;

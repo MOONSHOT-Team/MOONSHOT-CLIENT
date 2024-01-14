@@ -4,10 +4,16 @@ import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
+import { IcClose } from '../../assets';
 import KeyResultPeriodInput from '../KeyResultPeriodInput';
 
-const KeyResultCard = () => {
-  //다른 브랜치에서 사용한 유틸 함수, 추후 삭제 예정
+interface IKeyResultCardProps {
+  cardIdx?: number;
+  handleClickCloseBtn?: (cardIdx: number) => void;
+}
+
+const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) => {
+  //다른 브랜치에서 사용한 유틸 함수, 추 후 삭제 예정
   const returnParsedDate = (date: Date, parseString: string) => {
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -69,6 +75,16 @@ const KeyResultCard = () => {
 
   return (
     <StKeyResultCardWrapper>
+      {cardIdx && handleClickCloseBtn && (
+        <button
+          css={CloseIconStyle}
+          id={cardIdx.toString()}
+          onClick={() => handleClickCloseBtn(cardIdx)}
+        >
+          <IcClose />
+        </button>
+      )}
+
       <div css={TopKrDescription}>
         <div css={KrDescriptionBox}>
           <StKrDescripText>핵심 지표의 수치 값은</StKrDescripText>
@@ -128,6 +144,7 @@ const KeyResultCard = () => {
 export default KeyResultCard;
 
 const StKeyResultCardWrapper = styled.article`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 5rem;
@@ -136,6 +153,12 @@ const StKeyResultCardWrapper = styled.article`
   padding: 2.4rem;
   background-color: ${({ theme }) => theme.colors.gray_600};
   border-radius: 10px;
+`;
+
+const CloseIconStyle = css`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
 `;
 
 const KrDescriptionBox = css`

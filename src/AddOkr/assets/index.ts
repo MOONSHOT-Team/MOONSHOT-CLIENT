@@ -1,2 +1,4 @@
+import IcClose from './icClose.svg?react';
 import IcPlusExtraLarge from './icPlusExtralarge.svg?react';
-export { IcPlusExtraLarge };
+
+export { IcClose, IcPlusExtraLarge };

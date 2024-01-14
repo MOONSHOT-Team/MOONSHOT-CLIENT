@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import update from 'immutability-helper';
+import { useCallback, useEffect, useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { IobjListTypes } from '../../type/goalItemTypes';
 import GoalItem from './GoalItem';
@@ -12,11 +15,28 @@ interface IDrawerProps {
 
 const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(7);
+  const [items, setItems] = useState(objList);
 
   const handleClickGoal = (id: number) => {
     setCurrentGoalId(id);
     onChangeCurrentGoalId(id);
   };
+
+  useEffect(() => {
+    setItems(objList);
+  }, [objList]);
+
+  //dnd움직이는 함수
+  const moveItem = useCallback((dragIndex: number, hoverIndex: number) => {
+    setItems((prevItems) =>
+      update(prevItems, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevItems[dragIndex]],
+        ],
+      }),
+    );
+  }, []);
 
   return (
     <StContainer>
@@ -26,19 +46,23 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
       <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
         <div css={goalListHeader}>
           <St목표리스트>목표 리스트</St목표리스트>
-          <St목표리스트개수>{objList.length}/10</St목표리스트개수>
+          <St목표리스트개수>{items.length}/10</St목표리스트개수>
         </div>
         <StScrollContainer>
-          <ul css={ulStyles}>
-            {objList?.map((objListItem) => (
-              <GoalItem
-                key={objListItem.id}
-                {...objListItem}
-                currentGoalId={currentGoalId}
-                onClickGoal={handleClickGoal}
-              />
-            ))}
-          </ul>
+          <DndProvider backend={HTML5Backend}>
+            <ul css={ulStyles}>
+              {items?.map((objListItem, index) => (
+                <GoalItem
+                  key={objListItem.id}
+                  {...objListItem}
+                  currentGoalId={currentGoalId}
+                  onClickGoal={handleClickGoal}
+                  index={index}
+                  moveItem={moveItem}
+                />
+              ))}
+            </ul>
+          </DndProvider>
         </StScrollContainer>
       </div>
     </StContainer>

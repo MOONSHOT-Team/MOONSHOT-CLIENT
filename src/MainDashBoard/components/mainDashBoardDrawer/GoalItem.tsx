@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import { GOAL_CATEGORY } from '../../constants/GOAL_CATEGORY';
 import { IobjListTypes } from '../../type/goalItemTypes';
+import { ItemTypes } from '../../type/ItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
 
 const GoalItem = ({
@@ -16,8 +18,11 @@ const GoalItem = ({
   progress,
   currentGoalId,
   onClickGoal,
+  index,
+  moveItem,
 }: IobjListTypes) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const ref = useRef<HTMLLIElement>(null);
 
   const handleOnClickIcon = (event: React.MouseEvent) => {
     setIsDetailOpen(!isDetailOpen);
@@ -30,8 +35,42 @@ const GoalItem = ({
 
   const color = GOAL_CATEGORY.find((item) => item.category === category)?.color;
 
+  const [{ isDragging }, drag] = useDrag({
+    type: ItemTypes.ITEM,
+    item: { id, index },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  const [, drop] = useDrop({
+    accept: ItemTypes.ITEM,
+    hover(item: { index: number }) {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      moveItem(dragIndex, hoverIndex);
+
+      item.index = hoverIndex;
+    },
+  });
+
+  drag(drop(ref));
+
   return (
-    <GoalItemli bgColor={currentGoalId === id} onClick={handleOnClick}>
+    <StGoalItemli
+      bgColor={currentGoalId === id}
+      onClick={handleOnClick}
+      ref={ref}
+      isDragging={isDragging}
+    >
       <GoalItemContainer>
         <header css={goalItemHeader}>
           <span css={goalItemCategoryBox}>
@@ -61,13 +100,13 @@ const GoalItem = ({
           isCurrentProgress={false}
         />
       </footer>
-    </GoalItemli>
+    </StGoalItemli>
   );
 };
 
 export default GoalItem;
 
-const GoalItemli = styled.li<{ bgColor: boolean }>`
+const StGoalItemli = styled.li<{ bgColor: boolean; isDragging: boolean }>`
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -75,6 +114,7 @@ const GoalItemli = styled.li<{ bgColor: boolean }>`
   background-color: ${({ theme, bgColor }) =>
     bgColor ? theme.colors.gray_500 : theme.colors.gray_550};
   border-radius: 6px;
+  opacity: ${({ isDragging }) => (isDragging ? 0.5 : 1)};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray_500};

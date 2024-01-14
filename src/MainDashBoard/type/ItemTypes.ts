@@ -1,3 +1,3 @@
 export const ItemTypes = {
-  ITEM: 'item',
+  GOAL: 'goal',
 };

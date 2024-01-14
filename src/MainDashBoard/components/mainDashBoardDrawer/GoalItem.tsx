@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
@@ -9,7 +9,7 @@ import { IobjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/ItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
 
-const GoalItem = ({
+const GoalItem: React.FC<IobjListTypes> = ({
   id,
   title,
   content,
@@ -18,9 +18,9 @@ const GoalItem = ({
   progress,
   currentGoalId,
   onClickGoal,
-  index,
-  moveItem,
-}: IobjListTypes) => {
+  index = 0,
+  moveGoal,
+}) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
 
@@ -36,7 +36,7 @@ const GoalItem = ({
   const color = GOAL_CATEGORY.find((item) => item.category === category)?.color;
 
   const [{ isDragging }, drag] = useDrag({
-    type: ItemTypes.ITEM,
+    type: ItemTypes.GOAL,
     item: { id, index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -44,7 +44,7 @@ const GoalItem = ({
   });
 
   const [, drop] = useDrop({
-    accept: ItemTypes.ITEM,
+    accept: ItemTypes.GOAL,
     hover(item: { index: number }) {
       if (!ref.current) {
         return;
@@ -56,7 +56,7 @@ const GoalItem = ({
         return;
       }
 
-      moveItem(dragIndex, hoverIndex);
+      moveGoal?.(dragIndex, hoverIndex);
 
       item.index = hoverIndex;
     },

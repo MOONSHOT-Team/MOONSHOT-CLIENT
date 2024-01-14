@@ -15,7 +15,7 @@ interface IDrawerProps {
 
 const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(7);
-  const [items, setItems] = useState(objList);
+  const [goals, setGoals] = useState(objList);
 
   const handleClickGoal = (id: number) => {
     setCurrentGoalId(id);
@@ -23,12 +23,12 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
   };
 
   useEffect(() => {
-    setItems(objList);
+    setGoals(objList);
   }, [objList]);
 
   //dnd움직이는 함수
-  const moveItem = useCallback((dragIndex: number, hoverIndex: number) => {
-    setItems((prevItems) =>
+  const moveGoal = useCallback((dragIndex: number, hoverIndex: number) => {
+    setGoals((prevItems) =>
       update(prevItems, {
         $splice: [
           [dragIndex, 1],
@@ -46,19 +46,19 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
       <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
         <div css={goalListHeader}>
           <St목표리스트>목표 리스트</St목표리스트>
-          <St목표리스트개수>{items.length}/10</St목표리스트개수>
+          <St목표리스트개수>{goals.length}/10</St목표리스트개수>
         </div>
         <StScrollContainer>
           <DndProvider backend={HTML5Backend}>
             <ul css={ulStyles}>
-              {items?.map((objListItem, index) => (
+              {goals?.map((objListItem, index) => (
                 <GoalItem
                   key={objListItem.id}
                   {...objListItem}
                   currentGoalId={currentGoalId}
                   onClickGoal={handleClickGoal}
                   index={index}
-                  moveItem={moveItem}
+                  moveGoal={moveGoal}
                 />
               ))}
             </ul>

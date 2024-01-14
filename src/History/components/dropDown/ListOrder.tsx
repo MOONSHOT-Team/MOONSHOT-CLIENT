@@ -18,5 +18,5 @@ const StAlignFilter = styled.button`
   height: 1.7rem;
   margin-right: 0.9rem;
   color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.btn_12_medium};
+  ${({ theme }) => theme.fonts.body_12_medium};
 `;

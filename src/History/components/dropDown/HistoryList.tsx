@@ -1,9 +1,11 @@
+import ProgressBar from '@components/ProgressBar';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { CloseDropDownIcon, DropDownIcon } from '../../assets/icons';
 import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
+import HistoryProgressBar from '../HistoryProgressBar';
 import HistoryListDetails from './HistoryListDetails';
 import ListOrder from './ListOrder';
 
@@ -13,7 +15,11 @@ interface IHistoryListProps {
 }
 
 const HistoryList: React.FC<IHistoryListProps> = ({ year, objList }) => {
-  const [isVisalbe, setIsVisalbe] = useState(false);
+  const [isVisalbe, setIsVisalbe] = useState<number | null>(null);
+
+  const handleObjectiveClick = (objId: number) => {
+    setIsVisalbe((previousObjId) => (previousObjId === objId ? null : objId));
+  };
 
   return (
     <>
@@ -21,59 +27,50 @@ const HistoryList: React.FC<IHistoryListProps> = ({ year, objList }) => {
         <StEachYear>{year}년</StEachYear>
         <ListOrder />
       </div>
-      {objList.map(
-        ({
-          objId,
-          title,
-          objCategory,
-          //   progress,
-          objPeriod,
-          krList,
-        }) => (
-          <ul key={`${objId}+${objCategory}`}>
-            <StObjectiveContainer onClick={() => setIsVisalbe(!isVisalbe)}>
-              <StObjectiveWrapper>
-                {isVisalbe ? <CloseDropDownIcon /> : <DropDownIcon />}
-                <StObjectiveCategory>{objCategory}</StObjectiveCategory>
-                <StObjectTitle>{title}</StObjectTitle>
-              </StObjectiveWrapper>
-              <div css={OProgressBar}>프로그래스 바 입니다.</div>
-              <StObjectivePeriod>{objPeriod}</StObjectivePeriod>
-            </StObjectiveContainer>
-            <HistoryListDetails visibility={isVisalbe}>
-              {krList.map(
-                ({
-                  krId,
-                  krIdx,
-                  krTitle,
-                  //  krProgress,
-                  taskList,
-                }: IKeyResult) => (
-                  <ul css={KrTaskLayout} key={`${krId}+${krTitle}`}>
-                    <StKeyResultContainer>
-                      <StKeyResultWrapper>
-                        <StOKRIndex>KR {krIdx + 1}</StOKRIndex>
-                        <StOKRContent>{krTitle}</StOKRContent>
-                      </StKeyResultWrapper>
-                      <div css={KrProgressBar}>프로그래스 바 입니다.</div>
-                    </StKeyResultContainer>
-                    <div css={TaskLayout}>
-                      {taskList.map(({ taskId, taskTitle, taskIdx }: ITask) => (
-                        <StTaskContainer key={`${taskId}+${taskTitle}`}>
-                          <StTaskWrapper>
-                            <StOKRIndex>Task {taskIdx + 1}</StOKRIndex>
-                            <StOKRContent>{taskTitle}</StOKRContent>
-                          </StTaskWrapper>
-                        </StTaskContainer>
-                      ))}
+
+      {objList.map(({ objId, title, objCategory, progress, objPeriod, krList }) => (
+        <ul key={`${objId}+${objCategory}`}>
+          <StObjectiveContainer onClick={() => handleObjectiveClick(objId)}>
+            <StObjectiveWrapper>
+              {isVisalbe ? <CloseDropDownIcon /> : <DropDownIcon />}
+              <StObjectiveCategory>{objCategory}</StObjectiveCategory>
+              <StObjectTitle>{title}</StObjectTitle>
+            </StObjectiveWrapper>
+            <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
+            <StObjectivePeriod>{objPeriod}</StObjectivePeriod>
+          </StObjectiveContainer>
+
+          <HistoryListDetails visibility={isVisalbe === objId}>
+            {krList.map(({ krId, krIdx, krTitle, krProgress, taskList }: IKeyResult) => (
+              <ul css={KrTaskLayout} key={`${krId}+${krTitle}`}>
+                <StKeyResultContainer>
+                  <StKeyResultWrapper>
+                    <StOKRIndex>KR {krIdx + 1}</StOKRIndex>
+                    <StOKRContent>{krTitle}</StOKRContent>
+                  </StKeyResultWrapper>
+                  <StKeyResultProgressBar>
+                    <div css={KrProgressBar}>
+                      <ProgressBar currentProgress={krProgress} maximumProgress={100} />
                     </div>
-                  </ul>
-                ),
-              )}
-            </HistoryListDetails>
-          </ul>
-        ),
-      )}
+                    {krProgress}% 달성
+                  </StKeyResultProgressBar>
+                </StKeyResultContainer>
+
+                <div css={TaskLayout}>
+                  {taskList.map(({ taskId, taskTitle, taskIdx }: ITask) => (
+                    <StTaskContainer key={`${taskId}+${taskTitle}`}>
+                      <StTaskWrapper>
+                        <StOKRIndex>Task {taskIdx + 1}</StOKRIndex>
+                        <StOKRContent>{taskTitle}</StOKRContent>
+                      </StTaskWrapper>
+                    </StTaskContainer>
+                  ))}
+                </div>
+              </ul>
+            ))}
+          </HistoryListDetails>
+        </ul>
+      ))}
     </>
   );
 };
@@ -131,11 +128,6 @@ const StObjectTitle = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
 `;
 
-const OProgressBar = css`
-  width: 29.8rem;
-  margin: 0 2.5rem 0 0.4rem;
-`;
-
 const StObjectivePeriod = styled.p`
   width: 15.5rem;
   ${({ theme }) => theme.fonts.body_12_regular};
@@ -181,9 +173,20 @@ const StOKRContent = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
 `;
 
-const KrProgressBar = css`
+const StKeyResultProgressBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1.6rem;
+  align-items: center;
   width: 27.6rem;
   margin-left: 11rem;
+  ${({ theme }) => theme.fonts.body_13_medium};
+
+  color: ${({ theme }) => theme.colors.gray_300};
+`;
+
+const KrProgressBar = css`
+  width: 20rem;
 `;
 
 const TaskLayout = css`

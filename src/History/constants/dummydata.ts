@@ -9,16 +9,16 @@ export const DUMMYDATA: DummyData = {
         objList: [
           {
             objId: 7,
-            title: '통합 회원가입수 200,000건 돌파',
+            title: '1통합 회원가입수 200,000건 돌파',
             objCategory: '건강',
-            progress: 0,
+            progress: 30,
             objPeriod: '23.01.10 - 24.01.30',
             objIdx: -1,
             krList: [
               {
                 krId: 19,
                 krTitle: '1번째 Key Result',
-                krProgress: 0,
+                krProgress: 70,
                 krIdx: 0,
                 taskList: [
                   {
@@ -64,7 +64,7 @@ export const DUMMYDATA: DummyData = {
               {
                 krId: 21,
                 krTitle: '3번째 Key Result',
-                krProgress: 0,
+                krProgress: 10,
                 krIdx: 2,
                 taskList: [
                   {
@@ -94,16 +94,16 @@ export const DUMMYDATA: DummyData = {
         objList: [
           {
             objId: 6,
-            title: '통합 회원가입수 200,000건 돌파',
+            title: '2통합 회원가입수 200,000건 돌파',
             objCategory: '건강',
-            progress: 0,
+            progress: 70,
             objPeriod: '24.01.10 - 24.01.30',
             objIdx: -1,
             krList: [
               {
                 krId: 16,
                 krTitle: '1번째 Key Result',
-                krProgress: 0,
+                krProgress: 40,
                 krIdx: 0,
                 taskList: [
                   {
@@ -173,9 +173,9 @@ export const DUMMYDATA: DummyData = {
           },
           {
             objId: 1,
-            title: '통합 회원가입수 200,000건 돌파',
+            title: '3통합 회원가입수 200,000건 돌파',
             objCategory: '성장',
-            progress: 0,
+            progress: 80,
             objPeriod: '24.01.11 - 24.01.30',
             objIdx: -1,
             krList: [
@@ -244,7 +244,7 @@ export const DUMMYDATA: DummyData = {
             objId: 2,
             title: '통합 회원가입수 200,000건 돌파',
             objCategory: '성장',
-            progress: 0,
+            progress: 100,
             objPeriod: '24.01.11 - 24.01.30',
             objIdx: -1,
             krList: [
@@ -313,7 +313,7 @@ export const DUMMYDATA: DummyData = {
             objId: 3,
             title: '통합 회원가입수 200,000건 돌파',
             objCategory: '성장',
-            progress: 0,
+            progress: 10,
             objPeriod: '24.01.11 - 24.01.30',
             objIdx: -1,
             krList: [
@@ -382,7 +382,7 @@ export const DUMMYDATA: DummyData = {
             objId: 4,
             title: '통합 회원가입수 200,000건 돌파',
             objCategory: '성장',
-            progress: 0,
+            progress: 20,
             objPeriod: '24.01.11 - 24.01.30',
             objIdx: -1,
             krList: [
@@ -412,7 +412,7 @@ export const DUMMYDATA: DummyData = {
               {
                 krId: 11,
                 krTitle: '2번째 Key Result',
-                krProgress: 0,
+                krProgress: 60,
                 krIdx: 1,
                 taskList: [
                   {
@@ -435,7 +435,7 @@ export const DUMMYDATA: DummyData = {
               {
                 krId: 12,
                 krTitle: '3번째 Key Result',
-                krProgress: 0,
+                krProgress: 100,
                 krIdx: 2,
                 taskList: [
                   {
@@ -461,14 +461,14 @@ export const DUMMYDATA: DummyData = {
             objId: 5,
             title: '통합 회원가입수 200,000건 돌파',
             objCategory: '건강',
-            progress: 0,
+            progress: 40,
             objPeriod: '24.01.11 - 24.01.30',
             objIdx: -1,
             krList: [
               {
                 krId: 13,
                 krTitle: '1번째 Key Result',
-                krProgress: 0,
+                krProgress: 30,
                 krIdx: 0,
                 taskList: [
                   {
@@ -491,7 +491,7 @@ export const DUMMYDATA: DummyData = {
               {
                 krId: 14,
                 krTitle: '2번째 Key Result',
-                krProgress: 0,
+                krProgress: 20,
                 krIdx: 1,
                 taskList: [
                   {

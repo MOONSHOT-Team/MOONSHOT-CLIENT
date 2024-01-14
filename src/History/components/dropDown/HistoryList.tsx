@@ -3,99 +3,119 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { CloseDropDownIcon, DropDownIcon } from '../../assets/icons';
-import HistoryDropDown from './HistoryDropDown';
+import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
+import HistoryListDetails from './HistoryListDetails';
+import ListOrder from './ListOrder';
 
-const HistoryList = () => {
-  const [dropdownVisibility, setDropdownVisibility] = useState(false);
+interface IHistoryListProps {
+  year: number;
+  objList: IObjective[];
+}
+
+const HistoryList: React.FC<IHistoryListProps> = ({ year, objList }) => {
+  const [isVisalbe, setIsVisalbe] = useState(false);
 
   return (
-    <div css={historyUI}>
-      <StTheYear>2023년</StTheYear>
-      <StDropDownButtonContainer onClick={() => setDropdownVisibility(!dropdownVisibility)}>
-        <StDropDownButtonWrapper>
-          {dropdownVisibility ? <CloseDropDownIcon /> : <DropDownIcon />}
-          <StDropDownCategory>생산성</StDropDownCategory>
-          <StDropDownObject>팔로워 1000명을 달성한다</StDropDownObject>
-        </StDropDownButtonWrapper>
-        <div css={OProgressBar}>프로그래스 바 입니다.</div>
-
-        <StDropDownPeriod>2023.09.01 - 2023.12.25</StDropDownPeriod>
-      </StDropDownButtonContainer>
-      <HistoryDropDown visibility={dropdownVisibility}>
-        <StDropDownKeyResult>
-          <StKeyResultWrapper>
-            <StKeyResult>KR 1</StKeyResult>
-            <StkeyResultText>방문자 지속시간 100% 상승</StkeyResultText>
-          </StKeyResultWrapper>
-          <div css={KrProgressBar}> 프로그래스 바 입니다.</div>
-        </StDropDownKeyResult>
-        <StDropDownTask>
-          <StTaskContainer>
-            <StTaskWrapper>
-              <StKeyResult>Task 1</StKeyResult>
-              <StkeyResultText>새로운 웹사이트를 2월까지 오픈한다</StkeyResultText>
-            </StTaskWrapper>
-          </StTaskContainer>
-          <StTaskContainer>
-            <StTaskWrapper>
-              <StKeyResult>Task 1</StKeyResult>
-              <StkeyResultText>새로운 웹사이트를 2월까지 오픈한다</StkeyResultText>
-            </StTaskWrapper>
-          </StTaskContainer>
-          <StTaskContainer>
-            <StTaskWrapper>
-              <StKeyResult>Task 1</StKeyResult>
-              <StkeyResultText>새로운 웹사이트를 2월까지 오픈한다</StkeyResultText>
-            </StTaskWrapper>
-          </StTaskContainer>
-        </StDropDownTask>
-        <StDropDownKeyResult>
-          <StKeyResultWrapper>
-            <StKeyResult>KR 2</StKeyResult>
-            <StkeyResultText>방문자 지속시간 100% 상승</StkeyResultText>
-          </StKeyResultWrapper>
-          <div css={KrProgressBar}> 프로그래스 바 입니다.</div>
-        </StDropDownKeyResult>
-        <StDropDownKeyResult>
-          <StKeyResultWrapper>
-            <StKeyResult>KR 3</StKeyResult>
-            <StkeyResultText>방문자 지속시간 100% 상승</StkeyResultText>
-          </StKeyResultWrapper>
-          <div css={KrProgressBar}> 프로그래스 바 입니다.</div>
-        </StDropDownKeyResult>
-      </HistoryDropDown>
-    </div>
+    <>
+      <div css={listOrder}>
+        <StEachYear>{year}년</StEachYear>
+        <ListOrder />
+      </div>
+      {objList.map(
+        ({
+          objId,
+          title,
+          objCategory,
+          //   progress,
+          objPeriod,
+          krList,
+        }) => (
+          <ul key={`${objId}+${objCategory}`}>
+            <StObjectiveContainer onClick={() => setIsVisalbe(!isVisalbe)}>
+              <StObjectiveWrapper>
+                {isVisalbe ? <CloseDropDownIcon /> : <DropDownIcon />}
+                <StObjectiveCategory>{objCategory}</StObjectiveCategory>
+                <StObjectTitle>{title}</StObjectTitle>
+              </StObjectiveWrapper>
+              <div css={OProgressBar}>프로그래스 바 입니다.</div>
+              <StObjectivePeriod>{objPeriod}</StObjectivePeriod>
+            </StObjectiveContainer>
+            <HistoryListDetails visibility={isVisalbe}>
+              {krList.map(
+                ({
+                  krId,
+                  krIdx,
+                  krTitle,
+                  //  krProgress,
+                  taskList,
+                }: IKeyResult) => (
+                  <ul css={KrTaskLayout} key={`${krId}+${krTitle}`}>
+                    <StKeyResultContainer>
+                      <StKeyResultWrapper>
+                        <StOKRIndex>KR {krIdx + 1}</StOKRIndex>
+                        <StOKRContent>{krTitle}</StOKRContent>
+                      </StKeyResultWrapper>
+                      <div css={KrProgressBar}>프로그래스 바 입니다.</div>
+                    </StKeyResultContainer>
+                    <div css={TaskLayout}>
+                      {taskList.map(({ taskId, taskTitle, taskIdx }: ITask) => (
+                        <StTaskContainer key={`${taskId}+${taskTitle}`}>
+                          <StTaskWrapper>
+                            <StOKRIndex>Task {taskIdx + 1}</StOKRIndex>
+                            <StOKRContent>{taskTitle}</StOKRContent>
+                          </StTaskWrapper>
+                        </StTaskContainer>
+                      ))}
+                    </div>
+                  </ul>
+                ),
+              )}
+            </HistoryListDetails>
+          </ul>
+        ),
+      )}
+    </>
   );
 };
 
 export default HistoryList;
-const historyUI = css`
-  padding: 3rem 3.6rem 0 4rem;
+
+const listOrder = css`
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: space-between;
+  width: 105.8rem;
+  padding-bottom: 1.2rem;
+  margin-top: 3rem;
 `;
-const StTheYear = styled.p`
-  padding: 0 0 2.4rem 0.2rem;
+const StEachYear = styled.p`
+  padding-left: 0.2rem;
+  margin-bottom: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_000} ${({ theme }) => theme.fonts.title_20_semibold};
 `;
-const StDropDownButtonContainer = styled.button`
+
+const StObjectiveContainer = styled.button`
   display: flex;
   gap: 1.6rem;
   align-items: center;
   width: 105.8rem;
   height: 6rem;
   padding: 0 2.4rem;
-  cursor: none;
+  margin-bottom: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray_500};
   border: 1px solid ${({ theme }) => theme.colors.gray_300};
   border-radius: 6px;
 `;
 
-const StDropDownButtonWrapper = styled.div`
+const StObjectiveWrapper = styled.div`
   display: flex;
   gap: 1.6rem;
   align-items: center;
   width: 52.8rem;
 `;
-const StDropDownCategory = styled.p`
+
+const StObjectiveCategory = styled.p`
   padding: 8px 10px;
   ${({ theme }) => theme.fonts.btn_11_medium};
 
@@ -105,7 +125,7 @@ const StDropDownCategory = styled.p`
   border-radius: 6px;
 `;
 
-const StDropDownObject = styled.p`
+const StObjectTitle = styled.p`
   ${({ theme }) => theme.fonts.body_14_semibold};
 
   color: ${({ theme }) => theme.colors.gray_000};
@@ -116,14 +136,20 @@ const OProgressBar = css`
   margin: 0 2.5rem 0 0.4rem;
 `;
 
-const StDropDownPeriod = styled.p`
+const StObjectivePeriod = styled.p`
   width: 15.5rem;
   ${({ theme }) => theme.fonts.body_12_regular};
 
   color: ${({ theme }) => theme.colors.gray_250};
 `;
 
-const StDropDownKeyResult = styled.ul`
+const KrTaskLayout = css`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+`;
+
+const StKeyResultContainer = styled.article`
   display: flex;
   align-items: center;
   width: 105.8rem;
@@ -141,7 +167,7 @@ const StKeyResultWrapper = styled.div`
   padding-left: 2rem;
 `;
 
-const StKeyResult = styled.p`
+const StOKRIndex = styled.p`
   display: flex;
   align-items: center;
   ${({ theme }) => theme.fonts.btn_11_medium};
@@ -149,7 +175,7 @@ const StKeyResult = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
 `;
 
-const StkeyResultText = styled.p`
+const StOKRContent = styled.p`
   ${({ theme }) => theme.fonts.body_14_regular};
 
   color: ${({ theme }) => theme.colors.gray_000};
@@ -160,22 +186,22 @@ const KrProgressBar = css`
   margin-left: 11rem;
 `;
 
-const StDropDownTask = styled.li`
+const TaskLayout = css`
   display: flex;
   gap: 1.9rem;
-  align-items: center;
-  list-style-type: none;
 `;
 
-const StTaskContainer = styled.div`
+const StTaskContainer = styled.li`
   display: flex;
   align-items: center;
   width: 34rem;
   height: 4rem;
   padding-left: 1.6rem;
+  list-style-type: none;
   background: ${({ theme }) => theme.colors.gray_600};
   border-radius: 6px;
 `;
+
 const StTaskWrapper = styled.div`
   display: flex;
   gap: 1.6rem;

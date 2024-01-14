@@ -1,5 +1,5 @@
 import CloseDropDownIcon from './CloseDropDownIcon.svg?react';
 import DropDownIcon from './DropDownIcon.svg?react';
-export { DropDownIcon };
+import FilteringIcon from './FilteringIcon.svg?react';
 
-export { CloseDropDownIcon };
+export { CloseDropDownIcon, DropDownIcon, FilteringIcon };

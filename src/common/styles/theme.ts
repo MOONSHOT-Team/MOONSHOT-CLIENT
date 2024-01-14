@@ -139,6 +139,14 @@ const fonts = {
     weight: 500,
     lineHeight: 1.4,
   }),
+  btn_12_medium: FONT({
+    family: PRETENDARDFAMILY,
+    size: 1.2,
+    fontStyle: 'normal',
+    weight: 500,
+    lineHeight: 2,
+  }),
+
   btn_11_semibold: FONT({
     family: PRETENDARDFAMILY,
     size: 1.1,

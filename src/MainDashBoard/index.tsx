@@ -3,22 +3,11 @@ import { css } from '@emotion/react';
 import { useState } from 'react';
 
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
+import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
 import SideSheet from './components/sideSheet/SideSheet';
 
-interface IMainDashboardOKRTreeProps {
-  onShowSideSheet: () => void;
-}
-
-const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) => {
-  return (
-    <article css={{ flex: '1', backgroundColor: '#ccc' }}>
-      okr트리부분
-      <button onClick={onShowSideSheet}>Show SideSheet</button>
-    </article>
-  );
-};
-
 const MainDashBoard = () => {
+  const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
 
   const handleShowSideSheet = () => {

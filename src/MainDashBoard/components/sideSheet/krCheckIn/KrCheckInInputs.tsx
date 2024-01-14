@@ -22,7 +22,7 @@ const CharacterCount = ({ currentCnt, maxCnt }: ICharacterCountProps) => {
 
 interface ICheckInInputProps {
   logContent: string;
-  handleLogContentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleLogContentChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   logContentCount: number;
 }
 /** 체크인 회고 Input 컴포넌트입니다*/
@@ -38,6 +38,7 @@ const CheckInInput = ({
         placeholder={CHECKINPLACEHOLDER}
         value={logContent}
         onChange={handleLogContentChange}
+        autoComplete="off"
       />
       {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={100} />}
     </div>
@@ -45,11 +46,11 @@ const CheckInInput = ({
 };
 
 interface IKrCheckInProps {
-  onCancle: () => void;
+  onCancel: () => void;
 }
 
 /** 진척 정도 입력하는 뷰입니다 */
-export const 진척정도입력하기 = ({ onCancle }: IKrCheckInProps) => {
+export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
   const [logNum, setLogNum] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
@@ -94,6 +95,7 @@ export const 진척정도입력하기 = ({ onCancle }: IKrCheckInProps) => {
               placeholder="진척 정도를 확인할 수 있는 수치값을 입력하세요."
               value={logNum.toLocaleString()}
               onChange={handleLogNumChange}
+              autoComplete="off"
             />
           </div>
         </span>
@@ -107,7 +109,7 @@ export const 진척정도입력하기 = ({ onCancle }: IKrCheckInProps) => {
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StCnclBtn onClick={onCancle}>취소</StCnclBtn>
+        <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
         <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
       </footer>
     </section>
@@ -115,7 +117,7 @@ export const 진척정도입력하기 = ({ onCancle }: IKrCheckInProps) => {
 };
 
 /** kr을 수정하는 뷰입니다 */
-export const KR수정하기 = ({ onCancle }: IKrCheckInProps) => {
+export const KR수정하기 = ({ onCancel }: IKrCheckInProps) => {
   const [target, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
@@ -160,6 +162,7 @@ export const KR수정하기 = ({ onCancle }: IKrCheckInProps) => {
               placeholder="200,000"
               value={target}
               onChange={handleTargetChange}
+              autoComplete="off"
             />
             <span>건 돌파</span>
           </StEditNum>
@@ -174,7 +177,7 @@ export const KR수정하기 = ({ onCancle }: IKrCheckInProps) => {
         </span>
       </article>
       <footer css={enterFooterStyles}>
-        <StCnclBtn onClick={onCancle}>취소</StCnclBtn>
+        <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
         <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
       </footer>
     </section>
@@ -216,10 +219,10 @@ const StCnclBtn = styled.button`
 `;
 
 const StEnterBtn1 = styled(StCnclBtn)<{ isActiveBtn: boolean }>`
-  color: ${({ theme, isActiveBtn }) =>
-    isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
-  background-color: ${({ theme, isActiveBtn }) =>
-    isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
+  ${({ theme, isActiveBtn }) => css`
+    color: ${isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
+    background-color: ${isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
+  `};
 `;
 
 const StLabel = styled.label`
@@ -236,10 +239,6 @@ const StEnterProgressInput = styled.input`
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_12_medium};
-
-  &:focus {
-    outline: none;
-  }
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray_350};
@@ -268,10 +267,6 @@ const StCheckInTextArea = styled.textarea`
   border-radius: 6px;
   ${({ theme }) => theme.fonts.body_12_medium};
 
-  &:focus {
-    outline: none;
-  }
-
   &::placeholder {
     ${({ theme }) => theme.fonts.body_12_regular};
   }
@@ -295,10 +290,6 @@ const StEditNumInput = styled.input`
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_12_medium};
-
-  &:focus {
-    outline: none;
-  }
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray_350};

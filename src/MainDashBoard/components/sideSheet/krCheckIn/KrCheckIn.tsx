@@ -5,11 +5,11 @@ import { ChangeEvent, useState } from 'react';
 import { KR수정하기, 진척정도입력하기 } from './KrCheckInInputs';
 
 interface IKrCheckInProps {
-  onCancle: () => void;
+  onCancel: () => void;
 }
 
 /** 체크인을 할 수 있는 뷰 입니다 (진척정도입력, kr수정) */
-const KrCheckIn = ({ onCancle }: IKrCheckInProps) => {
+const KrCheckIn = ({ onCancel }: IKrCheckInProps) => {
   const [isActive, setIsActive] = useState('진척 정도 입력하기');
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +41,9 @@ const KrCheckIn = ({ onCancle }: IKrCheckInProps) => {
         </StRadioLabel>
       </div>
       {isActive === '진척 정도 입력하기' ? (
-        <진척정도입력하기 onCancle={onCancle} />
+        <진척정도입력하기 onCancel={onCancel} />
       ) : (
-        <KR수정하기 onCancle={onCancle} />
+        <KR수정하기 onCancel={onCancel} />
       )}
     </KrCheckInContainer>
   );

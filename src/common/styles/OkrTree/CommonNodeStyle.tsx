@@ -28,6 +28,11 @@ export const StKrBox = styled.div`
   background-color: ${({ theme }) => theme.colors.gray_600};
   border-radius: 75px;
   outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+    outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+  }
 `;
 
 //Task
@@ -57,4 +62,9 @@ export const StTaskBox = styled.div<{ $idx: number }>`
   background-color: ${({ theme }) => theme.colors.gray_600};
   border-radius: 75px;
   outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+    outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+  }
 `;

@@ -9,7 +9,9 @@ import AuthKakao from './Auth/AuthKakao';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
+import My from './My';
 import Nickname from './Nickname';
+import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
 
@@ -35,8 +37,16 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: 'my',
+        element: <My />,
+      },
+      {
         path: 'social',
         element: <Social />,
+      },
+      {
+        path: 'preview-okr',
+        element: <PreviewOkr />,
       },
     ],
   },
@@ -59,10 +69,6 @@ const router = createBrowserRouter([
         element: <AddOkr />,
       },
     ],
-  },
-  {
-    path: '/sign-in',
-    element: <SignIn />,
   },
   {
     path: '/login/oauth2/code',

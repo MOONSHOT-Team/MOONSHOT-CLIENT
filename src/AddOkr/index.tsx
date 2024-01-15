@@ -1,9 +1,11 @@
 import AddKr from './step/AddKr';
 
 const AddOkr = () => {
-  <>
-    <AddKr />
-  </>;
+  return (
+    <>
+      <AddKr />
+    </>
+  );
 };
 
 export default AddOkr;

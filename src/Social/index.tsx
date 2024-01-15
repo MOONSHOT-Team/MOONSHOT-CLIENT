@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
-import SocialDrawer from '../Social/socialDrawer/SocialDrawer';
-import SocialOKRTree from '../Social/socialOkrTree/SocialOKRTree';
+import SocialDrawer from './components/socialDrawer/SocialDrawer';
+import SocialOKRTree from './components/socialOkrTree/SocialOKRTree';
 
 const Social = () => {
   return (

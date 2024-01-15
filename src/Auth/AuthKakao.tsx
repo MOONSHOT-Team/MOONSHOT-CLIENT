@@ -14,14 +14,14 @@ const AuthKakao = () => {
   );
 
   useEffect(() => {
-    if (data) {
-      const { accessToken, refreshToken } = data.data.data.token;
+    if (!data) return;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+    const { accessToken, refreshToken } = data.data.data.token;
 
-      navigate('/dashboard');
-    }
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+
+    navigate('/dashboard');
   }, [data, navigate]);
 
   return (

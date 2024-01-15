@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { IcPlusExtraLarge } from '../../assets';
+import { IcPlusExtraLarge } from '../../assets/icons';
 import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 
 const KeyResultPlusCard = () => {

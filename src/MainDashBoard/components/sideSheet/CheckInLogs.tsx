@@ -47,7 +47,7 @@ const StCheckInLogP = styled.p`
 
 const StCheckInLogScroll = styled.article`
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.gray_550};
   border-top: 1px solid ${({ theme }) => theme.colors.transparent_white};
 
@@ -111,7 +111,8 @@ const StCheckInLogTitle = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
-const StCheckInLogContent = styled.p`
+
+const StCheckInLogContent = styled.div`
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_12_regular};
 `;

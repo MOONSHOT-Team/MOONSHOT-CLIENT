@@ -47,7 +47,7 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
         </section>
 
         <section css={StKRDetailLowerStyles}>
-          {isCheckinView && <KrCheckIn onCancle={handleCheckInView} />}
+          {isCheckinView && <KrCheckIn onCancel={handleCheckInView} />}
           {!isCheckinView && (
             <>
               <StKrCheckInBtn type="button" onClick={handleCheckInView}>

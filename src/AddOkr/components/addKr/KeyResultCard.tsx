@@ -1,4 +1,3 @@
-import DynamicInput from '@components/input/DynamicInput';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
@@ -23,19 +22,16 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
   };
 
   //힌트 메시지 상수
-  const HINT_TARGET = 'ex) 100';
-  const HINT_METRIC = 'ex) %';
+  const HINT_SENTENCE = 'ex) 개발 관련 아티클 읽기';
+  const HINT_TARGET = 'ex) 10';
+  const HINT_METRIC = 'ex) 회';
 
+  //핵심 지표 문장 관리 값
+  const [sentence, setSentence] = useState('');
   //수치 관리 값
   const [target, setTarget] = useState('');
-  const [isClickTarget, setIsClickTarget] = useState(false);
-
   //단위 관리 값
   const [metric, setMetric] = useState('');
-  const [isClickMetric, setIsClickMetric] = useState(false);
-
-  const [isClickDescription, setIsClickDescription] = useState(false);
-  const [description, setDescription] = useState('');
 
   /** 
   캘린더 관련 요소
@@ -48,6 +44,12 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
   //캘린더 선택한 값
   const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
 
+  //수치 관리 핸들러
+  const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+    setTarget(parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+  };
+
   const handleClickSelectDate = (
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
@@ -57,24 +59,9 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
     }
   };
 
-  //수치 관리 핸들러
-  const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    setTarget(parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-  };
-
-  //단위 관리 핸들러
-  const handleChangeMetric = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMetric(e.target.value);
-  };
-
-  const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
-    setIsClickDescription(true);
-  };
-
   return (
     <StKeyResultCardWrapper>
+      {/* x 버튼 부분 */}
       {cardIdx && handleClickCloseBtn && (
         <button
           css={CloseIconStyle}
@@ -85,50 +72,35 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
         </button>
       )}
 
-      <div css={TopKrDescription}>
-        <div css={KrDescriptionBox}>
-          <StKrDescripText>핵심 지표의 수치 값은</StKrDescripText>
-          <StKrInputBox $isHoverStyle={isClickTarget}>
-            {isClickTarget ? (
-              <DynamicInput
-                value={target}
-                handleChangeValue={handleChangeTarget}
-                isAutoFocus={true}
-                maxLength={13}
-              />
-            ) : (
-              <StKrMetricTxt onClick={() => setIsClickTarget(true)}>{HINT_TARGET}</StKrMetricTxt>
-            )}
-          </StKrInputBox>
-          <StKrDescripText>이고</StKrDescripText>
-        </div>
-
-        <div css={KrDescriptionBox}>
-          <StKrDescripText>단위는</StKrDescripText>
-          <StKrInputBox $isHoverStyle={isClickMetric}>
-            {isClickMetric ? (
-              <DynamicInput
-                value={metric}
-                handleChangeValue={handleChangeMetric}
-                isAutoFocus={true}
-              />
-            ) : (
-              <StKrMetricTxt onClick={() => setIsClickMetric(true)}>{HINT_METRIC}</StKrMetricTxt>
-            )}
-          </StKrInputBox>
-          <StKrDescripText>입니다.</StKrDescripText>
-        </div>
-      </div>
-
-      <div css={BottomKrDescription}>
-        <StKrDescripText>핵심 지표를 수치값과 단위를 포함한 문장으로 정리하면</StKrDescripText>
-        <StKrDescripInput
-          value={description}
-          placeholder={'ex) 홈페이지 방문자수 100% 상승 기록'}
-          onChange={handleChangeDescription}
-          $isHoverStyle={isClickDescription}
+      <StKrInputDescWrapper>
+        <StKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StKrInputDescription>
+        <StKrSentenceInput
+          value={sentence}
+          onChange={(e) => setSentence(e.target.value)}
+          placeholder={HINT_SENTENCE}
         />
-        <StKrDescripText>이며, 핵심 지표를 달성할 기간은</StKrDescripText>
+      </StKrInputDescWrapper>
+
+      <StKrInputDescWrapper>
+        <StKrInputDescription>
+          핵심 지표를 측정할 수치값과 단위를 입력해주세요.
+        </StKrInputDescription>
+        <StTargetMetricInputBox>
+          <StTargetMetricinput
+            value={target}
+            onChange={handleChangeTarget}
+            placeholder={HINT_TARGET}
+          />
+          <StTargetMetricinput
+            value={metric}
+            onChange={(e) => setMetric(e.target.value)}
+            placeholder={HINT_METRIC}
+          />
+        </StTargetMetricInputBox>
+      </StKrInputDescWrapper>
+
+      <StKrInputDescWrapper>
+        <StKrInputDescription>핵심 지표를 달성할 기간을 입력해주세요.</StKrInputDescription>
         <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
           {isShowCalender ? (
             <KeyResultPeriodInput handleClickSelectDate={handleClickSelectDate} period={krPeriod} />
@@ -136,7 +108,7 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
             <p>YYYY.MM.DD - YYYY.MM.DD</p>
           )}
         </StKrPeriodBox>
-      </div>
+      </StKrInputDescWrapper>
     </StKeyResultCardWrapper>
   );
 };
@@ -147,7 +119,7 @@ const StKeyResultCardWrapper = styled.article`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 2rem;
   width: 34.7rem;
   height: 29.8rem;
   padding: 2.4rem;
@@ -161,74 +133,63 @@ const CloseIconStyle = css`
   right: 1.2rem;
 `;
 
-const KrDescriptionBox = css`
-  display: flex;
-  gap: 1.2rem;
-  align-items: center;
-`;
-
-const TopKrDescription = css`
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-`;
-
-const BottomKrDescription = css`
+const StKrInputDescWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;
 
-const StKrDescripText = styled.span`
+const StKrInputDescription = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StKrInputBox = styled.div<{ $isHoverStyle: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  min-width: 6.5rem;
+const StKrSentenceInput = styled.input`
+  width: 29.9rem;
   height: 3.2rem;
-  padding: 1.4rem 1rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ theme, $isHoverStyle }) =>
-    $isHoverStyle ? theme.colors.gray_550 : theme.colors.gray_600};
-  border: 1px solid ${({ theme }) => theme.colors.gray_450};
-  border-radius: 6px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_550};
-  }
-
-  ${({ theme }) => theme.fonts.body_14_medium};
-`;
-
-const StKrMetricTxt = styled.p`
+  padding: 0.6rem 1rem;
   color: ${({ theme }) => theme.colors.gray_350};
-  ${({ theme }) => theme.fonts.body_14_medium};
-`;
-
-const StKrDescripInput = styled.input<{ $isHoverStyle: boolean }>`
-  width: 30.7rem;
-  height: 3.2rem;
-  padding: 0.6rem 2rem;
-  color: ${({ theme }) => theme.colors.gray_350};
-  background-color: ${({ theme, $isHoverStyle }) =>
-    $isHoverStyle ? theme.colors.gray_550 : theme.colors.gray_600};
+  background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &:focus,
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+  }
+`;
+
+const StTargetMetricInputBox = styled.div`
+  display: flex;
+  gap: 0.7rem;
+`;
+
+const StTargetMetricinput = styled.input`
+  width: 14.6rem;
+  height: 3.2rem;
+  padding: 0.6rem 1rem;
+  color: ${({ theme }) => theme.colors.gray_350};
+  background-color: ${({ theme }) => theme.colors.gray_600};
+  border: 1px solid ${({ theme }) => theme.colors.gray_500};
+  border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.body_14_medium};
+
+  &:focus,
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+  }
 `;
 
 const StKrPeriodBox = styled.div<{ $isHoverStyle: boolean }>`
   display: flex;
   align-items: center;
-  width: 22.6rem;
+  justify-content: center;
+  width: 29.9rem;
   height: 3.2rem;
-  padding: 0.6rem 2rem;
+  padding: 0.6rem 0;
   color: ${({ theme }) => theme.colors.gray_400};
   text-align: center;
   background-color: ${({ theme, $isHoverStyle }) =>

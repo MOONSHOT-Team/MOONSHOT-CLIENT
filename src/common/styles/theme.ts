@@ -143,6 +143,13 @@ const fonts = {
     family: PRETENDARDFAMILY,
     size: 1.1,
     fontStyle: 'normal',
+    weight: 600,
+    lineHeight: 1.1,
+  }),
+  btn_11_medium: FONT({
+    family: PRETENDARDFAMILY,
+    size: 1.1,
+    fontStyle: 'normal',
     weight: 500,
     lineHeight: 1.1,
   }),

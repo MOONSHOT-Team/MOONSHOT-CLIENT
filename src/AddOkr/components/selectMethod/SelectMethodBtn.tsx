@@ -4,7 +4,7 @@ interface IMethodBtnProps {
   title: string;
   description: string;
   handleClickMethodBtn: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  isClicked?: boolean;
+  isClicked: boolean;
 }
 
 const SelectMethodBtn = ({
@@ -41,7 +41,6 @@ const StMethodBtn = styled.button<{ $isClicked: boolean | undefined }>`
 
   &:hover {
     background-color: ${({ theme, $isClicked }) => !$isClicked && theme.colors.gray_500};
-    outline: none;
   }
 `;
 

@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
-import { GOAL_CATEGORY } from '../../constants/GOAL_CATEGORY';
 import { IobjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/ItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
@@ -33,8 +33,6 @@ const GoalItem: React.FC<IobjListTypes> = ({
   const handleOnClick = () => {
     onClickGoal?.(id);
   };
-
-  const color = GOAL_CATEGORY.find((cate) => cate.category === category)?.color;
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.GOAL,
@@ -84,7 +82,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
       <GoalItemContainer>
         <header css={goalItemHeader}>
           <span css={goalItemCategoryBox}>
-            <StyledIcEllipse color={color} />
+            <StyledIcEllipse color={getCategoryColor(category)} />
             <StGoalItemCategory>{category}</StGoalItemCategory>
           </span>
           <StGoalItemDate>{date}</StGoalItemDate>

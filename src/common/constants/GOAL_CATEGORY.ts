@@ -1,3 +1,5 @@
+/** 목표 카테고리 */
+
 export const GOAL_CATEGORY = [
   { color: '#FFF9C6', category: '경제' },
   { color: '#8CC8FF', category: '셀프케어' },

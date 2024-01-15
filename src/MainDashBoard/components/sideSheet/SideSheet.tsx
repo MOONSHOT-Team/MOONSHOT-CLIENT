@@ -1,10 +1,12 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
 import { KRDETAILDATA } from '../../constants/KrDetailData';
-import KRPeriodSelect from '../KRPeriodSelect';
 import CheckInLogs from './CheckInLogs';
+import KrCheckIn from './krCheckIn/KrCheckIn';
+import KRPeriodSelect from './KRPeriodSelect';
 import KrStatus from './KrStatus';
 
 interface ISideSheetProps {
@@ -13,6 +15,12 @@ interface ISideSheetProps {
 }
 
 const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
+  const [isCheckinView, setIsCheckinView] = useState(false);
+
+  const handleCheckInView = () => {
+    setIsCheckinView(!isCheckinView);
+  };
+
   return (
     <StBackground>
       <StContainer $isOpen={isOpen}>
@@ -36,9 +44,19 @@ const SideSheet = ({ isOpen, onClose }: ISideSheetProps) => {
             <StKrDetailLabel>일정</StKrDetailLabel>
             <KRPeriodSelect />
           </StKrPeriodContainer>
-          <StKrCheckInBtn type="button">체크인</StKrCheckInBtn>
         </section>
-        <CheckInLogs data={KRDETAILDATA.Log} />
+
+        <section css={StKRDetailLowerStyles}>
+          {isCheckinView && <KrCheckIn onCancle={handleCheckInView} />}
+          {!isCheckinView && (
+            <>
+              <StKrCheckInBtn type="button" onClick={handleCheckInView}>
+                체크인
+              </StKrCheckInBtn>
+              <CheckInLogs data={KRDETAILDATA.Log} />
+            </>
+          )}
+        </section>
       </StContainer>
     </StBackground>
   );
@@ -61,6 +79,7 @@ const StContainer = styled.aside<{ $isOpen: boolean }>`
   right: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 34.2rem;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.gray_600};
@@ -81,6 +100,7 @@ const krDetailUpperStyles = css`
   flex-direction: column;
   width: 100%;
   padding: 2.6rem 2.2rem 2.1rem;
+  padding: 2.6rem 2.2rem 0;
 `;
 
 const StKrDetailHeader = styled.div`
@@ -106,12 +126,20 @@ const StKrPeriodContainer = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
-  margin-bottom: 2.4rem;
+  margin-bottom: 3rem;
 `;
 
 const StKrDetailLabel = styled.p`
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_12_regular};
+`;
+
+const StKRDetailLowerStyles = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100% - 20rem);
 `;
 
 const StKrCheckInBtn = styled.button`
@@ -120,8 +148,14 @@ const StKrCheckInBtn = styled.button`
   justify-content: center;
   width: 29.8rem;
   height: 4.4rem;
+  margin-bottom: 2rem;
   color: ${({ theme }) => theme.colors.gray_000};
   background-color: ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
+
   ${({ theme }) => theme.fonts.btn_14_semibold};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_450};
+  }
 `;

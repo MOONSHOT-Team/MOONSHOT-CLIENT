@@ -25,7 +25,7 @@ interface ICheckInInputProps {
   handleLogContentChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   logContentCount: number;
 }
-/** 체크인 회고 Input 컴포넌트입니다*/
+/** 체크인 회고 textarea 컴포넌트입니다*/
 const CheckInInput = ({
   logContent,
   handleLogContentChange,
@@ -110,7 +110,9 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
-        <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
+        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn}>
+          체크인 완료
+        </StEnterBtn1>
       </footer>
     </section>
   );
@@ -178,7 +180,9 @@ export const KR수정하기 = ({ onCancel }: IKrCheckInProps) => {
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
-        <StEnterBtn1 isActiveBtn={isActiveBtn}>체크인 완료</StEnterBtn1>
+        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn}>
+          체크인 완료
+        </StEnterBtn1>
       </footer>
     </section>
   );
@@ -231,7 +235,7 @@ const StLabel = styled.label`
 `;
 
 const StEnterProgressInput = styled.input`
-  width: 100%;
+  width: 27.4rem;
   padding: 1.1rem 1.2rem;
   color: ${({ theme }) => theme.colors.gray_000};
   background-color: transparent;
@@ -253,10 +257,11 @@ const enterInputBoxStyles = css`
 `;
 
 const StCheckInTextArea = styled.textarea`
+  all: revert;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 27.4rem;
   height: 17.7rem;
   padding: 1.1rem;
   color: ${({ theme }) => theme.colors.gray_000};

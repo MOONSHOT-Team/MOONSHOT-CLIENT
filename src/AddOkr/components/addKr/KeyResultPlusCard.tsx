@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { IcPlusExtraLarge } from '../../assets';
-import { KeyResultCardStyle } from '../../styles/KeyResultCardStyle';
+import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 
 const KeyResultPlusCard = () => {
   return (
@@ -14,7 +14,7 @@ const KeyResultPlusCard = () => {
 
 export default KeyResultPlusCard;
 
-const StKeyResultPlusCardContainer = styled(KeyResultCardStyle)`
+const StKeyResultPlusCardContainer = styled(EmptyKeyResultCard)`
   gap: 0.9rem;
   align-items: center;
   justify-content: center;

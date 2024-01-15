@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { KeyResultCardStyle } from '../../styles/KeyResultCardStyle';
+import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 
 const GuideSecondKeyResultCard = ({ krSentence }: { krSentence: string }) => {
   const HINT_TARGET = 'ex) 10';
@@ -28,7 +28,7 @@ const GuideSecondKeyResultCard = ({ krSentence }: { krSentence: string }) => {
 
 export default GuideSecondKeyResultCard;
 
-const StGuideSecondKeyResultCardWrapper = styled(KeyResultCardStyle)`
+const StGuideSecondKeyResultCardWrapper = styled(EmptyKeyResultCard)`
   gap: 4.4rem;
   justify-content: center;
   padding: 0 1.7rem;

@@ -2,10 +2,16 @@ import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
-import { KeyResultCardStyle } from '../../styles/KeyResultCardStyle';
+import { IcClose } from '../../assets';
+import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 
-const GuideFirstKeyResultCard = () => {
+interface IGuideFirstKeyResultCard {
+  cardIdx?: number;
+  handleClickCloseBtn?: (cardIdx: number) => void;
+}
+
+const GuideFirstKeyResultCard = ({ cardIdx, handleClickCloseBtn }: IGuideFirstKeyResultCard) => {
   //다른 브랜치에서 사용한 유틸 함수, 추 후 삭제 예정
   const returnParsedDate = (date: Date, parseString: string) => {
     const year = date.getFullYear();
@@ -41,6 +47,17 @@ const GuideFirstKeyResultCard = () => {
 
   return (
     <StGuideFirstKeyResultCardWrapper>
+      {/* x 버튼 부분 */}
+      {cardIdx && handleClickCloseBtn && (
+        <button
+          css={CloseIconStyle}
+          id={cardIdx.toString()}
+          onClick={() => handleClickCloseBtn(cardIdx)}
+        >
+          <IcClose />
+        </button>
+      )}
+
       <StKrInputBox>
         <StKrInputDescription>목표를 달성하기 위해 필요한 성과는?</StKrInputDescription>
         <StKrSentenceInput
@@ -66,10 +83,12 @@ const GuideFirstKeyResultCard = () => {
 
 export default GuideFirstKeyResultCard;
 
-const StGuideFirstKeyResultCardWrapper = styled(KeyResultCardStyle)`
+const StGuideFirstKeyResultCardWrapper = styled(EmptyKeyResultCard)`
+  position: relative;
   gap: 3.7rem;
   align-items: center;
   justify-content: center;
+  padding: 0 1.7rem;
 `;
 
 const StKrInputBox = styled.div`

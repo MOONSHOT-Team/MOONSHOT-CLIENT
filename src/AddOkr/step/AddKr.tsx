@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import KeyResultCard from '../components/addKr/KeyResultCard';
 import KeyResultPlusCard from '../components/addKr/KeyResultPlusCard';
+import { AddOkrCardWrapper } from '../styles/KeyResultCardStyle';
 
 const AddKr = () => {
   const MAX_KR_LENGTH = 3;
@@ -79,11 +80,6 @@ const StAddOkrTitle = styled.h1`
   ${({ theme }) => theme.fonts.title_20_semibold};
 
   white-space: pre-line;
-`;
-
-const AddOkrCardWrapper = styled.div`
-  display: flex;
-  gap: 2rem;
 `;
 
 const StAddOkrObjectBox = styled.div`

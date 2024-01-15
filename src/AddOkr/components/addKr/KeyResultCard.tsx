@@ -1,10 +1,9 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 import { IcClose } from '../../assets';
-import { KeyResultCardStyle } from '../../styles/KeyResultCardStyle';
+import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 
 interface IKeyResultCardProps {
@@ -119,16 +118,10 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
 
 export default KeyResultCard;
 
-const StKeyResultCardWrapper = styled(KeyResultCardStyle)`
+const StKeyResultCardWrapper = styled(EmptyKeyResultCard)`
   position: relative;
   gap: 2rem;
   padding: 2.4rem;
-`;
-
-const CloseIconStyle = css`
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
 `;
 
 const StKrInputDescWrapper = styled.div`

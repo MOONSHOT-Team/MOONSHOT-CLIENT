@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import ObjPeriod from './components/step/ObjPeriod';
 import ObjTitleCateg from './components/step/ObjTitleCateg';
 import SelectMethod from './components/step/SelectMethod';
+import AddGuideKr from './step/AddGuideKr';
 
 const AddOkr = () => {
   return (
@@ -11,6 +12,8 @@ const AddOkr = () => {
       <SelectMethod />
       {<ObjTitleCateg isGuide={true} />}
       <ObjPeriod />
+      {/* <AddKr /> */}
+      <AddGuideKr />
     </section>
   );
 };

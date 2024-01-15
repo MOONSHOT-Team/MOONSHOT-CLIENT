@@ -9,6 +9,7 @@ const PreviewModal = () => {
     '가이드에 따라 설정하기',
   );
   const { modalRef, handleShowModal } = useModal();
+  const progressStep = addOkrOption === '직접 생성하기' ? '5/5' : '7/7;';
 
   return (
     <>
@@ -30,9 +31,7 @@ const PreviewModal = () => {
             <StConfirmButton>확인</StConfirmButton>
           </form>
           <ProgressBox>
-            {addOkrOption === '직접 생성하기' && <ProgressLeftText>5/5</ProgressLeftText>}
-            {addOkrOption === '가이드에 따라 설정하기' && <ProgressLeftText>7/7</ProgressLeftText>}
-            <ProgressRightText>100%</ProgressRightText>
+            <ProgressRightText>{progressStep}</ProgressRightText>
           </ProgressBox>
         </div>
       </Modal>
@@ -109,10 +108,6 @@ const ProgressText = styled.span`
   position: absolute;
   top: 1.6rem;
   color: ${({ theme }) => theme.colors.gray_300};
-`;
-
-const ProgressLeftText = styled(ProgressText)`
-  left: 0;
 `;
 
 const ProgressRightText = styled(ProgressText)`

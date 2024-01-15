@@ -4,6 +4,8 @@ import MainLayout from '@components/layout/MainLayout';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AddOkr from './AddOkr';
+import AuthGoogle from './Auth/AuthGoogle';
+import AuthKakao from './Auth/AuthKakao';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
@@ -55,6 +57,23 @@ const router = createBrowserRouter([
       {
         path: 'add-okr',
         element: <AddOkr />,
+      },
+    ],
+  },
+  {
+    path: '/sign-in',
+    element: <SignIn />,
+  },
+  {
+    path: '/login/oauth2/code',
+    children: [
+      {
+        path: 'kakao',
+        element: <AuthKakao />,
+      },
+      {
+        path: 'google',
+        element: <AuthGoogle />,
       },
     ],
   },

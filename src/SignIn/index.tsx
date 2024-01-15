@@ -1,12 +1,22 @@
 import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 import imgGoogleLogin from './assets/images/imgGoogleLogin.png';
 import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
 
-/** Sign-in page */
+/** 로그인 페이지 */
 const SignIn = () => {
+  const Rest_api_key = import.meta.env.VITE_KAKAO_REST_API_KEY;
+  const redirect_uri = 'http://localhost:5173/login/oauth2/code/kakao';
+
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+
+  const handleLogin = () => {
+    window.location.href = kakaoURL;
+  };
+
   return (
     <div css={signInContainer}>
       <section css={loginSection}>
@@ -16,12 +26,12 @@ const SignIn = () => {
         <StSubText>
           유난한 도전을 위한 체계적인 목표 관리와 성과 트래킹, 지금 바로 문샷에서 시작해보세요.
         </StSubText>
-        <button type="button">
+        <button type="button" onClick={handleLogin}>
           <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />
         </button>
-        <button type="button">
+        <Link to="https://prod.moonshotyou.com/v1/user/googleLogin">
           <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
-        </button>
+        </Link>
       </section>
       <section css={brandingSection}>
         image / gif 브랜딩 관련 소스 or 프로토타입 소스가 들어갈 예정. 합숙 1주차 내 전달

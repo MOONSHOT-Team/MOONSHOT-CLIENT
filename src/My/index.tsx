@@ -24,8 +24,9 @@ const My = () => {
           {ITEMLIST.map(({ src, title, subTitle }: IItemListProps) => (
             <StItemList key={title}>
               <StItemImg src={src} />
-              <StItemTitle>{title}</StItemTitle>
-              <StItemSubTitle>{subTitle}</StItemSubTitle>
+              <StItemTitle>
+                {title} <StItemSubTitle>{subTitle}</StItemSubTitle>
+              </StItemTitle>
             </StItemList>
           ))}
         </StItemImgWrapper>
@@ -38,6 +39,7 @@ export default My;
 
 const myPageUi = css`
   display: flex;
+  height: 100%;
 `;
 
 const StUserSection = styled.section`
@@ -54,9 +56,6 @@ const StUserImg = styled.img`
   width: 12rem;
   height: 12rem;
 `;
-const StItemSection = styled.section`
-  padding: 6.1rem 13.4rem 9rem 8.4rem;
-`;
 
 const StNickName = styled.p`
   display: flex;
@@ -70,6 +69,9 @@ const StUseridentify = styled.p`
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
+const StItemSection = styled.section`
+  padding: 6.1rem 0 0 8.4rem;
+`;
 
 const StAcquiredItems = styled.p`
   margin-bottom: 1rem;
@@ -77,7 +79,7 @@ const StAcquiredItems = styled.p`
   ${({ theme }) => theme.fonts.title_16_semibold};
 `;
 
-const StItemImgWrapper = styled.div`
+const StItemImgWrapper = styled.article`
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem 2.4rem;
@@ -98,19 +100,24 @@ const StItemImg = styled.img`
 
 const StItemTitle = styled.p`
   position: absolute;
-  bottom: 5.4rem;
+  top: 17.2rem;
   left: 2.2rem;
   display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
   justify-content: center;
   width: 14rem;
+
   ${({ theme }) => theme.fonts.btn_14_semibold};
 
   color: ${({ theme }) => theme.colors.gray_100};
+  text-align: center;
 `;
 const StItemSubTitle = styled.p`
-  position: absolute;
-  bottom: 2.8rem;
-  left: 5.25rem;
+  display: flex;
+  justify-content: center;
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_12_regular};
+
+  text-align: center;
 `;

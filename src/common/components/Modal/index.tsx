@@ -39,7 +39,6 @@ const ModalDialog = styled.dialog`
   left: 50%;
   width: 47.6rem;
   height: 47.6rem;
-  padding: 2rem;
   color: ${({ theme }) => theme.colors.gray_000};
   background: ${({ theme }) => theme.colors.gray_550};
   border: none;

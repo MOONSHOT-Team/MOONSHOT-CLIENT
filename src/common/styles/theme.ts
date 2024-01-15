@@ -8,7 +8,7 @@ const colors = {
   gray_000: '#FFFFFF',
   gray_50: '#FAFAFA',
   gray_100: '#F5F5F5',
-  gray_150: '#222222',
+  gray_150: '#EBEBEB',
   gray_200: '#DCDCDC',
   gray_250: '#C2C2C2',
   gray_300: '#A7A7A7',
@@ -90,6 +90,13 @@ const fonts = {
     weight: 500,
     lineHeight: 1.4,
   }),
+  body_14_regular: FONT({
+    family: PRETENDARDFAMILY,
+    size: 1.4,
+    fontStyle: 'normal',
+    weight: 400,
+    lineHeight: 2,
+  }),
   body_13_medium: FONT({
     family: PRETENDARDFAMILY,
     size: 1.3,
@@ -133,6 +140,13 @@ const fonts = {
     lineHeight: 1.4,
   }),
   btn_11_semibold: FONT({
+    family: PRETENDARDFAMILY,
+    size: 1.1,
+    fontStyle: 'normal',
+    weight: 600,
+    lineHeight: 1.1,
+  }),
+  btn_11_medium: FONT({
     family: PRETENDARDFAMILY,
     size: 1.1,
     fontStyle: 'normal',

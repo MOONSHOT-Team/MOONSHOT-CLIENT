@@ -63,7 +63,7 @@ const StObjContentTextArea = styled.textarea`
   width: 42rem;
   height: 19.2rem;
   padding: 1.2rem 1.6rem;
-  color: ${({ theme }) => theme.colors.gray_350};
+  color: ${({ theme }) => theme.colors.gray_000};
   resize: none;
   background-color: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.gray_450};

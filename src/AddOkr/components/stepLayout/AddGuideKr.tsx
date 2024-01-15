@@ -2,10 +2,10 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
-import GuideFirstKeyResultCard from '../components/addKr/GuideFirstKeyResultCard';
-import GuideSecondKeyResultCard from '../components/addKr/GuideSecondKeyResultCard';
-import KeyResultPlusCard from '../components/addKr/KeyResultPlusCard';
-import { EmptyKeyResultCard } from '../styles/KeyResultCardStyle';
+import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
+import GuideFirstKeyResultCard from '../addKr/GuideFirstKeyResultCard';
+import GuideSecondKeyResultCard from '../addKr/GuideSecondKeyResultCard';
+import KeyResultPlusCard from '../addKr/KeyResultPlusCard';
 
 const MAX_KR_LENGTH = 3;
 

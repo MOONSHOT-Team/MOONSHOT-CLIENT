@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
 import React, { useState } from 'react';
 
-import { IcClose } from '../../assets';
+import { IcClose } from '../../assets/icons';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 

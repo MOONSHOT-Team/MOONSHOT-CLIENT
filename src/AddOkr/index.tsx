@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 
+import AddGuideKr from './components/stepLayout/AddGuideKr';
 import ObjPeriod from './components/stepLayout/ObjPeriod';
 import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
 import SelectMethod from './components/stepLayout/SelectMethod';
-import AddGuideKr from './step/AddGuideKr';
 
 const AddOkr = () => {
   return (

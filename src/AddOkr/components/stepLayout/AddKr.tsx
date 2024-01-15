@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
-import KeyResultCard from '../components/addKr/KeyResultCard';
-import KeyResultPlusCard from '../components/addKr/KeyResultPlusCard';
-import { AddOkrCardWrapper } from '../styles/KeyResultCardStyle';
+import { AddOkrCardWrapper } from '../../styles/KeyResultCardStyle';
+import KeyResultCard from '../addKr/KeyResultCard';
+import KeyResultPlusCard from '../addKr/KeyResultPlusCard';
 
 const AddKr = () => {
   const MAX_KR_LENGTH = 3;

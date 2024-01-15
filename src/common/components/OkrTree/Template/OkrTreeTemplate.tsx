@@ -28,7 +28,6 @@ const StOkrTreeContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 90rem;
   padding-top: 1.2rem;
 `;
 

@@ -21,7 +21,6 @@ const SocialOKRTree = ({ okrTreeData }: { okrTreeData: IOkrTreeDataType }) => {
               isFirstChild={isFirstChild}
               taskIdx={taskIdx}
               taskList={okrTreeData.krList[krIdx]?.taskList}
-              okrTreeData={okrTreeData}
             />
           )}
         />

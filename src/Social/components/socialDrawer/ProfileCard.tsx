@@ -1,26 +1,113 @@
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { useState } from 'react';
+
+import { IcLike, IcLikeFill } from '../../assets/icons';
+
 interface IProfileCardProps {
   category: string;
   userName: string;
   userImg: string;
   like: number;
   userIntro: string;
+  onClickCard: (idx: number) => void;
+  currentUserIdx: number;
+  idx: number;
 }
 
-const ProfileCard = ({ category, userName, userImg, like, userIntro }: IProfileCardProps) => {
+const ProfileCard = ({
+  category,
+  userName,
+  userImg,
+  like,
+  userIntro,
+  idx,
+  onClickCard,
+  currentUserIdx,
+}: IProfileCardProps) => {
+  const isCurrent = currentUserIdx === idx;
+  const [isLike, setIsLike] = useState(false);
+  const [likeCnt, setLikeCnt] = useState(like);
+
+  /*좋아요 눌렀을 때 핸들러 함수입니다 */
+  const handleLike = (event: React.MouseEvent) => {
+    isLike ? setLikeCnt(likeCnt - 1) : setLikeCnt(likeCnt + 1);
+    setIsLike(!isLike);
+    event.stopPropagation();
+  };
+
   return (
-    <li>
-      <div>{category}</div>
-      <div>
-        <img src={userImg} alt={`${userName}프로필사진`} />
-        <p>{userName}</p>
-        <div>
-          <span>하트</span>
-          <span>{like}</span>
+    <StProfileCardContainer isCurrent={isCurrent} onClick={() => onClickCard?.(idx)}>
+      <article css={profileCardStyle}>
+        <div css={{ display: 'flex', gap: '0.4rem', marginBottom: '0.4rem' }}>
+          <i></i>
+          <StCategory>{category}</StCategory>
         </div>
-      </div>
-      <div>{userIntro}</div>
-    </li>
+        <div css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Img src={userImg} alt={`${userName}프로필사진`} isCurrent={isCurrent} />
+          <StUserName>{userName}</StUserName>
+          <div css={{ display: 'flex', justifyContent: 'center', gap: '0.4rem' }}>
+            <i>{isLike ? <IcLikeFill onClick={handleLike} /> : <IcLike onClick={handleLike} />}</i>
+            <StLikeCnt>{likeCnt}</StLikeCnt>
+          </div>
+        </div>
+        <StUserIntro>{userIntro}</StUserIntro>
+      </article>
+    </StProfileCardContainer>
   );
 };
 
 export default ProfileCard;
+
+const StProfileCardContainer = styled.li<{ isCurrent: boolean }>`
+  flex-shrink: 0;
+  width: 18.8rem;
+  padding: 1.8rem 1.6rem 2rem;
+  cursor: pointer;
+  background-color: ${({ theme, isCurrent }) =>
+    isCurrent ? theme.colors.gray_500 : theme.colors.gray_550};
+  border-radius: 6px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_500};
+  }
+`;
+
+const profileCardStyle = css`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const StCategory = styled.p`
+  color: ${({ theme }) => theme.colors.gray_200};
+  ${({ theme }) => theme.fonts.caption_10_medium};
+`;
+
+const Img = styled.img<{ isCurrent: boolean }>`
+  width: 4rem;
+  height: 4rem;
+  background-color: '#ccc';
+  border: ${({ theme, isCurrent }) => (isCurrent ? `1px solid ${theme.colors.gray_200}` : 'none')};
+  border-radius: 40px;
+`;
+
+const StUserName = styled.p`
+  margin-top: 0.8rem;
+  margin-bottom: 0.6rem;
+  color: ${({ theme }) => theme.colors.gray_200};
+  ${({ theme }) => theme.fonts.body_12_regular};
+`;
+
+const StLikeCnt = styled.p`
+  color: ${({ theme }) => theme.colors.gray_300};
+  ${({ theme }) => theme.fonts.caption_10_medium};
+`;
+
+const StUserIntro = styled.p`
+  width: 15.6rem;
+  margin-top: 0.8rem;
+  overflow: hidden;
+  color: ${({ theme }) => theme.colors.gray_250};
+  ${({ theme }) => theme.fonts.body_10_regular};
+`;

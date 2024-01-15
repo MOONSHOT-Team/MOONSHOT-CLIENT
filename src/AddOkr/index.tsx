@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 import ObjTitleCateg from './components/step/ObjTitleCateg';
 import SelectMethod from './components/step/SelectMethod';
 
@@ -7,7 +8,7 @@ const AddOkr = () => {
     <section css={AddOkrContainer}>
       {/* step1 */}
       <SelectMethod />
-      {<ObjTitleCateg isGuide={true} />
+      {<ObjTitleCateg isGuide={true} />}
     </section>
   );
 };
@@ -20,5 +21,4 @@ const AddOkrContainer = css`
   justify-content: center;
   width: 100%;
   height: 100%;
-
-
+`;

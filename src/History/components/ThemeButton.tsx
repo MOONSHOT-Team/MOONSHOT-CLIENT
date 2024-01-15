@@ -33,7 +33,11 @@ const StThemeBtn = styled.button<{ isActive: boolean; isDisabled: boolean }>`
 
   color: ${({ isDisabled, theme }) => (isDisabled ? theme.colors.gray_450 : theme.colors.gray_000)};
   background-color: ${({ isActive, isDisabled, theme }) =>
-    isDisabled ? theme.colors.gray_550 : isActive ? theme.colors.gray_550 : '#1E1E20'};
+    isDisabled
+      ? theme.colors.gray_550
+      : isActive
+        ? theme.colors.gray_550
+        : theme.colors.background};
   border: 1px solid
     ${({ isActive, isDisabled, theme }) =>
       isDisabled

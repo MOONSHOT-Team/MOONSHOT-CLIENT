@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { THEME } from '../constants/theme';
-import { YEAR } from '../constants/year';
+import { Group } from '../type/historyData';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
 
-const HistoryDrawer = ({ themeData }: { themeData: { category: string }[] }) => {
+const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: string[] }) => {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
@@ -24,12 +24,12 @@ const HistoryDrawer = ({ themeData }: { themeData: { category: string }[] }) => 
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
-          {THEME.map(({ text, category }) => {
-            const isDisabled = !themeData.some((data) => data.category === category);
+          {THEME.map(({ category }) => {
+            const isDisabled = !categories.includes(category);
             return (
               <ThemeButton
                 key={category}
-                name={text}
+                name={category}
                 onSelectTheme={() => handleSelectTheme(category)}
                 isActive={category === selectedTheme}
                 isDisabled={isDisabled}
@@ -41,7 +41,7 @@ const HistoryDrawer = ({ themeData }: { themeData: { category: string }[] }) => 
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
-          {YEAR.map(({ year, count }) => (
+          {groups.map(({ year, count }) => (
             <YearButton
               key={year}
               year={year}
@@ -63,6 +63,7 @@ const HistoryAside = styled.aside`
   flex-direction: column;
   gap: 4rem;
   width: 23.2rem;
+  height: 100%;
   padding: 2.4rem 2.2rem;
   background-color: ${({ theme }) => theme.colors.gray_650};
 `;

@@ -28,7 +28,8 @@ const StYearBtn = styled.button<{ isActive: boolean }>`
   ${({ theme }) => theme.fonts.btn_11_medium};
 
   color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ isActive, theme }) => (isActive ? theme.colors.gray_550 : '#1E1E20')};
+  background-color: ${({ isActive, theme }) =>
+    isActive ? theme.colors.gray_550 : theme.colors.background};
   border: 1px solid
     ${({ isActive, theme }) => (isActive ? theme.colors.gray_300 : theme.colors.gray_350)};
   border-radius: 6px;

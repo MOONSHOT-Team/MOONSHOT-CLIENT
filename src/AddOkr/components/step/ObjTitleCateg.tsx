@@ -55,6 +55,16 @@ const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
     setHoverObjPlaceHolder(targetPlaceholder);
   };
 
+  // 이미 선택된 obj가 있을때, mouseleave시 선택 된 obj의 placeholder로 유지되도록
+  const handleMouseLeaveObjCateg = () => {
+    if (!selectedObjCatg) return;
+    const { placeholder: targetPlaceholder } = GUIDE_OBJ_TITLE_PLACEHOLDER.filter(
+      (tag) => tag.id === selectedObjCatg,
+    )[0];
+
+    setHoverObjPlaceHolder(targetPlaceholder);
+  };
+
   return (
     <section css={ObjTitleCategContainer}>
       <StObjTitleCategTitle>
@@ -72,6 +82,7 @@ const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
               isClicked={selectedObjCatg === id}
               handleClickObjTag={handleClickObjCateg}
               handleHoverObjCateg={handleHoverObjCateg}
+              handleMouseLeaveObjCateg={handleMouseLeaveObjCateg}
             />
           );
         })}

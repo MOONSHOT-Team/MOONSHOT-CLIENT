@@ -1,7 +1,9 @@
 import { css } from '@emotion/react';
 
+import ObjTitleCateg from './components/step/ObjTitleCateg';
+
 const AddOkr = () => {
-  return <section css={AddOkrContainer}>{/* <ObjTitleCateg isGuide={true} /> */}</section>;
+  return <section css={AddOkrContainer}>{<ObjTitleCateg isGuide={true} />}</section>;
 };
 
 export default AddOkr;

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-import ObjPeriod from './components/step/ObjPeriod';
-import ObjTitleCateg from './components/step/ObjTitleCateg';
-import SelectMethod from './components/step/SelectMethod';
+import ObjPeriod from './components/stepLayout/ObjPeriod';
+import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
+import SelectMethod from './components/stepLayout/SelectMethod';
 import AddGuideKr from './step/AddGuideKr';
 
 const AddOkr = () => {

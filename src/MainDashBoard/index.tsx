@@ -4,23 +4,11 @@ import { useState } from 'react';
 
 import CelebrateMotion from './components/celebrateMotion/CelebrateMotion';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
+import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
 import SideSheet from './components/sideSheet/SideSheet';
 
-interface IMainDashboardOKRTreeProps {
-  onShowSideSheet: () => void;
-}
-
-const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) => {
-  return (
-    <article css={{ flex: '1', backgroundColor: '#ccc' }}>
-      okr트리부분
-      <button onClick={onShowSideSheet}>Show SideSheet</button>
-    </article>
-  );
-};
-
 const MainDashBoard = () => {
-  const [showSideSheet, setShowSideSheet] = useState<boolean>(true);
+  const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [showCelebrate] = useState(false); //축하 모션 보이는 여부 플래그
 
   const handleShowSideSheet = () => {
@@ -55,6 +43,6 @@ export default MainDashBoard;
 
 const mainDashboardStyle = css`
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 `;

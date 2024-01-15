@@ -1,29 +1,20 @@
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
-import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
 
-import { ObjectiveNodes } from '../nodes/CommonOkrNodes';
 import KrContainer from './krTemplate/KrContainer';
 
 interface IOkrTreeProps {
-  objTitle: string;
-  objStroke?: undefined | string;
+  ObjNode: () => jsx.JSX.Element;
   keyResultList: IKeyResultTypes[];
-  KrNodes: ({ idx, title }: IKeyResultTypes) => jsx.JSX.Element;
-  TaskNodes: ({ idx, title, isFirstChild }: ITaskNodesTypes) => jsx.JSX.Element;
+  KrNodes: (krIdx: number) => jsx.JSX.Element;
+  TaskNodes: (isFirstChild: boolean, krIdx: number, taskIdx: number) => jsx.JSX.Element;
 }
 
-const OkrTreeTemplate = ({
-  objTitle,
-  objStroke,
-  keyResultList,
-  KrNodes,
-  TaskNodes,
-}: IOkrTreeProps) => {
+const OkrTreeTemplate = ({ ObjNode, keyResultList, KrNodes, TaskNodes }: IOkrTreeProps) => {
   return (
     <StOkrTreeContainer>
-      <ObjectiveNodes title={objTitle} objStroke={objStroke} />
+      {ObjNode()}
       <StKrTreeWrapper>
         <KrContainer keyResultList={keyResultList} KrNodes={KrNodes} TaskNodes={TaskNodes} />
       </StKrTreeWrapper>
@@ -36,7 +27,7 @@ export default OkrTreeTemplate;
 const StOkrTreeContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding-top: 1.2rem;
 `;
 

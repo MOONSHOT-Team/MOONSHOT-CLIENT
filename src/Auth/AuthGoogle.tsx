@@ -1,7 +1,8 @@
-import { fetcherPost } from '@apis/fetcher';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 
+import { fetcherPost } from './apis/fetcher';
 import { SwrType } from './type';
 
 const AuthGoogle = () => {
@@ -12,14 +13,16 @@ const AuthGoogle = () => {
     fetcherPost(url, googleCode!, 'GOOGLE'),
   );
 
-  if (data) {
-    const { accessToken, refreshToken } = data.data.data.token;
+  useEffect(() => {
+    if (data) {
+      const { accessToken, refreshToken } = data.data.data.token;
 
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
 
-    navigate('/dashboard');
-  }
+      navigate('/dashboard');
+    }
+  }, [data, navigate]);
 
   return (
     <>

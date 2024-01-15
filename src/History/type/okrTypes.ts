@@ -4,7 +4,7 @@ export interface IObjective {
   objCategory: string;
   progress: number;
   objPeriod: string;
-  objIdx: number;
+  objIdx?: number;
   krList: IKeyResult[];
 }
 export interface IKeyResult {

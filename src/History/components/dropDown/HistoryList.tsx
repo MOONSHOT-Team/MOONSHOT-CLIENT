@@ -7,80 +7,59 @@ import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
 import HistoryProgressBar from '../HistoryProgressBar';
 import HistoryListDetails from './HistoryListDetails';
 import KeyResultList from './KeyResultList';
-import ListOrder from './ListOrder';
 import TaskList from './TaskList';
 
-interface IHistoryListProps {
-  year: number;
-  objList: IObjective[];
-}
-
-const HistoryList: React.FC<IHistoryListProps> = ({ year, objList }) => {
+const HistoryList: React.FC<IObjective> = ({
+  objId,
+  title,
+  objCategory,
+  progress,
+  objPeriod,
+  krList,
+}) => {
   const [isVisable, setIsVisable] = useState<number | null>(null);
   const handleObjectiveClick = (objId: number) => {
     setIsVisable((previousObjId) => (previousObjId === objId ? null : objId));
   };
   return (
     <>
-      <div css={listOrder}>
-        <StEachYear>{year}년</StEachYear>
-        <ListOrder />
-      </div>
+      <ul>
+        {
+          <StObjectiveContainer onClick={() => handleObjectiveClick(objId)}>
+            <StObjectiveWrapper>
+              {isVisable === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
+              <StObjectiveCategory>{objCategory}</StObjectiveCategory>
+              <StObjectTitle>{title}</StObjectTitle>
+            </StObjectiveWrapper>
+            <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
+            <StObjectivePeriod>{objPeriod}</StObjectivePeriod>
+          </StObjectiveContainer>
+        }
 
-      {objList.map(({ objId, title, objCategory, progress, objPeriod, krList }) => (
-        <ul key={`${objId}+${objCategory}`}>
-          {
-            <StObjectiveContainer onClick={() => handleObjectiveClick(objId)}>
-              <StObjectiveWrapper>
-                {isVisable ? <CloseDropDownIcon /> : <DropDownIcon />}
-                <StObjectiveCategory>{objCategory}</StObjectiveCategory>
-                <StObjectTitle>{title}</StObjectTitle>
-              </StObjectiveWrapper>
-              <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
-              <StObjectivePeriod>{objPeriod}</StObjectivePeriod>
-            </StObjectiveContainer>
-          }
+        <HistoryListDetails visibility={isVisable === objId}>
+          {krList.map(({ krId, krIdx, krTitle, krProgress, taskList }: IKeyResult) => (
+            <ul css={KrTaskLayout} key={`${krId}+${krTitle}`}>
+              <KeyResultList krIdx={krIdx} krProgress={krProgress} krTitle={krTitle} />
 
-          <HistoryListDetails visibility={isVisable === objId}>
-            {krList.map(({ krId, krIdx, krTitle, krProgress, taskList }: IKeyResult) => (
-              <ul css={KrTaskLayout} key={`${krId}+${krTitle}`}>
-                <KeyResultList krIdx={krIdx} krProgress={krProgress} krTitle={krTitle} />
-
-                <div css={TaskLayout}>
-                  {taskList.map(({ taskId, taskTitle, taskIdx }: ITask) => (
-                    <TaskList
-                      key={`${taskId}+${taskTitle}`}
-                      taskId={taskId}
-                      taskTitle={taskTitle}
-                      taskIdx={taskIdx}
-                    />
-                  ))}
-                </div>
-              </ul>
-            ))}
-          </HistoryListDetails>
-        </ul>
-      ))}
+              <div css={TaskLayout}>
+                {taskList.map(({ taskId, taskTitle, taskIdx }: ITask) => (
+                  <TaskList
+                    key={`${taskId}+${taskTitle}`}
+                    taskId={taskId}
+                    taskTitle={taskTitle}
+                    taskIdx={taskIdx}
+                  />
+                ))}
+              </div>
+            </ul>
+          ))}
+        </HistoryListDetails>
+      </ul>
     </>
   );
 };
 
 export default HistoryList;
-
-const listOrder = css`
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  justify-content: space-between;
-  width: 105.8rem;
-  padding-bottom: 1.2rem;
-  margin-top: 3rem;
-`;
-const StEachYear = styled.p`
-  padding-left: 0.2rem;
-  margin-bottom: 1.2rem;
-  color: ${({ theme }) => theme.colors.gray_000} ${({ theme }) => theme.fonts.title_20_semibold};
-`;
 
 const StObjectiveContainer = styled.button`
   display: flex;

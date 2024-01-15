@@ -54,9 +54,8 @@ const StKeyResultProgressBar = styled.div`
   align-items: center;
   width: 27.6rem;
   margin-left: 11rem;
-  ${({ theme }) => theme.fonts.body_13_medium};
-
   color: ${({ theme }) => theme.colors.gray_300};
+  ${({ theme }) => theme.fonts.body_13_medium};
 `;
 
 const KrProgressBar = css`
@@ -66,13 +65,11 @@ const KrProgressBar = css`
 const StOKRIndex = styled.p`
   display: flex;
   align-items: center;
-  ${({ theme }) => theme.fonts.btn_11_medium};
-
   color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme }) => theme.fonts.btn_11_medium};
 `;
 
 const StOKRContent = styled.p`
-  ${({ theme }) => theme.fonts.body_14_regular};
-
   color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme }) => theme.fonts.body_14_regular};
 `;

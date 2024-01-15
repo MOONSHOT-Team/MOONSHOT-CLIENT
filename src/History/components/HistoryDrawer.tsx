@@ -18,6 +18,7 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
   const handleSelectYear = (year: number) => {
     setSelectedYear(year === selectedYear ? null : year);
   };
+  const currentYear = new Date().getFullYear();
 
   return (
     <HistoryAside>
@@ -38,9 +39,19 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
           })}
         </ul>
       </article>
+
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
+          {!groups.some((group) => group.year === currentYear) && (
+            <YearButton
+              year={currentYear}
+              count={0} // 더미 값
+              onSelectYear={() => handleSelectYear(currentYear)}
+              isActive={currentYear === selectedYear}
+            />
+          )}
+
           {groups.map(({ year, count }) => (
             <YearButton
               key={year}

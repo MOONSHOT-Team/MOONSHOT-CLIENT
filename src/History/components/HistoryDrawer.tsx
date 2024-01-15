@@ -11,12 +11,12 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-  const handleSelectTheme = (theme: string) => {
-    setSelectedTheme(theme === selectedTheme ? null : theme);
+  const handleSelectTheme = (selectedTheme: string) => {
+    setSelectedTheme(selectedTheme);
   };
 
-  const handleSelectYear = (year: number) => {
-    setSelectedYear(year === selectedYear ? null : year);
+  const handleSelectYear = (selectedYear: number) => {
+    setSelectedYear(selectedYear);
   };
 
   const currentYear = new Date().getFullYear();

@@ -11,7 +11,7 @@ import {
   IcWaitState,
 } from '../../assets/icons';
 
-const KRSTATUS = [
+const KR_STATUS = [
   { icon: <IcOnGoingState />, label: '진행' },
   { icon: <IcWaitState />, label: '대기' },
   { icon: <IcHoldState />, label: '보류' },
@@ -38,7 +38,7 @@ const KrStatus = () => {
   const [isDrop, setIsDrop] = useState(false);
 
   useEffect(() => {
-    const tmp = KRSTATUS.find((status) => status.label === krStatusLabel)?.icon;
+    const tmp = KR_STATUS.find((status) => status.label === krStatusLabel)?.icon;
     if (tmp) setKrStatusIcon(tmp);
   }, [krStatusLabel]);
 
@@ -63,7 +63,7 @@ const KrStatus = () => {
       </StContainer>
       {isDrop && (
         <StStatusContainer>
-          {KRSTATUS.filter(({ label }) => label !== krStatusLabel).map(({ icon, label }) => (
+          {KR_STATUS.filter(({ label }) => label !== krStatusLabel).map(({ icon, label }) => (
             <StStateContainer key={label} type="button" onClick={() => handleKrStatus(label)}>
               <KrStatusItem icon={icon} label={label} />
             </StStateContainer>

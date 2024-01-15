@@ -18,5 +18,5 @@ export default MainLayout;
 
 const mainHeight = css`
   height: calc(100vh - 7.6rem);
-  padding-top: 7.6rem;
+  margin-top: 7.6rem;
 `;

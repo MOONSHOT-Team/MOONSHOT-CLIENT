@@ -4,7 +4,8 @@ import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 import { IcClose } from '../../assets';
-import KeyResultPeriodInput from '../KeyResultPeriodInput';
+import { KeyResultCardStyle } from '../../styles/KeyResultCardStyle';
+import KeyResultPeriodInput from './KeyResultPeriodInput';
 
 interface IKeyResultCardProps {
   cardIdx?: number;
@@ -72,6 +73,7 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
         </button>
       )}
 
+      {/* 핵심 지표 문장 입력 부분 */}
       <StKrInputDescWrapper>
         <StKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StKrInputDescription>
         <StKrSentenceInput
@@ -81,6 +83,7 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
         />
       </StKrInputDescWrapper>
 
+      {/*수치값 단위 입력 부분*/}
       <StKrInputDescWrapper>
         <StKrInputDescription>
           핵심 지표를 측정할 수치값과 단위를 입력해주세요.
@@ -99,6 +102,7 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
         </StTargetMetricInputBox>
       </StKrInputDescWrapper>
 
+      {/*달성 기간 입력 부분*/}
       <StKrInputDescWrapper>
         <StKrInputDescription>핵심 지표를 달성할 기간을 입력해주세요.</StKrInputDescription>
         <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
@@ -115,16 +119,10 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
 
 export default KeyResultCard;
 
-const StKeyResultCardWrapper = styled.article`
+const StKeyResultCardWrapper = styled(KeyResultCardStyle)`
   position: relative;
-  display: flex;
-  flex-direction: column;
   gap: 2rem;
-  width: 34.7rem;
-  height: 29.8rem;
   padding: 2.4rem;
-  background-color: ${({ theme }) => theme.colors.gray_600};
-  border-radius: 10px;
 `;
 
 const CloseIconStyle = css`

@@ -25,7 +25,7 @@ const Error = () => {
           <br />
           입력하신 페이지의 주소가 정확한지 다시 한 번 확인해주세요.
         </ErrorText>
-        <BackToHomeLink to="/dashboard">홈페이지 돌아가기</BackToHomeLink>
+        <BackToHomeLink to="/">홈페이지 돌아가기</BackToHomeLink>
       </div>
     </>
   );

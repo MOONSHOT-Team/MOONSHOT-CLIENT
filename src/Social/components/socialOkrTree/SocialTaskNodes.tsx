@@ -8,12 +8,20 @@ import {
   StTaskLabel,
   StTaskNodeContainer,
 } from '@styles/okrTree/CommonNodeStyle';
-import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
+import { ITaskTypes } from '@type/OkrTree/TasksTypes';
 
-import { MOCK_MAIN_OKR_DATA } from '../../constants/MOCK_MAIN_OKR_DATA';
+interface ISocialTaskProps {
+  isFirstChild?: boolean;
+  taskIdx: number;
+  taskList?: ITaskTypes[];
+}
 
-export const SocialTaskNodes = ({ isFirstChild, krIdx, taskIdx }: ITaskNodesTypes) => {
-  const { title, idx } = MOCK_MAIN_OKR_DATA.krList[krIdx].taskList[taskIdx]; //krIdx번의 kr의 taskIdx task의 데이터를 다루는 tasknode
+export const SocialTaskNodes = ({ isFirstChild, taskIdx, taskList }: ISocialTaskProps) => {
+  const task = taskList ? taskList[taskIdx] : undefined;
+
+  if (!task) {
+    return;
+  }
 
   return (
     <StNodesContainer>
@@ -22,7 +30,7 @@ export const SocialTaskNodes = ({ isFirstChild, krIdx, taskIdx }: ITaskNodesType
         <NodeLines />
         <StSocialTaskBoxWrapper>
           <StraightLine />
-          <StSocialTaskBox $idx={idx}>{title}</StSocialTaskBox>
+          <StSocialTaskBox $idx={task?.idx}>{task?.title}</StSocialTaskBox>
         </StSocialTaskBoxWrapper>
       </StTaskNodeContainer>
     </StNodesContainer>

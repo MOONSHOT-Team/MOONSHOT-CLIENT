@@ -10,18 +10,18 @@ import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 
 interface ISocialKrNodesProps {
   krIdx: number;
-  krList?: IKeyResultTypes[];
+  krList: IKeyResultTypes;
 }
 
-export const SocialKrNodes = ({ krIdx }: ISocialKrNodesProps) => {
-  // const { title } = krList;
+export const SocialKrNodes = ({ krIdx, krList }: ISocialKrNodesProps) => {
+  const { title } = krList;
 
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
       <StMainDashKrBoxWrapper>
         <StraightLine />
-        <StMainDashBox>jj</StMainDashBox>
+        <StMainDashBox>{title}</StMainDashBox>
       </StMainDashKrBoxWrapper>
     </StNodesContainer>
   );

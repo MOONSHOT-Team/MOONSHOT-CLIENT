@@ -6,18 +6,23 @@ import { SocialKrNodes } from './SocialKrNodes';
 import SocialObjectNodes from './SocialObjectNode';
 import { SocialTaskNodes } from './SocialTaskNodes';
 
-const SocialOKRTree = ({ okrData }: { okrData: IOkrTreeDataType }) => {
-  const { krList, objTitle } = okrData;
-  console.log(krList);
+const SocialOKRTree = ({ okrTreeData }: { okrTreeData: IOkrTreeDataType }) => {
+  const { krList, objTitle } = okrTreeData;
+  console.log(okrTreeData);
   return (
     <article css={okrTreeContainer}>
       <div>
         <OkrTreeTemplate
           ObjNode={() => <SocialObjectNodes objValue={objTitle} objStroke="#7165CA" />}
           keyResultList={krList}
-          KrNodes={(krIdx) => <SocialKrNodes krIdx={krIdx} krList={krList} />}
+          KrNodes={(krIdx) => <SocialKrNodes krIdx={krIdx} krList={krList[krIdx]} />}
           TaskNodes={(isFirstChild, krIdx, taskIdx) => (
-            <SocialTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
+            <SocialTaskNodes
+              isFirstChild={isFirstChild}
+              taskIdx={taskIdx}
+              taskList={okrTreeData.krList[krIdx]?.taskList}
+              okrTreeData={okrTreeData}
+            />
           )}
         />
       </div>
@@ -30,9 +35,8 @@ export default SocialOKRTree;
 const okrTreeContainer = css`
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 100%;
-  height: calc(100% - 7.6rem);
-  margin-right: 23.2rem;
+  height: 100%;
   margin-bottom: 7.6rem;
+  margin-left: 28.3rem;
 `;

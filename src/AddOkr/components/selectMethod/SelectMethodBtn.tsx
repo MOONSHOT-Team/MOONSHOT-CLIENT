@@ -7,7 +7,12 @@ interface IMethodBtnProps {
   isClicked?: boolean;
 }
 
-const MethodBtn = ({ title, description, isClicked, handleClickMethodBtn }: IMethodBtnProps) => {
+const SelectMethodBtn = ({
+  title,
+  description,
+  isClicked,
+  handleClickMethodBtn,
+}: IMethodBtnProps) => {
   return (
     <StMethodBtn id={title} type="button" $isClicked={isClicked} onClick={handleClickMethodBtn}>
       <StMethodBtnTitle>{title}</StMethodBtnTitle>
@@ -16,7 +21,7 @@ const MethodBtn = ({ title, description, isClicked, handleClickMethodBtn }: IMet
   );
 };
 
-export default MethodBtn;
+export default SelectMethodBtn;
 
 const StMethodBtn = styled.button<{ $isClicked: boolean | undefined }>`
   display: flex;
@@ -35,8 +40,8 @@ const StMethodBtn = styled.button<{ $isClicked: boolean | undefined }>`
   border-radius: 8px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.transparent_purple};
-    outline: 1px solid ${({ theme }) => theme.colors.main_darkpurple};
+    background-color: ${({ theme, $isClicked }) => !$isClicked && theme.colors.gray_500};
+    outline: none;
   }
 `;
 

@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import ObjPeriod from './components/step/ObjPeriod';
 import ObjTitleCateg from './components/step/ObjTitleCateg';
 import SelectMethod from './components/step/SelectMethod';
 
@@ -9,6 +10,7 @@ const AddOkr = () => {
       {/* step1 */}
       <SelectMethod />
       {<ObjTitleCateg isGuide={true} />}
+      <ObjPeriod />
     </section>
   );
 };

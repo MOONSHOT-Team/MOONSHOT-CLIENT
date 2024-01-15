@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 const HistoryListDetails = (props: { visibility: boolean; children: React.ReactNode }) => {
   return (
     <>
@@ -10,6 +11,7 @@ const HistoryListDetails = (props: { visibility: boolean; children: React.ReactN
 };
 
 export default HistoryListDetails;
+
 const StDropDownContent = styled.li<{ $isHide: boolean }>`
   display: ${({ $isHide }) => ($isHide ? 'none' : 'flex')};
   flex-direction: column;

@@ -6,9 +6,6 @@ interface IKeyResultProps {
   krIdx: number;
   krProgress: number;
   krTitle: string;
-  taskId?: number;
-  taskTitle?: string;
-  taskIdx?: number;
 }
 
 const KeyResultList = ({ krIdx, krProgress, krTitle }: IKeyResultProps) => {

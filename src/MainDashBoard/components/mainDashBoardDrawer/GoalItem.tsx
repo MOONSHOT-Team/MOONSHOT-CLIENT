@@ -23,6 +23,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
 }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
+  const [initialDragIndex, setInitialDragIndex] = useState<number | null>(null);
 
   const handleOnClickIcon = (event: React.MouseEvent) => {
     setIsDetailOpen(!isDetailOpen);
@@ -33,14 +34,19 @@ const GoalItem: React.FC<IobjListTypes> = ({
     onClickGoal?.(id);
   };
 
-  const color = GOAL_CATEGORY.find((item) => item.category === category)?.color;
+  const color = GOAL_CATEGORY.find((cate) => cate.category === category)?.color;
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.GOAL,
     item: { id, index },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+    collect: (monitor) => {
+      if (monitor.isDragging() && initialDragIndex === null) {
+        setInitialDragIndex(index); // 드래그 시작 시 인덱스 저장
+      }
+      return {
+        isDragging: monitor.isDragging(),
+      };
+    },
   });
 
   const [, drop] = useDrop({
@@ -59,6 +65,10 @@ const GoalItem: React.FC<IobjListTypes> = ({
       moveGoal?.(dragIndex, hoverIndex);
 
       item.index = hoverIndex;
+    },
+    drop(item: { index: number }) {
+      //목표리스트 dnd 서버통신
+      console.log(`Initial item idex : ${initialDragIndex} Dropped item index: ${item.index}`);
     },
   });
 

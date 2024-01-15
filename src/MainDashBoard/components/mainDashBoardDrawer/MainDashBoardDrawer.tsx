@@ -41,7 +41,13 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
   return (
     <StContainer>
       <div>
-        <StAddGoalBtn type="button">목표 추가하기</StAddGoalBtn>
+        <StAddGoalBtn
+          type="button"
+          isAble={objList.length < 10}
+          disabled={objList.length < 10 ? false : true}
+        >
+          목표 추가하기
+        </StAddGoalBtn>
       </div>
       <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
         <div css={goalListHeader}>
@@ -79,15 +85,17 @@ const StContainer = styled.aside`
   background-color: ${({ theme }) => theme.colors.gray_600};
 `;
 
-const StAddGoalBtn = styled.button`
+const StAddGoalBtn = styled.button<{ isAble: boolean }>`
   width: 18.8rem;
   height: 3.6rem;
   margin: 2.4rem 2.2rem;
-  color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme, isAble }) => css`
+    color: ${isAble ? theme.colors.gray_000 : theme.colors.gray_200};
+    background-color: ${isAble ? theme.colors.main_darkpurple : theme.colors.gray_500};
+  `}
 
   ${({ theme }) => theme.fonts.btn_14_semibold};
 
-  background-color: ${({ theme }) => theme.colors.main_darkpurple};
   border-radius: 6px;
 `;
 

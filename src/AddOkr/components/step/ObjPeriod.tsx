@@ -59,7 +59,6 @@ const ObjPeriod = () => {
       <StPeriodBtnTitle>앞으로 몇 개월 동안 목표에 집중해볼까요?</StPeriodBtnTitle>
       <div css={PeriodDateBox}>
         <StPeriodDateTxt>{`${startDate} - ${exipreDate}`}</StPeriodDateTxt>
-        <StPeriodUnderLine />
       </div>
       <div css={PeriodBtnWrapper}>
         {OBJ_PERIOD_LIST.map(({ length, periodName }) => {
@@ -107,19 +106,15 @@ const PeriodDateBox = css`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  width: 19.6rem;
+  width: fit-content;
+  min-width: 19.6rem;
   margin-bottom: 3.7rem;
 `;
 
 const StPeriodDateTxt = styled.p`
-  padding: 0 1.2rem;
+  padding: 0 1.2rem 1.2rem;
   ${({ theme }) => theme.fonts.body_14_regular};
 
   color: ${({ theme }) => theme.colors.gray_400};
-`;
-
-const StPeriodUnderLine = styled.div`
-  width: 19.6rem;
-  height: 1px;
-  background-color: ${({ theme }) => theme.colors.gray_200};
+  border-bottom: 1px solid white;
 `;

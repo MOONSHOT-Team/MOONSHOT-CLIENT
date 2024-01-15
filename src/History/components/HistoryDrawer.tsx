@@ -18,6 +18,7 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
   const handleSelectYear = (year: number) => {
     setSelectedYear(year === selectedYear ? null : year);
   };
+
   const currentYear = new Date().getFullYear();
 
   return (

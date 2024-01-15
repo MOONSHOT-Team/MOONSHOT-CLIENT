@@ -11,15 +11,14 @@ interface MarkerProps {
 
 const ProgressBar = ({ currentProgress, maximumProgress }: ProgressBarProps) => {
   const leftValue = (currentProgress / maximumProgress) * 20.0 - 0.6;
+
   return (
     <ProgressBarContainer>
       <StProgressBarWrapper>
         <Progress value={currentProgress} max={maximumProgress} />
-        {/* history_progressbar 현재 진행 마크용*/}
         <StMarker value={leftValue} />
       </StProgressBarWrapper>
 
-      {/* history_progressbar 진행률 표기 */}
       <StCurrentProgressBox>{currentProgress}% 달성</StCurrentProgressBox>
     </ProgressBarContainer>
   );

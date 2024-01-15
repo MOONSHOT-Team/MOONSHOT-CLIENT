@@ -8,6 +8,7 @@ interface IYearBtnProps {
   onSelectYear: () => void;
   isActive: boolean;
 }
+
 const YearButton = ({ year, count, onSelectYear, isActive }: IYearBtnProps) => {
   return (
     <StYearBtn onClick={onSelectYear} isActive={isActive}>

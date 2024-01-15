@@ -3,7 +3,7 @@ export const MOCK_SOCIAL_DATA = [
     //1
     category: '건강',
     userName: '달나라모험',
-    userImg: '', //이미지 파일 준비만 해주세여
+    userImg: '',
     like: 132,
     userIntro: 'ESTJ/목표를 성취하는 과정에서 짜릿함을 느껴요',
     okrTreeData: {

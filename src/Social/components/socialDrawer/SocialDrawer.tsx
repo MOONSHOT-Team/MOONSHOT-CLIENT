@@ -1,10 +1,18 @@
 import styled from '@emotion/styled';
+
+import { MOCK_SOCIAL_DATA } from '../../constants/MOCK_SOCIAL_DATA';
+import ProfileCard from './ProfileCard';
+
 const SocialDrawer = () => {
   return (
     <StContainer>
       <div css={{ margin: '2.6rem 1rem 0 2.2rem' }}>
         <StDrawerHeader>공유 리스트</StDrawerHeader>
-        <section></section>
+        <section>
+          {MOCK_SOCIAL_DATA.map((data, idx) => (
+            <ProfileCard key={data.userName + idx} {...data}></ProfileCard>
+          ))}
+        </section>
       </div>
     </StContainer>
   );

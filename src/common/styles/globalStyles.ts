@@ -31,6 +31,12 @@ const globalStyles = css`
     color: inherit;
     text-decoration: none;
   }
+
+  input:focus,
+  textarea:focus {
+    border-color: ${theme.colors.gray_200};
+    outline: none;
+  }
 `;
 
 export default globalStyles;

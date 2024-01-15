@@ -25,7 +25,10 @@ const HistoryList: React.FC<IObjective> = ({
     <>
       <ul>
         {
-          <StObjectiveContainer onClick={() => handleObjectiveClick(objId)}>
+          <StObjectiveContainer
+            visibility={isVisable === objId}
+            onClick={() => handleObjectiveClick(objId)}
+          >
             <StObjectiveWrapper>
               {isVisable === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
               <StObjectiveCategory>{objCategory}</StObjectiveCategory>
@@ -61,7 +64,7 @@ const HistoryList: React.FC<IObjective> = ({
 
 export default HistoryList;
 
-const StObjectiveContainer = styled.button`
+const StObjectiveContainer = styled.button<{ visibility: boolean }>`
   display: flex;
   gap: 1.6rem;
   align-items: center;
@@ -70,7 +73,7 @@ const StObjectiveContainer = styled.button`
   padding: 0 2.4rem;
   margin-bottom: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray_500};
-  border: 1px solid ${({ theme }) => theme.colors.gray_300};
+  border: 1px solid ${({ theme, visibility }) => (visibility ? theme.colors.gray_300 : 'none')};
   border-radius: 6px;
 `;
 

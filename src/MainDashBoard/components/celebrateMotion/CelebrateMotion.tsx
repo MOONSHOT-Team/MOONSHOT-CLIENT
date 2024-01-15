@@ -6,7 +6,7 @@ import Lottie from 'lottie-react';
 
 const CelebrateMotion = () => {
   return (
-    <section css={CelebrateMotionContianer}>
+    <section css={CelebrateMotionContainer}>
       <CustomLottie animationData={animationData} loop={false} />
 
       <StCelebrateMotionWrapper>
@@ -50,7 +50,7 @@ const CustomLottie = styled(Lottie)`
   height: 100dvh;
 `;
 
-const CelebrateMotionContianer = css`
+const CelebrateMotionContainer = css`
   display: flex;
   align-items: center;
   justify-content: center;

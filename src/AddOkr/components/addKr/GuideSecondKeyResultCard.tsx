@@ -1,11 +1,24 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 
+const HINT_TARGET = 'ex) 10';
+const HINT_METRIC = 'ex) 회';
+
 const GuideSecondKeyResultCard = ({ krSentence }: { krSentence: string }) => {
-  const HINT_TARGET = 'ex) 10';
-  const HINT_METRIC = 'ex) 회';
+  const [target, setTarget] = useState('');
+  const [metric, setMetric] = useState('');
+
+  const handleGuidTargetInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+    setTarget(parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+  };
+
+  const handleGuideMetricInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMetric(e.currentTarget.value);
+  };
 
   return (
     <StGuideSecondKeyResultCardWrapper>
@@ -18,8 +31,16 @@ const GuideSecondKeyResultCard = ({ krSentence }: { krSentence: string }) => {
       <StSecondKrTargetMetricBox>
         이 성과를 측정할 수 있는 수치값과 단위를 입력하세요.
         <div css={TargetMetricInputBox}>
-          <StTargetMetricInput placeholder={HINT_TARGET} />
-          <StTargetMetricInput placeholder={HINT_METRIC} />
+          <StTargetMetricInput
+            value={target}
+            onChange={handleGuidTargetInput}
+            placeholder={HINT_TARGET}
+          />
+          <StTargetMetricInput
+            value={metric}
+            onChange={handleGuideMetricInput}
+            placeholder={HINT_METRIC}
+          />
         </div>
       </StSecondKrTargetMetricBox>
     </StGuideSecondKeyResultCardWrapper>

@@ -1,10 +1,19 @@
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { IcClose } from '../../assets';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
+
+//힌트 메시지 상수
+const HINT_SENTENCE = 'ex) 개발 관련 아티클 읽기';
+const HINT_TARGET = 'ex) 10';
+const HINT_METRIC = 'ex) 회';
+
+const MAX_SENTENCE = 20;
+const MAX_TARGET = 6;
+const MAX_METRIC = 4;
 
 interface IKeyResultCardProps {
   cardIdx?: number;
@@ -21,17 +30,17 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
     return `${year}${parseString}${month}${parseString}${day}`;
   };
 
-  //힌트 메시지 상수
-  const HINT_SENTENCE = 'ex) 개발 관련 아티클 읽기';
-  const HINT_TARGET = 'ex) 10';
-  const HINT_METRIC = 'ex) 회';
+  const [basicKr, setBasicKr] = useState({
+    sentence: '',
+    target: '',
+    metric: '',
+  });
 
-  //핵심 지표 문장 관리 값
-  const [sentence, setSentence] = useState('');
-  //수치 관리 값
-  const [target, setTarget] = useState('');
-  //단위 관리 값
-  const [metric, setMetric] = useState('');
+  const [isValidMax, setIsValidMAx] = useState({
+    sentence: false,
+    target: false,
+    metric: false,
+  });
 
   /** 
   캘린더 관련 요소
@@ -44,10 +53,39 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
   //캘린더 선택한 값
   const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
 
-  //수치 관리 핸들러
-  const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
+    // if (e.target.name === 'target') return;
+    // e.target.value.length > 20
+    //   ? setIsValidMAx({ ...isValidMax, [e.target.name]: true })
+    //   : setIsValidMAx({ ...isValidMax, [e.target.name]: false });
+    // setBasicKr({ ...basicKr, [e.target.name]: e.target.value });
+
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    setTarget(parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+    // const parsedLength = limitMaxLength(e, maxLength);
+
+    switch (e.target.name) {
+      case 'target':
+        if (e.target.value.length > maxLength) {
+          setIsValidMAx({ ...isValidMax, [e.target.name]: true });
+        }
+        if (e.target.value.length <= maxLength) {
+          setIsValidMAx({ ...isValidMax, [e.target.name]: false });
+          setBasicKr({
+            ...basicKr,
+            target: parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+          });
+        }
+        break;
+      default:
+        if (e.target.value.length > maxLength) {
+          setIsValidMAx({ ...isValidMax, [e.target.name]: true });
+        }
+        if (e.target.value.length <= maxLength) {
+          setIsValidMAx({ ...isValidMax, [e.target.name]: false });
+          setBasicKr({ ...basicKr, [e.target.name]: e.target.value });
+        }
+        break;
+    }
   };
 
   const handleClickSelectDate = (
@@ -76,9 +114,12 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
       <StKrInputDescWrapper>
         <StKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StKrInputDescription>
         <StKrSentenceInput
-          value={sentence}
-          onChange={(e) => setSentence(e.target.value)}
+          type="text"
+          name={'sentence'}
+          value={basicKr.sentence}
+          onChange={(e) => handlChangeBasicKr(e, MAX_SENTENCE)}
           placeholder={HINT_SENTENCE}
+          $isMax={isValidMax.sentence}
         />
       </StKrInputDescWrapper>
 
@@ -89,14 +130,20 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
         </StKrInputDescription>
         <StTargetMetricInputBox>
           <StTargetMetricinput
-            value={target}
-            onChange={handleChangeTarget}
+            type="text"
+            name={'target'}
+            value={basicKr.target}
+            onChange={(e) => handlChangeBasicKr(e, MAX_TARGET + 1)}
             placeholder={HINT_TARGET}
+            $isMax={isValidMax.target}
           />
           <StTargetMetricinput
-            value={metric}
-            onChange={(e) => setMetric(e.target.value)}
+            type="text"
+            name={'metric'}
+            value={basicKr.metric}
+            onChange={(e) => handlChangeBasicKr(e, MAX_METRIC)}
             placeholder={HINT_METRIC}
+            $isMax={isValidMax.metric}
           />
         </StTargetMetricInputBox>
       </StKrInputDescWrapper>
@@ -135,11 +182,11 @@ const StKrInputDescription = styled.p`
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StKrSentenceInput = styled.input`
+const StKrSentenceInput = styled.input<{ $isMax: boolean }>`
   width: 29.9rem;
   height: 3.2rem;
   padding: 0.6rem 1rem;
-  color: ${({ theme }) => theme.colors.gray_350};
+  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_350)};
   background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
@@ -157,11 +204,11 @@ const StTargetMetricInputBox = styled.div`
   gap: 0.7rem;
 `;
 
-const StTargetMetricinput = styled.input`
+const StTargetMetricinput = styled.input<{ $isMax: boolean }>`
   width: 14.6rem;
   height: 3.2rem;
   padding: 0.6rem 1rem;
-  color: ${({ theme }) => theme.colors.gray_350};
+  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_350)};
   background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;

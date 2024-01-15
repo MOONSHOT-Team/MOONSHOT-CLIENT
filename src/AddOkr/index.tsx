@@ -1,10 +1,10 @@
-import AddGuideKr from './step/AddGuideKr';
+import AddKr from './step/AddKr';
 
 const AddOkr = () => {
   return (
     <>
-      {/* <AddKr /> */}
-      <AddGuideKr />
+      <AddKr />
+      {/* <AddGuideKr /> */}
     </>
   );
 };

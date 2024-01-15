@@ -4,7 +4,9 @@ import { limitMaxLength } from '@utils/limitMaxLength';
 import { useState } from 'react';
 
 const ObjContent = () => {
-  const MAX_OBJ_TEXTAREA_CNT = 100;
+  const MAX_OBJ_TEXTAREA_CNT = 100; //목표 다짐 제한 글자수
+  const OBJ_CONTETN_PLACEHOLDER =
+    'ex) 앞으로 한 달간 다양한 마케팅을 통해 더 많은 고객을 유치하고 매출을 늘리고 싶기 때문이다.';
   const [currContentCnt, setCurrContentCnt] = useState(0);
 
   const handleContentTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -21,9 +23,7 @@ const ObjContent = () => {
       <StObjContentTitle>목표를 달성하고 싶은 이유와 그 다짐을 기록해주세요.</StObjContentTitle>
       <div css={ContentTextAreaWrapper}>
         <StObjContentTextArea
-          placeholder={
-            'ex) 앞으로 한 달간 다양한 마케팅을 통해 더 많은 고객을 유치하고 매출을 늘리고 싶기 때문이다.'
-          }
+          placeholder={OBJ_CONTETN_PLACEHOLDER}
           onChange={handleContentTextarea}
         />
         <StContentTextAreaCntTxt>

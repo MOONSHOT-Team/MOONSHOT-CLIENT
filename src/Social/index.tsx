@@ -1,13 +1,20 @@
 import { css } from '@emotion/react';
+import { useState } from 'react';
 
 import SocialDrawer from './components/socialDrawer/SocialDrawer';
-import SocialOKRTree from './components/socialOkrTree/SocialOKRTree';
+// import SocialOKRTree from './components/socialOkrTree/SocialOKRTree';
+// import { MOCK_SOCIAL_DATA } from './constants/MOCK_SOCIAL_DATA';
 
 const Social = () => {
+  const [, setCurrentIdx] = useState(0);
+
+  const handleCurrentIdx = (idx: number) => {
+    setCurrentIdx(idx);
+  };
   return (
     <section css={mainSocialStyle}>
-      <SocialDrawer />
-      <SocialOKRTree />
+      <SocialDrawer onHandleCurrentIdx={handleCurrentIdx} />
+      {/* <SocialOKRTree okrData={MOCK_SOCIAL_DATA[currentIdx].okrTreeData} /> */}
     </section>
   );
 };

@@ -5,11 +5,12 @@ import { useState } from 'react';
 import { MOCK_SOCIAL_DATA } from '../../constants/MOCK_SOCIAL_DATA';
 import ProfileCard from './ProfileCard';
 
-const SocialDrawer = () => {
+const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number) => void }) => {
   const [currentUserIdx, setCurrentUserIdx] = useState(7);
 
   const handleClickCard = (idx: number) => {
     setCurrentUserIdx(idx);
+    onHandleCurrentIdx(idx);
   };
   return (
     <StContainer>

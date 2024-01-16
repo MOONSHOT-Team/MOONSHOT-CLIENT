@@ -24,7 +24,7 @@ const MainDashProgressBar = ({
         progressBarColor={progressBarColor}
         progressValueColor={progressValueColor}
       >
-        <progress value={currentProgress} max={maximumProgress}></progress>
+        <progress value={currentProgress} max={maximumProgress} />
         {isCurrentProgress && (
           <StCurrentProgressBox textColor={textColor}>{percentValue}%</StCurrentProgressBox>
         )}

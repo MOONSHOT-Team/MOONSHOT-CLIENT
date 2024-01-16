@@ -1,4 +1,4 @@
-import { ImgLogo } from '@assets/icons';
+import { IcLogo } from '@assets/icons';
 import { NAVIGATIONS } from '@constants/NavigationLink';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <StHeader>
       <Link to="/">
-        <ImgLogo />
+        <IcLogo />
       </Link>
       <StNavigationBar>
         {NAVIGATIONS.map(({ id, text, path }) => (
@@ -15,7 +15,6 @@ const Header = () => {
             <NavStyle to={path}>{text}</NavStyle>
           </StNavigation>
         ))}
-
         <StSignInButton to="/sign-in">로그인</StSignInButton>
       </StNavigationBar>
     </StHeader>
@@ -26,6 +25,7 @@ export default Header;
 
 const StHeader = styled.header`
   position: fixed;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,11 +34,13 @@ const StHeader = styled.header`
   padding: 0 3.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.transparent_white};
 `;
+
 const StNavigationBar = styled.ol`
   display: flex;
   gap: 5rem;
   align-items: center;
 `;
+
 const StNavigation = styled.li`
   display: flex;
   color: ${({ theme }) => theme.colors.gray_350};

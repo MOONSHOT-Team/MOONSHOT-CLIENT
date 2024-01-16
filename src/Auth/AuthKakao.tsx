@@ -22,7 +22,7 @@ const AuthKakao = () => {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
 
-    navigate('/dashboard');
+    navigate('/sign-in/nickname');
   }, [data, navigate]);
 
   return (

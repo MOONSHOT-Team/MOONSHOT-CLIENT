@@ -12,11 +12,11 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const handleSelectTheme = (selectedTheme: string) => {
-    setSelectedTheme(selectedTheme);
+    setSelectedTheme((prevTheme) => (prevTheme === selectedTheme ? null : selectedTheme));
   };
 
   const handleSelectYear = (selectedYear: number) => {
-    setSelectedYear(selectedYear);
+    setSelectedYear((prevYear) => (prevYear === selectedYear ? null : selectedYear));
   };
 
   const currentYear = new Date().getFullYear();
@@ -72,6 +72,9 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
 export default HistoryDrawer;
 
 const HistoryAside = styled.aside`
+  position: fixed;
+  top: 7.6rem;
+  left: 0;
   display: flex;
   flex-direction: column;
   gap: 4rem;

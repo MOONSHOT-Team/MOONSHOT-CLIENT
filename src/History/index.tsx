@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import HistoryList from './components/dropDown/HistoryList';
 import ListOrder from './components/dropDown/ListOrder';
 import HistoryDrawer from './components/HistoryDrawer';
-import { DUMMY_DATA } from './constants/dummyData';
+import { DUMMY_DATA } from './constants/dummy';
 import { IObjective } from './type/okrTypes';
 
 const History = () => {
@@ -25,11 +25,11 @@ const History = () => {
     <section css={historyUi}>
       <HistoryDrawer groups={groups} categories={categories} />
       <section css={DropDownSection}>
+        <ListOrder />
         {groups.map(({ year, objList }) => (
           <div key={year} css={listMarginBottom}>
             <StListOrderContainer isFirst={year === firstGroupYear}>
               <StEachYear>{year}년</StEachYear>
-              <ListOrder />
             </StListOrderContainer>
             <ul>
               <li>
@@ -63,21 +63,28 @@ const History = () => {
   );
 };
 
+export default History;
+
 const historyUi = css`
   display: flex;
   height: 100%;
 `;
 
+const DropDownSection = css`
+  position: relative;
+  width: 100%;
+  padding: 3rem 3.6rem 3rem 4rem;
+  margin-left: 23.2rem;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #444;
+  }
+`;
 const listMarginBottom = css`
   &:not(:last-child) {
     margin-bottom: 3.4rem;
   }
-`;
-
-export default History;
-
-const DropDownSection = css`
-  padding: 3rem 3.6rem 3rem 4rem;
 `;
 
 const StListOrderContainer = styled.div<{ isFirst: boolean }>`
@@ -93,5 +100,6 @@ const StEachYear = styled.p`
   display: flex;
   justify-content: flex-start;
   height: 3.2rem;
+  margin-bottom: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_000} ${({ theme }) => theme.fonts.title_20_semibold};
 `;

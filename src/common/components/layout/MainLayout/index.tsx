@@ -17,6 +17,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 export default MainLayout;
 
 const mainHeight = css`
-  height: calc(100vh);
-  padding-top: 7.6rem;
+  height: calc(100vh - 7.6rem);
+  margin-top: 7.6rem;
 `;

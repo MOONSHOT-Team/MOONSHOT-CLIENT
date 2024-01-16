@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import { ConfigProvider, DatePicker } from 'antd';
+import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 const { RangePicker } = DatePicker;
 
 const KRPeriodSelect = () => {
-  const [period, setPeriod] = useState(['2024-01-08', '2024-01-09']);
+  const startDate = '2024-01-1';
+  const endDate = '2024-01-09';
+  const [period, setPeriod] = useState([startDate, endDate]);
 
   const handleKrPeriodChange = (
     _values: [Dayjs | null, Dayjs | null] | null,
@@ -19,6 +22,11 @@ const KRPeriodSelect = () => {
     const formattedDate = dateString.replace(/\./g, '-');
     return formattedDate;
   };
+
+  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+    return current < dayjs(startDate).endOf('day') || current > dayjs(endDate).startOf('day');
+  };
+
   return (
     <KRPeriodContainer>
       <ConfigProvider
@@ -29,9 +37,9 @@ const KRPeriodSelect = () => {
             borderRadius: 10,
             colorBgContainer: '#1E1E20',
             colorBgElevated: '#2F2F2F',
-            colorText: '#fff',
-            colorTextHeading: '#fff',
-            colorIcon: '#fff',
+            colorText: '#a7a7a7',
+            colorTextHeading: '#a7a7a7',
+            colorIcon: '#a7a7a7',
             colorTextQuaternary: 'rgba(255,255,255,50%)',
             controlItemBgActive: '#8D7EFD2D',
           },
@@ -43,6 +51,7 @@ const KRPeriodSelect = () => {
           value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
           defaultValue={[dayjs(), dayjs()]}
           format={'YYYY. MM. DD'}
+          disabledDate={disabledDate}
         />
       </ConfigProvider>
     </KRPeriodContainer>

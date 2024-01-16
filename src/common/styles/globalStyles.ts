@@ -31,6 +31,10 @@ const globalStyles = css`
     color: inherit;
     text-decoration: none;
   }
+
+  li {
+    all: unset;
+  }
 `;
 
 export default globalStyles;

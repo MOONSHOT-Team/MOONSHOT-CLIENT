@@ -23,21 +23,21 @@ const HistoryList: React.FC<IObjective> = ({
   };
   return (
     <>
-      <ul>
-        {
-          <StObjectiveContainer
-            visibility={isVisable === objId}
-            onClick={() => handleObjectiveClick(objId)}
-          >
-            <StObjectiveWrapper>
-              {isVisable === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
-              <StObjectiveCategory>{objCategory}</StObjectiveCategory>
-              <StObjectTitle>{title}</StObjectTitle>
-            </StObjectiveWrapper>
+      <ul css={historyListMarginBottom}>
+        <StObjectiveContainer
+          visibility={isVisable === objId}
+          onClick={() => handleObjectiveClick(objId)}
+        >
+          <StObjectiveWrapper>
+            {isVisable === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
+            <StObjectiveCategory>{objCategory}</StObjectiveCategory>
+            <StObjectTitle>{title}</StObjectTitle>
+          </StObjectiveWrapper>
+          <div css={progressInfo}>
             <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
             <StObjectivePeriod>{objPeriod}</StObjectivePeriod>
-          </StObjectiveContainer>
-        }
+          </div>
+        </StObjectiveContainer>
 
         <HistoryListDetails visibility={isVisable === objId}>
           {krList.map(({ krId, krIdx, krTitle, krProgress, taskList }: IKeyResult) => (
@@ -64,14 +64,26 @@ const HistoryList: React.FC<IObjective> = ({
 
 export default HistoryList;
 
+const historyListMarginBottom = css`
+  &:not(:last-child) {
+    margin-bottom: 1.6rem;
+  }
+`;
+
+const progressInfo = css`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+`;
+
 const StObjectiveContainer = styled.button<{ visibility: boolean }>`
   display: flex;
   gap: 1.6rem;
   align-items: center;
-  width: 105.8rem;
+  width: 100%;
+  min-width: 105.8rem;
   height: 6rem;
   padding: 0 2.4rem;
-  margin-bottom: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray_500};
   border: 1px solid ${({ theme, visibility }) => (visibility ? theme.colors.gray_300 : 'none')};
   border-radius: 6px;
@@ -101,10 +113,10 @@ const StObjectTitle = styled.p`
 `;
 
 const StObjectivePeriod = styled.p`
-  width: 15.5rem;
-  ${({ theme }) => theme.fonts.body_12_regular};
-
+  margin-left: 4.4rem;
   color: ${({ theme }) => theme.colors.gray_250};
+
+  ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
 const KrTaskLayout = css`

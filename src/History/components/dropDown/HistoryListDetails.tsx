@@ -16,5 +16,6 @@ const StDropDownContent = styled.li<{ $isHide: boolean }>`
   display: ${({ $isHide }) => ($isHide ? 'flex' : 'none')};
   flex-direction: column;
   gap: 1.6rem;
+  padding-top: 1.6rem;
   margin-bottom: 4.6rem;
 `;

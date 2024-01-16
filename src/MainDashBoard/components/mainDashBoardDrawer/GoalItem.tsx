@@ -3,7 +3,9 @@ import styled from '@emotion/styled';
 import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import { mutate } from 'swr';
 
+import { patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import { IobjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/ItemTypes';
@@ -23,7 +25,6 @@ const GoalItem: React.FC<IobjListTypes> = ({
 }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
-  const [initialDragIndex, setInitialDragIndex] = useState<number | null>(null);
 
   const handleOnClickIcon = (event: React.MouseEvent) => {
     setIsDetailOpen(!isDetailOpen);
@@ -34,13 +35,27 @@ const GoalItem: React.FC<IobjListTypes> = ({
     onClickGoal?.(id);
   };
 
+  //서버 통신 함수
+  const updateSwapIndex = async (id: number, dropIdx: number) => {
+    const data = {
+      id: id,
+      target: 'OBJECTIVE',
+      idx: dropIdx,
+    };
+
+    try {
+      const response = await patchSwapGoalIndex('/v1/index', data);
+      // SWR 캐시 업데이트
+      mutate('/v1/index', { data, ...response });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.GOAL,
     item: { id, index },
     collect: (monitor) => {
-      if (monitor.isDragging() && initialDragIndex === null) {
-        setInitialDragIndex(index); // 드래그 시작 시 인덱스 저장
-      }
       return {
         isDragging: monitor.isDragging(),
       };
@@ -56,18 +71,13 @@ const GoalItem: React.FC<IobjListTypes> = ({
       const dragIndex = item.index;
       const hoverIndex = index;
 
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-
       moveGoal?.(dragIndex, hoverIndex);
 
       item.index = hoverIndex;
     },
     drop(item: { index: number }) {
       //목표리스트 dnd 서버통신
-      console.log(id);
-      console.log(`Initial item idex : ${initialDragIndex} Dropped item index: ${item.index}`);
+      updateSwapIndex(id, item.index);
     },
   });
 

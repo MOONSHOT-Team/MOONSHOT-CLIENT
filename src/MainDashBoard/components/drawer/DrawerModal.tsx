@@ -101,19 +101,25 @@ const DrawerModal = () => {
 
     // 날짜 수정 API 붙이기
 
+    const inputDate = new Date(`${year}-${month}-${day}`);
+    const todayDate = new Date();
+
+    // 오늘 날짜 전 날짜 입력 금지
+    if (inputDate < todayDate) return setIsValidInput('올바른 날짜를 입력해 주세요.');
+
     // 입력값 길이 제한
-    year.length === 4 &&
-    month.length === 2 &&
-    day.length === 2 &&
+    if (year.length !== 4 || month.length !== 2 || day.length !== 2)
+      return setIsValidInput('올바른 날짜를 입력해 주세요.');
+
     // 입력값 범위 제한
-    Number(year) > 1900 &&
-    Number(year) < 2100 &&
-    Number(month) > 0 &&
-    Number(month) < 13 &&
-    Number(day) > 0 &&
-    Number(day) < 32
-      ? setIsValidInput('')
-      : setIsValidInput('올바른 날짜를 입력해 주세요.');
+    if (
+      Number(year) > 2100 &&
+      Number(month) < 1 &&
+      Number(month) > 12 &&
+      Number(day) < 1 &&
+      Number(day) > 31
+    )
+      return setIsValidInput('올바른 날짜를 입력해 주세요.');
 
     // 입력 달에 따른 일 수 제한
     const maxDay = ['04', '06', '09', '11'].includes(month!) // 30일
@@ -124,9 +130,7 @@ const DrawerModal = () => {
           ? 29
           : 28; // 윤년 아닌 2월
 
-    if (day && Number(day) > maxDay) {
-      setIsValidInput('올바른 날짜를 입력해 주세요.');
-    }
+    if (day && Number(day) > maxDay) return setIsValidInput('올바른 날짜를 입력해 주세요.');
   };
 
   /** 모달창 첫 화면 버튼 */

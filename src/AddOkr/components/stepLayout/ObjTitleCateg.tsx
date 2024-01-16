@@ -14,14 +14,19 @@ interface IObjTitleCategProps extends IAddObjFlowProps {
 //object tilte input/textare 최대 글자수
 const MAX_OBJ_INPUT_CNT = 30;
 
+// 가이드에 따라 설정하기 기본 placeholder
+const GUIDE_DEFAULT_PLACEHOLDER = '목표를 입력하세요.';
+
 const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) => {
+  const { objCategory: selectedObjCateg, objTitle } = objInfo;
+  //글자 수 관리 값
+  const [currObjCount, setCurrObjCount] = useState(objTitle ? objTitle.length : 0);
+  // 2) 가이드 플로우 - hover한 objtag를 담는 상태
+  const [hoverObjPlaceHolder, setHoverObjPlaceHolder] = useState(GUIDE_DEFAULT_PLACEHOLDER);
+
   /** 
   직접 작성 & 가이드에 따라 작성 공통 사용
   **/
-  // 카테고리 태그 상태
-  const { objCategory: selectedObjCateg, objTitle } = objInfo;
-  const [currObjCount, setCurrObjCount] = useState(objTitle ? objTitle.length : 0);
-
   // 카테고리 태그 선택 핸들러
   const handleClickObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
     setObjInfo({ ...objInfo, objCategory: e.currentTarget.id });
@@ -35,19 +40,13 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
 
     const objInputCnt = limitMaxLength(e, MAX_OBJ_INPUT_CNT);
 
-    if (!objInputCnt) return;
-    setCurrObjCount(objInputCnt);
+    if (objInputCnt) setCurrObjCount(objInputCnt);
     setObjInfo({ ...objInfo, objTitle: e.target.value });
   };
 
   /**
   가이드에 따라 설정하기 뷰 사용
   **/
-  // 기본 placeholder
-  const DEFAULT_PLACEHOLDER = '목표를 입력하세요.';
-  // hover한 objtag를 담는 상태
-  const [hoverObjPlaceHolder, setHoverObjPlaceHolder] = useState(DEFAULT_PLACEHOLDER);
-
   // hover한 objtag를 가져오는 핸들러
   const handleHoverObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { placeholder: targetPlaceholder } = GUIDE_OBJ_TITLE_PLACEHOLDER.filter(
@@ -90,10 +89,9 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
       </div>
 
       {/* input 영역 -> 직접 설정 or 가이드에 따라 설정에 따라 달라지는 부분 */}
-
       {isGuide ? (
         <div css={ObjTextAreaBox}>
-          {/* 가이드에 따라 설정 플로우 */}
+          {/* 1) 가이드에 따라 설정 플로우 */}
           <StObjTextArea
             value={objTitle}
             placeholder={hoverObjPlaceHolder}
@@ -105,7 +103,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
         </div>
       ) : (
         <div css={ObjInputBox}>
-          {/* 직접 설정 플로우 */}
+          {/* 2) 직접 설정 플로우 */}
           <StObjInput
             type="text"
             value={objTitle}
@@ -154,7 +152,6 @@ const ObjInputBox = css`
 `;
 
 const StObjInput = styled.input`
-  box-sizing: border-box;
   width: 60rem;
   height: 6.6rem;
   padding: 2.3rem 2rem;
@@ -200,6 +197,7 @@ const StObjTextArea = styled.textarea`
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray_350};
+    white-space: pre-line;
   }
 `;
 

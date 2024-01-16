@@ -18,7 +18,7 @@ const AddOkr = () => {
   const [step, setStep] = useState(0);
   const [isActiveNext, setIsActiveNext] = useState(false);
 
-  //2 Step 0 - SELECT METHOD 관련 State
+  //Step 0 - SELECT METHOD 관련 State
   const [selectedMethod, setSelectedMethod] = useState('');
 
   const [objInfo, setObjInfo] = useState({
@@ -29,6 +29,7 @@ const AddOkr = () => {
     objExpireAt: '',
   });
 
+  // Step 2 ObjPeriod- 선택된 기간 버튼 관리 값
   const [selectedPeriod, setSelectedPeriod] = useState('');
 
   // 이전, 다음 버튼 관련 handler

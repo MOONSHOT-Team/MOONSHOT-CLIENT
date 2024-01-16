@@ -24,7 +24,7 @@ const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number
               idx={idx}
               currentUserIdx={currentUserIdx}
               onClickCard={handleClickCard}
-            ></ProfileCard>
+            />
           ))}
         </section>
       </div>

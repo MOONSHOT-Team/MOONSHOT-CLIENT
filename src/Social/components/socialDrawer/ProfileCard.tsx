@@ -25,7 +25,6 @@ const ProfileCard = ({
   onClickCard,
   currentUserIdx,
 }: IProfileCardProps) => {
-  const isCurrent = currentUserIdx === idx;
   const [isLike, setIsLike] = useState(false);
   const [likeCnt, setLikeCnt] = useState(like);
 
@@ -37,14 +36,14 @@ const ProfileCard = ({
   };
 
   return (
-    <StProfileCardContainer isCurrent={isCurrent} onClick={() => onClickCard?.(idx)}>
+    <StProfileCardContainer isCurrent={currentUserIdx === idx} onClick={() => onClickCard?.(idx)}>
       <article css={profileCardStyle}>
         <div css={{ display: 'flex', gap: '0.4rem', marginBottom: '0.4rem' }}>
           <i></i>
           <StCategory>{category}</StCategory>
         </div>
         <div css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Img src={userImg} alt={`${userName}프로필사진`} isCurrent={isCurrent} />
+          <Img src={userImg} alt={`${userName}프로필사진`} isCurrent={currentUserIdx === idx} />
           <StUserName>{userName}</StUserName>
           <div css={{ display: 'flex', justifyContent: 'center', gap: '0.4rem' }}>
             <i>{isLike ? <IcLikeFill onClick={handleLike} /> : <IcLike onClick={handleLike} />}</i>

@@ -1,9 +1,11 @@
+import { userImg1, userImg2, userImg3, userImg4 } from '../assets/imgs/index';
+
 export const MOCK_SOCIAL_DATA = [
   {
     //1
     category: '건강',
     userName: '달나라모험',
-    userImg: '',
+    userImg: userImg1,
     like: 132,
     userIntro: 'ESTJ/목표를 성취하는 과정에서 짜릿함을 느껴요',
     okrTreeData: {
@@ -92,7 +94,7 @@ export const MOCK_SOCIAL_DATA = [
   {
     category: '경제',
     userName: '실용주의자',
-    userImg: '',
+    userImg: userImg2,
     like: 129,
     userIntro: '웹 개발자/TEAM moonshot에서 일하고 있습니다',
     okrTreeData: {
@@ -181,7 +183,7 @@ export const MOCK_SOCIAL_DATA = [
   {
     category: '성장',
     userName: '질문을 던지는 사람',
-    userImg: '',
+    userImg: userImg3,
     like: 118,
     userIntro: '마케터/트렌드를 읽고 있습니다',
     okrTreeData: {
@@ -270,7 +272,7 @@ export const MOCK_SOCIAL_DATA = [
   {
     category: '라이프스타일',
     userName: '김문샷정',
-    userImg: '',
+    userImg: userImg4,
     like: 70,
     userIntro: '매일 긍정적으로 생각해요',
     okrTreeData: {

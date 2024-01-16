@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { profileImg } from './assets/images/images';
+import profileImg from './assets/images/profileImg.png';
 import { ITEMLIST } from './constants/itemList';
 
-interface IItemListProps {
+interface IAcquiredItemList {
   src: string;
   title: string;
   subTitle: string;
@@ -12,26 +12,26 @@ interface IItemListProps {
 
 const My = () => {
   return (
-    <div css={myPageUi}>
-      <StUserSection>
-        <StUserImg src={profileImg}></StUserImg>
-        <StNickName>닉네임</StNickName>
-        <StUseridentify>카카오 로그인 유저입니다.</StUseridentify>
-      </StUserSection>
-      <StItemSection>
-        <StAcquiredItems>획득한 아이템</StAcquiredItems>
-        <StItemImgWrapper>
-          {ITEMLIST.map(({ src, title, subTitle }: IItemListProps) => (
-            <StItemList key={title}>
-              <StItemImg src={src} />
-              <StItemTitle>
-                {title} <StItemSubTitle>{subTitle}</StItemSubTitle>
-              </StItemTitle>
-            </StItemList>
+    <aside css={myPageUi}>
+      <StUserInfoContainer>
+        <StUserProfileImg src={profileImg} alt={'사용자 사진'} />
+        <StUserNickName>닉네임</StUserNickName>
+        <StUseridentification>카카오 로그인 유저입니다.</StUseridentification>
+      </StUserInfoContainer>
+      <StAcquiredItemContainer>
+        <StAcquiredItemsText>획득한 아이템</StAcquiredItemsText>
+        <StAcquiredItemImgWrapper>
+          {ITEMLIST.map(({ src, title, subTitle }: IAcquiredItemList) => (
+            <StAcquiredItemList key={title}>
+              <StAcquiredItemImg src={src} alt={'획득한 아이템 사진'} />
+              <StAcquiredItemTitle>
+                {title} <StAcquiredItemSubTitle>{subTitle}</StAcquiredItemSubTitle>
+              </StAcquiredItemTitle>
+            </StAcquiredItemList>
           ))}
-        </StItemImgWrapper>
-      </StItemSection>
-    </div>
+        </StAcquiredItemImgWrapper>
+      </StAcquiredItemContainer>
+    </aside>
   );
 };
 
@@ -42,7 +42,7 @@ const myPageUi = css`
   height: 100%;
 `;
 
-const StUserSection = styled.section`
+const StUserInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,13 +51,13 @@ const StUserSection = styled.section`
   background-color: ${({ theme }) => theme.colors.gray_650};
 `;
 
-const StUserImg = styled.img`
+const StUserProfileImg = styled.img`
   display: inline-flex;
   width: 12rem;
   height: 12rem;
 `;
 
-const StNickName = styled.p`
+const StUserNickName = styled.p`
   display: flex;
   gap: 0.6rem;
   margin: 3rem 0 0.6rem;
@@ -65,21 +65,21 @@ const StNickName = styled.p`
   ${({ theme }) => theme.fonts.title_20_semibold};
 `;
 
-const StUseridentify = styled.p`
+const StUseridentification = styled.p`
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
-const StItemSection = styled.section`
+const StAcquiredItemContainer = styled.section`
   padding: 6.1rem 0 0 8.4rem;
 `;
 
-const StAcquiredItems = styled.p`
+const StAcquiredItemsText = styled.p`
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_16_semibold};
 `;
 
-const StItemImgWrapper = styled.article`
+const StAcquiredItemImgWrapper = styled.article`
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem 2.4rem;
@@ -87,37 +87,34 @@ const StItemImgWrapper = styled.article`
   height: 49.6rem;
 `;
 
-const StItemList = styled.div`
+const StAcquiredItemList = styled.div`
   position: relative;
   width: 18.4rem;
   height: 24rem;
 `;
 
-const StItemImg = styled.img`
+const StAcquiredItemImg = styled.img`
   width: 18.4rem;
   height: 24rem;
 `;
 
-const StItemTitle = styled.p`
+const StAcquiredItemTitle = styled.div`
   position: absolute;
-  top: 17.2rem;
+  bottom: 2.8rem;
   left: 2.2rem;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   justify-content: center;
   width: 14rem;
-
-  ${({ theme }) => theme.fonts.btn_14_semibold};
-
   color: ${({ theme }) => theme.colors.gray_100};
   text-align: center;
+  ${({ theme }) => theme.fonts.btn_14_semibold};
 `;
-const StItemSubTitle = styled.p`
+const StAcquiredItemSubTitle = styled.p`
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.colors.gray_200};
-  ${({ theme }) => theme.fonts.body_12_regular};
-
   text-align: center;
+  ${({ theme }) => theme.fonts.body_12_regular};
 `;

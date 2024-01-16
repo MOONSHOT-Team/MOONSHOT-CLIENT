@@ -14,3 +14,9 @@ export interface IobjListTypes {
   index?: number;
   moveGoal?: (dragIndex: number, hoverIndex: number) => void;
 }
+
+export interface IPatchGoalIdxReqType {
+  id: number;
+  target: string;
+  idx: number;
+}

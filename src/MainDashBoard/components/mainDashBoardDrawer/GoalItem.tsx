@@ -66,6 +66,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
     },
     drop(item: { index: number }) {
       //목표리스트 dnd 서버통신
+      console.log(id);
       console.log(`Initial item idex : ${initialDragIndex} Dropped item index: ${item.index}`);
     },
   });

@@ -19,4 +19,5 @@ export const CloseIconStyle = css`
 export const AddOkrCardWrapper = styled.div`
   display: flex;
   gap: 2rem;
+  margin-bottom: 3.3rem;
 `;

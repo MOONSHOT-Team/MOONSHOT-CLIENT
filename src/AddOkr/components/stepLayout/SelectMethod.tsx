@@ -1,4 +1,3 @@
-import Drawer from '@components/layout/Drawer';
 import { css } from '@emotion/react';
 
 import { SELECT_METHOD_OPTIONS } from '../../constants/SELECT_METHOD_OPTIONS';
@@ -11,7 +10,8 @@ interface ISelectMethodProps {
 const SelectMethod = ({ selectedMethod, handleClickMethodBtn }: ISelectMethodProps) => {
   return (
     <>
-      <Drawer />
+      {/* 괵 상의 후 위치 결정 예정 */}
+      {/* <MainDashBoardDrawer /> */}
       <section css={SelectMethodContainer}>
         {SELECT_METHOD_OPTIONS.map(({ title, description }) => {
           return (
@@ -34,8 +34,9 @@ export default SelectMethod;
 const SelectMethodContainer = css`
   display: flex;
   gap: 1.8rem;
+  align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 17rem 18.6rem 20.2rem 13rem;
+  margin: 17rem 18.6rem 20.2rem 13rem;
 `;

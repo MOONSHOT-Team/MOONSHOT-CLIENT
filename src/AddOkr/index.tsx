@@ -1,3 +1,5 @@
+import Error from '@components/Error';
+import ProgressBar from '@components/ProgressBar';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
@@ -14,6 +16,8 @@ import { OBJ_START_AT } from './constants/ADD_OKR_DATES';
 import { IKrListInfoTypes } from './types/KrInfoTypes';
 
 const IS_GUIDE = '가이드에 따라 설정하기';
+const MAX_BASIC_STEP = 5;
+const MAX_GUIDE_STEP = 6;
 
 const AddOkr = () => {
   const navigate = useNavigate();
@@ -252,7 +256,7 @@ const AddOkr = () => {
         });
         break;
       default:
-      //에러페이지 추가 예정
+        return <Error />;
     }
   };
 
@@ -266,11 +270,26 @@ const AddOkr = () => {
       {step > 0 && <SelectedMethodTxt>{selectedMethod}</SelectedMethodTxt>}
       {renderStepLayout()}
       {step > 0 && step < 5 && (
-        <StepBtns
-          isActiveNext={isActiveNext}
-          handleClickPrev={hanldeClickPrevBtn}
-          handleClickNext={handleClickNextBtn}
-        />
+        <>
+          <StepBtns
+            isActiveNext={isActiveNext}
+            handleClickPrev={hanldeClickPrevBtn}
+            handleClickNext={handleClickNextBtn}
+          />
+          <div css={ProgressBarBox}>
+            <ProgressBar
+              currentProgress={
+                selectedMethod === IS_GUIDE && isActiveSecondKrCard ? step + 1 : step
+              }
+              maximumProgress={selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP}
+            />
+            <div css={ProgressTxtBox}>
+              <StProgressTxt>{`${
+                selectedMethod === IS_GUIDE && isActiveSecondKrCard ? step + 1 : step
+              }/${selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP}`}</StProgressTxt>
+            </div>
+          </div>
+        </>
       )}
     </section>
   );
@@ -290,4 +309,30 @@ const AddOkrContainer = css`
 const SelectedMethodTxt = styled.p`
   color: ${({ theme }) => theme.colors.gray_300};
   ${({ theme }) => theme.fonts.body_12_medium};
+`;
+
+const ProgressBarBox = css`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 38rem;
+  height: 2.7rem;
+  margin-top: 3.4rem;
+
+  & progress {
+    height: 0.8rem !important;
+  }
+`;
+
+const ProgressTxtBox = css`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: fit-content;
+`;
+
+const StProgressTxt = styled.span`
+  color: ${({ theme }) => theme.colors.gray_300};
+  ${({ theme }) => theme.fonts.btn_11_medium};
 `;

@@ -129,7 +129,7 @@ const ObjTitleCategContainer = css`
 
 const StObjTitleCategTitle = styled.h1`
   width: 31.9rem;
-  padding-top: 1rem;
+  margin-top: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
   white-space: pre-line;

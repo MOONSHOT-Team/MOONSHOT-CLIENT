@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
+import { AddOkrCardWrapper, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IAddKrFlowProps } from '../../types/KrInfoTypes';
 import GuideFirstKeyResultCard from '../addKr/GuideFirstKeyResultCard';
 import GuideSecondKeyResultCard from '../addKr/GuideSecondKeyResultCard';
@@ -74,7 +74,7 @@ const AddGuideKr = ({
               setKrListInfo={setKrListInfo}
             />
           ) : (
-            <EmptyKeyResultCard />
+            <EmptyKeyResultCard key={indexOfCard} />
           );
         })}
       </>
@@ -104,9 +104,9 @@ const AddGuideKr = ({
         <p>{objTitle}</p>
       </StObjTitleBox>
 
-      <section css={KrGuideCardWrapper}>
+      <AddOkrCardWrapper>
         {isActiveSecondKrCard ? renderSecondKrCards() : renderFirstKrCards()}
-      </section>
+      </AddOkrCardWrapper>
     </section>
   );
 };
@@ -153,9 +153,9 @@ const StObjTitleBox = styled.div`
   ${({ theme }) => theme.fonts.title_16_semibold};
 `;
 
-const KrGuideCardWrapper = css`
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  width: 100%;
-`;
+// const KrGuideCardWrapper = css`
+//   display: flex;
+//   gap: 2rem;
+//   align-items: center;
+//   width: 100%;
+// `;

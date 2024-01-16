@@ -162,6 +162,7 @@ const DrawerModal = () => {
           onClick={() => {
             modalRef.current?.close();
             setActiveExtend(false);
+            setIsValidInput('');
           }}
         >
           취소하기

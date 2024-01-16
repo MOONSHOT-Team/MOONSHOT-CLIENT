@@ -117,7 +117,7 @@ export default GoalItem;
 
 const StGoalItemli = styled.li<{ bgColor: boolean; isDragging: boolean }>`
   position: relative;
-  width: 100%;
+  width: 18.8rem;
   overflow: hidden;
   cursor: pointer;
   background-color: ${({ theme, bgColor }) =>
@@ -134,7 +134,7 @@ const GoalItemContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0.9rem 1.2rem 1.6rem;
+  padding: 0.9rem 1.2rem 1.5rem;
 `;
 
 const goalItemHeader = css`
@@ -164,7 +164,6 @@ const goalItemArticle = css`
   gap: 2.4rem;
   align-items: end;
   justify-content: space-between;
-  margin-bottom: 1.2rem;
 `;
 
 const StGoalItemTitle = styled.p`
@@ -175,6 +174,7 @@ const StGoalItemTitle = styled.p`
 `;
 
 const StGoalItemContent = styled.p`
+  margin-top: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_10_regular};
 `;

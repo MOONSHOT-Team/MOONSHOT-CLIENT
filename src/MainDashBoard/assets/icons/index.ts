@@ -8,6 +8,7 @@ import IcDropUpThin from './icDropUpThin.svg?react';
 import IcEllipse from './icEllipse.svg?react';
 import IcHoldState from './icHoldState.svg?react';
 import IcOnGoingState from './icOnGoingState.svg?react';
+import IcUnion from './icUnion.svg?react';
 import IcWaitState from './IcWaitState.svg?react';
 
 export {
@@ -21,5 +22,6 @@ export {
   IcEllipse,
   IcHoldState,
   IcOnGoingState,
+  IcUnion,
   IcWaitState,
 };

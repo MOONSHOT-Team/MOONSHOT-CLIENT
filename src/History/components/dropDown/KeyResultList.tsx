@@ -32,8 +32,11 @@ export default KeyResultList;
 const StKeyResultContainer = styled.article`
   display: flex;
   align-items: center;
-  width: 105.8rem;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 105.8rem;
   height: 5.2rem;
+  padding: 1.6rem 14.4rem 1.6rem 2rem;
   list-style-type: none;
   background: ${({ theme }) => theme.colors.gray_550};
   border-radius: 6px;
@@ -43,8 +46,6 @@ const StKeyResultWrapper = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
-  width: 44.6rem;
-  padding-left: 2rem;
 `;
 
 const StKeyResultProgressBar = styled.div`

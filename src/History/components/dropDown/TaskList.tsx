@@ -38,7 +38,8 @@ const StOKRContent = styled.p`
 const StTaskContainer = styled.li`
   display: flex;
   align-items: center;
-  width: 34rem;
+  width: 100%;
+  min-width: 34rem;
   height: 4rem;
   padding-left: 1.6rem;
   list-style-type: none;

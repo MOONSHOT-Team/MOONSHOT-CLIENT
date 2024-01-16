@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import HistoryList from './components/dropDown/HistoryList';
 import ListOrder from './components/dropDown/ListOrder';
 import HistoryDrawer from './components/HistoryDrawer';
-import { DUMMYDATA } from './constants/dummyData';
+import { DUMMY_DATA } from './constants/dummydata';
 import { IObjective } from './type/okrTypes';
 
 const History = () => {
   const {
     data: { groups, categories },
-  } = DUMMYDATA;
+  } = DUMMY_DATA;
 
   const [firstGroupYear, setFirstGroupYear] = useState<number | null>(null);
 
@@ -26,24 +26,36 @@ const History = () => {
       <HistoryDrawer groups={groups} categories={categories} />
       <section css={DropDownSection}>
         {groups.map(({ year, objList }) => (
-          <div key={year}>
+          <div key={year} css={listMarginBottom}>
             <StListOrderContainer isFirst={year === firstGroupYear}>
               <StEachYear>{year}년</StEachYear>
               <ListOrder />
             </StListOrderContainer>
-            {objList.map(
-              ({ objIdx, objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
-                <HistoryList
-                  key={`${objIdx}+${objId}`}
-                  objId={objId}
-                  title={title}
-                  objCategory={objCategory}
-                  progress={progress}
-                  objPeriod={objPeriod}
-                  krList={krList}
-                />
-              ),
-            )}
+            <ul>
+              <li>
+                {objList.map(
+                  ({
+                    objIdx,
+                    objId,
+                    title,
+                    objCategory,
+                    progress,
+                    objPeriod,
+                    krList,
+                  }: IObjective) => (
+                    <HistoryList
+                      key={`${objIdx}+${objId}`}
+                      objId={objId}
+                      title={title}
+                      objCategory={objCategory}
+                      progress={progress}
+                      objPeriod={objPeriod}
+                      krList={krList}
+                    />
+                  ),
+                )}
+              </li>
+            </ul>
           </div>
         ))}
       </section>
@@ -51,23 +63,30 @@ const History = () => {
   );
 };
 
+const listMarginBottom = css`
+  &:not(:last-child) {
+    margin-bottom: 3.4rem;
+  }
+`;
+
 export default History;
+
 const DropDownSection = css`
-  padding: 0 3.6rem 0 4rem;
+  padding: 3rem 3.6rem 3rem 4rem;
 `;
 
 const StListOrderContainer = styled.div<{ isFirst: boolean }>`
   display: flex;
-  flex-direction: column;
+  align-items: end;
   justify-content: space-between;
-  width: 105.8rem;
-  margin-top: ${({ isFirst }) => (isFirst ? '3.0rem' : '3.4rem')};
+  width: 100%;
+  min-width: 105.8rem;
+  padding-bottom: 1.2rem;
 `;
 
 const StEachYear = styled.p`
   display: flex;
   justify-content: flex-start;
-  padding-left: 0.2rem;
-  margin-bottom: 1.2rem;
+  height: 3.2rem;
   color: ${({ theme }) => theme.colors.gray_000} ${({ theme }) => theme.fonts.title_20_semibold};
 `;

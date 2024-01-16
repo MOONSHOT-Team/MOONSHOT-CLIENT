@@ -17,6 +17,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 export default MainLayout;
 
 const mainHeight = css`
+  /* 최대 1792px 까지 */
   max-width: 179.2rem;
   height: calc(100vh - 7.6rem);
   margin: 0 auto;

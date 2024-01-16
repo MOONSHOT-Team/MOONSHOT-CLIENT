@@ -3,38 +3,35 @@ import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
+import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
+import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 
 interface IGuideFirstKeyResultCard {
-  cardIdx?: number;
+  krListInfo: IKrListInfoTypes[];
+  setKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
+  cardIdx: number;
   handleClickCloseBtn?: (cardIdx: number) => void;
 }
 
-const GuideFirstKeyResultCard = ({ cardIdx, handleClickCloseBtn }: IGuideFirstKeyResultCard) => {
-  //다른 브랜치에서 사용한 유틸 함수, 추 후 삭제 예정
-  const returnParsedDate = (date: Date, parseString: string) => {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
+const KR_SENTENCE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
 
-    return `${year}${parseString}${month}${parseString}${day}`;
-  };
-
-  // 성과 관련 값
-  const [krSentence, setKrSentence] = useState('');
-  const KR_SENTENCE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
-
-  /** 
-  캘린더 관련 요소
-  **/
-  const today = new Date();
-  const CALE_START_DATE = returnParsedDate(today, '-');
-  const CALE_END_DATE = returnParsedDate(new Date(today.setMonth(today.getMonth() + 1)), '-');
+const GuideFirstKeyResultCard = ({
+  krListInfo,
+  setKrListInfo,
+  cardIdx,
+  handleClickCloseBtn,
+}: IGuideFirstKeyResultCard) => {
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
   //캘린더 선택한 값
   const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
+
+  const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    krListInfo[cardIdx].title = e.target.value;
+    setKrListInfo([...krListInfo]);
+  };
 
   const handleClickSelectDate = (
     _values: [Dayjs | null, Dayjs | null] | null,
@@ -42,13 +39,19 @@ const GuideFirstKeyResultCard = ({ cardIdx, handleClickCloseBtn }: IGuideFirstKe
   ) => {
     if (formatString[0] && formatString[1]) {
       setKrPeriod(formatString);
+      krListInfo[cardIdx] = {
+        ...krListInfo[cardIdx],
+        startAt: formatString[0],
+        expireAt: formatString[1],
+      };
+      setKrListInfo([...krListInfo]);
     }
   };
 
   return (
     <StGuideFirstKeyResultCardWrapper>
       {/* x 버튼 부분 */}
-      {cardIdx && handleClickCloseBtn && (
+      {cardIdx > 0 && handleClickCloseBtn && (
         <button
           css={CloseIconStyle}
           id={cardIdx.toString()}
@@ -61,9 +64,9 @@ const GuideFirstKeyResultCard = ({ cardIdx, handleClickCloseBtn }: IGuideFirstKe
       <StKrInputBox>
         <StKrInputDescription>목표를 달성하기 위해 필요한 성과는?</StKrInputDescription>
         <StKrSentenceInput
-          value={krSentence}
+          value={krListInfo[cardIdx].title}
           placeholder={KR_SENTENCE_PLACEHOLDER}
-          onChange={(e) => setKrSentence(e.target.value)}
+          onChange={handleChangeTitleInput}
         />
       </StKrInputBox>
 

@@ -183,15 +183,44 @@ const AddOkr = () => {
         objContent ? setIsActiveNext(true) : setIsActiveNext(false);
         break;
       case 4:
-        krListInfo.filter((kr) => {
-          return clickedCard.includes(kr.idx);
-        }).length ===
-        krListInfo.filter((kr) => {
-          const { title, target, metric, startAt, expireAt } = kr;
-          return title !== '' && target !== '' && metric !== '' && startAt != '' && expireAt !== '';
-        }).length
-          ? setIsActiveNext(true)
-          : setIsActiveNext(false);
+        if (selectedMethod === IS_GUIDE && isActiveSecondKrCard) {
+          krListInfo.filter((kr) => {
+            return clickedCard.includes(kr.idx);
+          }).length ===
+          krListInfo.filter((kr) => {
+            const { target, metric } = kr;
+            return target !== '' && metric;
+          }).length
+            ? setIsActiveNext(true)
+            : setIsActiveNext(false);
+        }
+
+        if (selectedMethod === IS_GUIDE && !isActiveSecondKrCard) {
+          krListInfo.filter((kr) => {
+            return clickedCard.includes(kr.idx);
+          }).length ===
+          krListInfo.filter((kr) => {
+            const { title, startAt, expireAt } = kr;
+            return title !== '' && startAt != '' && expireAt !== '';
+          }).length
+            ? setIsActiveNext(true)
+            : setIsActiveNext(false);
+        }
+
+        // 직접 설정하기 플로우일 때
+        if (selectedMethod !== IS_GUIDE) {
+          krListInfo.filter((kr) => {
+            return clickedCard.includes(kr.idx);
+          }).length ===
+          krListInfo.filter((kr) => {
+            const { title, target, metric, startAt, expireAt } = kr;
+            return (
+              title !== '' && target !== '' && metric !== '' && startAt != '' && expireAt !== ''
+            );
+          }).length
+            ? setIsActiveNext(true)
+            : setIsActiveNext(false);
+        }
         break;
     }
   };

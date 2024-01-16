@@ -20,14 +20,18 @@ const AddGuideKr = ({
   handleClickPlusCard,
   handleClickCloseBtn,
   krListInfo,
-  // setKrListInfo,
+  setKrListInfo,
   isActiveSecondKrCard,
 }: IAddGuideKrProps) => {
   const renderFirstKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
     return (
       <>
-        <GuideFirstKeyResultCard />
+        <GuideFirstKeyResultCard
+          cardIdx={0}
+          krListInfo={krListInfo}
+          setKrListInfo={setKrListInfo}
+        />
         {plusCardLength.map((item) => {
           return (
             <React.Fragment key={item}>
@@ -35,6 +39,8 @@ const AddGuideKr = ({
                 <GuideFirstKeyResultCard
                   key={item}
                   cardIdx={item}
+                  krListInfo={krListInfo}
+                  setKrListInfo={setKrListInfo}
                   handleClickCloseBtn={handleClickCloseBtn}
                 />
               ) : (
@@ -63,7 +69,9 @@ const AddGuideKr = ({
           return clickedCard.includes(indexOfCard) ? (
             <GuideSecondKeyResultCard
               key={indexOfCard}
-              krSentence={krListInfo[indexOfCard].title}
+              cardIdx={indexOfCard}
+              krListInfo={krListInfo}
+              setKrListInfo={setKrListInfo}
             />
           ) : (
             <EmptyKeyResultCard />

@@ -1,32 +1,43 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 
 import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
+import { IKrListInfoTypes } from '../../types/KrInfoTypes';
+
+interface IGuideSecondKeyResultCardProps {
+  krListInfo: IKrListInfoTypes[];
+  setKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
+  cardIdx: number;
+}
 
 const HINT_TARGET = 'ex) 10';
 const HINT_METRIC = 'ex) 회';
 
-const GuideSecondKeyResultCard = ({ krSentence }: { krSentence: string }) => {
-  const [target, setTarget] = useState('');
-  const [metric, setMetric] = useState('');
+const GuideSecondKeyResultCard = ({
+  krListInfo,
+  setKrListInfo,
+  cardIdx,
+}: IGuideSecondKeyResultCardProps) => {
+  const { title, target, metric } = krListInfo[cardIdx];
 
   const handleGuidTargetInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    setTarget(parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+    krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    setKrListInfo([...krListInfo]);
   };
 
   const handleGuideMetricInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMetric(e.currentTarget.value);
+    krListInfo[cardIdx].metric = e.target.value;
+    setKrListInfo([...krListInfo]);
   };
 
   return (
     <StGuideSecondKeyResultCardWrapper>
-      <StSecondKrSenteceBox>
+      <StSecondKrTitleBox>
         목표를 달성하기 위해 필요한 성과는
-        <StTargetKrSentence>{krSentence}</StTargetKrSentence>
+        <StTargetKrTitle>{title}</StTargetKrTitle>
         입니다.
-      </StSecondKrSenteceBox>
+      </StSecondKrTitleBox>
 
       <StSecondKrTargetMetricBox>
         이 성과를 측정할 수 있는 수치값과 단위를 입력하세요.
@@ -55,7 +66,7 @@ const StGuideSecondKeyResultCardWrapper = styled(EmptyKeyResultCard)`
   padding: 0 1.7rem;
 `;
 
-const StSecondKrSenteceBox = styled.div`
+const StSecondKrTitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -63,7 +74,7 @@ const StSecondKrSenteceBox = styled.div`
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StTargetKrSentence = styled.p`
+const StTargetKrTitle = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;

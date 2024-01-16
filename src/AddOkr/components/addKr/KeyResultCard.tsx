@@ -35,11 +35,11 @@ const KeyResultCard = ({
     target: false,
     metric: false,
   });
+  const { title, target, metric } = krListInfo[cardIdx];
 
   /** 
   캘린더 관련 요소
   **/
-
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
   //캘린더 선택한 값
@@ -108,7 +108,7 @@ const KeyResultCard = ({
         <StKrTitleInput
           type="text"
           name={'title'}
-          value={krListInfo[cardIdx].title}
+          value={title}
           onChange={(e) => handlChangeBasicKr(e, MAX_SENTENCE)}
           placeholder={HINT_SENTENCE}
           $isMax={isValidMax.sentence}
@@ -124,7 +124,7 @@ const KeyResultCard = ({
           <StTargetMetricinput
             type="text"
             name={'target'}
-            value={krListInfo[cardIdx].target}
+            value={target}
             onChange={(e) => handlChangeBasicKr(e, MAX_TARGET + 1)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
@@ -132,7 +132,7 @@ const KeyResultCard = ({
           <StTargetMetricinput
             type="text"
             name={'metric'}
-            value={krListInfo[cardIdx].metric}
+            value={metric}
             onChange={(e) => handlChangeBasicKr(e, MAX_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}

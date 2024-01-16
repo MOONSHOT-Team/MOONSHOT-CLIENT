@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 
 import HistoryList from './components/dropDown/HistoryList';
 import ListOrder from './components/dropDown/ListOrder';
-import { DUMMYDATA } from './constants/dummydata';
+import HistoryDrawer from './components/HistoryDrawer';
+import { DUMMYDATA } from './constants/dummyData';
 import { IObjective } from './type/okrTypes';
 
 const History = () => {
   const {
-    data: { groups },
+    data: { groups, categories },
   } = DUMMYDATA;
 
   const [firstGroupYear, setFirstGroupYear] = useState<number | null>(null);
@@ -21,29 +22,32 @@ const History = () => {
   }, [groups]);
 
   return (
-    <section css={DropDownSection}>
-      {groups.map(({ year, objList }) => (
-        <div key={year}>
-          <StListOrderContainer isFirst={year === firstGroupYear}>
-            <StEachYear>{year}년</StEachYear>
-            <ListOrder />
-          </StListOrderContainer>
-          {objList.map(
-            ({ objIdx, objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
-              <HistoryList
-                key={`${objIdx}+${objId}`}
-                objId={objId}
-                title={title}
-                objCategory={objCategory}
-                progress={progress}
-                objPeriod={objPeriod}
-                krList={krList}
-              />
-            ),
-          )}
-        </div>
-      ))}
-    </section>
+    <>
+      <HistoryDrawer groups={groups} categories={categories} />
+      <section css={DropDownSection}>
+        {groups.map(({ year, objList }) => (
+          <div key={year}>
+            <StListOrderContainer isFirst={year === firstGroupYear}>
+              <StEachYear>{year}년</StEachYear>
+              <ListOrder />
+            </StListOrderContainer>
+            {objList.map(
+              ({ objIdx, objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
+                <HistoryList
+                  key={`${objIdx}+${objId}`}
+                  objId={objId}
+                  title={title}
+                  objCategory={objCategory}
+                  progress={progress}
+                  objPeriod={objPeriod}
+                  krList={krList}
+                />
+              ),
+            )}
+          </div>
+        ))}
+      </section>
+    </>
   );
 };
 

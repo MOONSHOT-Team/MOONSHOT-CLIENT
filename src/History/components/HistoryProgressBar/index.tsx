@@ -17,11 +17,9 @@ const HistoryProgressBar = ({ currentProgress, maximumProgress = 100 }: Progress
     <ProgressBarContainer isComplete={percentValue}>
       <StProgressBarWrapper>
         <Progress isComplete={percentValue} value={currentProgress} max={maximumProgress} />
-        {/* history_progressbar 현재 진행 마크용*/}
         <StMarker value={leftValue} />
       </StProgressBarWrapper>
 
-      {/* history_progressbar 진행률 표기 */}
       <StCurrentProgressBox>{percentValue}% 달성</StCurrentProgressBox>
     </ProgressBarContainer>
   );

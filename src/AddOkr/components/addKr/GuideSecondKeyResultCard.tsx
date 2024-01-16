@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
+import { MAX_KR_METRIC, MAX_KR_TARGET } from '../../constants/MAX_KR_LENGTH';
 import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 
@@ -19,16 +21,35 @@ const GuideSecondKeyResultCard = ({
   cardIdx,
 }: IGuideSecondKeyResultCardProps) => {
   const { title, target, metric } = krListInfo[cardIdx];
+  const [isValidMax, setIsValidMax] = useState({
+    target: false,
+    metric: false,
+  });
 
-  const handleGuidTargetInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGuidTargetInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    setKrListInfo([...krListInfo]);
+
+    if (e.target.value.length > maxLength) {
+      setIsValidMax({ ...isValidMax, target: true });
+    }
+
+    if (e.target.value.length <= maxLength) {
+      setIsValidMax({ ...isValidMax, target: false });
+      krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      setKrListInfo([...krListInfo]);
+    }
   };
 
-  const handleGuideMetricInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    krListInfo[cardIdx].metric = e.target.value;
-    setKrListInfo([...krListInfo]);
+  const handleGuideMetricInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
+    if (e.target.value.length > maxLength) {
+      setIsValidMax({ ...isValidMax, metric: true });
+    }
+
+    if (e.target.value.length <= maxLength) {
+      setIsValidMax({ ...isValidMax, metric: false });
+      krListInfo[cardIdx].metric = e.target.value;
+      setKrListInfo([...krListInfo]);
+    }
   };
 
   return (
@@ -44,13 +65,15 @@ const GuideSecondKeyResultCard = ({
         <div css={TargetMetricInputBox}>
           <StTargetMetricInput
             value={target}
-            onChange={handleGuidTargetInput}
+            onChange={(e) => handleGuidTargetInput(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
+            $isMax={isValidMax.target}
           />
           <StTargetMetricInput
             value={metric}
-            onChange={handleGuideMetricInput}
+            onChange={(e) => handleGuideMetricInput(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
+            $isMax={isValidMax.metric}
           />
         </div>
       </StSecondKrTargetMetricBox>
@@ -97,13 +120,13 @@ const TargetMetricInputBox = css`
   gap: 0.7rem;
 `;
 
-const StTargetMetricInput = styled.input`
+const StTargetMetricInput = styled.input<{ $isMax: boolean }>`
   display: flex;
   align-items: center;
   width: 14.6rem;
   height: 3.2rem;
   padding: 1rem;
-  color: ${({ theme }) => theme.colors.gray_350};
+  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_000)};
   background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_450};
   border-radius: 6px;
@@ -111,6 +134,10 @@ const StTargetMetricInput = styled.input`
   &:focus,
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray_550};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray_350};
   }
 
   ${({ theme }) => theme.fonts.body_14_medium};

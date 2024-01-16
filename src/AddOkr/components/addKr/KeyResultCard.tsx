@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
 import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
+import { MAX_KR_METRIC, MAX_KR_TARGET, MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
@@ -12,10 +13,6 @@ import KeyResultPeriodInput from './KeyResultPeriodInput';
 const HINT_SENTENCE = 'ex) 개발 관련 아티클 읽기';
 const HINT_TARGET = 'ex) 10';
 const HINT_METRIC = 'ex) 회';
-
-const MAX_SENTENCE = 20;
-const MAX_TARGET = 6;
-const MAX_METRIC = 4;
 
 interface IKeyResultCardProps {
   krListInfo: IKrListInfoTypes[];
@@ -31,7 +28,7 @@ const KeyResultCard = ({
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
   const [isValidMax, setIsValidMAx] = useState({
-    sentence: false,
+    title: false,
     target: false,
     metric: false,
   });
@@ -109,9 +106,9 @@ const KeyResultCard = ({
           type="text"
           name={'title'}
           value={title}
-          onChange={(e) => handlChangeBasicKr(e, MAX_SENTENCE)}
+          onChange={(e) => handlChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
-          $isMax={isValidMax.sentence}
+          $isMax={isValidMax.title}
         />
       </StKrInputDescWrapper>
 
@@ -125,7 +122,7 @@ const KeyResultCard = ({
             type="text"
             name={'target'}
             value={target}
-            onChange={(e) => handlChangeBasicKr(e, MAX_TARGET + 1)}
+            onChange={(e) => handlChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
           />
@@ -133,7 +130,7 @@ const KeyResultCard = ({
             type="text"
             name={'metric'}
             value={metric}
-            onChange={(e) => handlChangeBasicKr(e, MAX_METRIC)}
+            onChange={(e) => handlChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}
           />
@@ -178,7 +175,7 @@ const StKrTitleInput = styled.input<{ $isMax: boolean }>`
   width: 29.9rem;
   height: 3.2rem;
   padding: 0.6rem 1rem;
-  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_350)};
+  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_000)};
   background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
@@ -188,6 +185,10 @@ const StKrTitleInput = styled.input<{ $isMax: boolean }>`
   &:focus,
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray_550};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray_350};
   }
 `;
 
@@ -200,7 +201,7 @@ const StTargetMetricinput = styled.input<{ $isMax: boolean }>`
   width: 14.6rem;
   height: 3.2rem;
   padding: 0.6rem 1rem;
-  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_350)};
+  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_000)};
   background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
@@ -210,6 +211,10 @@ const StTargetMetricinput = styled.input<{ $isMax: boolean }>`
   &:focus,
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray_550};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray_350};
   }
 `;
 

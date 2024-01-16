@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
 import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
+import { MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
@@ -15,7 +16,7 @@ interface IGuideFirstKeyResultCard {
   handleClickCloseBtn?: (cardIdx: number) => void;
 }
 
-const KR_SENTENCE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
+const KR_TITLE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
 
 const GuideFirstKeyResultCard = ({
   krListInfo,
@@ -25,6 +26,7 @@ const GuideFirstKeyResultCard = ({
 }: IGuideFirstKeyResultCard) => {
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
+  const [isMaxTitle, setIsMaxTitle] = useState(false);
 
   //캘린더 선택한 값
   const [krPeriod, setKrPeriod] = useState([
@@ -36,9 +38,16 @@ const GuideFirstKeyResultCard = ({
       : CALE_END_DATE,
   ]);
 
-  const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    krListInfo[cardIdx].title = e.target.value;
-    setKrListInfo([...krListInfo]);
+  const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
+    if (e.target.value.length > maxLength) {
+      setIsMaxTitle(true);
+    }
+
+    if (e.target.value.length <= maxLength) {
+      setIsMaxTitle(false);
+      krListInfo[cardIdx].title = e.target.value;
+      setKrListInfo([...krListInfo]);
+    }
   };
 
   const handleClickSelectDate = (
@@ -73,8 +82,9 @@ const GuideFirstKeyResultCard = ({
         <StKrInputDescription>목표를 달성하기 위해 필요한 성과는?</StKrInputDescription>
         <StKrSentenceInput
           value={krListInfo[cardIdx].title}
-          placeholder={KR_SENTENCE_PLACEHOLDER}
-          onChange={handleChangeTitleInput}
+          placeholder={KR_TITLE_PLACEHOLDER}
+          onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
+          $isMax={isMaxTitle}
         />
       </StKrInputBox>
 
@@ -113,20 +123,24 @@ const StKrInputDescription = styled.p`
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StKrSentenceInput = styled.input`
+const StKrSentenceInput = styled.input<{ $isMax: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 31.3rem;
   height: 3.2rem;
   padding: 0.6rem 0;
-  color: ${({ theme }) => theme.colors.gray_350};
+  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;
   background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray_350};
+  }
 
   &:focus,
   &:hover {

@@ -150,7 +150,7 @@ const fonts = {
     family: PRETENDARDFAMILY,
     size: 1.1,
     fontStyle: 'normal',
-    weight: 600,
+    weight: 500,
     lineHeight: 1.1,
   }),
   caption_10_medium: FONT({

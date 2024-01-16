@@ -13,8 +13,6 @@ import SelectMethod from './components/stepLayout/SelectMethod';
 import { OBJ_START_AT } from './constants/ADD_OKR_DATES';
 import { IKrListInfoTypes } from './types/KrInfoTypes';
 
-// const ADD_OKR_STPES = ['SELECT_METHOD', 'OBJ_TITLE_CATEG', 'OBGJ_PERIOD', 'OBJ_CONTENT', 'ADD_KR'];
-
 const IS_GUIDE = '가이드에 따라 설정하기';
 
 const AddOkr = () => {
@@ -58,11 +56,12 @@ const AddOkr = () => {
     },
   ];
 
+  // step 관리 값
   const [step, setStep] = useState(0);
+  //이전, 다음 버튼 관리 값
   const [isActiveNext, setIsActiveNext] = useState(false);
 
   const [objInfo, setObjInfo] = useState(resetObjInfoState);
-
   const { objTitle, objCategory, objContent, objStartAt, objExpireAt } = objInfo;
 
   const [krListInfo, setKrListInfo] = useState<IKrListInfoTypes[]>(resetKrListInfo);
@@ -132,7 +131,7 @@ const AddOkr = () => {
     setKrListInfo([...krListInfo]);
   };
 
-  // 이전, 다음 버튼 활성화 / 비활성화 관리
+  // 이전, 다음 버튼 활성화 / 비활성화 관리 함수
   const validNextStep = () => {
     switch (step) {
       case 1:
@@ -193,6 +192,7 @@ const AddOkr = () => {
   const renderStepLayout = () => {
     switch (step) {
       case 0:
+        // stpe 0 - 방식 선택 (가이드 vs 직접)
         return (
           <SelectMethod
             selectedMethod={selectedMethod}
@@ -200,6 +200,7 @@ const AddOkr = () => {
           />
         );
       case 1:
+        // step 1 - O 카데고리, 제목 설정
         return (
           <ObjTitleCateg
             isGuide={selectedMethod === IS_GUIDE}
@@ -208,6 +209,7 @@ const AddOkr = () => {
           />
         );
       case 2:
+        // stpe 2 - O 기간 설정
         return (
           <ObjPeriod
             objInfo={objInfo}
@@ -218,9 +220,11 @@ const AddOkr = () => {
         );
 
       case 3:
+        // stpe 3 - O 내용 설정
         return <ObjContent objInfo={objInfo} setObjInfo={setObjInfo} />;
 
       case 4:
+        // step 4 - KR 추가
         return selectedMethod === IS_GUIDE ? (
           <AddGuideKr
             objTitle={objTitle}
@@ -242,12 +246,13 @@ const AddOkr = () => {
           />
         );
       case 5:
+        // step 5 - previewOkr로 add-okr에서 생성된 정보들 보내주고 redirect, 이때 krList 중 값이 있는 것만 보낼수 있도록 필터한다.
         navigate('/preview-okr', {
           state: { objInfo: objInfo, krListInfo: krListInfo.filter((kr) => kr.title) },
         });
         break;
       default:
-      //에러페이지
+      //에러페이지 추가 예정
     }
   };
 

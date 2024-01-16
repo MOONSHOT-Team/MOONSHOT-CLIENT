@@ -1,30 +1,26 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { AddOkrCardWrapper } from '../../styles/KeyResultCardStyle';
+import { IAddKrFlowProps } from '../../types/KrInfoTypes';
 import KeyResultCard from '../addKr/KeyResultCard';
 import KeyResultPlusCard from '../addKr/KeyResultPlusCard';
 
-const AddKr = () => {
-  const MAX_KR_LENGTH = 3;
-  const OBJECT = '통합 회원가입수 200,000건 돌파'; // 추후 이전 단계 값 가져올 값
+const MAX_KR_LENGTH = 3;
 
-  const [clickedCard, setClickedCard] = useState<number[]>([0]);
-
-  // KR 카드 추가 취소 버튼 핸들러
-  const handleClickCloseBtn = (cardIdx: number) => {
-    const parsedArray = clickedCard.filter((item) => {
-      return item !== cardIdx;
-    });
-
-    setClickedCard(parsedArray);
-  };
-
+const AddKr = ({
+  objTitle,
+  clickedCard,
+  handleClickPlusCard,
+  handleClickCloseBtn,
+  krListInfo,
+  setKrListInfo,
+}: IAddKrFlowProps) => {
   const renderKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
     return (
       <>
-        <KeyResultCard />
+        <KeyResultCard cardIdx={0} krListInfo={krListInfo} setKrListInfo={setKrListInfo} />
         {plusCardLength.map((item) => {
           return (
             <React.Fragment key={item}>
@@ -32,13 +28,15 @@ const AddKr = () => {
                 <KeyResultCard
                   key={item}
                   cardIdx={item}
+                  krListInfo={krListInfo}
+                  setKrListInfo={setKrListInfo}
                   handleClickCloseBtn={handleClickCloseBtn}
                 />
               ) : (
                 <div
                   key={item}
-                  onClick={() => setClickedCard((prev) => [...prev, item])}
-                  onKeyDown={() => setClickedCard((prev) => [...prev, item])}
+                  onClick={() => handleClickPlusCard(item)}
+                  onKeyDown={() => handleClickPlusCard(item)}
                   role="presentation"
                 >
                   <KeyResultPlusCard key={item} />
@@ -59,7 +57,7 @@ const AddKr = () => {
         }
       </StAddOkrTitle>
       <StAddOkrObjectBox>
-        <StAddOkrObjectTxt>{OBJECT}</StAddOkrObjectTxt>
+        <StAddOkrObjectTxt>{objTitle}</StAddOkrObjectTxt>
       </StAddOkrObjectBox>
       <AddOkrCardWrapper>{renderKrCards()}</AddOkrCardWrapper>
     </StAddOkrLayoutContainer>

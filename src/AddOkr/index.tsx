@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import StepBtns from './components/commonUse/StepBtns';
 import AddGuideKr from './components/stepLayout/AddGuideKr';
@@ -10,16 +11,43 @@ import ObjPeriod from './components/stepLayout/ObjPeriod';
 import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
 import SelectMethod from './components/stepLayout/SelectMethod';
 import { OBJ_START_AT } from './constants/ADD_OKR_DATES';
+import { IKrListInfoTypes } from './types/KrInfoTypes';
 
 // const ADD_OKR_STPES = ['SELECT_METHOD', 'OBJ_TITLE_CATEG', 'OBGJ_PERIOD', 'OBJ_CONTENT', 'ADD_KR'];
 
 const IS_GUIDE = '가이드에 따라 설정하기';
 const AddOkr = () => {
+  const navigate = useNavigate();
+
   const [step, setStep] = useState(0);
   const [isActiveNext, setIsActiveNext] = useState(false);
 
   //Step 0 - SELECT METHOD 관련 State
   const [selectedMethod, setSelectedMethod] = useState('');
+  // Step 2 ObjPeriod- 선택된 기간 버튼 관리 값
+  const [selectedPeriod, setSelectedPeriod] = useState('');
+
+  const [isActiveSecondKrCard, setIsActiveSecondKrCard] = useState(false);
+
+  const [clickedCard, setClickedCard] = useState<number[]>([0]);
+
+  // kr 카드 추가 버튼 핸들러
+  const handleClickPlusCard = (item: number) => {
+    //순서 보장 조건 -> 앞에서부터 추가
+    if (clickedCard.toString() === [0].toString() && item === 2) return;
+    setClickedCard((prev) => [...prev, item]);
+  };
+
+  // KR 카드 추가 취소 버튼 핸들러
+  const handleClickCloseBtn = (cardIdx: number) => {
+    //순서 보장 조건 -> 앞에서부터 추가
+    if (clickedCard.toString() === [0, 1, 2].toString() && cardIdx === 1) return;
+    const parsedArray = clickedCard.filter((item) => {
+      return item !== cardIdx;
+    });
+
+    setClickedCard(parsedArray);
+  };
 
   const [objInfo, setObjInfo] = useState({
     objTitle: '',
@@ -29,8 +57,37 @@ const AddOkr = () => {
     objExpireAt: '',
   });
 
-  // Step 2 ObjPeriod- 선택된 기간 버튼 관리 값
-  const [selectedPeriod, setSelectedPeriod] = useState('');
+  const { objTitle, objCategory, objContent, objStartAt, objExpireAt } = objInfo;
+
+  const [krListInfo, setKrListInfo] = useState<IKrListInfoTypes[]>([
+    {
+      idx: 0,
+      title: '',
+      startAt: '',
+      expireAt: '',
+      target: '',
+      metric: '',
+      taskList: [],
+    },
+    {
+      idx: 1,
+      title: '',
+      startAt: '',
+      expireAt: '',
+      target: '',
+      metric: '',
+      taskList: [],
+    },
+    {
+      idx: 2,
+      title: '',
+      startAt: '',
+      expireAt: '',
+      target: '',
+      metric: '',
+      taskList: [],
+    },
+  ]);
 
   // 이전, 다음 버튼 관련 handler
   const hanldeClickPrevBtn = () => {
@@ -38,6 +95,10 @@ const AddOkr = () => {
   };
 
   const handleClickNextBtn = () => {
+    if (step === 4 && selectedMethod === IS_GUIDE && isActiveSecondKrCard === false) {
+      isActiveNext && setIsActiveSecondKrCard(true);
+      return;
+    }
     isActiveNext && setStep((prev) => prev + 1);
   };
 
@@ -78,31 +139,66 @@ const AddOkr = () => {
         return <ObjContent objInfo={objInfo} setObjInfo={setObjInfo} />;
 
       case 4:
-        return selectedMethod === IS_GUIDE ? <AddKr /> : <AddGuideKr />;
+        return selectedMethod === IS_GUIDE ? (
+          <AddGuideKr
+            objTitle={objTitle}
+            clickedCard={clickedCard}
+            handleClickPlusCard={handleClickPlusCard}
+            handleClickCloseBtn={handleClickCloseBtn}
+            krListInfo={krListInfo}
+            setKrListInfo={setKrListInfo}
+            isActiveSecondKrCard={isActiveSecondKrCard}
+          />
+        ) : (
+          <AddKr
+            objTitle={objTitle}
+            clickedCard={clickedCard}
+            handleClickPlusCard={handleClickPlusCard}
+            handleClickCloseBtn={handleClickCloseBtn}
+            krListInfo={krListInfo}
+            setKrListInfo={setKrListInfo}
+          />
+        );
+      case 5:
+        navigate('/preview-okr', {
+          state: { objInfo: objInfo, krListInfo: krListInfo.filter((kr) => kr.title !== '') },
+        });
+        break;
+      default:
+      //에러페이지
     }
   };
 
   const validNextStep = () => {
     switch (step) {
       case 1:
-        objInfo.objCategory && objInfo.objTitle ? setIsActiveNext(true) : setIsActiveNext(false);
+        objCategory && objTitle ? setIsActiveNext(true) : setIsActiveNext(false);
         break;
       case 2:
-        objInfo.objStartAt && objInfo.objExpireAt && selectedPeriod
+        objStartAt && objExpireAt && selectedPeriod
           ? setIsActiveNext(true)
           : setIsActiveNext(false);
         break;
       case 3:
-        objInfo.objContent ? setIsActiveNext(true) : setIsActiveNext(false);
+        objContent ? setIsActiveNext(true) : setIsActiveNext(false);
+        break;
+      case 4:
+        krListInfo.filter((kr) => {
+          return clickedCard.includes(kr.idx);
+        }).length ===
+        krListInfo.filter((kr) => {
+          const { title, target, metric, startAt, expireAt } = kr;
+          return title !== '' && target !== '' && metric !== '' && startAt != '' && expireAt !== '';
+        }).length
+          ? setIsActiveNext(true)
+          : setIsActiveNext(false);
         break;
     }
   };
 
   useEffect(() => {
     validNextStep();
-    console.log(objInfo);
-    console.log(isActiveNext);
-  }, [step, objInfo]);
+  }, [step, objInfo, krListInfo, clickedCard]);
 
   return (
     <section css={AddOkrContainer}>

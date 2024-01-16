@@ -3,7 +3,9 @@ import { Dayjs } from 'dayjs';
 import React, { useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
+import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
+import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 
 //힌트 메시지 상수
@@ -16,26 +18,18 @@ const MAX_TARGET = 6;
 const MAX_METRIC = 4;
 
 interface IKeyResultCardProps {
-  cardIdx?: number;
+  krListInfo: IKrListInfoTypes[];
+  setKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
+  cardIdx: number;
   handleClickCloseBtn?: (cardIdx: number) => void;
 }
 
-const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) => {
-  //다른 브랜치에서 사용한 유틸 함수, 추 후 삭제 예정
-  const returnParsedDate = (date: Date, parseString: string) => {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-
-    return `${year}${parseString}${month}${parseString}${day}`;
-  };
-
-  const [basicKr, setBasicKr] = useState({
-    sentence: '',
-    target: '',
-    metric: '',
-  });
-
+const KeyResultCard = ({
+  krListInfo,
+  setKrListInfo,
+  cardIdx,
+  handleClickCloseBtn,
+}: IKeyResultCardProps) => {
   const [isValidMax, setIsValidMAx] = useState({
     sentence: false,
     target: false,
@@ -45,23 +39,14 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
   /** 
   캘린더 관련 요소
   **/
-  const today = new Date();
-  const CALE_START_DATE = returnParsedDate(today, '-');
-  const CALE_END_DATE = returnParsedDate(new Date(today.setMonth(today.getMonth() + 1)), '-');
+
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
   //캘린더 선택한 값
   const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
 
   const handlChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    // if (e.target.name === 'target') return;
-    // e.target.value.length > 20
-    //   ? setIsValidMAx({ ...isValidMax, [e.target.name]: true })
-    //   : setIsValidMAx({ ...isValidMax, [e.target.name]: false });
-    // setBasicKr({ ...basicKr, [e.target.name]: e.target.value });
-
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    // const parsedLength = limitMaxLength(e, maxLength);
 
     switch (e.target.name) {
       case 'target':
@@ -70,10 +55,8 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
         }
         if (e.target.value.length <= maxLength) {
           setIsValidMAx({ ...isValidMax, [e.target.name]: false });
-          setBasicKr({
-            ...basicKr,
-            target: parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-          });
+          krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          setKrListInfo([...krListInfo]);
         }
         break;
       default:
@@ -82,7 +65,9 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
         }
         if (e.target.value.length <= maxLength) {
           setIsValidMAx({ ...isValidMax, [e.target.name]: false });
-          setBasicKr({ ...basicKr, [e.target.name]: e.target.value });
+
+          krListInfo[cardIdx] = { ...krListInfo[cardIdx], [e.target.name]: e.target.value };
+          setKrListInfo([...krListInfo]);
         }
         break;
     }
@@ -94,14 +79,21 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
   ) => {
     if (formatString[0] && formatString[1]) {
       setKrPeriod(formatString);
+      krListInfo[cardIdx] = {
+        ...krListInfo[cardIdx],
+        startAt: formatString[0],
+        expireAt: formatString[1],
+      };
+      setKrListInfo([...krListInfo]);
     }
   };
 
   return (
     <StKeyResultCardWrapper>
       {/* x 버튼 부분 */}
-      {cardIdx && handleClickCloseBtn && (
+      {cardIdx > 0 && handleClickCloseBtn && (
         <button
+          type="button"
           css={CloseIconStyle}
           id={cardIdx.toString()}
           onClick={() => handleClickCloseBtn(cardIdx)}
@@ -113,10 +105,10 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
       {/* 핵심 지표 문장 입력 부분 */}
       <StKrInputDescWrapper>
         <StKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StKrInputDescription>
-        <StKrSentenceInput
+        <StKrTitleInput
           type="text"
-          name={'sentence'}
-          value={basicKr.sentence}
+          name={'title'}
+          value={krListInfo[cardIdx].title}
           onChange={(e) => handlChangeBasicKr(e, MAX_SENTENCE)}
           placeholder={HINT_SENTENCE}
           $isMax={isValidMax.sentence}
@@ -132,7 +124,7 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
           <StTargetMetricinput
             type="text"
             name={'target'}
-            value={basicKr.target}
+            value={krListInfo[cardIdx].target}
             onChange={(e) => handlChangeBasicKr(e, MAX_TARGET + 1)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
@@ -140,7 +132,7 @@ const KeyResultCard = ({ cardIdx, handleClickCloseBtn }: IKeyResultCardProps) =>
           <StTargetMetricinput
             type="text"
             name={'metric'}
-            value={basicKr.metric}
+            value={krListInfo[cardIdx].metric}
             onChange={(e) => handlChangeBasicKr(e, MAX_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}
@@ -182,7 +174,7 @@ const StKrInputDescription = styled.p`
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StKrSentenceInput = styled.input<{ $isMax: boolean }>`
+const StKrTitleInput = styled.input<{ $isMax: boolean }>`
   width: 29.9rem;
   height: 3.2rem;
   padding: 0.6rem 1rem;

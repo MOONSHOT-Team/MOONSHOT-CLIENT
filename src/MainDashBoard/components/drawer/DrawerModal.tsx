@@ -6,6 +6,8 @@ import useModal from '@hooks/useModal';
 import type { ComponentProps, FocusEvent } from 'react';
 import { useId, useReducer, useState } from 'react';
 
+import { validateDate } from '../../utils/validateDate';
+
 interface IModalInputProps extends ComponentProps<'input'> {
   isActive: boolean;
   label: string;
@@ -100,42 +102,14 @@ const DrawerModal = () => {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
-    const dateFormat = `${year}-${month}-${day}`;
-    const inputDate = new Date(dateFormat);
-    const todayDate = new Date();
+    const isProperValue = validateDate(year, month, day);
 
-    // 오늘 날짜 전 날짜 입력 금지
-    if (inputDate < todayDate) return setIsValidInput('올바른 날짜를 입력해 주세요.');
-
-    // 입력값 길이 제한
-    if (year.length !== 4 || month.length !== 2 || day.length !== 2)
-      return setIsValidInput('올바른 날짜를 입력해 주세요.');
-
-    // 입력값 범위 제한
-    if (
-      Number(year) > 2100 &&
-      Number(month) < 1 &&
-      Number(month) > 12 &&
-      Number(day) < 1 &&
-      Number(day) > 31
-    )
-      return setIsValidInput('올바른 날짜를 입력해 주세요.');
-
-    // 입력 달에 따른 일 수 제한
-    const maxDay = ['04', '06', '09', '11'].includes(month!) // 30일
-      ? 30
-      : ['01', '03', '05', '07', '08', '10', '12'].includes(month!) // 31일
-        ? 31
-        : (Number(year) % 4 == 0 && Number(year) % 100 != 0) || Number(year) % 400 == 0 // 윤년
-          ? 29
-          : 28; // 윤년 아닌 2월
-
-    if (day && Number(day) > maxDay) return setIsValidInput('올바른 날짜를 입력해 주세요.');
+    isProperValue ? setIsValidInput('') : setIsValidInput('올바른 날짜를 입력해 주세요.');
 
     await instance.patch('/v1/objective', {
       objectiveId: 1,
       isClosed: false,
-      expireAt: dateFormat,
+      expireAt: `${year}-${month}-${day}`,
     });
   };
 

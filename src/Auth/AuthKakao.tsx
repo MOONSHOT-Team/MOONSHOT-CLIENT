@@ -18,10 +18,10 @@ const AuthKakao = () => {
 
     const { accessToken, refreshToken } = data.data.data.token;
 
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('ACCESS_TOKEN', accessToken);
+    localStorage.setItem('REFRESH_TOKEN', refreshToken);
 
-    navigate('/dashboard');
+    navigate('/sign-in/nickname');
   }, [data, navigate]);
 
   return (

@@ -47,16 +47,6 @@ const router = createBrowserRouter([
         path: 'preview-okr',
         element: <PreviewOkr />,
       },
-    ],
-  },
-  {
-    path: '/',
-    element: (
-      <>
-        <MainLayout></MainLayout>
-      </>
-    ),
-    children: [
       {
         path: 'dashboard',
         element: <MainDashBoard />,

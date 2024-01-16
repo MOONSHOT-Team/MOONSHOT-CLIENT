@@ -36,6 +36,11 @@ const globalStyles = css`
   input,
   textarea {
     user-select: auto;
+
+    &:focus {
+      border: 1px solid ${theme.colors.gray_200};
+      outline: none;
+    }
   }
 
   button {
@@ -49,10 +54,13 @@ const globalStyles = css`
     text-decoration: none;
   }
 
-  input:focus,
-  textarea:focus {
-    border-color: ${theme.colors.gray_200};
-    outline: none;
+  svg {
+    cursor: pointer;
+  }
+
+  ul,
+  li {
+    list-style: none;
   }
 `;
 

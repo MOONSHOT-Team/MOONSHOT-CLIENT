@@ -1,3 +1,4 @@
+import instance from '@apis/instance';
 import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -96,12 +97,11 @@ const DrawerModal = () => {
     }
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
-    // 날짜 수정 API 붙이기
-
-    const inputDate = new Date(`${year}-${month}-${day}`);
+    const dateFormat = `${year}-${month}-${day}`;
+    const inputDate = new Date(dateFormat);
     const todayDate = new Date();
 
     // 오늘 날짜 전 날짜 입력 금지
@@ -131,18 +131,26 @@ const DrawerModal = () => {
           : 28; // 윤년 아닌 2월
 
     if (day && Number(day) > maxDay) return setIsValidInput('올바른 날짜를 입력해 주세요.');
+
+    await instance.patch('/v1/objective', {
+      objectiveId: 1,
+      isClosed: false,
+      expireAt: dateFormat,
+    });
+  };
+
+  const handleComplete = async () => {
+    await instance.patch('/v1/objective', {
+      objectiveId: 1,
+      isClosed: true,
+    });
   };
 
   /** 모달창 첫 화면 버튼 */
   const renderExtendButton = () => {
     return (
       <>
-        <StCompleteButton
-          type="button"
-          onClick={() => {
-            // 해당 목표 히스토리로 이동시키기 + /history로 페이지 이동
-          }}
-        >
+        <StCompleteButton type="button" onClick={handleComplete}>
           목표 완료하기
         </StCompleteButton>
         <StExtendButton

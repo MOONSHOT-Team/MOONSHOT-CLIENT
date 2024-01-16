@@ -9,6 +9,7 @@ import ObjContent from './components/stepLayout/ObjContent';
 import ObjPeriod from './components/stepLayout/ObjPeriod';
 import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
 import SelectMethod from './components/stepLayout/SelectMethod';
+import { OBJ_START_AT } from './constants/ADD_OKR_DATES';
 
 // const ADD_OKR_STPES = ['SELECT_METHOD', 'OBJ_TITLE_CATEG', 'OBGJ_PERIOD', 'OBJ_CONTENT', 'ADD_KR'];
 
@@ -24,9 +25,11 @@ const AddOkr = () => {
     objTitle: '',
     objCategory: '',
     objContent: '',
-    objStartAt: '',
+    objStartAt: OBJ_START_AT,
     objExpireAt: '',
   });
+
+  const [selectedPeriod, setSelectedPeriod] = useState('');
 
   // 이전, 다음 버튼 관련 handler
   const hanldeClickPrevBtn = () => {
@@ -61,10 +64,17 @@ const AddOkr = () => {
           />
         );
       case 2:
-        return <ObjPeriod />;
+        return (
+          <ObjPeriod
+            objInfo={objInfo}
+            setObjInfo={setObjInfo}
+            selectedPeriod={selectedPeriod}
+            setSelectedPeriod={setSelectedPeriod}
+          />
+        );
 
       case 3:
-        return <ObjContent />;
+        return <ObjContent objInfo={objInfo} setObjInfo={setObjInfo} />;
 
       case 4:
         return selectedMethod === IS_GUIDE ? <AddKr /> : <AddGuideKr />;
@@ -77,7 +87,12 @@ const AddOkr = () => {
         objInfo.objCategory && objInfo.objTitle ? setIsActiveNext(true) : setIsActiveNext(false);
         break;
       case 2:
-        objInfo.objStartAt && objInfo.objExpireAt ? setIsActiveNext(true) : setIsActiveNext(false);
+        objInfo.objStartAt && objInfo.objExpireAt && selectedPeriod
+          ? setIsActiveNext(true)
+          : setIsActiveNext(false);
+        break;
+      case 3:
+        objInfo.objContent ? setIsActiveNext(true) : setIsActiveNext(false);
         break;
     }
   };

@@ -1,46 +1,45 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
+import { CALE_END_DATE, CALE_START_DATE, TODAY } from '../../constants/ADD_OKR_DATES';
+import { OBJ_PERIOD_LIST } from '../../constants/OBJ_PERIOD_LIST';
+import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 import { addMonth } from '../../utils/addMonth';
 import { returnParsedDate } from '../../utils/returnParseDate';
 import PeriodBtn from '../objPeriod/PeriodBtn';
 
-const OBJ_PERIOD_LIST = [
-  { length: '1', periodName: '1개월' },
-  { length: '3', periodName: '3개월' },
-  { length: '6', periodName: '6개월' },
-  { length: 'null', periodName: 'SELECT_PERIOD' },
-];
+interface IObjPeriodProps extends IAddObjFlowProps {
+  selectedPeriod: string;
+  setSelectedPeriod: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const ObjPeriod = () => {
+const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: IObjPeriodProps) => {
   // 오늘 날짜 'yyyy. mm. dd` 형태로 만드는 함수
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ('0' + today.getDate()).slice(-2);
+  // const today = new Date();
+  // const year = today.getFullYear();
+  // const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  // const day = ('0' + today.getDate()).slice(-2);
 
-  // 목표 기간 시작 날짜 상수
-  const CALE_START_DATE = returnParsedDate(today, '-');
-  const CALE_END_DATE = returnParsedDate(new Date(today.setMonth(today.getMonth() + 1)), '-');
+  // const [startDate, setStartDate] = useState(OBJ_START_AT);
+  // const [exipreDate, setExpireDate] = useState<string>('');
 
+  const { objStartAt, objExpireAt } = objInfo;
+
+  // dayjs 캘린더에서 사용하는 선택된 기간 값
   const [period, setPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
-
-  const OBJ_START_AT = `${year}. ${month}. ${day}`;
-
-  const [startDate, setStartDate] = useState(OBJ_START_AT);
-  const [exipreDate, setExpireDate] = useState<string>('');
-
-  const [selectedPeriod, setSelectedPeriod] = useState('');
 
   const hanldeClickPeriodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedPeriod(e.currentTarget.id);
 
     if (e.currentTarget.id === 'null') return;
-    const calcDate = addMonth(today, Number(e.currentTarget.id));
-    const parsedDate = returnParsedDate(calcDate, '. ');
-    setExpireDate(parsedDate);
+    const calcDate = addMonth(TODAY, Number(e.currentTarget.id));
+    const dotParsedDate = returnParsedDate(calcDate, '. ');
+    setObjInfo({
+      ...objInfo,
+      objExpireAt: dotParsedDate,
+    });
   };
 
   const handleClickSelectDate = (
@@ -49,8 +48,7 @@ const ObjPeriod = () => {
   ) => {
     if (formatString[0] && formatString[1]) {
       setPeriod(formatString);
-      setStartDate(formatString[0]);
-      setExpireDate(formatString[1]);
+      setObjInfo({ ...objInfo, objStartAt: formatString[0], objExpireAt: formatString[1] });
     }
   };
 
@@ -58,7 +56,7 @@ const ObjPeriod = () => {
     <section css={ObjPeriodContainer}>
       <StPeriodBtnTitle>앞으로 몇 개월 동안 목표에 집중해볼까요?</StPeriodBtnTitle>
       <div css={PeriodDateBox}>
-        <StPeriodDateTxt>{`${startDate} - ${exipreDate}`}</StPeriodDateTxt>
+        <StPeriodDateTxt>{`${objStartAt} - ${objExpireAt}`}</StPeriodDateTxt>
       </div>
       <div css={PeriodBtnWrapper}>
         {OBJ_PERIOD_LIST.map(({ length, periodName }) => {

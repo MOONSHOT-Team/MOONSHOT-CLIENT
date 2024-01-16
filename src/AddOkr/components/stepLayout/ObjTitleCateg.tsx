@@ -5,15 +5,12 @@ import { useState } from 'react';
 
 import { GUIDE_OBJ_TITLE_PLACEHOLDER } from '../../constants/GUIDE_OBJ_TITLE_PLACEHOLDER';
 import { OBJ_CATEG_LIST } from '../../constants/OBJ_CATEG_LIST';
-import { ObjInfoTypes } from '../../types/ObjectInfoTypes';
+import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 import ObjCategTag from '../objTitleCateg/ObjCategTag';
 
-interface IObjTitleCategProps {
+interface IObjTitleCategProps extends IAddObjFlowProps {
   isGuide: boolean;
-  objInfo: ObjInfoTypes;
-  setObjInfo: React.Dispatch<React.SetStateAction<ObjInfoTypes>>;
 }
-
 //object tilte input/textare 최대 글자수
 const MAX_OBJ_INPUT_CNT = 30;
 
@@ -22,10 +19,8 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
   직접 작성 & 가이드에 따라 작성 공통 사용
   **/
   // 카테고리 태그 상태
-  // const [selectedObjCatg, setSelectedObjCateg] = useState('');
-  // object tilte input 글자 수 상태
-  const [currObjCount, setCurrObjCount] = useState(0);
   const { objCategory: selectedObjCateg, objTitle } = objInfo;
+  const [currObjCount, setCurrObjCount] = useState(objTitle ? objTitle.length : 0);
 
   // 카테고리 태그 선택 핸들러
   const handleClickObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {

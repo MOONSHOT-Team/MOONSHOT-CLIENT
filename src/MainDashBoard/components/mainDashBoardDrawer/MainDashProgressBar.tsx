@@ -9,7 +9,7 @@ interface ProgressBarProps {
   isCurrentProgress?: boolean;
 }
 
-const ProgressBar = ({
+const MainDashProgressBar = ({
   currentProgress,
   maximumProgress = 100,
   progressBarColor = '#5B5B5B',
@@ -24,7 +24,7 @@ const ProgressBar = ({
         progressBarColor={progressBarColor}
         progressValueColor={progressValueColor}
       >
-        <progress value={currentProgress} max={maximumProgress}></progress>
+        <progress value={currentProgress} max={maximumProgress} />
         {isCurrentProgress && (
           <StCurrentProgressBox textColor={textColor}>{percentValue}%</StCurrentProgressBox>
         )}
@@ -33,7 +33,7 @@ const ProgressBar = ({
   );
 };
 
-export default ProgressBar;
+export default MainDashProgressBar;
 
 export const StProgressBarWrapper = styled.div<{
   progressBarColor: string;
@@ -53,12 +53,10 @@ export const StProgressBarWrapper = styled.div<{
 
   & > progress::-webkit-progress-bar {
     background-color: ${({ progressBarColor }) => progressBarColor};
-    border-radius: 5px;
   }
 
   & > progress::-webkit-progress-value {
     background-color: ${({ progressValueColor }) => progressValueColor};
-    border-radius: 5px;
   }
 `;
 const StCurrentProgressBox = styled.p<{ textColor: string }>`

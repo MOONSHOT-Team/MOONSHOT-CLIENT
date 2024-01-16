@@ -1,5 +1,4 @@
 import Error from '@components/Error';
-import Drawer from '@components/layout/Drawer';
 import MainLayout from '@components/layout/MainLayout';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -48,18 +47,6 @@ const router = createBrowserRouter([
         path: 'preview-okr',
         element: <PreviewOkr />,
       },
-    ],
-  },
-  {
-    path: '/',
-    element: (
-      <>
-        <MainLayout>
-          <Drawer />
-        </MainLayout>
-      </>
-    ),
-    children: [
       {
         path: 'dashboard',
         element: <MainDashBoard />,

@@ -1,7 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { getCategoryColor } from '@utils/getCategoryColor';
 import { useState } from 'react';
 
+import { IcEllipse } from '../../../MainDashBoard/assets/icons';
 import { IcLike, IcLikeFill } from '../../assets/icons';
 
 interface IProfileCardProps {
@@ -38,8 +40,8 @@ const ProfileCard = ({
   return (
     <StProfileCardContainer isCurrent={currentUserIdx === idx} onClick={() => onClickCard?.(idx)}>
       <article css={profileCardStyle}>
-        <div css={{ display: 'flex', gap: '0.4rem', marginBottom: '0.4rem' }}>
-          <i></i>
+        <div css={{ display: 'flex', gap: '0.4rem', marginBottom: '0.4rem', alignItems: 'center' }}>
+          <StyledIcEllipse color={getCategoryColor(category)} />
           <StCategory>{category}</StCategory>
         </div>
         <div css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -61,7 +63,7 @@ export default ProfileCard;
 const StProfileCardContainer = styled.li<{ isCurrent: boolean }>`
   flex-shrink: 0;
   width: 18.8rem;
-  padding: 1.8rem 1.6rem 2rem;
+  padding: 1.4rem 1.6rem 1.8rem;
   cursor: pointer;
   background-color: ${({ theme, isCurrent }) =>
     isCurrent ? theme.colors.gray_500 : theme.colors.gray_550};
@@ -106,7 +108,16 @@ const StLikeCnt = styled.p`
 const StUserIntro = styled.p`
   width: 15.6rem;
   margin-top: 0.8rem;
-  overflow: hidden;
   color: ${({ theme }) => theme.colors.gray_250};
+  text-align: center;
+  word-break: keep-all;
+  word-wrap: break-word;
+
   ${({ theme }) => theme.fonts.body_10_regular};
+`;
+
+const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`
+  & > circle {
+    fill: ${({ color }) => color};
+  }
 `;

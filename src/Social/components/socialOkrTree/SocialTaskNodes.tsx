@@ -17,11 +17,8 @@ interface ISocialTaskProps {
 }
 
 export const SocialTaskNodes = ({ isFirstChild, taskIdx, taskList }: ISocialTaskProps) => {
-  const task = taskList ? taskList[taskIdx] : undefined;
-
-  if (!task) {
-    return;
-  }
+  if (!taskList) return;
+  const task = taskList[taskIdx];
 
   return (
     <StNodesContainer>
@@ -30,7 +27,7 @@ export const SocialTaskNodes = ({ isFirstChild, taskIdx, taskList }: ISocialTask
         <NodeLines />
         <StSocialTaskBoxWrapper>
           <StraightLine />
-          <StSocialTaskBox $idx={task?.idx}>{task?.title}</StSocialTaskBox>
+          <StSocialTaskBox>{task?.title}</StSocialTaskBox>
         </StSocialTaskBoxWrapper>
       </StTaskNodeContainer>
     </StNodesContainer>
@@ -42,7 +39,7 @@ const StSocialTaskBoxWrapper = styled(StTaskBoxWrapper)`
   align-items: center;
 `;
 
-const StSocialTaskBox = styled(StTaskBox)<{ $idx: number }>`
+const StSocialTaskBox = styled(StTaskBox)`
   display: flex;
   align-items: center;
   justify-content: center;

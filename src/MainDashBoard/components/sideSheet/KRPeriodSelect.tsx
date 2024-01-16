@@ -46,7 +46,7 @@ const KRPeriodSelect = () => {
         }}
       >
         <RangePicker
-          bordered={false}
+          variant="borderless"
           onChange={handleKrPeriodChange}
           value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
           defaultValue={[dayjs(), dayjs()]}

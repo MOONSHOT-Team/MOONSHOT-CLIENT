@@ -3,20 +3,20 @@ import { userImg1, userImg2, userImg3, userImg4 } from '../assets/imgs/index';
 export const MOCK_SOCIAL_DATA = [
   {
     //1
-    category: '건강',
-    userName: '달나라모험',
+    category: '성장',
+    userName: '실용주의자',
     userImg: userImg1,
     like: 132,
-    userIntro: 'ESTJ/목표를 성취하는 과정에서 짜릿함을 느껴요',
+    userIntro: '웹 개발자/TEAM moonshot에서 일하고 있습니다',
     okrTreeData: {
-      objTitle: '지속가능한 성장을 위해 건강하기',
-      objCategory: '건강',
+      objTitle: '영향력있는 개발자 되기',
+      objCategory: '성장',
       objContent: '이루지 못하는 목표는 없다.',
       objStartAt: '2024-01-05T00:00:00',
       objExpireAt: '2024-01-30T00:00:00',
       krList: [
         {
-          title: '골격근량 25kg 달성하기',
+          keyResultTitle: '자랑할 수 있는 어플리케이션 만들어보기 : 1회',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 0,
@@ -26,21 +26,21 @@ export const MOCK_SOCIAL_DATA = [
           descriptionAfter: '달성',
           taskList: [
             {
-              title: '주 2회 이상 헬스장 가기',
+              title: '코드 리뷰 피드백을 주 2회 이상 검토하기',
               idx: 0,
             },
             {
-              title: '한달에 프로틴 한 통 비우기',
+              title: '피드백을 반영하여 코드 개선하기',
               idx: 1,
             },
             {
-              title: '술 마시지 않기',
+              title: '해커톤 참여하기',
               idx: 2,
             },
           ],
         },
         {
-          title: '체중 3kg 감량하기',
+          keyResultTitle: '개발 관련 아티클 읽기 : 10회',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 1,
@@ -50,21 +50,21 @@ export const MOCK_SOCIAL_DATA = [
           descriptionAfter: '달성',
           taskList: [
             {
-              title: '런닝 모임 참여하기',
+              title: '아티클 스터디 참여하기',
               idx: 0,
             },
             {
-              title: '닭가슴살 위주로 먹기',
+              title: '주 1회 이상 아티클 읽는 시간 확보하기',
               idx: 1,
             },
             {
-              title: '일정한 시간에 식사하기',
+              title: '읽은 아티클에 노션에 요약 정리하기',
               idx: 2,
             },
           ],
         },
         {
-          title: '10km 걷기',
+          keyResultTitle: '코테 문제 풀기 : 5회',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 2,
@@ -74,15 +74,15 @@ export const MOCK_SOCIAL_DATA = [
           descriptionAfter: '달성',
           taskList: [
             {
-              title: '출퇴근 시 계단으로 오르내리기',
+              title: '백준 문제 풀기',
               idx: 0,
             },
             {
-              title: '강아지 산책시키기',
+              title: '매일 2시간코딩 연습하기',
               idx: 1,
             },
             {
-              title: '점심 시간에 공원 산책하기',
+              title: '코딩 연습 결과를 기록하고 복습하기',
               idx: 2,
             },
           ],
@@ -93,10 +93,10 @@ export const MOCK_SOCIAL_DATA = [
   //2
   {
     category: '경제',
-    userName: '실용주의자',
+    userName: '질문을 던지는 사람',
     userImg: userImg2,
     like: 129,
-    userIntro: '웹 개발자/TEAM moonshot에서 일하고 있습니다',
+    userIntro: 'ESTJ/목표를 성취하는 과정에서 짜릿함을 느껴요',
     okrTreeData: {
       objTitle: '전세 자금 마련하기',
       objCategory: '경제',
@@ -105,7 +105,7 @@ export const MOCK_SOCIAL_DATA = [
       objExpireAt: '2024-01-30T00:00:00',
       krList: [
         {
-          title: '저축 계획 수립하여 50000000원 저축하기',
+          keyResultTitle: '저축 계획 수립하여 50000000원 저축하기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 0,
@@ -129,7 +129,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          title: '부가적인 수입원 발굴을 위해 부업으로 50만원 확보하기',
+          keyResultTitle: '부가적인 수입원 발굴을 위해 부업으로 50만원 확보하기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 1,
@@ -153,7 +153,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          title: '지출 100000원 이상 절감하기',
+          keyResultTitle: '지출 100000원 이상 절감하기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 2,
@@ -182,7 +182,7 @@ export const MOCK_SOCIAL_DATA = [
   //3
   {
     category: '성장',
-    userName: '질문을 던지는 사람',
+    userName: '인프피디자이너',
     userImg: userImg3,
     like: 118,
     userIntro: '마케터/트렌드를 읽고 있습니다',
@@ -194,7 +194,7 @@ export const MOCK_SOCIAL_DATA = [
       objExpireAt: '2024-01-30T00:00:00',
       krList: [
         {
-          title: '리더십 관련 도서 3권 읽기',
+          keyResultTitle: '리더십 관련 도서 3권 읽기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 0,
@@ -218,7 +218,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          title: '주변 사람들에게 짧은 발표 5회 연습하기',
+          keyResultTitle: '주변 사람들에게 짧은 발표 5회 연습하기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 1,
@@ -242,7 +242,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          title: '리더 역할 2회 이상 맡기',
+          keyResultTitle: '리더 역할 2회 이상 맡기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 2,
@@ -271,7 +271,7 @@ export const MOCK_SOCIAL_DATA = [
   //4
   {
     category: '라이프스타일',
-    userName: '김문샷정',
+    userName: '나노플래너',
     userImg: userImg4,
     like: 70,
     userIntro: '매일 긍정적으로 생각해요',
@@ -283,7 +283,7 @@ export const MOCK_SOCIAL_DATA = [
       objExpireAt: '2024-01-30T00:00:00',
       krList: [
         {
-          title: '균형 잡힌 식사 10회 이상 섭취',
+          keyResultTitle: '균형 잡힌 식사 10회 이상 섭취',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 0,
@@ -307,7 +307,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          title: '명상 또는 마음을 진정시키는 시간 10시간 이상 확보하기',
+          keyResultTitle: '명상 또는 마음을 진정시키는 시간 10시간 이상 확보하기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 1,
@@ -331,7 +331,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          title: '운동 15회 이상 하기',
+          keyResultTitle: '운동 15회 이상 하기',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           idx: 2,

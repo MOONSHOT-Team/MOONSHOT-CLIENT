@@ -6,7 +6,7 @@ import { MOCK_SOCIAL_DATA } from '../../constants/MOCK_SOCIAL_DATA';
 import ProfileCard from './ProfileCard';
 
 const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number) => void }) => {
-  const [currentUserIdx, setCurrentUserIdx] = useState(7);
+  const [currentUserIdx, setCurrentUserIdx] = useState(0);
 
   const handleClickCard = (idx: number) => {
     setCurrentUserIdx(idx);
@@ -16,7 +16,7 @@ const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number
     <StContainer>
       <div css={{ padding: '2.6rem 1rem 0 2.2rem' }}>
         <StDrawerHeader>공유 리스트</StDrawerHeader>
-        <section css={profileContainer}>
+        <ul css={profileContainer}>
           {MOCK_SOCIAL_DATA.map((data, idx) => (
             <ProfileCard
               key={data.userName + idx}
@@ -26,7 +26,7 @@ const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number
               onClickCard={handleClickCard}
             />
           ))}
-        </section>
+        </ul>
       </div>
     </StContainer>
   );
@@ -41,6 +41,7 @@ const StContainer = styled.aside`
   flex-direction: column;
   min-width: 23.2rem;
   height: 100%;
+  padding: '2.6rem 1rem 0 2.2rem';
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.colors.gray_600};
 

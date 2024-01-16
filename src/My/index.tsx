@@ -17,6 +17,7 @@ const My = () => {
         <StUserProfileImg src={profileImg} alt="사용자 사진" />
         <StUserNickName>닉네임</StUserNickName>
         <StUserIdentification>카카오 로그인 유저입니다.</StUserIdentification>
+        <StWithdraw>회원탈퇴</StWithdraw>
       </StUserInfoContainer>
       <section css={pageCenter}>
         <div>
@@ -55,6 +56,7 @@ const myPageUi = css`
 `;
 
 const StUserInfoContainer = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -79,6 +81,19 @@ const StUserNickName = styled.p`
 const StUserIdentification = styled.p`
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_13_medium};
+`;
+
+const StWithdraw = styled.button`
+  position: absolute;
+  right: 4rem;
+  bottom: 4rem;
+  width: 4.5rem;
+  height: 2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 2rem;
+  color: ${({ theme }) => theme.colors.gray_450};
+  border-bottom: 1px solid currentcolor;
 `;
 
 const StAcquiredItemsText = styled.p`

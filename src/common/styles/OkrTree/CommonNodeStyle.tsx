@@ -52,7 +52,7 @@ export const StTaskBoxWrapper = styled.div`
   align-items: center;
 `;
 
-export const StTaskBox = styled.div<{ $idx: number }>`
+export const StTaskBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

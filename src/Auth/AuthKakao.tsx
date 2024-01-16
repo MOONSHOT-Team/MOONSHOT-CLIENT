@@ -16,10 +16,10 @@ const AuthKakao = () => {
   useEffect(() => {
     if (!data) return;
 
-    const { accessToken, refreshToken } = data.data.data.token;
+    const { ACCESS_TOKEN, REFRESH_TOKEN } = data.data.data.token;
 
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('ACCESS_TOKEN', ACCESS_TOKEN);
+    localStorage.setItem('REFRESH_TOKEN', REFRESH_TOKEN);
 
     navigate('/sign-in/nickname');
   }, [data, navigate]);

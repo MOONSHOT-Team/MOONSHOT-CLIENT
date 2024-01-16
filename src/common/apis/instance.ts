@@ -18,15 +18,15 @@ export default instance;
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken');
+    const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
 
-    if (!accessToken) {
+    if (!ACCESS_TOKEN) {
       window.location.href = '/sign-in';
 
       return config;
     }
 
-    config.headers['Authorization'] = `${accessToken}`;
+    config.headers['Authorization'] = `${ACCESS_TOKEN}`;
 
     return config;
   },

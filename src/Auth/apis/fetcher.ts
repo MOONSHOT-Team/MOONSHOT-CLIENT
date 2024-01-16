@@ -1,14 +1,13 @@
-import axios from 'axios';
+import { signInInstance } from '@apis/instance';
 
 export const fetcherPost = async (url: string, code: string, platform: string) => {
-  const response = await axios.post(
+  const response = await signInInstance.post(
     url,
     {
       socialPlatform: platform,
     },
     {
       headers: {
-        'Content-Type': 'application/json',
         Authorization: code,
       },
     },

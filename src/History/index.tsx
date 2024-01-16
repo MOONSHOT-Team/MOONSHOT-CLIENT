@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
 import HistoryList from './components/dropDown/HistoryList';
 import ListOrder from './components/dropDown/ListOrder';
@@ -12,13 +13,21 @@ const History = () => {
     data: { groups, categories },
   } = DUMMY_DATA;
 
+  const [firstGroupYear, setFirstGroupYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (groups.length > 0) {
+      setFirstGroupYear(groups[0].year);
+    }
+  }, [groups]);
+
   return (
-    <>
-      <HistoryDrawer groups={groups} categories={categories} />;
+    <section css={historyUi}>
+      <HistoryDrawer groups={groups} categories={categories} />
       <section css={DropDownSection}>
         {groups.map(({ year, objList }) => (
           <div key={year} css={listMarginBottom}>
-            <StListOrderContainer>
+            <StListOrderContainer isFirst={year === firstGroupYear}>
               <StEachYear>{year}년</StEachYear>
               <ListOrder />
             </StListOrderContainer>
@@ -50,9 +59,14 @@ const History = () => {
           </div>
         ))}
       </section>
-    </>
+    </section>
   );
 };
+
+const historyUi = css`
+  display: flex;
+  height: 100%;
+`;
 
 const listMarginBottom = css`
   &:not(:last-child) {
@@ -66,7 +80,7 @@ const DropDownSection = css`
   padding: 3rem 3.6rem 3rem 4rem;
 `;
 
-const StListOrderContainer = styled.div`
+const StListOrderContainer = styled.div<{ isFirst: boolean }>`
   display: flex;
   align-items: end;
   justify-content: space-between;

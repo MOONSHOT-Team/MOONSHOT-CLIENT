@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
+import { getDashBoardData } from './apis/fetcher';
 import CelebrateMotion from './components/celebrateMotion/CelebrateMotion';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
@@ -17,6 +19,8 @@ const MainDashBoard = () => {
   const [objList, setObjList] = useState<IobjListTypes[]>([]);
   const [, setCurrentGoalId] = useState<number>(0);
   const [currentOKRData, setCurrentOKRData] = useState<IMainData>();
+  const { data } = useSWR('/v1/objective', getDashBoardData);
+  console.log(data);
 
   useEffect(() => {
     //서버통신

@@ -6,6 +6,9 @@ import { ChangeEvent, useEffect, useState } from 'react';
 const CHECKINPLACEHOLDER =
   '회고 내용을 입력하세요.\n\n  • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n  • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n  • 실행 과정에 얼마나 만족하는지 알려주세요.';
 
+const MAX_NUMCNT = 6;
+const MAX_TEXTCNT = 100;
+
 interface ICharacterCountProps {
   currentCnt: number;
   maxCnt: number;
@@ -40,7 +43,7 @@ const CheckInInput = ({
         onChange={handleLogContentChange}
         autoComplete="off"
       />
-      {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={100} />}
+      {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={MAX_TEXTCNT} />}
     </div>
   );
 };
@@ -55,6 +58,7 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
+  const [isMaxNum, setIsMaxnum] = useState(false);
 
   useEffect(() => {
     logNum && logContent ? setIsActiveBtn(true) : setIsActiveBtn(false);
@@ -65,7 +69,13 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
       setLogNum('');
       return;
     }
-    const rawValue = e.target.value.replace(/,/g, '').slice(0, 11);
+    if (e.target.value.length > MAX_NUMCNT + 1) {
+      setIsMaxnum(true);
+    }
+    if (e.target.value.length <= MAX_NUMCNT) {
+      setIsMaxnum(false);
+    }
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUMCNT);
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
       setLogNum(num);
@@ -77,7 +87,7 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
       setLogContentCount(0);
       setLogContent('');
     }
-    const lengthCount = limitMaxLength(e, 100);
+    const lengthCount = limitMaxLength(e, MAX_TEXTCNT);
 
     if (!lengthCount) return;
     setLogContentCount(lengthCount);
@@ -96,6 +106,7 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
               value={logNum.toLocaleString()}
               onChange={handleLogNumChange}
               autoComplete="off"
+              isMaxNum={isMaxNum}
             />
           </div>
         </span>
@@ -124,13 +135,20 @@ export const KR수정하기 = ({ onCancel }: IKrCheckInProps) => {
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
+  const [isMaxNum, setIsMaxnum] = useState(false);
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
       setTarget('');
       return;
     }
-    const rawValue = e.target.value.replace(/,/g, '').slice(0, 11);
+    if (e.target.value.length > MAX_NUMCNT + 1) {
+      setIsMaxnum(true);
+    }
+    if (e.target.value.length <= MAX_NUMCNT) {
+      setIsMaxnum(false);
+    }
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUMCNT);
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
       setTarget(num);
@@ -158,15 +176,16 @@ export const KR수정하기 = ({ onCancel }: IKrCheckInProps) => {
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgress">kr 수정</StLabel>
           <StEditNum>
-            <span>통합 가입 수</span>
+            <span>개발관련 아티클 읽기 : </span>
             <StEditNumInput
               id="enterProgress"
               placeholder="200,000"
               value={target}
               onChange={handleTargetChange}
               autoComplete="off"
+              isMaxNum={isMaxNum}
             />
-            <span>건 돌파</span>
+            <span>회</span>
           </StEditNum>
         </span>
         <span css={enterInputBoxStyles}>
@@ -234,10 +253,10 @@ const StLabel = styled.label`
   ${({ theme }) => theme.fonts.body_12_medium};
 `;
 
-const StEnterProgressInput = styled.input`
+const StEnterProgressInput = styled.input<{ isMaxNum: boolean }>`
   width: 27.4rem;
   padding: 1.1rem 1.2rem;
-  color: ${({ theme }) => theme.colors.gray_000};
+  color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.colors.gray_450};
   border-radius: 6px;
@@ -285,10 +304,10 @@ const StEditNum = styled.div`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-const StEditNumInput = styled.input`
+const StEditNumInput = styled.input<{ isMaxNum: boolean }>`
   width: 12rem;
   padding: 1.1rem 1.2rem;
-  color: ${({ theme }) => theme.colors.gray_000};
+  color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.colors.gray_450};

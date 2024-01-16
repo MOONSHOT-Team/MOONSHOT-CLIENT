@@ -1,7 +1,7 @@
 export interface ITaskTypes {
   title: string;
   id?: number;
-  idx?: number;
+  idx: number;
 }
 
 export interface ITaskNodesTypes {

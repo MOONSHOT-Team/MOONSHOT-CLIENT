@@ -25,8 +25,16 @@ const GuideFirstKeyResultCard = ({
 }: IGuideFirstKeyResultCard) => {
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
+
   //캘린더 선택한 값
-  const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
+  const [krPeriod, setKrPeriod] = useState([
+    krListInfo[cardIdx].startAt
+      ? krListInfo[cardIdx].startAt.split('. ').join('-')
+      : CALE_START_DATE,
+    krListInfo[cardIdx].expireAt
+      ? krListInfo[cardIdx].expireAt.split('. ').join('-')
+      : CALE_END_DATE,
+  ]);
 
   const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     krListInfo[cardIdx].title = e.target.value;

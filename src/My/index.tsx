@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import profileImg from './assets/images/profileImg.png';
 import { ITEM_LIST } from './constants/itemList';
 
-interface IAcquiredItemListProps {
+interface IAcquiredItemList {
   src: string;
   title: string;
   subTitle: string;
@@ -21,7 +21,7 @@ const My = () => {
       <StAcquiredItemContainer>
         <StAcquiredItemsText>획득한 아이템</StAcquiredItemsText>
         <StAcquiredItemImgWrapper>
-          {ITEM_LIST.map(({ src, title, subTitle }: IAcquiredItemListProps) => (
+          {ITEM_LIST.map(({ src, title, subTitle }: IAcquiredItemList) => (
             <StAcquiredItemList key={title}>
               <StAcquiredItemImg src={src} alt="획득한 아이템 사진" />
               <StAcquiredItemTitle>

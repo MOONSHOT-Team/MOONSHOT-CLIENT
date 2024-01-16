@@ -2,9 +2,9 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import profileImg from './assets/images/profileImg.png';
-import { ITEMLIST } from './constants/itemList';
+import { ITEM_LIST } from './constants/itemList';
 
-interface IAcquiredItemList {
+interface IAcquiredItemListProps {
   src: string;
   title: string;
   subTitle: string;
@@ -12,26 +12,27 @@ interface IAcquiredItemList {
 
 const My = () => {
   return (
-    <aside css={myPageUi}>
+    <section css={myPageUi}>
       <StUserInfoContainer>
-        <StUserProfileImg src={profileImg} alt={'사용자 사진'} />
+        <StUserProfileImg src={profileImg} alt="사용자 사진" />
         <StUserNickName>닉네임</StUserNickName>
-        <StUseridentification>카카오 로그인 유저입니다.</StUseridentification>
+        <StUserIdentification>카카오 로그인 유저입니다.</StUserIdentification>
       </StUserInfoContainer>
       <StAcquiredItemContainer>
         <StAcquiredItemsText>획득한 아이템</StAcquiredItemsText>
         <StAcquiredItemImgWrapper>
-          {ITEMLIST.map(({ src, title, subTitle }: IAcquiredItemList) => (
+          {ITEM_LIST.map(({ src, title, subTitle }: IAcquiredItemListProps) => (
             <StAcquiredItemList key={title}>
-              <StAcquiredItemImg src={src} alt={'획득한 아이템 사진'} />
+              <StAcquiredItemImg src={src} alt="획득한 아이템 사진" />
               <StAcquiredItemTitle>
-                {title} <StAcquiredItemSubTitle>{subTitle}</StAcquiredItemSubTitle>
+                <StAcquiredItemMainTitle>{title}</StAcquiredItemMainTitle>
+                <StAcquiredItemSubTitle>{subTitle}</StAcquiredItemSubTitle>
               </StAcquiredItemTitle>
             </StAcquiredItemList>
           ))}
         </StAcquiredItemImgWrapper>
       </StAcquiredItemContainer>
-    </aside>
+    </section>
   );
 };
 
@@ -40,11 +41,13 @@ export default My;
 const myPageUi = css`
   display: flex;
   height: 100%;
+  border: 1px solid red;
 `;
 
 const StUserInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   align-items: center;
   width: 34rem;
   padding-top: 13rem;
@@ -58,19 +61,19 @@ const StUserProfileImg = styled.img`
 `;
 
 const StUserNickName = styled.p`
-  display: flex;
-  gap: 0.6rem;
   margin: 3rem 0 0.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_20_semibold};
 `;
 
-const StUseridentification = styled.p`
+const StUserIdentification = styled.p`
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
 const StAcquiredItemContainer = styled.section`
-  padding: 6.1rem 0 0 8.4rem;
+  width: 100%;
+  height: 100%;
+  padding: 6.1rem 8.4rem;
 `;
 
 const StAcquiredItemsText = styled.p`
@@ -94,27 +97,28 @@ const StAcquiredItemList = styled.div`
 `;
 
 const StAcquiredItemImg = styled.img`
-  width: 18.4rem;
-  height: 24rem;
+  width: 100%;
+  height: 100%;
 `;
 
-const StAcquiredItemTitle = styled.div`
+const StAcquiredItemTitle = styled.caption`
   position: absolute;
   bottom: 2.8rem;
-  left: 2.2rem;
+  left: 50%;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  align-items: center;
   justify-content: center;
-  width: 14rem;
+  transform: translateX(-50%);
+`;
+
+const StAcquiredItemMainTitle = styled.p`
   color: ${({ theme }) => theme.colors.gray_100};
-  text-align: center;
   ${({ theme }) => theme.fonts.btn_14_semibold};
 `;
+
 const StAcquiredItemSubTitle = styled.p`
-  display: flex;
-  justify-content: center;
   color: ${({ theme }) => theme.colors.gray_200};
-  text-align: center;
   ${({ theme }) => theme.fonts.body_12_regular};
 `;

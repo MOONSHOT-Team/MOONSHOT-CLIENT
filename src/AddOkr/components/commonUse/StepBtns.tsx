@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
 
 interface IStepBtnsProps {
   isActiveNext: boolean;
@@ -28,6 +28,7 @@ const StStepBtnStyle = styled.button`
   width: 15.5rem;
   height: 4rem;
   color: ${({ theme }) => theme.colors.gray_000};
+  border-radius: 6px;
 
   ${({ theme }) => theme.fonts.btn_14_semibold}
 `;
@@ -36,7 +37,7 @@ const StStepPrevBtn = styled(StStepBtnStyle)`
   background-color: ${({ theme }) => theme.colors.gray_550};
 `;
 
-const StStepNextBtn = styled.button<{ $isActiveNext: boolean }>`
+const StStepNextBtn = styled(StStepBtnStyle)<{ $isActiveNext: boolean }>`
   background-color: ${({ theme, $isActiveNext }) =>
     $isActiveNext ? theme.colors.main_darkpurple : theme.colors.gray_550};
 `;

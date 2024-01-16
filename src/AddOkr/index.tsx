@@ -1,19 +1,14 @@
 import { css } from '@emotion/react';
 
-import AddGuideKr from './components/stepLayout/AddGuideKr';
-import ObjPeriod from './components/stepLayout/ObjPeriod';
-import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
-import SelectMethod from './components/stepLayout/SelectMethod';
-
 const AddOkr = () => {
   return (
     <section css={AddOkrContainer}>
-      {/* step1 */}
-      <SelectMethod />
-      {<ObjTitleCateg isGuide={true} />}
-      <ObjPeriod />
+      step1
+      {/* <SelectMethod /> */}
+      {/* {<ObjTitleCateg isGuide={true} />} */}
+      {/* <ObjPeriod /> */}
       {/* <AddKr /> */}
-      <AddGuideKr />
+      {/* <AddGuideKr /> */}
     </section>
   );
 };

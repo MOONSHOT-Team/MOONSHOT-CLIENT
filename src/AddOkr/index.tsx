@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 
+import ObjContent from './step/ObjContent';
+
 const AddOkr = () => {
   return (
     <section css={AddOkrContainer}>
@@ -8,6 +10,7 @@ const AddOkr = () => {
       {/* {<ObjTitleCateg isGuide={true} />} */}
       {/* <ObjPeriod /> */}
       {/* <AddKr /> */}
+      <ObjContent />
       {/* <AddGuideKr /> */}
     </section>
   );

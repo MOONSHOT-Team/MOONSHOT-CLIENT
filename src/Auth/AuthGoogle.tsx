@@ -16,10 +16,10 @@ const AuthGoogle = () => {
   useEffect(() => {
     if (!data) return;
 
-    const { ACCESS_TOKEN, REFRESH_TOKEN } = data.data.data.token;
+    const { accessToken, refreshToken } = data.data.data.token;
 
-    localStorage.setItem('ACCESS_TOKEN', ACCESS_TOKEN);
-    localStorage.setItem('REFRESH_TOKEN', REFRESH_TOKEN);
+    localStorage.setItem('ACCESS_TOKEN', accessToken);
+    localStorage.setItem('REFRESH_TOKEN', refreshToken);
 
     navigate('/sign-in/nickname');
   }, [data, navigate]);

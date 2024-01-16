@@ -51,12 +51,6 @@ const Nickname = () => {
 
 export default Nickname;
 
-export const nicknameLoader = async () => {
-  const data = await instance.get('/v1/user/mypage');
-
-  return data;
-};
-
 const nicknameSection = css`
   display: flex;
   flex-direction: column;

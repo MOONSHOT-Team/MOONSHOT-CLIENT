@@ -1,5 +1,5 @@
 const MainDashBoard = () => {
-  return <div>MainDashBoard</div>;
+  return <div></div>;
 };
 
 export default MainDashBoard;

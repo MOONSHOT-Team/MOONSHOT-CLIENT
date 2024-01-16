@@ -25,7 +25,7 @@ const HistoryList: React.FC<IObjective> = ({
     <>
       <ul css={historyListMarginBottom}>
         <StObjectiveContainer
-          visibility={isVisable === objId}
+          visibility={isVisable === objId ? 'true' : 'false'}
           onClick={() => handleObjectiveClick(objId)}
         >
           <StObjectiveWrapper>
@@ -76,7 +76,7 @@ const progressInfo = css`
   margin-left: auto;
 `;
 
-const StObjectiveContainer = styled.button<{ visibility: boolean }>`
+const StObjectiveContainer = styled.button<{ visibility: string }>`
   display: flex;
   gap: 1.6rem;
   align-items: center;
@@ -85,7 +85,8 @@ const StObjectiveContainer = styled.button<{ visibility: boolean }>`
   height: 6rem;
   padding: 0 2.4rem;
   background-color: ${({ theme }) => theme.colors.gray_500};
-  border: 1px solid ${({ theme, visibility }) => (visibility ? theme.colors.gray_300 : 'none')};
+  border: 1px solid
+    ${({ theme, visibility }) => (visibility === 'true' ? theme.colors.gray_300 : 'none')};
   border-radius: 6px;
 `;
 

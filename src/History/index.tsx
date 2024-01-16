@@ -22,7 +22,7 @@ const History = () => {
   }, [groups]);
 
   return (
-    <>
+    <section css={historyUi}>
       <HistoryDrawer groups={groups} categories={categories} />
       <section css={DropDownSection}>
         {groups.map(({ year, objList }) => (
@@ -59,9 +59,14 @@ const History = () => {
           </div>
         ))}
       </section>
-    </>
+    </section>
   );
 };
+
+const historyUi = css`
+  display: flex;
+  height: 100%;
+`;
 
 const listMarginBottom = css`
   &:not(:last-child) {

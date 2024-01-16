@@ -28,6 +28,7 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
         <ul css={drawerWrapper}>
           {THEME.map(({ category }) => {
             const isDisabled = !categories.includes(category);
+
             return (
               <ThemeButton
                 key={category}

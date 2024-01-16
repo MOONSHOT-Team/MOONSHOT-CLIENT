@@ -10,7 +10,7 @@ import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
 import My from './My';
-import Nickname from './NickName';
+import Nickname from './Nickname';
 import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';

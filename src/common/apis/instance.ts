@@ -14,10 +14,12 @@ instance.interceptors.request.use(
     const accessToken = localStorage.getItem('accessToken');
 
     if (!accessToken) {
+      window.location.href = '/sign-in';
+
       return config;
     }
 
-    instance.defaults.headers.common['Authorization'] = accessToken;
+    config.headers['Authorization'] = `${accessToken}`;
 
     return config;
   },

@@ -13,20 +13,20 @@ const Nickname = () => {
   const { data } = useSWR('/v1/user/mypage', getUserInfo);
   const navigate = useNavigate();
 
+  if (data?.data.data.nickname) navigate('/dashboard');
+
   const handleEnteredNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣]/g, ''));
   };
 
-  if (data?.data.nickname) navigate('/dashboard');
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await instance.patch('/v1/user/profile', {
+    await instance.patch('v1/user/profile', {
       nickname,
     });
 
-    return;
+    navigate('/dashboard');
   };
 
   return (
@@ -50,6 +50,12 @@ const Nickname = () => {
 };
 
 export default Nickname;
+
+export const nicknameLoader = async () => {
+  const data = await instance.get('/v1/user/mypage');
+
+  return data;
+};
 
 const nicknameSection = css`
   display: flex;

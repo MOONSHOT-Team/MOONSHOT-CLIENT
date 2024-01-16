@@ -3,13 +3,17 @@ import styled from '@emotion/styled';
 
 interface IStepBtnsProps {
   isActiveNext: boolean;
+  handleClickPrev: () => void;
+  handleClickNext: () => void;
 }
 
-const StepBtns = ({ isActiveNext }: IStepBtnsProps) => {
+const StepBtns = ({ isActiveNext, handleClickPrev, handleClickNext }: IStepBtnsProps) => {
   return (
     <div css={StepBtnsContainer}>
-      <StStepPrevBtn>이전</StStepPrevBtn>
-      <StStepNextBtn $isActiveNext={isActiveNext}>다음</StStepNextBtn>
+      <StStepPrevBtn onClick={handleClickPrev}>이전</StStepPrevBtn>
+      <StStepNextBtn $isActiveNext={isActiveNext} onClick={handleClickNext}>
+        다음
+      </StStepNextBtn>
     </div>
   );
 };

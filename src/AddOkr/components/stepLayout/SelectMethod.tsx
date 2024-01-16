@@ -1,18 +1,14 @@
 import Drawer from '@components/layout/Drawer';
 import { css } from '@emotion/react';
-import React, { useState } from 'react';
 
 import { SELECT_METHOD_OPTIONS } from '../../constants/SELECT_METHOD_OPTIONS';
 import SelectMethodBtn from '../selectMethod/SelectMethodBtn';
 
-const SelectMethod = () => {
-  const [selectedMethod, setSelectedMethod] = useState('');
-
-  const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-    setSelectedMethod(target.id);
-  };
-
+interface ISelectMethodProps {
+  selectedMethod: string;
+  handleClickMethodBtn: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+const SelectMethod = ({ selectedMethod, handleClickMethodBtn }: ISelectMethodProps) => {
   return (
     <>
       <Drawer />

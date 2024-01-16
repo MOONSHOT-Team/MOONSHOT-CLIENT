@@ -11,6 +11,9 @@ interface IObjTitleCategProps {
   isGuide: boolean;
 }
 
+//object tilte input/textare 최대 글자수
+const MAX_OBJ_INPUT_CNT = 30;
+
 const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
   /** 
   직접 작성 & 가이드에 따라 작성 공통 사용
@@ -19,8 +22,6 @@ const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
   const [selectedObjCatg, setSelectedObjCateg] = useState('');
   // object tilte input 글자 수 상태
   const [currObjCount, setCurrObjCount] = useState(0);
-  //object tilte input/textare 최대 글자수
-  const MAX_OBJ_INPUT_CNT = 30;
 
   // 카테고리 태그 선택 핸들러
   const handleClickObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -144,6 +145,7 @@ const ObjInputBox = css`
 `;
 
 const StObjInput = styled.input`
+  box-sizing: border-box;
   width: 60rem;
   height: 6.6rem;
   padding: 2.3rem 2rem;

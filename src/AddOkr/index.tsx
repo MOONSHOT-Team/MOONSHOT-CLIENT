@@ -1,17 +1,86 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
-import ObjContent from './step/ObjContent';
+import StepBtns from './components/commonUse/StepBtns';
+import ObjPeriod from './components/stepLayout/ObjPeriod';
+import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
+import SelectMethod from './components/stepLayout/SelectMethod';
+
+// const ADD_OKR_STPES = ['SELECT_METHOD', 'OBJ_TITLE_CATEG', 'OBGJ_PERIOD', 'OBJ_CONTENT', 'ADD_KR'];
 
 const AddOkr = () => {
+  const [step, setStep] = useState(0);
+  const [isActiveNext, setIsActiveNext] = useState(false);
+
+  //2 Step 0 - SELECT METHOD 관련 State
+  const [selectedMethod, setSelectedMethod] = useState('');
+
+  const [objInfo] = useState({
+    objTitle: '',
+    objCategory: '',
+    objContent: '',
+    objStartAt: '',
+    objExpireAt: '',
+  });
+
+  // 이전, 다음 버튼 관련 handler
+  const hanldeClickPrevBtn = () => {
+    setStep((prev) => prev - 1);
+  };
+
+  const handleClickNextBtn = () => {
+    isActiveNext && setStep((prev) => prev + 1);
+  };
+
+  // stpe 0 - SELECT METHOD 관련 handler
+  const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSelectedMethod(e.currentTarget.id);
+    setStep((prev) => prev + 1);
+  };
+
+  const renderStepLayout = () => {
+    switch (step) {
+      case 0:
+        return (
+          <SelectMethod
+            selectedMethod={selectedMethod}
+            handleClickMethodBtn={handleClickMethodBtn}
+          />
+        );
+      case 1:
+        return <ObjTitleCateg isGuide={selectedMethod === '가이드에 따라 설정하기'} />;
+      case 2:
+        return <ObjPeriod />;
+    }
+  };
+
+  const validNextStep = () => {
+    switch (step) {
+      case 1:
+        objInfo.objCategory && objInfo.objTitle ? setIsActiveNext(true) : setIsActiveNext(false);
+        break;
+      case 2:
+        objInfo.objStartAt && objInfo.objExpireAt ? setIsActiveNext(true) : setIsActiveNext(false);
+        break;
+    }
+  };
+
+  useEffect(() => {
+    validNextStep();
+  }, []);
+
   return (
     <section css={AddOkrContainer}>
-      step1
-      {/* <SelectMethod /> */}
-      {/* {<ObjTitleCateg isGuide={true} />} */}
-      {/* <ObjPeriod /> */}
-      {/* <AddKr /> */}
-      <ObjContent />
-      {/* <AddGuideKr /> */}
+      {step > 0 && <SelectedMethodTxt>{selectedMethod}</SelectedMethodTxt>}
+      {renderStepLayout()}
+      {step > 0 && (
+        <StepBtns
+          isActiveNext={isActiveNext}
+          handleClickPrev={hanldeClickPrevBtn}
+          handleClickNext={handleClickNextBtn}
+        />
+      )}
     </section>
   );
 };
@@ -20,8 +89,14 @@ export default AddOkr;
 
 const AddOkrContainer = css`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+`;
+
+const SelectedMethodTxt = styled.p`
+  color: ${({ theme }) => theme.colors.gray_300};
+  ${({ theme }) => theme.fonts.body_12_medium};
 `;

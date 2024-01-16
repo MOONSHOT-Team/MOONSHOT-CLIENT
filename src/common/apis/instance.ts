@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+export const signInInstance = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
@@ -11,13 +18,15 @@ export default instance;
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken');
+    const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
 
-    if (!accessToken) {
+    if (!ACCESS_TOKEN) {
+      window.location.href = '/sign-in';
+
       return config;
     }
 
-    instance.defaults.headers.common['Authorization'] = accessToken;
+    config.headers['Authorization'] = `${ACCESS_TOKEN}`;
 
     return config;
   },

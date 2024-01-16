@@ -3,12 +3,16 @@ import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 
 import StepBtns from './components/commonUse/StepBtns';
+import AddGuideKr from './components/stepLayout/AddGuideKr';
+import AddKr from './components/stepLayout/AddKr';
+import ObjContent from './components/stepLayout/ObjContent';
 import ObjPeriod from './components/stepLayout/ObjPeriod';
 import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
 import SelectMethod from './components/stepLayout/SelectMethod';
 
 // const ADD_OKR_STPES = ['SELECT_METHOD', 'OBJ_TITLE_CATEG', 'OBGJ_PERIOD', 'OBJ_CONTENT', 'ADD_KR'];
 
+const IS_GUIDE = '가이드에 따라 설정하기';
 const AddOkr = () => {
   const [step, setStep] = useState(0);
   const [isActiveNext, setIsActiveNext] = useState(false);
@@ -16,7 +20,7 @@ const AddOkr = () => {
   //2 Step 0 - SELECT METHOD 관련 State
   const [selectedMethod, setSelectedMethod] = useState('');
 
-  const [objInfo] = useState({
+  const [objInfo, setObjInfo] = useState({
     objTitle: '',
     objCategory: '',
     objContent: '',
@@ -49,9 +53,21 @@ const AddOkr = () => {
           />
         );
       case 1:
-        return <ObjTitleCateg isGuide={selectedMethod === '가이드에 따라 설정하기'} />;
+        return (
+          <ObjTitleCateg
+            isGuide={selectedMethod === IS_GUIDE}
+            objInfo={objInfo}
+            setObjInfo={setObjInfo}
+          />
+        );
       case 2:
         return <ObjPeriod />;
+
+      case 3:
+        return <ObjContent />;
+
+      case 4:
+        return selectedMethod === IS_GUIDE ? <AddKr /> : <AddGuideKr />;
     }
   };
 
@@ -68,13 +84,15 @@ const AddOkr = () => {
 
   useEffect(() => {
     validNextStep();
-  }, []);
+    console.log(objInfo);
+    console.log(isActiveNext);
+  }, [step, objInfo]);
 
   return (
     <section css={AddOkrContainer}>
       {step > 0 && <SelectedMethodTxt>{selectedMethod}</SelectedMethodTxt>}
       {renderStepLayout()}
-      {step > 0 && (
+      {step > 0 && step < 5 && (
         <StepBtns
           isActiveNext={isActiveNext}
           handleClickPrev={hanldeClickPrevBtn}

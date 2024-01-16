@@ -7,14 +7,14 @@ import { addMonth } from '../../utils/addMonth';
 import { returnParsedDate } from '../../utils/returnParseDate';
 import PeriodBtn from '../objPeriod/PeriodBtn';
 
-const ObjPeriod = () => {
-  const OBJ_PERIOD_LIST = [
-    { length: '1', periodName: '1개월' },
-    { length: '3', periodName: '3개월' },
-    { length: '6', periodName: '6개월' },
-    { length: 'null', periodName: 'SELECT_PERIOD' },
-  ];
+const OBJ_PERIOD_LIST = [
+  { length: '1', periodName: '1개월' },
+  { length: '3', periodName: '3개월' },
+  { length: '6', periodName: '6개월' },
+  { length: 'null', periodName: 'SELECT_PERIOD' },
+];
 
+const ObjPeriod = () => {
   // 오늘 날짜 'yyyy. mm. dd` 형태로 만드는 함수
   const today = new Date();
   const year = today.getFullYear();

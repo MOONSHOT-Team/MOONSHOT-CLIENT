@@ -3,50 +3,54 @@ import styled from '@emotion/styled';
 
 import HistoryList from './components/dropDown/HistoryList';
 import ListOrder from './components/dropDown/ListOrder';
-import { DUMMY_DATA } from './constants/dummydata';
+import HistoryDrawer from './components/HistoryDrawer';
+import { DUMMY_DATA } from './constants/dummyData';
 import { IObjective } from './type/okrTypes';
 
 const History = () => {
   const {
-    data: { groups },
+    data: { groups, categories },
   } = DUMMY_DATA;
 
   return (
-    <section css={DropDownSection}>
-      {groups.map(({ year, objList }) => (
-        <div key={year} css={listMarginBottom}>
-          <StListOrderContainer>
-            <StEachYear>{year}년</StEachYear>
-            <ListOrder />
-          </StListOrderContainer>
-          <ul>
-            <li>
-              {objList.map(
-                ({
-                  objIdx,
-                  objId,
-                  title,
-                  objCategory,
-                  progress,
-                  objPeriod,
-                  krList,
-                }: IObjective) => (
-                  <HistoryList
-                    key={`${objIdx}+${objId}`}
-                    objId={objId}
-                    title={title}
-                    objCategory={objCategory}
-                    progress={progress}
-                    objPeriod={objPeriod}
-                    krList={krList}
-                  />
-                ),
-              )}
-            </li>
-          </ul>
-        </div>
-      ))}
-    </section>
+    <>
+      <HistoryDrawer groups={groups} categories={categories} />;
+      <section css={DropDownSection}>
+        {groups.map(({ year, objList }) => (
+          <div key={year} css={listMarginBottom}>
+            <StListOrderContainer>
+              <StEachYear>{year}년</StEachYear>
+              <ListOrder />
+            </StListOrderContainer>
+            <ul>
+              <li>
+                {objList.map(
+                  ({
+                    objIdx,
+                    objId,
+                    title,
+                    objCategory,
+                    progress,
+                    objPeriod,
+                    krList,
+                  }: IObjective) => (
+                    <HistoryList
+                      key={`${objIdx}+${objId}`}
+                      objId={objId}
+                      title={title}
+                      objCategory={objCategory}
+                      progress={progress}
+                      objPeriod={objPeriod}
+                      krList={krList}
+                    />
+                  ),
+                )}
+              </li>
+            </ul>
+          </div>
+        ))}
+      </section>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ interface Objective {
   krList: KeyResult[];
 }
 
-interface Group {
+export interface Group {
   year: number;
   count: number;
   objList: Objective[];

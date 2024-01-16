@@ -1,7 +1,7 @@
-import instance from '@apis/instance';
+import axios from 'axios';
 
 export const fetcherPost = async (url: string, code: string, platform: string) => {
-  const response = await instance.post(
+  const response = await axios.post(
     url,
     {
       socialPlatform: platform,

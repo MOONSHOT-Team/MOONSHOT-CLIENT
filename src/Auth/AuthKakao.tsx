@@ -9,8 +9,9 @@ const AuthKakao = () => {
   const navigate = useNavigate();
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
-  const { data, error, isLoading } = useSWR<SwrType, Error>('/v1/user/login', (url: string) =>
-    fetcherPost(url, kakaoCode!, 'KAKAO'),
+  const { data, error, isLoading } = useSWR<SwrType, Error>(
+    'https://prod.moonshotyou.com/v1/user/login',
+    (url: string) => fetcherPost(url, kakaoCode!, 'KAKAO'),
   );
 
   useEffect(() => {

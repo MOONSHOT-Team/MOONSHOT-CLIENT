@@ -18,30 +18,40 @@ const My = () => {
         <StUserNickName>닉네임</StUserNickName>
         <StUserIdentification>카카오 로그인 유저입니다.</StUserIdentification>
       </StUserInfoContainer>
-      <StAcquiredItemContainer>
-        <StAcquiredItemsText>획득한 아이템</StAcquiredItemsText>
-        <StAcquiredItemImgWrapper>
-          {ITEM_LIST.map(({ src, title, subTitle }: IAcquiredItemList) => (
-            <StAcquiredItemList key={title}>
-              <StAcquiredItemImg src={src} alt="획득한 아이템 사진" />
-              <StAcquiredItemTitle>
-                <StAcquiredItemMainTitle>{title}</StAcquiredItemMainTitle>
-                <StAcquiredItemSubTitle>{subTitle}</StAcquiredItemSubTitle>
-              </StAcquiredItemTitle>
-            </StAcquiredItemList>
-          ))}
-        </StAcquiredItemImgWrapper>
-      </StAcquiredItemContainer>
+      <section css={pageCenter}>
+        <div>
+          <StAcquiredItemsText>획득한 아이템</StAcquiredItemsText>
+          <StAcquiredItemImgWrapper>
+            {ITEM_LIST.map(({ src, title, subTitle }: IAcquiredItemList) => (
+              <StAcquiredItemList key={title}>
+                <img src={src} alt="획득한 아이템 사진" width={184} height={240} />
+                <StAcquiredItemTitle>
+                  <StAcquiredItemMainTitle>{title}</StAcquiredItemMainTitle>
+                  <StAcquiredItemSubTitle>{subTitle}</StAcquiredItemSubTitle>
+                </StAcquiredItemTitle>
+              </StAcquiredItemList>
+            ))}
+          </StAcquiredItemImgWrapper>
+        </div>
+      </section>
     </section>
   );
 };
 
 export default My;
 
+const pageCenter = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 6.1rem 8.4rem;
+  margin: 0 auto;
+`;
+
 const myPageUi = css`
   display: flex;
   height: 100%;
-  border: 1px solid red;
 `;
 
 const StUserInfoContainer = styled.section`
@@ -70,11 +80,6 @@ const StUserIdentification = styled.p`
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
-const StAcquiredItemContainer = styled.section`
-  width: 100%;
-  height: 100%;
-  padding: 6.1rem 8.4rem;
-`;
 
 const StAcquiredItemsText = styled.p`
   margin-bottom: 1rem;
@@ -83,8 +88,8 @@ const StAcquiredItemsText = styled.p`
 `;
 
 const StAcquiredItemImgWrapper = styled.article`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.6rem 2.4rem;
   width: 80.8rem;
   height: 49.6rem;
@@ -92,13 +97,6 @@ const StAcquiredItemImgWrapper = styled.article`
 
 const StAcquiredItemList = styled.div`
   position: relative;
-  width: 18.4rem;
-  height: 24rem;
-`;
-
-const StAcquiredItemImg = styled.img`
-  width: 100%;
-  height: 100%;
 `;
 
 const StAcquiredItemTitle = styled.caption`

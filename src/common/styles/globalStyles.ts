@@ -35,6 +35,11 @@ const globalStyles = css`
   input,
   textarea {
     user-select: auto;
+
+    &:focus {
+      border: 1px solid ${theme.colors.gray_000};
+      outline: none;
+    }
   }
 
   button {
@@ -46,6 +51,10 @@ const globalStyles = css`
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  svg {
+    cursor: pointer;
   }
 
   ul,

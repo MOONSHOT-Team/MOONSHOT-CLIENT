@@ -10,8 +10,6 @@ interface ISelectMethodProps {
 const SelectMethod = ({ selectedMethod, handleClickMethodBtn }: ISelectMethodProps) => {
   return (
     <>
-      {/* 괵 상의 후 위치 결정 예정 */}
-      {/* <MainDashBoardDrawer /> */}
       <section css={SelectMethodContainer}>
         {SELECT_METHOD_OPTIONS.map(({ title, description }) => {
           return (
@@ -37,7 +35,5 @@ const SelectMethodContainer = css`
   align-items: center;
   justify-content: center;
   width: 100%;
-
-  /* height: 100%; */
   margin: 17rem 18.6rem 20.2rem 13rem;
 `;

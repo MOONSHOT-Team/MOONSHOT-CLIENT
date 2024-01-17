@@ -40,7 +40,8 @@ const StMethodBtn = styled.button<{ $isClicked: boolean | undefined }>`
   border-radius: 8px;
 
   &:hover {
-    background-color: ${({ theme, $isClicked }) => !$isClicked && theme.colors.gray_500};
+    background-color: ${({ theme, $isClicked }) => !$isClicked && theme.colors.transparent_purple};
+    outline: 1px solid ${({ theme }) => theme.colors.main_darkpurple};
   }
 `;
 

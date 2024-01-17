@@ -235,7 +235,7 @@ export const KR수정하기 = ({
             <span>{title}</span>
             <StEditNumInput
               id="enterProgress"
-              placeholder={target}
+              placeholder={target.toLocaleString()}
               value={targetValue}
               onChange={handleTargetChange}
               autoComplete="off"

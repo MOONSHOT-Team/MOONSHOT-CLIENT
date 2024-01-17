@@ -1,7 +1,9 @@
 import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
+import { mutate } from 'swr';
 
+import { patchCheckIn } from '../../apis/fetcher';
 import {
   IcDoneState,
   IcDropDownThin,
@@ -32,8 +34,8 @@ const KrStatusItem = ({ icon, label }: IKrStatusItemProps) => {
   );
 };
 
-const KrStatus = () => {
-  const [krStatusLabel, setKrStatusLabel] = useState('진행');
+const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: number }) => {
+  const [krStatusLabel, setKrStatusLabel] = useState(krStatus);
   const [krStatusIcon, setKrStatusIcon] = useState<React.ReactNode>(<IcOnGoingState />);
   const [isDrop, setIsDrop] = useState(false);
 
@@ -42,10 +44,21 @@ const KrStatus = () => {
     if (tmp) setKrStatusIcon(tmp);
   }, [krStatusLabel]);
 
-  const handleKrStatus = (currentStatusLabel: string) => {
+  const handleKrStatus = async (currentStatusLabel: string) => {
     setKrStatusLabel(currentStatusLabel);
+    const data = {
+      keyResultId: keyResultId,
+      state: currentStatusLabel,
+    };
+
+    try {
+      const response = await patchCheckIn('/v1/key-result', data);
+      await mutate(`/v1/key-result/${keyResultId}`);
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
     setIsDrop(false);
-    //서버통신
   };
 
   const handleIsDrop = () => {

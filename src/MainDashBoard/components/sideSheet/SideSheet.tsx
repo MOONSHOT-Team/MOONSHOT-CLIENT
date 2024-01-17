@@ -24,7 +24,7 @@ const SideSheet = ({ isOpen, onClose, keyResultId }: ISideSheetProps) => {
   const [isCheckinView, setIsCheckinView] = useState(false);
   if (!sideSheetData) return;
   const { title, target, metric, progressBar, krState, startAt, expireAt, logList } = krDetailData;
-  console.log(krState, startAt, expireAt);
+  console.log(startAt, expireAt);
 
   const handleCheckInView = () => {
     setIsCheckinView(!isCheckinView);
@@ -57,7 +57,7 @@ const SideSheet = ({ isOpen, onClose, keyResultId }: ISideSheetProps) => {
           <StKrStatus>
             <StKrDetailLabel>상태</StKrDetailLabel>
             <span>
-              <KrStatus />
+              <KrStatus keyResultId={keyResultId} krStatus={krState} />
             </span>
           </StKrStatus>
           <StKrPeriodContainer>

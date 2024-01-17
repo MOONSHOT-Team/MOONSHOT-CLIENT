@@ -65,6 +65,8 @@ const imgContainer = css`
   gap: 7.2rem;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  overflow: hidden;
 `;
 
 const background = css`

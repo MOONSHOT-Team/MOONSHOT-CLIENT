@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useContextMenu = () => {
   const [rightClicked, setRightClicked] = useState(false);
-  const [rightClickpoints, setRightClickPoints] = useState({
+  const [rightClickPoints, setRightClickPoints] = useState({
     x: 0,
     y: 0,
   });
@@ -16,7 +16,7 @@ const useContextMenu = () => {
   return {
     rightClicked,
     setRightClicked,
-    rightClickpoints,
+    rightClickPoints,
     setRightClickPoints,
   };
 };

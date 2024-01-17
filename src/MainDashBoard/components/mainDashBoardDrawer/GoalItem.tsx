@@ -4,13 +4,18 @@ import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { IcComplete, IcDropDown, IcDropUp, IcEllipse, IcTrash } from '../../assets/icons';
+import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import useContextMenu from '../../hooks/useContextMenu';
 import { IobjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/ItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
+import RightClickBox from './RightClickBox';
 
-const GoalItem: React.FC<IobjListTypes> = ({
+interface IGoalItemProps extends IobjListTypes {
+  setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const GoalItem: React.FC<IGoalItemProps> = ({
   id,
   title,
   content,
@@ -21,6 +26,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
   onClickGoal,
   index = 0,
   moveGoal,
+  setIsRightClick,
 }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
@@ -28,7 +34,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
 
   const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
 
-  const { rightClicked, setRightClicked, rightClickpoints, setRightClickPoints } = useContextMenu();
+  const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
 
   const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
     e.preventDefault();
@@ -102,18 +108,13 @@ const GoalItem: React.FC<IobjListTypes> = ({
       isDragging={isDragging}
       onContextMenu={(e) => handleRightClickItem(e, id)}
     >
-      {/* 우클릭시 나타나는 팝업 */}
       {rightClicked && (
-        <StRightClickPopUpBox $rightClickPoints={rightClickpoints}>
-          <StRightClickPopIpLi onClick={handleClickComplete}>
-            <IcComplete />
-            <p>달성 완료</p>
-          </StRightClickPopIpLi>
-          <StRightClickPopIpLi onClick={handleClickDelete}>
-            <IcTrash />
-            <p>목표 삭제</p>
-          </StRightClickPopIpLi>
-        </StRightClickPopUpBox>
+        <RightClickBox
+          setIsRightClick={setIsRightClick}
+          rightClickPoints={rightClickPoints}
+          handleClickComplete={handleClickComplete}
+          handleClickDelete={handleClickDelete}
+        />
       )}
       <GoalItemContainer>
         <header css={goalItemHeader}>
@@ -225,36 +226,4 @@ const ProgressBarContainer = css`
   position: absolute;
   bottom: 0;
   width: 100%;
-`;
-
-const StRightClickPopUpBox = styled.ul<{ $rightClickPoints: { x: number; y: number } }>`
-  position: fixed;
-  top: ${({ $rightClickPoints }) => $rightClickPoints.y}px;
-  left: ${({ $rightClickPoints }) => $rightClickPoints.x}px;
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  width: 15.8rem;
-  height: 8rem;
-  padding: 0.8rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ theme }) => theme.colors.gray_700};
-  border-radius: 6px;
-
-  ${({ theme }) => theme.fonts.body_12_medium};
-`;
-
-const StRightClickPopIpLi = styled.li`
-  display: flex;
-  gap: 1.2rem;
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border-radius: 2px;
-
-  ${({ theme }) => theme.fonts.body_12_medium};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.transparent_white};
-  }
 `;

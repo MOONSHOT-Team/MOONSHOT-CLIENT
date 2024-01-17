@@ -73,12 +73,11 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
 
       {/* 카테고리 선택 영역*/}
       <div css={ObjCategWrapper}>
-        {OBJ_CATEG_LIST.map(({ id, text }) => {
+        {OBJ_CATEG_LIST.map(({ id }) => {
           return (
             <ObjCategTag
               key={id}
               id={id}
-              text={text}
               isClicked={selectedObjCateg === id}
               handleClickObjTag={handleClickObjCateg}
               handleHoverObjCateg={handleHoverObjCateg}

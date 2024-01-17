@@ -4,7 +4,6 @@ import { IcCheck } from '../../assets/icons';
 
 interface IObjCategTagProps {
   id: string;
-  text: string;
   isClicked: boolean;
   handleClickObjTag: (e: React.MouseEvent<HTMLButtonElement>) => void;
   handleHoverObjCateg: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -13,7 +12,6 @@ interface IObjCategTagProps {
 
 const ObjCategTag = ({
   id,
-  text,
   isClicked,
   handleClickObjTag,
   handleHoverObjCateg,
@@ -28,7 +26,7 @@ const ObjCategTag = ({
       onMouseLeave={handleMouseLeaveObjCateg}
     >
       {isClicked && <IcCheck />}
-      <StObjCategText>{text}</StObjCategText>
+      <StObjCategText>{id}</StObjCategText>
     </StObjCategTagBox>
   );
 };

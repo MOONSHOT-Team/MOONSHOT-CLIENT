@@ -4,8 +4,9 @@ import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
+import { mutate } from 'swr';
 
-import { patchSwapGoalIndex } from '../../apis/fetcher';
+import { deleteObj, patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import useContextMenu from '../../hooks/useContextMenu';
 import { IObjListTypes } from '../../type/goalItemTypes';
@@ -38,6 +39,10 @@ const GoalItem: React.FC<IGoalItemProps> = ({
 
   const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
 
+  // const { data } = useSWR('/v1/objective', getDashBoardData);
+
+  // const {data, isLoading} = useSWR()
+
   const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
     e.preventDefault();
     setRightClicked(true);
@@ -50,9 +55,15 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     // 완료 서버 통신?
   };
 
-  const handleClickDelete = () => {
-    console.log(rightClickedGoalId);
-    // 삭제 서버 통신?
+  const handleClickDelete = async () => {
+    // console.log(rightClickedGoalId);
+
+    try {
+      await deleteObj(`/v1/objective/${rightClickedGoalId}`);
+      mutate('/v1/objective');
+    } catch (err) {
+      navigate('/error');
+    }
   };
 
   const handleOnClickIcon = (event: React.MouseEvent) => {

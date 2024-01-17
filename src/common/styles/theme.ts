@@ -23,6 +23,7 @@ const colors = {
   main_darkpurple: '#7165CA',
   sub_yellow: '#FFD749',
   sub_green: '#63D7C6',
+  sub_lightred: '#FF6969',
   sub_red: '#D96D6D',
   sub_blue: '#6CA4F6',
   sub_yellowgreen: '#86DC68',

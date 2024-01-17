@@ -21,6 +21,22 @@ const globalStyles = css`
     background-color: ${theme.colors.background};
   }
 
+  h1 {
+    margin: 0;
+  }
+
+  input,
+  textarea,
+  select {
+    all: unset;
+  }
+
+  /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+  input,
+  textarea {
+    user-select: auto;
+  }
+
   button {
     cursor: pointer;
     background: none;
@@ -30,6 +46,10 @@ const globalStyles = css`
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  li {
+    all: unset;
   }
 `;
 

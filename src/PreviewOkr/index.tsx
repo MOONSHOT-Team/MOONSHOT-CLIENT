@@ -3,6 +3,7 @@ import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import PreviewOkrAlertMsg from './components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
@@ -10,6 +11,9 @@ import PreviewObjNode from './components/PreviewOkrTreeNodes/PreviewObjNode';
 import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
 
 const PreviewOkr = () => {
+  const location = useLocation();
+
+  console.log(location.state && location.state);
   const { objTitle, krList } = MOCK_OKR_DATA;
   const [objValue, setObjValue] = useState(objTitle);
 

@@ -11,9 +11,14 @@ import GoalItem from './GoalItem';
 interface IDrawerProps {
   objList: IobjListTypes[];
   onChangeCurrentGoalId: (id: number) => void;
+  handleClickAddObjcBtn: () => void;
 }
 
-const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) => {
+const MainDashBoardDrawer = ({
+  objList,
+  onChangeCurrentGoalId,
+  handleClickAddObjcBtn,
+}: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(7);
   const [goals, setGoals] = useState(objList);
 
@@ -45,6 +50,7 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
           type="button"
           isAble={objList.length < 10}
           disabled={objList.length < 10 ? false : true}
+          onClick={handleClickAddObjcBtn}
         >
           목표 추가하기
         </StAddGoalBtn>

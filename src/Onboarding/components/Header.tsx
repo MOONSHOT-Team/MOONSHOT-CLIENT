@@ -1,0 +1,69 @@
+import imgLogo from '@assets/images/imgLogo.png';
+import styled from '@emotion/styled';
+import { Link, NavLink } from 'react-router-dom';
+
+const OnboardingHeader = () => {
+  return (
+    <StHeader>
+      <Link to="/">
+        <img src={imgLogo} alt="logo-img" width={126} height={28} />
+      </Link>
+      <nav>
+        <StNavItem>
+          <li>
+            <StNavItemLink to="/" end>
+              홈
+            </StNavItemLink>
+          </li>
+          <li>
+            <StNavItemLink to="team-moonshot">Team moonshot</StNavItemLink>
+          </li>
+          <li>
+            <StCTALink to="/dashboard">서비스 신청하기</StCTALink>
+          </li>
+        </StNavItem>
+      </nav>
+    </StHeader>
+  );
+};
+
+export default OnboardingHeader;
+
+const StHeader = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 7.6rem;
+  padding: 2.4rem 3.5rem;
+  background-color: ${({ theme }) => theme.colors.background};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.transparent_white};
+`;
+
+const StNavItem = styled.ul`
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.gray_350};
+
+  ${({ theme }) => theme.fonts.body_14_semibold};
+`;
+
+const StNavItemLink = styled(NavLink)`
+  &.active {
+    color: ${({ theme }) => theme.colors.gray_000};
+  }
+`;
+
+const StCTALink = styled(Link)`
+  ${({ theme }) => theme.fonts.btn_14_semibold};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12.9rem;
+  height: 3rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  background-color: ${({ theme }) => theme.colors.main_darkpurple};
+  border-radius: 6px;
+`;

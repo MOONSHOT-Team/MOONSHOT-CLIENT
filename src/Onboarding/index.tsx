@@ -1,5 +1,7 @@
+import OnboardingHeader from './components/Header';
+
 const Onboarding = () => {
-  return <div>Onboarding</div>;
+  return <OnboardingHeader />;
 };
 
 export default Onboarding;

@@ -19,6 +19,12 @@ const router = createBrowserRouter([
     path: '/',
     element: <Onboarding />,
     errorElement: <Error />,
+    children: [
+      {
+        path: 'team-moonshot',
+        element: <Onboarding />,
+      },
+    ],
   },
   {
     path: '/',

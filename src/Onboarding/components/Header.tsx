@@ -2,6 +2,8 @@ import imgLogo from '@assets/images/imgLogo.png';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 
+import { NAV_ITEMS } from '../constants/NAV_ITEMS';
+
 const OnboardingHeader = () => {
   return (
     <StHeader>
@@ -10,14 +12,13 @@ const OnboardingHeader = () => {
       </Link>
       <nav>
         <StNavItem>
-          <li>
-            <StNavItemLink to="/" end>
-              홈
-            </StNavItemLink>
-          </li>
-          <li>
-            <StNavItemLink to="team-moonshot">Team moonshot</StNavItemLink>
-          </li>
+          {NAV_ITEMS.map(({ text, path }) => (
+            <li key={`${text}-${path}`}>
+              <StNavItemLink to={path} end>
+                {text}
+              </StNavItemLink>
+            </li>
+          ))}
           <li>
             <StCTALink to="/dashboard">서비스 신청하기</StCTALink>
           </li>

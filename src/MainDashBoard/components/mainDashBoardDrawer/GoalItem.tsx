@@ -5,11 +5,17 @@ import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
+import useContextMenu from '../../hooks/useContextMenu';
 import { IobjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/ItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
+import RightClickBox from './RightClickBox';
 
-const GoalItem: React.FC<IobjListTypes> = ({
+interface IGoalItemProps extends IobjListTypes {
+  setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const GoalItem: React.FC<IGoalItemProps> = ({
   id,
   title,
   content,
@@ -20,10 +26,32 @@ const GoalItem: React.FC<IobjListTypes> = ({
   onClickGoal,
   index = 0,
   moveGoal,
+  setIsRightClick,
 }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
   const [initialDragIndex, setInitialDragIndex] = useState<number | null>(null);
+
+  const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
+
+  const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
+
+  const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
+    e.preventDefault();
+    setRightClicked(true);
+    setRightClickedGoalId(id);
+    setRightClickPoints({ x: e.pageX, y: e.pageY });
+  };
+
+  const handleClickComplete = () => {
+    console.log(rightClickedGoalId);
+    // 완료 서버 통신?
+  };
+
+  const handleClickDelete = () => {
+    console.log(rightClickedGoalId);
+    // 삭제 서버 통신?
+  };
 
   const handleOnClickIcon = (event: React.MouseEvent) => {
     setIsDetailOpen(!isDetailOpen);
@@ -78,7 +106,16 @@ const GoalItem: React.FC<IobjListTypes> = ({
       onClick={handleOnClick}
       ref={ref}
       isDragging={isDragging}
+      onContextMenu={(e) => handleRightClickItem(e, id)}
     >
+      {rightClicked && (
+        <RightClickBox
+          setIsRightClick={setIsRightClick}
+          rightClickPoints={rightClickPoints}
+          handleClickComplete={handleClickComplete}
+          handleClickDelete={handleClickDelete}
+        />
+      )}
       <GoalItemContainer>
         <header css={goalItemHeader}>
           <span css={goalItemCategoryBox}>
@@ -130,6 +167,7 @@ const StGoalItemli = styled.li<{ bgColor: boolean; isDragging: boolean }>`
 `;
 
 const GoalItemContainer = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;

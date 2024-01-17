@@ -3,7 +3,7 @@ import ProgressBar from '@components/ProgressBar';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import StepBtns from './components/commonUse/StepBtns';
 import AddGuideKr from './components/stepLayout/AddGuideKr';
@@ -11,7 +11,6 @@ import AddKr from './components/stepLayout/AddKr';
 import ObjContent from './components/stepLayout/ObjContent';
 import ObjPeriod from './components/stepLayout/ObjPeriod';
 import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
-import SelectMethod from './components/stepLayout/SelectMethod';
 import { OBJ_START_AT } from './constants/ADD_OKR_DATES';
 import { IKrListInfoTypes } from './types/KrInfoTypes';
 
@@ -20,7 +19,10 @@ const MAX_BASIC_STEP = 5;
 const MAX_GUIDE_STEP = 6;
 
 const AddOkr = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  console.log(location.state && location.state);
 
   const resetObjInfoState = {
     objTitle: '',
@@ -90,10 +92,7 @@ const AddOkr = () => {
 
     // step 1 -> 0으로 이동시 정보 초기화
     if (step === 1) {
-      setSelectedMethod('');
-      setSelectedPeriod('');
-      setObjInfo(resetObjInfoState);
-      setKrListInfo(resetKrListInfo);
+      navigate('/dashboard', { state: { selectedMethod: selectedMethod } });
     }
 
     setStep((prev) => prev - 1);
@@ -108,11 +107,11 @@ const AddOkr = () => {
     isActiveNext && setStep((prev) => prev + 1);
   };
 
-  // stpe 0 - SELECT METHOD 관련 handler
-  const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectedMethod(e.currentTarget.id);
-    setStep((prev) => prev + 1);
-  };
+  // // stpe 0 - SELECT METHOD 관련 handler
+  // const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   setSelectedMethod(e.currentTarget.id);
+  //   setStep((prev) => prev + 1);
+  // };
 
   // step 4 -  kr 카드 추가 버튼 핸들러
   const handleClickPlusCard = (item: number) => {
@@ -196,13 +195,22 @@ const AddOkr = () => {
   const renderStepLayout = () => {
     switch (step) {
       case 0:
-        // stpe 0 - 방식 선택 (가이드 vs 직접)
-        return (
-          <SelectMethod
-            selectedMethod={selectedMethod}
-            handleClickMethodBtn={handleClickMethodBtn}
-          />
-        );
+        // // stpe 0 - 방식 선택 (가이드 vs 직접)
+        // return (
+        //   <SelectMethod
+        //     selectedMethod={selectedMethod}
+        //     handleClickMethodBtn={handleClickMethodBtn}
+        //   />
+        // );
+        if (location.state.selectedMethod) {
+          setSelectedMethod(location.state.selectedMethod);
+          setStep((prev) => prev + 1);
+          return;
+        }
+        if (!location.state.selectedMethod) {
+          return <Error />;
+        }
+        break;
       case 1:
         // step 1 - O 카데고리, 제목 설정
         return (
@@ -272,6 +280,7 @@ const AddOkr = () => {
       {step > 0 && step < 5 && (
         <>
           <StepBtns
+            isInit={step === 1}
             isActiveNext={isActiveNext}
             handleClickPrev={hanldeClickPrevBtn}
             handleClickNext={handleClickNextBtn}

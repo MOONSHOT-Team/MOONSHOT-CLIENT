@@ -37,6 +37,7 @@ const SelectMethodContainer = css`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+
+  /* height: 100%; */
   margin: 17rem 18.6rem 20.2rem 13rem;
 `;

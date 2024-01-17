@@ -2,15 +2,16 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 interface IStepBtnsProps {
+  isInit: boolean;
   isActiveNext: boolean;
   handleClickPrev: () => void;
   handleClickNext: () => void;
 }
 
-const StepBtns = ({ isActiveNext, handleClickPrev, handleClickNext }: IStepBtnsProps) => {
+const StepBtns = ({ isInit, isActiveNext, handleClickPrev, handleClickNext }: IStepBtnsProps) => {
   return (
     <div css={StepBtnsContainer}>
-      <StStepPrevBtn onClick={handleClickPrev}>이전</StStepPrevBtn>
+      <StStepPrevBtn onClick={handleClickPrev}>{isInit ? '처음으로' : '이전으로'}</StStepPrevBtn>
       <StStepNextBtn $isActiveNext={isActiveNext} onClick={handleClickNext}>
         다음
       </StStepNextBtn>

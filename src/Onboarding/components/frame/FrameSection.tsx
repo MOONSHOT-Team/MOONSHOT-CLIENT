@@ -14,6 +14,6 @@ const sectionStyle = css`
   justify-content: center;
   width: 100%;
   max-width: 136.6rem;
-  height: 108.4rem;
+  padding: 10rem 0 14rem;
   margin: 0 auto;
 `;

@@ -2,7 +2,7 @@ import imgLogo from '@assets/images/imgLogo.png';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 
-import { NAV_ITEMS } from '../constants/NAV_ITEMS';
+import { NAV_ITEMS } from '../../constants/NAV_ITEMS';
 
 const OnboardingHeader = () => {
   return (
@@ -31,6 +31,9 @@ const OnboardingHeader = () => {
 export default OnboardingHeader;
 
 const StHeader = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

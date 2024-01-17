@@ -10,6 +10,8 @@ import MainDashBoard from './MainDashBoard';
 import My from './My';
 import Nickname from './Nickname';
 import Onboarding from './Onboarding';
+import OnboardingLayout from './Onboarding/components/layout/OnboardingLayout';
+import TeamMoonshot from './Onboarding/components/TeamMoonshot';
 import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
@@ -17,12 +19,16 @@ import Social from './Social';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Onboarding />,
+    element: <OnboardingLayout />,
     errorElement: <Error />,
     children: [
       {
-        path: 'team-moonshot',
+        index: true,
         element: <Onboarding />,
+      },
+      {
+        path: 'team-moonshot',
+        element: <TeamMoonshot />,
       },
     ],
   },

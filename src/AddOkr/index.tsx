@@ -275,9 +275,9 @@ const AddOkr = () => {
 
   return (
     <section css={AddOkrContainer}>
-      {step > 0 && <SelectedMethodTxt>{selectedMethod}</SelectedMethodTxt>}
+      {selectedMethod && <SelectedMethodTxt>{selectedMethod}</SelectedMethodTxt>}
       {renderStepLayout()}
-      {step > 0 && step < 5 && (
+      {selectedMethod && step < 5 && (
         <>
           <StepBtns
             isInit={step === 1}
@@ -327,7 +327,7 @@ const marginTopState = (step: number, selectedMethod: string) => {
     case 2:
       return '5rem';
     case 3:
-      return '5rem';
+      return '7.3rem';
     case 4:
       return '3.4rem';
   }

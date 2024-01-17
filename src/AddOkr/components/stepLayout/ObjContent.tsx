@@ -65,7 +65,7 @@ const ContentTextAreaWrapper = css`
   align-items: center;
   width: fit-content;
   height: fit-content;
-  margin-bottom: 9.8rem;
+  margin-bottom: 7.5rem;
 `;
 
 const StObjContentTextArea = styled.textarea`

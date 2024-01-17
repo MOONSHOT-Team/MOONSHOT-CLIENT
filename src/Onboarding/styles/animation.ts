@@ -1,15 +1,25 @@
-import { css, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 
-const popUp = keyframes`
+type popUpType = {
+  from: number;
+  to: number;
+  delay?: number;
+};
+
+const popUp = (from: number, to: number) => keyframes`
 from {
-  transform: translateY(20rem);
+  transform: translateY(${from}rem);
+  opacity: 0;
 }
 
 to {
-  transform: translateY(0);
+  transform: translateY(${to}rem);
+  opacity: 1;
 }
 `;
 
-export const imgPopUp = css`
-  animation: ${popUp} 1s ease-out;
+export const ImgPopUp = styled.img<popUpType>`
+  animation: ${({ from, to }) => popUp(from, to)} 1s ease-out forwards;
+  animation-delay: ${({ delay = 0 }) => `${delay}s`};
 `;

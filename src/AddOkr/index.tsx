@@ -22,8 +22,6 @@ const AddOkr = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location.state && location.state);
-
   const resetObjInfoState = {
     objTitle: '',
     objCategory: '',
@@ -107,12 +105,6 @@ const AddOkr = () => {
     isActiveNext && setStep((prev) => prev + 1);
   };
 
-  // // stpe 0 - SELECT METHOD 관련 handler
-  // const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   setSelectedMethod(e.currentTarget.id);
-  //   setStep((prev) => prev + 1);
-  // };
-
   // step 4 -  kr 카드 추가 버튼 핸들러
   const handleClickPlusCard = (item: number) => {
     //순서 보장 조건 -> 앞에서부터 추가
@@ -195,13 +187,6 @@ const AddOkr = () => {
   const renderStepLayout = () => {
     switch (step) {
       case 0:
-        // // stpe 0 - 방식 선택 (가이드 vs 직접)
-        // return (
-        //   <SelectMethod
-        //     selectedMethod={selectedMethod}
-        //     handleClickMethodBtn={handleClickMethodBtn}
-        //   />
-        // );
         if (location.state.selectedMethod) {
           setSelectedMethod(location.state.selectedMethod);
           setStep((prev) => prev + 1);
@@ -257,12 +242,7 @@ const AddOkr = () => {
             setKrListInfo={setKrListInfo}
           />
         );
-      case 5:
-        // step 5 - previewOkr로 add-okr에서 생성된 정보들 보내주고 redirect, 이때 krList 중 값이 있는 것만 보낼수 있도록 필터한다.
-        navigate('/preview-okr', {
-          state: { objInfo: objInfo, krListInfo: krListInfo.filter((kr) => kr.title) },
-        });
-        break;
+      //   break;
       default:
         return <Error />;
     }
@@ -272,6 +252,14 @@ const AddOkr = () => {
   useEffect(() => {
     validNextStep();
   }, [step, objInfo, krListInfo, clickedCard]);
+
+  useEffect(() => {
+    // step 5 - previewOkr로 add-okr에서 생성된 정보들 보내주고 redirect, 이때 krList 중 값이 있는 것만 보낼수 있도록 필터한다.
+    step === 5 &&
+      navigate('/preview-okr', {
+        state: { objInfo: objInfo, krListInfo: krListInfo.filter((kr) => kr.title) },
+      });
+  }, [step]);
 
   return (
     <section css={AddOkrContainer}>

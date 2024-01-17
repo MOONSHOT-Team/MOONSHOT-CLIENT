@@ -1,16 +1,17 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import imgFrame3GradientBackground from '../../assets/imgFrame3GradientBackground.png';
 import imgFrame3Question1 from '../../assets/imgFrame3Question1.png';
 import imgFrame3Question2 from '../../assets/imgFrame3Question2.png';
 import imgFrame3Question3 from '../../assets/imgFrame3Question3.png';
 import { ImgPopUp } from '../../styles/animation';
-import FrameSection from './FrameSection';
+import { sectionStyle } from '../../styles/common';
 import TextField from './TextField';
 
 const Frame3 = () => {
   return (
-    <FrameSection>
+    <section css={section}>
       <TextField
         subTitle="목표 설정"
         subTitleColor="sub_pink"
@@ -45,17 +46,33 @@ const Frame3 = () => {
           height={520}
         />
       </div>
-    </FrameSection>
+      <img css={background} src={imgFrame3GradientBackground} alt="123" height={377} />
+    </section>
   );
 };
 
 export default Frame3;
+
+const section = css`
+  position: relative;
+  height: 106.5rem;
+
+  ${sectionStyle};
+`;
 
 const imgContainer = css`
   display: flex;
   gap: 7.2rem;
   align-items: center;
   justify-content: center;
+`;
+
+const background = css`
+  position: absolute;
+  bottom: 0;
+  z-index: 20;
+  width: 100vw;
+  min-height: 37.7rem;
 `;
 
 const LateImgPopUp = styled(ImgPopUp)`

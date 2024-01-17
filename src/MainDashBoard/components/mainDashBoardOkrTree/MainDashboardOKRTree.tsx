@@ -7,7 +7,7 @@ import MainDashObjectNode from './MainDashObjectNode';
 import { MainDashTaskNodes } from './MainDashTaskNodes';
 
 interface IMainDashboardOKRTreeProps {
-  onShowSideSheet: () => void;
+  onShowSideSheet: (keyResultId: number) => void;
   currentOkrData: IMainData;
 }
 
@@ -19,9 +19,19 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
         <OkrTreeTemplate
           ObjNode={() => <MainDashObjectNode objValue={objTitle} objStroke="#7165CA" />}
           keyResultList={krList}
-          KrNodes={(krIdx) => <MainDashKrNodes krIdx={krIdx} onShowSideSheet={onShowSideSheet} />}
+          KrNodes={(krIdx) => (
+            <MainDashKrNodes
+              krIdx={krIdx}
+              krList={krList[krIdx]}
+              onShowSideSheet={onShowSideSheet}
+            />
+          )}
           TaskNodes={(isFirstChild, krIdx, taskIdx) => (
-            <MainDashTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
+            <MainDashTaskNodes
+              isFirstChild={isFirstChild}
+              taskIdx={taskIdx}
+              taskList={currentOkrData.krList[krIdx]?.taskList}
+            />
           )}
         />
       </div>

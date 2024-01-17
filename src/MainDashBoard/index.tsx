@@ -13,25 +13,28 @@ import SideSheet from './components/sideSheet/SideSheet';
 const MainDashBoard = () => {
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [showCelebrate] = useState(false); //축하 모션 보이는 여부 플래그
-  const [currentGlaoId, setCurrentGoalId] = useState<number>();
+  const [currentGoalId, setCurrentGoalId] = useState<number>();
+  const [currentKrId, setCurrentKrId] = useState<number>(0);
   const navigator = useNavigate();
 
   //동적 파라미터 url
-  const url = currentGlaoId ? `/v1/objective?objectiveId=${currentGlaoId}` : '/v1/objective';
-  const { data } = useSWR(url, getDashBoardData);
+  const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
+  const { data: treeData } = useSWR(url, getDashBoardData);
 
   useEffect(() => {
-    if (!data) return;
-    if (data.status === 404) {
+    if (!treeData) return;
+    if (treeData.status === 404) {
       navigator('/add-okr');
     }
-  }, [data, navigator]);
+  }, [treeData, navigator]);
 
-  const okrTreeData = data?.data.tree;
-  const goalListData = data?.data.objList;
+  const okrTreeData = treeData?.data.tree;
+  const goalListTreeData = treeData?.data.objList;
 
-  const handleShowSideSheet = () => {
+  const handleShowSideSheet = (id: number) => {
+    setCurrentKrId(id);
     setShowSideSheet(true);
+    console.log(id);
   };
 
   const handleCloseSideSheet = () => {
@@ -50,10 +53,10 @@ const MainDashBoard = () => {
         </>
       ) : (
         <>
-          {goalListData && goalListData.length > 0 && (
+          {goalListTreeData && goalListTreeData.length > 0 && (
             <section css={mainDashboardStyle}>
               <MainDashBoardDrawer
-                objList={goalListData}
+                objList={goalListTreeData}
                 onChangeCurrentGoalId={handleCurrentGoalId}
               />
               <MainDashboardOKRTree
@@ -62,7 +65,13 @@ const MainDashBoard = () => {
               />
             </section>
           )}
-          {showSideSheet && <SideSheet isOpen={showSideSheet} onClose={handleCloseSideSheet} />}
+          {showSideSheet && (
+            <SideSheet
+              isOpen={showSideSheet}
+              onClose={handleCloseSideSheet}
+              keyResultId={currentKrId}
+            />
+          )}
         </>
       )}
     </>

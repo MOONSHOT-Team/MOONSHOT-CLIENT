@@ -2,6 +2,9 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { mutate } from 'swr';
+
+import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
 
 const CHECKINPLACEHOLDER =
   '회고 내용을 입력하세요.\n\n  • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n  • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n  • 실행 과정에 얼마나 만족하는지 알려주세요.';
@@ -50,10 +53,11 @@ const CheckInInput = ({
 
 interface IKrCheckInProps {
   onCancel: () => void;
+  keyResultId: number;
 }
 
 /** 진척 정도 입력하는 뷰입니다 */
-export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
+export const 진척정도입력하기 = ({ onCancel, keyResultId }: IKrCheckInProps) => {
   const [logNum, setLogNum] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
@@ -93,6 +97,29 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
     setLogContentCount(lengthCount);
     setLogContent(e.target.value);
   };
+
+  //서버 통신 함수
+  const submitCheckIn = async () => {
+    console.log(logNum);
+    const data = {
+      keyResultId: keyResultId,
+      logNum: parseInt(logNum.replace(/,/g, '')),
+      logContent: logContent,
+    };
+
+    try {
+      const response = await postCheckIn('/v1/log', data);
+      await mutate(`/v1/key-result/${keyResultId}`);
+
+      if (response.status === 200) {
+        //축하모션
+      }
+      onCancel();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <section css={enterLayoutStyles}>
       <article css={enterArticleStyles}>
@@ -121,7 +148,7 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
-        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn}>
+        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn} onClick={submitCheckIn}>
           체크인 완료
         </StEnterBtn1>
       </footer>
@@ -130,7 +157,7 @@ export const 진척정도입력하기 = ({ onCancel }: IKrCheckInProps) => {
 };
 
 /** kr을 수정하는 뷰입니다 */
-export const KR수정하기 = ({ onCancel }: IKrCheckInProps) => {
+export const KR수정하기 = ({ onCancel, keyResultId }: IKrCheckInProps) => {
   const [target, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
@@ -170,6 +197,26 @@ export const KR수정하기 = ({ onCancel }: IKrCheckInProps) => {
   useEffect(() => {
     target && logContent ? setIsActiveBtn(true) : setIsActiveBtn(false);
   }, [target, logContent]);
+
+  //서버 통신 함수
+  const submitCheckIn = async () => {
+    const data = {
+      keyResultId: keyResultId,
+      target: Number(target),
+      logContent: logContent,
+    };
+
+    try {
+      const response = await patchCheckIn('/v1/key-result', data);
+      // SWR 캐시 업데이트
+      await mutate(`/v1/key-result/${keyResultId}`);
+      console.log(response);
+      onCancel();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <section css={enterLayoutStyles}>
       <article css={enterArticleStyles}>
@@ -199,7 +246,7 @@ export const KR수정하기 = ({ onCancel }: IKrCheckInProps) => {
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
-        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn}>
+        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn} onClick={submitCheckIn}>
           체크인 완료
         </StEnterBtn1>
       </footer>
@@ -254,7 +301,7 @@ const StLabel = styled.label`
 `;
 
 const StEnterProgressInput = styled.input<{ isMaxNum: boolean }>`
-  width: 27.4rem;
+  width: 100%;
   padding: 1.1rem 1.2rem;
   color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   background-color: transparent;

@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 
 import { ICheckInLogTypes } from '../../type/CheckInLogTypes';
 
-const CheckInLogItem = ({ state, date, title, content }: ICheckInLogTypes) => {
+const CheckInLogItem = ({ logState, dateTime, title, content }: ICheckInLogTypes) => {
   return (
     <StCheckInLogItemContainer>
       <StCheckInLogHeader>
-        <StCheckInLogState label={state}>{state}</StCheckInLogState>
-        <span>[{date}]</span>
+        <StCheckInLogState label={logState}>{logState}</StCheckInLogState>
+        <span>[{dateTime}]</span>
       </StCheckInLogHeader>
       <StCheckInLogTitle>{title}</StCheckInLogTitle>
       <StCheckInLogContent>{content}</StCheckInLogContent>
@@ -17,6 +17,7 @@ const CheckInLogItem = ({ state, date, title, content }: ICheckInLogTypes) => {
 };
 
 const CheckInLogs = ({ data }: { data: ICheckInLogTypes[] }) => {
+  console.log(data);
   return (
     <StCheckInLogContainer>
       <StCheckInLogP>체크인 로그</StCheckInLogP>
@@ -36,7 +37,7 @@ export default CheckInLogs;
 const StCheckInLogContainer = styled.section`
   display: flex;
   flex-direction: column;
-  min-height: calc(100% - 25rem);
+  width: 100%;
 `;
 
 const StCheckInLogP = styled.p`
@@ -46,7 +47,7 @@ const StCheckInLogP = styled.p`
 `;
 
 const StCheckInLogScroll = styled.article`
-  height: 100%;
+  height: calc(100vh - 29.8rem);
   overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.gray_550};
   border-top: 1px solid ${({ theme }) => theme.colors.transparent_white};
@@ -70,7 +71,6 @@ const StCheckInLogScroll = styled.article`
 
 const checkInLogContainer = css`
   display: flex;
-  flex-basis: 0;
   flex-direction: column;
   width: 100%;
 `;
@@ -91,9 +91,9 @@ const StCheckInLogHeader = styled.p`
 
 const getColorCheckInState = (theme: Theme, label: string) => {
   switch (label) {
-    case 'kr 생성':
+    case 'KR 생성':
       return theme.colors.main_purple;
-    case 'kr 수정':
+    case 'KR 수정':
       return theme.colors.sub_yellow;
     case '진척상황 기록':
       return theme.colors.sub_mint;

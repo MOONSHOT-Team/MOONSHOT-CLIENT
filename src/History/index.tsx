@@ -1,7 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
+import { getOKRHistory } from './apis/fetcher';
 import HistoryList from './components/dropDown/HistoryList';
 import ListOrder from './components/dropDown/ListOrder';
 import HistoryDrawer from './components/HistoryDrawer';
@@ -9,6 +11,8 @@ import { DUMMY_DATA } from './constants/dummy';
 import { IObjective } from './type/okrTypes';
 
 const History = () => {
+  const { data } = useSWR('/v1/objective/history', getOKRHistory);
+  console.log(data);
   const {
     data: { groups, categories },
   } = DUMMY_DATA;

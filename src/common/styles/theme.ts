@@ -19,6 +19,7 @@ const colors = {
   gray_550: '#2F2F2F',
   gray_600: '#242424',
   gray_650: '#222222',
+  gray_700: '#131313',
   main_purple: '#8D7EFD',
   main_darkpurple: '#7165CA',
   sub_yellow: '#FFF9C6',

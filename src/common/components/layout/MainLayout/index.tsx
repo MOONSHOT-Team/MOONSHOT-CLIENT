@@ -22,4 +22,5 @@ const mainHeight = css`
   height: calc(100vh - 7.6rem);
   margin: 0 auto;
   margin-top: 7.6rem;
+
 `;

@@ -8,7 +8,6 @@ import { SocialTaskNodes } from './SocialTaskNodes';
 
 const SocialOKRTree = ({ okrTreeData }: { okrTreeData: IOkrTreeDataType }) => {
   const { krList, objTitle } = okrTreeData;
-  console.log(okrTreeData);
   return (
     <article css={okrTreeContainer}>
       <div>

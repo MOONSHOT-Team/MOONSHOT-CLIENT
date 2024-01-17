@@ -1,28 +1,37 @@
 import OkrTreeTemplate from '@components/OkrTree/Template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 
-import { MOCK_MAIN_OKR_DATA } from '../../constants/MOCK_MAIN_OKR_DATA';
 import { IMainData } from '../../type/MainDashboardDataTypes';
 import { MainDashKrNodes } from './MainDashKrNodes';
 import MainDashObjectNode from './MainDashObjectNode';
 import { MainDashTaskNodes } from './MainDashTaskNodes';
 
 interface IMainDashboardOKRTreeProps {
-  onShowSideSheet: () => void;
-  currentOkrData?: IMainData;
+  onShowSideSheet: (keyResultId: number) => void;
+  currentOkrData: IMainData;
 }
 
-const MainDashboardOKRTree = ({ onShowSideSheet }: IMainDashboardOKRTreeProps) => {
-  const { krList, objTitle } = MOCK_MAIN_OKR_DATA;
+const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
+  const { krList, objTitle } = currentOkrData;
   return (
     <article css={okrTreeContainer}>
       <div css={okrTree}>
         <OkrTreeTemplate
           ObjNode={() => <MainDashObjectNode objValue={objTitle} objStroke="#7165CA" />}
           keyResultList={krList}
-          KrNodes={(krIdx) => <MainDashKrNodes krIdx={krIdx} onShowSideSheet={onShowSideSheet} />}
+          KrNodes={(krIdx) => (
+            <MainDashKrNodes
+              krIdx={krIdx}
+              krList={krList[krIdx]}
+              onShowSideSheet={onShowSideSheet}
+            />
+          )}
           TaskNodes={(isFirstChild, krIdx, taskIdx) => (
-            <MainDashTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
+            <MainDashTaskNodes
+              isFirstChild={isFirstChild}
+              taskIdx={taskIdx}
+              taskList={currentOkrData.krList[krIdx]?.taskList}
+            />
           )}
         />
       </div>

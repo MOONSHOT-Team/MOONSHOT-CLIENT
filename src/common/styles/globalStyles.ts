@@ -60,7 +60,6 @@ const globalStyles = css`
 
   ul,
   li {
-    all: unset;
     list-style: none;
   }
 `;

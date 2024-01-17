@@ -17,6 +17,8 @@ const MainDashBoard = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // const {data, error, isLoading} = useSWR('/v1//v1/objective/{objectiveId}')
+
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   // const [showCelebrate] = useState(false); //축하 모션 보이는 여부 플래그
   const [currentGoalId, setCurrentGoalId] = useState<number>();

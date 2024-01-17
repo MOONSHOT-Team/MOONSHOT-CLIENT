@@ -33,3 +33,11 @@ export const postCheckIn = async (
   const response = await instance.post(url, data);
   return response.data;
 };
+
+// o 삭제 api
+
+export const deleteObj = async (url: string) => {
+  const response = await instance.delete(url);
+
+  return response.data;
+};

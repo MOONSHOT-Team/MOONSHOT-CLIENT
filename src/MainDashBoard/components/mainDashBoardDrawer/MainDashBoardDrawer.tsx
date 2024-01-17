@@ -12,11 +12,17 @@ import GoalItem from './GoalItem';
 interface IDrawerProps {
   objList: IObjListTypes[];
   onChangeCurrentGoalId: (id: number) => void;
+  handleClickAddObjcBtn: () => void;
 }
 
-const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) => {
+const MainDashBoardDrawer = ({
+  objList,
+  onChangeCurrentGoalId,
+  handleClickAddObjcBtn,
+}: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(7);
   const [goals, setGoals] = useState(objList);
+  const [isRightClick, setIsRightClick] = useState(false);
 
   const handleClickGoal = (id: number) => {
     setCurrentGoalId(id);
@@ -46,6 +52,7 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
           type="button"
           isAble={objList.length < 10}
           disabled={objList.length < 10 ? false : true}
+          onClick={handleClickAddObjcBtn}
         >
           <IcUnion />
           목표 추가하기
@@ -56,7 +63,7 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
           <St목표리스트>목표 리스트</St목표리스트>
           <St목표리스트개수>{goals.length}/10</St목표리스트개수>
         </div>
-        <StScrollContainer>
+        <StScrollContainer $isRightClick={isRightClick}>
           <DndProvider backend={HTML5Backend}>
             <ul css={ulStyles}>
               {goals?.map((objListItem, index) => (
@@ -67,6 +74,7 @@ const MainDashBoardDrawer = ({ objList, onChangeCurrentGoalId }: IDrawerProps) =
                   onClickGoal={handleClickGoal}
                   index={index}
                   moveGoal={moveGoal}
+                  setIsRightClick={setIsRightClick}
                 />
               ))}
             </ul>
@@ -121,10 +129,11 @@ const St목표리스트개수 = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-const StScrollContainer = styled.div`
+const StScrollContainer = styled.div<{ $isRightClick: boolean }>`
   flex: 1;
-  padding: 0 1rem 2.2rem 2.2rem;
-  overflow-y: scroll;
+  padding: ${({ $isRightClick }) =>
+    $isRightClick ? '0 2.3rem 2.2rem 2.2rem' : '0 1rem 2.2rem 2.2rem'};
+  overflow-y: ${({ $isRightClick }) => ($isRightClick ? 'hidden' : 'scroll')};
 
   &::-webkit-scrollbar {
     width: 13px;

@@ -38,7 +38,7 @@ const globalStyles = css`
     user-select: auto;
 
     &:focus {
-      border: 1px solid ${theme.colors.gray_000};
+      border: 1px solid ${theme.colors.gray_200};
       outline: none;
     }
   }

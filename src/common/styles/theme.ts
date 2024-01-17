@@ -89,7 +89,7 @@ const fonts = {
     size: 1.4,
     fontStyle: 'normal',
     weight: 500,
-    lineHeight: 1.4,
+    lineHeight: 2.0,
   }),
   body_14_regular: FONT({
     family: PRETENDARDFAMILY,

@@ -41,7 +41,6 @@ const StContainer = styled.aside`
   flex-direction: column;
   min-width: 23.2rem;
   height: 100%;
-  padding: '2.6rem 1rem 0 2.2rem';
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.colors.gray_600};
 

@@ -1,15 +1,17 @@
 export interface IKrDetailTypes {
   title: string;
+  target: number;
+  metric: string;
   progressBar: number;
-  KrState: string;
-  startDate: string;
-  expireDate: string;
-  Log: ICheckInLogTypes[];
+  krState: string;
+  startAt: string;
+  expireAt: string;
+  logList: ICheckInLogTypes[];
 }
 
 export interface ICheckInLogTypes {
-  state: string;
-  date: string;
+  logState: string;
+  dateTime: string;
   title: string;
   content: string;
 }

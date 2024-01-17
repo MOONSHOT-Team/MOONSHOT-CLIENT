@@ -56,7 +56,9 @@ const Frame4 = () => {
 export default Frame4;
 
 const section = css`
+  gap: 27.5rem;
   height: 148rem;
+  padding-top: 10rem;
 
   ${sectionStyle}
 `;

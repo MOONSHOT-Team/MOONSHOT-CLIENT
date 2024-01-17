@@ -55,7 +55,9 @@ export default Frame3;
 
 const section = css`
   position: relative;
+  gap: 10rem;
   height: 106.5rem;
+  padding-top: 10rem;
 
   ${sectionStyle};
 `;

@@ -29,7 +29,9 @@ const Frame2 = () => {
 export default Frame2;
 
 const section = css`
+  gap: 12rem;
   height: 110.4rem;
+  padding-top: 8rem;
 
   ${sectionStyle};
 `;

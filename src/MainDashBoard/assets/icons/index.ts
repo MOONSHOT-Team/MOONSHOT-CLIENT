@@ -11,7 +11,7 @@ import IcHoldState from './icHoldState.svg?react';
 import IcOnGoingState from './icOnGoingState.svg?react';
 import IcTrash from './icTrash.svg?react';
 import IcUnion from './icUnion.svg?react';
-import IcWaitState from './IcWaitState.svg?react';
+import IcWaitState from './icWaitState.svg?react';
 
 export {
   IcClose,

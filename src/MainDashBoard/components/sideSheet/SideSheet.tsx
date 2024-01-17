@@ -15,16 +15,17 @@ interface ISideSheetProps {
   isOpen: boolean;
   onClose: () => void;
   keyResultId: number;
+  objStartAt: string;
+  objExpireAt: string;
 }
 
-const SideSheet = ({ isOpen, onClose, keyResultId }: ISideSheetProps) => {
+const SideSheet = ({ isOpen, onClose, keyResultId, objStartAt, objExpireAt }: ISideSheetProps) => {
   const { data: sideSheetData } = useSWR(`/v1/key-result/${keyResultId}`, getDashBoardData);
   const krDetailData = sideSheetData?.data;
 
   const [isCheckinView, setIsCheckinView] = useState(false);
   if (!sideSheetData) return;
   const { title, target, metric, progressBar, krState, startAt, expireAt, logList } = krDetailData;
-  console.log(startAt, expireAt);
 
   const handleCheckInView = () => {
     setIsCheckinView(!isCheckinView);
@@ -62,7 +63,13 @@ const SideSheet = ({ isOpen, onClose, keyResultId }: ISideSheetProps) => {
           </StKrStatus>
           <StKrPeriodContainer>
             <StKrDetailLabel>일정</StKrDetailLabel>
-            <KRPeriodSelect />
+            <KRPeriodSelect
+              keyResultId={keyResultId}
+              objStartAt={objStartAt}
+              objExpireAt={objExpireAt}
+              startAt={startAt}
+              expireAt={expireAt}
+            />
           </StKrPeriodContainer>
         </section>
 

@@ -19,12 +19,16 @@ const MainDashBoard = () => {
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
-  const { data: treeData } = useSWR(url, getDashBoardData);
+  const { data: treeData, isLoading } = useSWR(url, getDashBoardData);
+  console.log(treeData, isLoading);
 
   useEffect(() => {
-    if (!treeData) return;
+    if (!treeData?.tree) return;
     if (treeData.status === 404) {
       navigator('/add-okr');
+    }
+    if (treeData.objIsExpired) {
+      //기간 만료 모달 띄우기
     }
   }, [treeData, navigator]);
 
@@ -45,6 +49,7 @@ const MainDashBoard = () => {
     setCurrentGoalId(id);
   };
 
+  if (isLoading) return <>로딩중 ...</>;
   return (
     <>
       {showCelebrate ? (
@@ -70,6 +75,8 @@ const MainDashBoard = () => {
               isOpen={showSideSheet}
               onClose={handleCloseSideSheet}
               keyResultId={currentKrId}
+              objStartAt={okrTreeData.objStartAt}
+              objExpireAt={okrTreeData.objExpireAt}
             />
           )}
         </>

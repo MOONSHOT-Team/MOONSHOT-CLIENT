@@ -5,11 +5,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { IobjListTypes } from '../../type/goalItemTypes';
+import { IcUnion } from '../../assets/icons';
+import { IObjListTypes } from '../../type/goalItemTypes';
 import GoalItem from './GoalItem';
 
 interface IDrawerProps {
-  objList: IobjListTypes[];
+  objList: IObjListTypes[];
   onChangeCurrentGoalId: (id: number) => void;
   handleClickAddObjcBtn: () => void;
 }
@@ -53,6 +54,7 @@ const MainDashBoardDrawer = ({
           disabled={objList.length < 10 ? false : true}
           onClick={handleClickAddObjcBtn}
         >
+          <IcUnion />
           목표 추가하기
         </StAddGoalBtn>
       </div>
@@ -94,9 +96,14 @@ const StContainer = styled.aside`
 `;
 
 const StAddGoalBtn = styled.button<{ isAble: boolean }>`
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
   width: 18.8rem;
   height: 3.6rem;
   margin: 2.4rem 2.2rem;
+
   ${({ theme, isAble }) => css`
     color: ${isAble ? theme.colors.gray_000 : theme.colors.gray_200};
     background-color: ${isAble ? theme.colors.main_darkpurple : theme.colors.gray_500};

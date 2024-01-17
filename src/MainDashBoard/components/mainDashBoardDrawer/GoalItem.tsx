@@ -3,15 +3,17 @@ import styled from '@emotion/styled';
 import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 
+import { patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import useContextMenu from '../../hooks/useContextMenu';
-import { IobjListTypes } from '../../type/goalItemTypes';
+import { IObjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/ItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
 import RightClickBox from './RightClickBox';
 
-interface IGoalItemProps extends IobjListTypes {
+interface IGoalItemProps extends IObjListTypes {
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -30,7 +32,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
 }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
-  const [initialDragIndex, setInitialDragIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
 
@@ -62,13 +64,25 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     onClickGoal?.(id);
   };
 
+  //서버 통신 함수
+  const updateSwapIndex = async (id: number, dropIdx: number) => {
+    const data = {
+      id: id,
+      target: 'OBJECTIVE',
+      idx: dropIdx,
+    };
+
+    try {
+      await patchSwapGoalIndex('/v1/index', data);
+    } catch (err) {
+      navigate('/error');
+    }
+  };
+
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.GOAL,
     item: { id, index },
     collect: (monitor) => {
-      if (monitor.isDragging() && initialDragIndex === null) {
-        setInitialDragIndex(index); // 드래그 시작 시 인덱스 저장
-      }
       return {
         isDragging: monitor.isDragging(),
       };
@@ -84,17 +98,13 @@ const GoalItem: React.FC<IGoalItemProps> = ({
       const dragIndex = item.index;
       const hoverIndex = index;
 
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-
       moveGoal?.(dragIndex, hoverIndex);
 
       item.index = hoverIndex;
     },
     drop(item: { index: number }) {
       //목표리스트 dnd 서버통신
-      console.log(`Initial item idex : ${initialDragIndex} Dropped item index: ${item.index}`);
+      updateSwapIndex(id, item.index);
     },
   });
 
@@ -153,7 +163,7 @@ export default GoalItem;
 
 const StGoalItemli = styled.li<{ bgColor: boolean; isDragging: boolean }>`
   position: relative;
-  width: 100%;
+  width: 18.8rem;
   overflow: hidden;
   cursor: pointer;
   background-color: ${({ theme, bgColor }) =>
@@ -171,7 +181,7 @@ const GoalItemContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0.9rem 1.2rem 1.6rem;
+  padding: 0.9rem 1.2rem 1.5rem;
 `;
 
 const goalItemHeader = css`
@@ -201,7 +211,6 @@ const goalItemArticle = css`
   gap: 2.4rem;
   align-items: end;
   justify-content: space-between;
-  margin-bottom: 1.2rem;
 `;
 
 const StGoalItemTitle = styled.p`
@@ -212,6 +221,7 @@ const StGoalItemTitle = styled.p`
 `;
 
 const StGoalItemContent = styled.p`
+  margin-top: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_10_regular};
 `;

@@ -1,8 +1,8 @@
 export interface IgoalItemTypes {
-  objList: IobjListTypes[];
+  objList: IObjListTypes[];
 }
 
-export interface IobjListTypes {
+export interface IObjListTypes {
   id: number;
   title: string;
   content: string;
@@ -13,4 +13,10 @@ export interface IobjListTypes {
   onClickGoal?: (id: number) => void;
   index?: number;
   moveGoal?: (dragIndex: number, hoverIndex: number) => void;
+}
+
+export interface IPatchGoalIdxReqType {
+  id: number;
+  target: string;
+  idx: number;
 }

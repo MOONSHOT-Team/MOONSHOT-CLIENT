@@ -23,6 +23,7 @@ const AddGuideKr = ({
   setKrListInfo,
   isActiveSecondKrCard,
 }: IAddGuideKrProps) => {
+  console.log(krListInfo);
   const renderFirstKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
     return (

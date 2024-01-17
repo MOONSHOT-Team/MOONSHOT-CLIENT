@@ -16,19 +16,13 @@ interface IObjPeriodProps extends IAddObjFlowProps {
 }
 
 const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: IObjPeriodProps) => {
-  // 오늘 날짜 'yyyy. mm. dd` 형태로 만드는 함수
-  // const today = new Date();
-  // const year = today.getFullYear();
-  // const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  // const day = ('0' + today.getDate()).slice(-2);
-
-  // const [startDate, setStartDate] = useState(OBJ_START_AT);
-  // const [exipreDate, setExpireDate] = useState<string>('');
-
   const { objStartAt, objExpireAt } = objInfo;
 
   // dayjs 캘린더에서 사용하는 선택된 기간 값
-  const [period, setPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
+  const [period, setPeriod] = useState([
+    objInfo.objStartAt ? objInfo.objStartAt.split('. ').join('-') : CALE_START_DATE,
+    objInfo.objExpireAt ? objInfo.objExpireAt.split('. ').join('-') : CALE_END_DATE,
+  ]);
 
   const hanldeClickPeriodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedPeriod(e.currentTarget.id);

@@ -25,7 +25,9 @@ const GuideFirstKeyResultCard = ({
   handleClickCloseBtn,
 }: IGuideFirstKeyResultCard) => {
   //캘린더 보여주는 플래그
-  const [isShowCalender, setIsShowCalender] = useState(false);
+  const [isShowCalender, setIsShowCalender] = useState(
+    krListInfo[cardIdx].startAt && krListInfo[cardIdx].expireAt ? true : false,
+  );
   const [isMaxTitle, setIsMaxTitle] = useState(false);
 
   //캘린더 선택한 값

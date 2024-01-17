@@ -27,7 +27,7 @@ const KeyResultCard = ({
   cardIdx,
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
-  const [isValidMax, setIsValidMAx] = useState({
+  const [isValidMax, setIsValidMax] = useState({
     title: false,
     target: false,
     metric: false,
@@ -48,20 +48,20 @@ const KeyResultCard = ({
     switch (e.target.name) {
       case 'target':
         if (e.target.value.length > maxLength) {
-          setIsValidMAx({ ...isValidMax, [e.target.name]: true });
+          setIsValidMax({ ...isValidMax, [e.target.name]: true });
         }
         if (e.target.value.length <= maxLength) {
-          setIsValidMAx({ ...isValidMax, [e.target.name]: false });
+          setIsValidMax({ ...isValidMax, [e.target.name]: false });
           krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           setKrListInfo([...krListInfo]);
         }
         break;
       default:
         if (e.target.value.length > maxLength) {
-          setIsValidMAx({ ...isValidMax, [e.target.name]: true });
+          setIsValidMax({ ...isValidMax, [e.target.name]: true });
         }
         if (e.target.value.length <= maxLength) {
-          setIsValidMAx({ ...isValidMax, [e.target.name]: false });
+          setIsValidMax({ ...isValidMax, [e.target.name]: false });
 
           krListInfo[cardIdx] = { ...krListInfo[cardIdx], [e.target.name]: e.target.value };
           setKrListInfo([...krListInfo]);

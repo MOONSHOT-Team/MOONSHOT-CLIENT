@@ -21,7 +21,6 @@ interface Objective {
   objIdx: number;
   krList: KeyResult[];
 }
-
 export interface Group {
   year: number;
   count: number;

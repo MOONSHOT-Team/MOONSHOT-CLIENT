@@ -1,6 +1,6 @@
 import DummyData from '../type/historyData';
 
-export const DUMMYDATA: DummyData = {
+export const DUMMY_DATA: DummyData = {
   data: {
     groups: [
       {

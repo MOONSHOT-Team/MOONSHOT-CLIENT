@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 interface ProgressBarProps {
   currentProgress: number;
-  maximumProgress: number;
+  maximumProgress?: number;
 }
 
 // history_progressbar 현재 진행 마크용
@@ -9,28 +9,34 @@ interface MarkerProps {
   value: number;
 }
 
-const ProgressBar = ({ currentProgress, maximumProgress }: ProgressBarProps) => {
+const HistoryProgressBar = ({ currentProgress, maximumProgress = 100 }: ProgressBarProps) => {
   const leftValue = (currentProgress / maximumProgress) * 20.0 - 0.6;
+  const percentValue = (currentProgress / maximumProgress) * 100;
 
   return (
-    <ProgressBarContainer>
+    <StProgressBarContainer isComplete={percentValue}>
       <StProgressBarWrapper>
-        <Progress value={currentProgress} max={maximumProgress} />
+        <Progress isComplete={percentValue} value={currentProgress} max={maximumProgress} />
         <StMarker value={leftValue} />
       </StProgressBarWrapper>
 
-      <StCurrentProgressBox>{currentProgress}% 달성</StCurrentProgressBox>
-    </ProgressBarContainer>
+      <StCurrentProgressBox>{percentValue}% 달성</StCurrentProgressBox>
+    </StProgressBarContainer>
   );
 };
 
-export default ProgressBar;
+export default HistoryProgressBar;
 
-const ProgressBarContainer = styled.div`
+const StProgressBarContainer = styled.div<{ isComplete: number }>`
   display: flex;
   flex-direction: row;
   gap: 1.6rem;
-  color: ${({ theme }) => theme.colors.sub_yellow};
+  color: ${({ theme, isComplete }) =>
+    isComplete < 40
+      ? theme.colors.sub_pink
+      : isComplete < 70
+        ? theme.colors.sub_yellow
+        : theme.colors.sub_mint};
 `;
 
 const StProgressBarWrapper = styled.div`
@@ -39,7 +45,7 @@ const StProgressBarWrapper = styled.div`
   align-items: center;
 `;
 
-const Progress = styled.progress`
+const Progress = styled('progress')<{ isComplete: number }>`
   width: 20rem;
   height: 0.4rem;
   color: ${({ theme }) => theme.colors.gray_450};
@@ -53,7 +59,12 @@ const Progress = styled.progress`
 
   /* 현재 진행률에 대한 색 조정  */
   &::-webkit-progress-value {
-    background-color: ${({ theme }) => theme.colors.sub_yellow};
+    background-color: ${({ theme, isComplete }) =>
+      isComplete < 40
+        ? theme.colors.sub_pink
+        : isComplete < 70
+          ? theme.colors.sub_yellow
+          : theme.colors.sub_mint};
     border-radius: 5px;
   }
 `;
@@ -72,7 +83,6 @@ const StMarker = styled.div<MarkerProps>`
   border-radius: 10px;
 `;
 
-// 프로그래스 바 주위 현재 진행률 표기에 대한 색, 폰트 조정 (현재는 (1)AddOkr_Progressbar, (2)SideSheet_progressbar, (3)history_progressbar)
 const StCurrentProgressBox = styled.p`
   ${({ theme }) => theme.fonts.body_14_semibold};
 `;

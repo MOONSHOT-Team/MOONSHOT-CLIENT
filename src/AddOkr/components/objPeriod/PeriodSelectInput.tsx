@@ -42,7 +42,7 @@ const PeriodSelectInput = ({ handleClickSelectDate, period }: IPeriodSelectInput
         }}
       >
         <RangePicker
-          bordered={false}
+          variant="borderless"
           onChange={handleClickSelectDate}
           value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
           defaultValue={[dayjs(), dayjs()]}
@@ -59,7 +59,6 @@ export default PeriodSelectInput;
 const KRPeriodContainer = styled.div`
   * {
     color: ${({ theme }) => theme.colors.gray_000};
-    background-color: ${({ theme }) => theme.colors.gray_600};
   }
 
   .ant-picker-input > input::placeholder {
@@ -70,18 +69,11 @@ const KRPeriodContainer = styled.div`
   .ant-picker-input > input {
     width: 7rem;
     color: ${({ theme }) => theme.colors.gray_000};
-    background-color: ${({ theme }) => theme.colors.transparent_purple};
     border: none;
     ${({ theme }) => theme.fonts.body_12_regular};
   }
 
   .ant-picker-range-separator {
     padding: 0;
-    background-color: ${({ theme }) => theme.colors.transparent_purple};
-  }
-
-  .ant-picker-separator,
-  .anticon-swap-right > svg {
-    background-color: ${({ theme }) => theme.colors.transparent_purple};
   }
 `;

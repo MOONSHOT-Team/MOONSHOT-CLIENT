@@ -3,38 +3,54 @@ import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
+import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
+import { MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
+import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 
 interface IGuideFirstKeyResultCard {
-  cardIdx?: number;
+  krListInfo: IKrListInfoTypes[];
+  setKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
+  cardIdx: number;
   handleClickCloseBtn?: (cardIdx: number) => void;
 }
 
-const GuideFirstKeyResultCard = ({ cardIdx, handleClickCloseBtn }: IGuideFirstKeyResultCard) => {
-  //다른 브랜치에서 사용한 유틸 함수, 추 후 삭제 예정
-  const returnParsedDate = (date: Date, parseString: string) => {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
+const KR_TITLE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
 
-    return `${year}${parseString}${month}${parseString}${day}`;
-  };
-
-  // 성과 관련 값
-  const [krSentence, setKrSentence] = useState('');
-  const KR_SENTENCE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
-
-  /** 
-  캘린더 관련 요소
-  **/
-  const today = new Date();
-  const CALE_START_DATE = returnParsedDate(today, '-');
-  const CALE_END_DATE = returnParsedDate(new Date(today.setMonth(today.getMonth() + 1)), '-');
+const GuideFirstKeyResultCard = ({
+  krListInfo,
+  setKrListInfo,
+  cardIdx,
+  handleClickCloseBtn,
+}: IGuideFirstKeyResultCard) => {
   //캘린더 보여주는 플래그
-  const [isShowCalender, setIsShowCalender] = useState(false);
+  const [isShowCalender, setIsShowCalender] = useState(
+    krListInfo[cardIdx].startAt && krListInfo[cardIdx].expireAt ? true : false,
+  );
+  const [isMaxTitle, setIsMaxTitle] = useState(false);
+
   //캘린더 선택한 값
-  const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
+  const [krPeriod, setKrPeriod] = useState([
+    krListInfo[cardIdx].startAt
+      ? krListInfo[cardIdx].startAt.split('. ').join('-')
+      : CALE_START_DATE,
+    krListInfo[cardIdx].expireAt
+      ? krListInfo[cardIdx].expireAt.split('. ').join('-')
+      : CALE_END_DATE,
+  ]);
+
+  const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
+    if (e.target.value.length > maxLength) {
+      setIsMaxTitle(true);
+    }
+
+    if (e.target.value.length <= maxLength) {
+      setIsMaxTitle(false);
+      krListInfo[cardIdx].title = e.target.value;
+      setKrListInfo([...krListInfo]);
+    }
+  };
 
   const handleClickSelectDate = (
     _values: [Dayjs | null, Dayjs | null] | null,
@@ -42,13 +58,19 @@ const GuideFirstKeyResultCard = ({ cardIdx, handleClickCloseBtn }: IGuideFirstKe
   ) => {
     if (formatString[0] && formatString[1]) {
       setKrPeriod(formatString);
+      krListInfo[cardIdx] = {
+        ...krListInfo[cardIdx],
+        startAt: formatString[0],
+        expireAt: formatString[1],
+      };
+      setKrListInfo([...krListInfo]);
     }
   };
 
   return (
     <StGuideFirstKeyResultCardWrapper>
       {/* x 버튼 부분 */}
-      {cardIdx && handleClickCloseBtn && (
+      {cardIdx > 0 && handleClickCloseBtn && (
         <button
           css={CloseIconStyle}
           id={cardIdx.toString()}
@@ -61,9 +83,10 @@ const GuideFirstKeyResultCard = ({ cardIdx, handleClickCloseBtn }: IGuideFirstKe
       <StKrInputBox>
         <StKrInputDescription>목표를 달성하기 위해 필요한 성과는?</StKrInputDescription>
         <StKrSentenceInput
-          value={krSentence}
-          placeholder={KR_SENTENCE_PLACEHOLDER}
-          onChange={(e) => setKrSentence(e.target.value)}
+          value={krListInfo[cardIdx].title}
+          placeholder={KR_TITLE_PLACEHOLDER}
+          onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
+          $isMax={isMaxTitle}
         />
       </StKrInputBox>
 
@@ -102,20 +125,24 @@ const StKrInputDescription = styled.p`
   ${({ theme }) => theme.fonts.body_14_medium};
 `;
 
-const StKrSentenceInput = styled.input`
+const StKrSentenceInput = styled.input<{ $isMax: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 31.3rem;
   height: 3.2rem;
   padding: 0.6rem 0;
-  color: ${({ theme }) => theme.colors.gray_350};
+  color: ${({ theme, $isMax }) => ($isMax ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;
   background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray_350};
+  }
 
   &:focus,
   &:hover {

@@ -29,6 +29,7 @@ const globalStyles = css`
   textarea,
   select {
     all: unset;
+    box-sizing: border-box;
   }
 
   /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */

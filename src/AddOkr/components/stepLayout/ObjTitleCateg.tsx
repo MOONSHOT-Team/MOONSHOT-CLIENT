@@ -5,26 +5,31 @@ import { useState } from 'react';
 
 import { GUIDE_OBJ_TITLE_PLACEHOLDER } from '../../constants/GUIDE_OBJ_TITLE_PLACEHOLDER';
 import { OBJ_CATEG_LIST } from '../../constants/OBJ_CATEG_LIST';
+import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 import ObjCategTag from '../objTitleCateg/ObjCategTag';
 
-interface IObjTitleCategProps {
+interface IObjTitleCategProps extends IAddObjFlowProps {
   isGuide: boolean;
 }
+//object tilte input/textare 최대 글자수
+const MAX_OBJ_INPUT_CNT = 30;
 
-const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
+// 가이드에 따라 설정하기 기본 placeholder
+const GUIDE_DEFAULT_PLACEHOLDER = '목표를 입력하세요.';
+
+const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) => {
+  const { objCategory: selectedObjCateg, objTitle } = objInfo;
+  //글자 수 관리 값
+  const [currObjCount, setCurrObjCount] = useState(objTitle ? objTitle.length : 0);
+  // 2) 가이드 플로우 - hover한 objtag를 담는 상태
+  const [hoverObjPlaceHolder, setHoverObjPlaceHolder] = useState(GUIDE_DEFAULT_PLACEHOLDER);
+
   /** 
   직접 작성 & 가이드에 따라 작성 공통 사용
   **/
-  // 카테고리 태그 상태
-  const [selectedObjCatg, setSelectedObjCateg] = useState('');
-  // object tilte input 글자 수 상태
-  const [currObjCount, setCurrObjCount] = useState(0);
-  //object tilte input/textare 최대 글자수
-  const MAX_OBJ_INPUT_CNT = 30;
-
   // 카테고리 태그 선택 핸들러
   const handleClickObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectedObjCateg(e.currentTarget.id);
+    setObjInfo({ ...objInfo, objCategory: e.currentTarget.id });
   };
 
   //obj input change 핸들러
@@ -35,18 +40,13 @@ const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
 
     const objInputCnt = limitMaxLength(e, MAX_OBJ_INPUT_CNT);
 
-    if (!objInputCnt) return;
-    setCurrObjCount(objInputCnt);
+    if (objInputCnt) setCurrObjCount(objInputCnt);
+    setObjInfo({ ...objInfo, objTitle: e.target.value });
   };
 
   /**
   가이드에 따라 설정하기 뷰 사용
   **/
-  // 기본 placeholder
-  const DEFAULT_PLACEHOLDER = '목표를 입력하세요.';
-  // hover한 objtag를 담는 상태
-  const [hoverObjPlaceHolder, setHoverObjPlaceHolder] = useState(DEFAULT_PLACEHOLDER);
-
   // hover한 objtag를 가져오는 핸들러
   const handleHoverObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { placeholder: targetPlaceholder } = GUIDE_OBJ_TITLE_PLACEHOLDER.filter(
@@ -57,9 +57,9 @@ const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
 
   // 이미 선택된 obj가 있을때, mouseleave시 선택 된 obj의 placeholder로 유지되도록
   const handleMouseLeaveObjCateg = () => {
-    if (!selectedObjCatg) return;
+    if (!selectedObjCateg) return;
     const { placeholder: targetPlaceholder } = GUIDE_OBJ_TITLE_PLACEHOLDER.filter(
-      (tag) => tag.id === selectedObjCatg,
+      (tag) => tag.id === selectedObjCateg,
     )[0];
 
     setHoverObjPlaceHolder(targetPlaceholder);
@@ -73,13 +73,12 @@ const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
 
       {/* 카테고리 선택 영역*/}
       <div css={ObjCategWrapper}>
-        {OBJ_CATEG_LIST.map(({ id, text }) => {
+        {OBJ_CATEG_LIST.map(({ id }) => {
           return (
             <ObjCategTag
               key={id}
               id={id}
-              text={text}
-              isClicked={selectedObjCatg === id}
+              isClicked={selectedObjCateg === id}
               handleClickObjTag={handleClickObjCateg}
               handleHoverObjCateg={handleHoverObjCateg}
               handleMouseLeaveObjCateg={handleMouseLeaveObjCateg}
@@ -89,19 +88,27 @@ const ObjTitleCateg = ({ isGuide }: IObjTitleCategProps) => {
       </div>
 
       {/* input 영역 -> 직접 설정 or 가이드에 따라 설정에 따라 달라지는 부분 */}
-
       {isGuide ? (
         <div css={ObjTextAreaBox}>
-          {/* 가이드에 따라 설정 플로우 */}
-          <StObjTextArea placeholder={hoverObjPlaceHolder} onChange={handleChangeObjValue} />
+          {/* 1) 가이드에 따라 설정 플로우 */}
+          <StObjTextArea
+            value={objTitle}
+            placeholder={hoverObjPlaceHolder}
+            onChange={handleChangeObjValue}
+          />
           <StObjTextAreaCntTxt>
             {currObjCount}/{MAX_OBJ_INPUT_CNT}
           </StObjTextAreaCntTxt>
         </div>
       ) : (
         <div css={ObjInputBox}>
-          {/* 직접 설정 플로우 */}
-          <StObjInput type="text" placeholder="목표를 입력하세요" onChange={handleChangeObjValue} />
+          {/* 2) 직접 설정 플로우 */}
+          <StObjInput
+            type="text"
+            value={objTitle}
+            placeholder="목표를 입력하세요"
+            onChange={handleChangeObjValue}
+          />
           <StObjInputCntTxt>
             {currObjCount} / {MAX_OBJ_INPUT_CNT}
           </StObjInputCntTxt>
@@ -121,7 +128,7 @@ const ObjTitleCategContainer = css`
 
 const StObjTitleCategTitle = styled.h1`
   width: 31.9rem;
-  padding-top: 1rem;
+  margin-top: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
   white-space: pre-line;
@@ -189,6 +196,7 @@ const StObjTextArea = styled.textarea`
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray_350};
+    white-space: pre-line;
   }
 `;
 

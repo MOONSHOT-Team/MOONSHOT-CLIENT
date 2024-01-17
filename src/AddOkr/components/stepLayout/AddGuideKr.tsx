@@ -1,32 +1,37 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 
-import GuideFirstKeyResultCard from '../components/addKr/GuideFirstKeyResultCard';
-import GuideSecondKeyResultCard from '../components/addKr/GuideSecondKeyResultCard';
-import KeyResultPlusCard from '../components/addKr/KeyResultPlusCard';
-import { EmptyKeyResultCard } from '../styles/KeyResultCardStyle';
+import { AddOkrCardWrapper, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
+import { IAddKrFlowProps } from '../../types/KrInfoTypes';
+import GuideFirstKeyResultCard from '../addKr/GuideFirstKeyResultCard';
+import GuideSecondKeyResultCard from '../addKr/GuideSecondKeyResultCard';
+import KeyResultPlusCard from '../addKr/KeyResultPlusCard';
+
+interface IAddGuideKrProps extends IAddKrFlowProps {
+  isActiveSecondKrCard: boolean;
+}
 
 const MAX_KR_LENGTH = 3;
 
-const AddGuideKr = () => {
-  const [isActiveSecondKrCard, setIsActiveSecondKrCard] = useState(false);
-  const [clickedCard, setClickedCard] = useState<number[]>([0]);
-
-  // KR 카드 추가 취소 버튼 핸들러
-  const handleClickCloseBtn = (cardIdx: number) => {
-    const parsedArray = clickedCard.filter((item) => {
-      return item !== cardIdx;
-    });
-
-    setClickedCard(parsedArray);
-  };
-
+const AddGuideKr = ({
+  objTitle,
+  clickedCard,
+  handleClickPlusCard,
+  handleClickCloseBtn,
+  krListInfo,
+  setKrListInfo,
+  isActiveSecondKrCard,
+}: IAddGuideKrProps) => {
   const renderFirstKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
     return (
       <>
-        <GuideFirstKeyResultCard />
+        <GuideFirstKeyResultCard
+          cardIdx={0}
+          krListInfo={krListInfo}
+          setKrListInfo={setKrListInfo}
+        />
         {plusCardLength.map((item) => {
           return (
             <React.Fragment key={item}>
@@ -34,13 +39,15 @@ const AddGuideKr = () => {
                 <GuideFirstKeyResultCard
                   key={item}
                   cardIdx={item}
+                  krListInfo={krListInfo}
+                  setKrListInfo={setKrListInfo}
                   handleClickCloseBtn={handleClickCloseBtn}
                 />
               ) : (
                 <div
                   key={item}
-                  onClick={() => setClickedCard((prev) => [...prev, item])}
-                  onKeyDown={() => setClickedCard((prev) => [...prev, item])}
+                  onClick={() => handleClickPlusCard(item)}
+                  onKeyDown={() => handleClickPlusCard(item)}
                   role="presentation"
                 >
                   <KeyResultPlusCard key={item} />
@@ -49,7 +56,6 @@ const AddGuideKr = () => {
             </React.Fragment>
           );
         })}
-        <button onClick={() => setIsActiveSecondKrCard(true)}>버튼</button>
       </>
     );
   };
@@ -59,11 +65,16 @@ const AddGuideKr = () => {
 
     return (
       <>
-        {secondKrList.map((lenth) => {
-          return clickedCard.includes(lenth) ? (
-            <GuideSecondKeyResultCard krSentence={'첫번째'} />
+        {secondKrList.map((indexOfCard) => {
+          return clickedCard.includes(indexOfCard) ? (
+            <GuideSecondKeyResultCard
+              key={indexOfCard}
+              cardIdx={indexOfCard}
+              krListInfo={krListInfo}
+              setKrListInfo={setKrListInfo}
+            />
           ) : (
-            <EmptyKeyResultCard />
+            <EmptyKeyResultCard key={indexOfCard} />
           );
         })}
       </>
@@ -90,12 +101,12 @@ const AddGuideKr = () => {
       )}
 
       <StObjTitleBox>
-        <p>대체 불가능한 인재가 되기 위해 영향력 있는 개발자 되기</p>
+        <p>{objTitle}</p>
       </StObjTitleBox>
 
-      <section css={KrGuideCardWrapper}>
+      <AddOkrCardWrapper>
         {isActiveSecondKrCard ? renderSecondKrCards() : renderFirstKrCards()}
-      </section>
+      </AddOkrCardWrapper>
     </section>
   );
 };
@@ -142,9 +153,9 @@ const StObjTitleBox = styled.div`
   ${({ theme }) => theme.fonts.title_16_semibold};
 `;
 
-const KrGuideCardWrapper = css`
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  width: 100%;
-`;
+// const KrGuideCardWrapper = css`
+//   display: flex;
+//   gap: 2rem;
+//   align-items: center;
+//   width: 100%;
+// `;

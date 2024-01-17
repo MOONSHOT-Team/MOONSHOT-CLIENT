@@ -15,7 +15,7 @@ const Frame3 = () => {
       <TextField
         subTitle="목표 설정"
         subTitleColor="sub_pink"
-        title="목표와 핵심 지표들을 더욱 쉽고, 바르고, 의미있게"
+        title={`목표와 핵심 지표들을\n더욱 쉽고, 바르고, 의미있게`}
         description="고민의 시간들이 모여 도전적인 목표를 이룰 수 있도록, 추적을 통해 성장으로 이어지는 경험을 문샷과 함께하세요"
       />
       <div css={imgContainer}>

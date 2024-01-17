@@ -1,5 +1,6 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-recess-order"],
+  "overrides": [{ "customSyntax": "postcss-styled-jsx", "files": ["**/*.tsx", "**/*.ts"] }],
   "rules": {
     "declaration-property-unit-allowed-list": {
       "/^border/": ["px"],

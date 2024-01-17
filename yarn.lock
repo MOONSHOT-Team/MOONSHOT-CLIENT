@@ -3402,6 +3402,11 @@ postcss-sorting@^8.0.2:
   resolved "https://registry.yarnpkg.com/postcss-sorting/-/postcss-sorting-8.0.2.tgz#6393385ece272baf74bee9820fb1b58098e4eeca"
   integrity sha512-M9dkSrmU00t/jK7rF6BZSZauA5MAaBW4i5EnJXspMwt4iqTh/L9j6fgMnbElEOfyRyfLfVbIHj/R52zHzAPe1Q==
 
+postcss-styled-jsx@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/postcss-styled-jsx/-/postcss-styled-jsx-1.0.1.tgz#07c17ca3bc574a06627103bb5dd475006c2d0d9e"
+  integrity sha512-508Vg2A0pHQstRxz8eoNYiT+RiCZdgE4EqN0x8oiPIZ/a6pp5q2NYefL39RRG8ORlxDehLHU3u/EOpux0kuATQ==
+
 postcss-styled-syntax@^0.6.0:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/postcss-styled-syntax/-/postcss-styled-syntax-0.6.3.tgz#9c7d646c11348e857cc3270294df471837fd9585"

@@ -1,4 +1,4 @@
-import OkrTreeTemplate from '@components/OkrTree/template/OkrTreeTemplate';
+import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 
 import { IOkrTreeDataType } from '../../types/socialDataType';

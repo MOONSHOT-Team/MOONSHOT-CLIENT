@@ -1,4 +1,4 @@
-import OkrTreeTemplate from '@components/OkrTree/Template/OkrTreeTemplate';
+import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 
 import { IMainData } from '../../type/MainDashboardDataTypes';

@@ -1,7 +1,7 @@
-import NodeLines from '@components/OkrTree/lines/NodeLines';
+import NodeLines from '@components/okrTree/lines/NodeLines';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
 import KrTaskContainer from './KrTaskContainer';
 
@@ -16,7 +16,7 @@ const KrContainer = ({ keyResultList, KrNodes, TaskNodes }: IKrContainerProps) =
     <StKrContainer>
       {keyResultList.map((kr) => {
         return (
-          <StKrWrapper key={`${kr.keyResultTitle}-${kr.idx}`}>
+          <StKrWrapper key={`$ya{kr.keyResultTitle}-${kr.idx}`}>
             <NodeLines />
             <KrTaskContainer krProp={kr} KrNodes={KrNodes} TaskNodes={TaskNodes} />
           </StKrWrapper>

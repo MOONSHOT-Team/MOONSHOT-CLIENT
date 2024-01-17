@@ -1,12 +1,12 @@
-import StraightLine from '@components/OkrTree/lines/StraightLine';
+import StraightLine from '@components/okrTree/lines/StraightLine';
 import styled from '@emotion/styled';
 import {
   StKrBox,
   StKrBoxWrapper,
   StKrLabel,
   StNodesContainer,
-} from '@styles/OkrTree/CommonNodeStyle';
-import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+} from '@styles/okrTree/CommonNodeStyle';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
 import { IcDrag } from '../../assets/icons';
 

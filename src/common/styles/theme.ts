@@ -26,6 +26,7 @@ const colors = {
   sub_mint: '#A6EEF6',
   sub_pink: '#F4B5FA',
   sub_blue: '#6CA4F6',
+  sub_lightred: '#FF6969',
   sub_yellowgreen: '#86DC68',
   transparent_purple: '#8D7EFD29',
   transparent_white: '#FFFFFF1A',
@@ -97,13 +98,6 @@ const fonts = {
     fontStyle: 'normal',
     weight: 400,
     lineHeight: 2.0,
-  }),
-  body_14_regular: FONT({
-    family: PRETENDARDFAMILY,
-    size: 1.4,
-    fontStyle: 'normal',
-    weight: 400,
-    lineHeight: 2,
   }),
   body_13_medium: FONT({
     family: PRETENDARDFAMILY,

@@ -54,6 +54,9 @@ const CheckInInput = ({
 interface IKrCheckInProps {
   onCancel: () => void;
   keyResultId: number;
+  title?: string;
+  target?: number;
+  metric?: string;
 }
 
 /** 진척 정도 입력하는 뷰입니다 */
@@ -157,8 +160,14 @@ export const 진척정도입력하기 = ({ onCancel, keyResultId }: IKrCheckInPr
 };
 
 /** kr을 수정하는 뷰입니다 */
-export const KR수정하기 = ({ onCancel, keyResultId }: IKrCheckInProps) => {
-  const [target, setTarget] = useState('');
+export const KR수정하기 = ({
+  onCancel,
+  keyResultId,
+  title,
+  target = 0,
+  metric,
+}: IKrCheckInProps) => {
+  const [targetValue, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
@@ -195,14 +204,14 @@ export const KR수정하기 = ({ onCancel, keyResultId }: IKrCheckInProps) => {
   };
 
   useEffect(() => {
-    target && logContent ? setIsActiveBtn(true) : setIsActiveBtn(false);
-  }, [target, logContent]);
+    targetValue && logContent ? setIsActiveBtn(true) : setIsActiveBtn(false);
+  }, [targetValue, logContent]);
 
   //서버 통신 함수
   const submitCheckIn = async () => {
     const data = {
       keyResultId: keyResultId,
-      target: Number(target),
+      target: Number(targetValue),
       logContent: logContent,
     };
 
@@ -223,16 +232,16 @@ export const KR수정하기 = ({ onCancel, keyResultId }: IKrCheckInProps) => {
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgress">kr 수정</StLabel>
           <StEditNum>
-            <span>개발관련 아티클 읽기 : </span>
+            <span>{title}</span>
             <StEditNumInput
               id="enterProgress"
-              placeholder="200,000"
-              value={target}
+              placeholder={target}
+              value={targetValue}
               onChange={handleTargetChange}
               autoComplete="off"
               isMaxNum={isMaxNum}
             />
-            <span>회</span>
+            <span>{metric}</span>
           </StEditNum>
         </span>
         <span css={enterInputBoxStyles}>

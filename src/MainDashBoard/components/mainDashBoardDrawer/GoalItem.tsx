@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { mutate } from 'swr';
 
 import { patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
@@ -44,9 +43,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
     };
 
     try {
-      const response = await patchSwapGoalIndex('/v1/index', data);
-      // SWR 캐시 업데이트
-      mutate('/v1/index', { data, ...response });
+      await patchSwapGoalIndex('/v1/index', data);
     } catch (err) {
       console.error(err);
     }

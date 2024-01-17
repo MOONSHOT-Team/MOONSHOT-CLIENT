@@ -276,7 +276,7 @@ const AddOkr = () => {
             handleClickPrev={hanldeClickPrevBtn}
             handleClickNext={handleClickNextBtn}
           />
-          <div css={ProgressBarBox}>
+          <StProgressBarBox $step={step} $selectedMethod={selectedMethod}>
             <ProgressBar
               currentProgress={
                 selectedMethod === IS_GUIDE && isActiveSecondKrCard ? step + 1 : step
@@ -288,7 +288,7 @@ const AddOkr = () => {
                 selectedMethod === IS_GUIDE && isActiveSecondKrCard ? step + 1 : step
               }/${selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP}`}</StProgressTxt>
             </div>
-          </div>
+          </StProgressBarBox>
         </>
       )}
     </section>
@@ -311,14 +311,26 @@ const SelectedMethodTxt = styled.p`
   ${({ theme }) => theme.fonts.body_12_medium};
 `;
 
-const ProgressBarBox = css`
+const marginTopState = (step: number, selectedMethod: string) => {
+  switch (step) {
+    case 1:
+      return selectedMethod === IS_GUIDE ? '6.8rem' : '14.8rem';
+    case 2:
+      return '5rem';
+    case 3:
+      return '5rem';
+    case 4:
+      return '3.4rem';
+  }
+};
+const StProgressBarBox = styled.div<{ $step: number; $selectedMethod: string }>`
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   width: 38rem;
   height: 2.7rem;
-  margin-top: 3.4rem;
+  margin-top: ${({ $step, $selectedMethod }) => marginTopState($step, $selectedMethod)};
 
   & progress {
     height: 0.8rem !important;

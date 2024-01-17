@@ -1,6 +1,6 @@
 import { IPatchCheckInReqType } from './mainReqTypes';
 
-export interface IpostLogResType {
+export interface IPostLogResType {
   status: number;
   message: string;
   data: IPatchCheckInReqType | null;

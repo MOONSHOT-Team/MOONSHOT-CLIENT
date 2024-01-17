@@ -2,7 +2,7 @@ import instance from '@apis/instance';
 
 import { IPatchGoalIdxReqType } from '../type/goalItemTypes';
 import { IPatchCheckInReqType } from '../type/mainReqTypes';
-import { IpostLogResType } from '../type/mainResTypes';
+import { IPostLogResType } from '../type/mainResTypes';
 
 export const getDashBoardData = async (url: string) => {
   const response = await instance.get(url);
@@ -29,7 +29,7 @@ export const patchCheckIn = async (
 export const postCheckIn = async (
   url: string,
   data: IPatchCheckInReqType,
-): Promise<IpostLogResType> => {
+): Promise<IPostLogResType> => {
   const response = await instance.post(url, data);
   return response.data;
 };

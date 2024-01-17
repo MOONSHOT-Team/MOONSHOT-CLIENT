@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mutate } from 'swr';
 
 import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
@@ -103,24 +104,19 @@ export const 진척정도입력하기 = ({ onCancel, keyResultId }: IKrCheckInPr
 
   //서버 통신 함수
   const submitCheckIn = async () => {
-    console.log(logNum);
     const data = {
       keyResultId: keyResultId,
       logNum: parseInt(logNum.replace(/,/g, '')),
       logContent: logContent,
     };
 
-    try {
-      const response = await postCheckIn('/v1/log', data);
-      await mutate(`/v1/key-result/${keyResultId}`);
+    const response = await postCheckIn('/v1/log', data);
+    await mutate(`/v1/key-result/${keyResultId}`);
 
-      if (response.status === 200) {
-        //축하모션
-      }
-      onCancel();
-    } catch (err) {
-      console.error(err);
+    if (response.status === 200) {
+      //축하모션
     }
+    onCancel();
   };
 
   return (
@@ -172,6 +168,7 @@ export const KR수정하기 = ({
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isMaxNum, setIsMaxnum] = useState(false);
+  const navigator = useNavigate();
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
@@ -210,19 +207,18 @@ export const KR수정하기 = ({
   //서버 통신 함수
   const submitCheckIn = async () => {
     const data = {
-      keyResultId: keyResultId,
+      keyResultId,
       target: Number(targetValue),
-      logContent: logContent,
+      logContent,
     };
 
     try {
-      const response = await patchCheckIn('/v1/key-result', data);
+      await patchCheckIn('/v1/key-result', data);
       // SWR 캐시 업데이트
       await mutate(`/v1/key-result/${keyResultId}`);
-      console.log(response);
       onCancel();
     } catch (err) {
-      console.error(err);
+      navigator('/error');
     }
   };
 

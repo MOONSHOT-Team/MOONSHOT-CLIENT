@@ -1,6 +1,7 @@
 import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mutate } from 'swr';
 
 import { patchCheckIn } from '../../apis/fetcher';
@@ -38,6 +39,7 @@ const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: nu
   const [krStatusLabel, setKrStatusLabel] = useState(krStatus);
   const [krStatusIcon, setKrStatusIcon] = useState<React.ReactNode>(<IcOnGoingState />);
   const [isDrop, setIsDrop] = useState(false);
+  const navigator = useNavigate();
 
   useEffect(() => {
     const tmp = KR_STATUS.find((status) => status.label === krStatusLabel)?.icon;
@@ -52,11 +54,10 @@ const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: nu
     };
 
     try {
-      const response = await patchCheckIn('/v1/key-result', data);
+      await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
-      console.log(response);
     } catch (err) {
-      console.error(err);
+      navigator('/error');
     }
     setIsDrop(false);
   };

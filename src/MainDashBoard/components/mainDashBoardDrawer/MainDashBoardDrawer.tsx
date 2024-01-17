@@ -6,11 +6,11 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { IcUnion } from '../../assets/icons';
-import { IobjListTypes } from '../../type/goalItemTypes';
+import { IObjListTypes } from '../../type/goalItemTypes';
 import GoalItem from './GoalItem';
 
 interface IDrawerProps {
-  objList: IobjListTypes[];
+  objList: IObjListTypes[];
   onChangeCurrentGoalId: (id: number) => void;
 }
 

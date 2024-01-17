@@ -1,8 +1,8 @@
 export interface IgoalItemTypes {
-  objList: IobjListTypes[];
+  objList: IObjListTypes[];
 }
 
-export interface IobjListTypes {
+export interface IObjListTypes {
   id: number;
   title: string;
   content: string;

@@ -3,14 +3,15 @@ import styled from '@emotion/styled';
 import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 
 import { patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
-import { IobjListTypes } from '../../type/goalItemTypes';
+import { IObjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/ItemTypes';
 import MainDashProgressBar from './MainDashProgressBar';
 
-const GoalItem: React.FC<IobjListTypes> = ({
+const GoalItem: React.FC<IObjListTypes> = ({
   id,
   title,
   content,
@@ -24,6 +25,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
 }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
+  const navigator = useNavigate();
 
   const handleOnClickIcon = (event: React.MouseEvent) => {
     setIsDetailOpen(!isDetailOpen);
@@ -45,7 +47,7 @@ const GoalItem: React.FC<IobjListTypes> = ({
     try {
       await patchSwapGoalIndex('/v1/index', data);
     } catch (err) {
-      console.error(err);
+      navigator('/error');
     }
   };
 

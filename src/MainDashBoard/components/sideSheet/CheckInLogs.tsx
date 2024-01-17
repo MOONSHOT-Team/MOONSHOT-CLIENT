@@ -17,7 +17,6 @@ const CheckInLogItem = ({ logState, dateTime, title, content }: ICheckInLogTypes
 };
 
 const CheckInLogs = ({ data }: { data: ICheckInLogTypes[] }) => {
-  console.log(data);
   return (
     <StCheckInLogContainer>
       <StCheckInLogP>체크인 로그</StCheckInLogP>

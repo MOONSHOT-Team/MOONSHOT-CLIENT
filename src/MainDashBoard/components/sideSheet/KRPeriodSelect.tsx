@@ -23,23 +23,20 @@ const KRPeriodSelect = ({
   expireAt: string;
 }) => {
   const [period, setPeriod] = useState([startAt, expireAt]);
-  console.log(period);
 
   const handleKrPeriodChange = async (
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
   ) => {
     formatString[0] && formatString[1] ? setPeriod(formatString) : {};
-    console.log(formatDate(formatString[0]), formatDate(formatString[1]));
     const data = {
       keyResultId: keyResultId,
       startAt: formatDate(formatString[0]),
       expireAt: formatDate(formatString[1]),
     };
     try {
-      const response = await patchCheckIn('/v1/key-result', data);
+      await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
-      console.log(response);
     } catch (err) {
       console.error(err);
     }

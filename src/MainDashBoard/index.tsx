@@ -20,7 +20,6 @@ const MainDashBoard = () => {
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
   const { data: treeData, isLoading } = useSWR(url, getDashBoardData);
-  console.log(treeData, isLoading);
 
   useEffect(() => {
     if (!treeData?.tree) return;
@@ -38,7 +37,6 @@ const MainDashBoard = () => {
   const handleShowSideSheet = (id: number) => {
     setCurrentKrId(id);
     setShowSideSheet(true);
-    console.log(id);
   };
 
   const handleCloseSideSheet = () => {

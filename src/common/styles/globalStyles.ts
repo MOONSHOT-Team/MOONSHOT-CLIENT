@@ -21,39 +21,46 @@ const globalStyles = css`
     background-color: ${theme.colors.background};
   }
 
-  button {
-    cursor: pointer;
-    background: none;
-    border: none;
+  h1 {
+    margin: 0;
   }
 
   input,
   textarea,
   select {
     all: unset;
+    box-sizing: border-box;
   }
 
   /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
   input,
   textarea {
     user-select: auto;
+
+    &:focus {
+      border: 1px solid ${theme.colors.gray_200};
+      outline: none;
+    }
   }
 
-  /* input number 화살표 제거 */
-  /* stylelint-disable property-no-vendor-prefix */
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-out-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
   }
 
-  /* Firefox에서 input number 화살표 없애는 방법 */
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    -mox-appearance: none;
-    appearance: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+
+  ul,
+  li {
+    list-style: none;
   }
 `;
 

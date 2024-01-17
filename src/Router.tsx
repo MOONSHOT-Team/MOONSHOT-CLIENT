@@ -1,12 +1,16 @@
 import Error from '@components/Error';
-import Drawer from '@components/layout/Drawer';
 import MainLayout from '@components/layout/MainLayout';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AddOkr from './AddOkr';
+import AuthGoogle from './Auth/AuthGoogle';
+import AuthKakao from './Auth/AuthKakao';
 import History from './History';
 import Home from './Home';
 import MainDashBoard from './MainDashBoard';
+import My from './My';
+import Nickname from './Nickname';
+import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
 
@@ -25,21 +29,24 @@ const router = createBrowserRouter([
         element: <History />,
       },
       {
+        path: 'sign-in',
+        children: [
+          { index: true, element: <SignIn /> },
+          { path: 'nickname', element: <Nickname /> },
+        ],
+      },
+      {
+        path: 'my',
+        element: <My />,
+      },
+      {
         path: 'social',
         element: <Social />,
       },
-    ],
-  },
-  {
-    path: '/',
-    element: (
-      <>
-        <MainLayout>
-          <Drawer />
-        </MainLayout>
-      </>
-    ),
-    children: [
+      {
+        path: 'preview-okr',
+        element: <PreviewOkr />,
+      },
       {
         path: 'dashboard',
         element: <MainDashBoard />,
@@ -51,8 +58,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/sign-in',
-    element: <SignIn />,
+    path: '/login/oauth2/code',
+    children: [
+      {
+        path: 'kakao',
+        element: <AuthKakao />,
+      },
+      {
+        path: 'google',
+        element: <AuthGoogle />,
+      },
+    ],
   },
 ]);
 

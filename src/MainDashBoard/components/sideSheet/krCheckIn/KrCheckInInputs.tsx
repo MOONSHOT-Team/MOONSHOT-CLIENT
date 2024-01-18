@@ -8,7 +8,7 @@ import { mutate } from 'swr';
 import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
 
 const CHECKINPLACEHOLDER =
-  '회고 내용을 입력하세요.\n\n  • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n  • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n  • 실행 과정에 얼마나 만족하는지 알려주세요.';
+  '회고 내용을 입력하세요.\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요.';
 
 const MAX_NUMCNT = 6;
 const MAX_TEXTCNT = 100;
@@ -114,9 +114,8 @@ export const 진척정도입력하기 = ({ onCancel, keyResultId, handleChangeSt
     const response = await postCheckIn('/v1/log', data);
     await mutate(`/v1/key-result/${keyResultId}`);
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       //축하모션
-      console.log(response);
       handleChangeState?.(2);
     }
     onCancel();
@@ -165,6 +164,7 @@ export const KR수정하기 = ({
   title,
   target = 0,
   metric,
+  handleChangeState,
 }: IKrCheckInProps) => {
   const [targetValue, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
@@ -216,9 +216,12 @@ export const KR수정하기 = ({
     };
 
     try {
-      await patchCheckIn('/v1/key-result', data);
-      // SWR 캐시 업데이트
+      const response = await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
+      console.log(response);
+      if (response?.data) {
+        handleChangeState?.(2);
+      }
       onCancel();
     } catch (err) {
       navigator('/error');
@@ -332,9 +335,6 @@ const enterInputBoxStyles = css`
 
 const StCheckInTextArea = styled.textarea`
   all: revert;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 27.4rem;
   height: 17.7rem;
   padding: 1.1rem;

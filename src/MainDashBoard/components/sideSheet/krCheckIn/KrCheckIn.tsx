@@ -65,6 +65,7 @@ const KrCheckIn = ({
           title={title}
           target={target}
           metric={metric}
+          handleChangeState={handleChangeState}
         />
       )}
     </KrCheckInContainer>

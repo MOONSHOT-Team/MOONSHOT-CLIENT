@@ -1,19 +1,27 @@
 import animationData from '@assets/lotties/congratulation.json';
-import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
 import Spline from '@splinetool/react-spline';
 import Lottie from 'lottie-react';
+import { useNavigate } from 'react-router-dom';
 
 import DrawerModal from '../drawer/DrawerModal';
 
 interface ICelebrateMotionProps {
   handleChangeState: (state: number) => void;
   currentObjId: number;
+  objExpireAt: string;
+  nickname: string;
 }
 
-const CelebrateMotion = ({ handleChangeState, currentObjId }: ICelebrateMotionProps) => {
+const CelebrateMotion = ({
+  handleChangeState,
+  currentObjId,
+  objExpireAt,
+  nickname,
+}: ICelebrateMotionProps) => {
+  const navigate = useNavigate();
   const { modalRef, handleShowModal } = useModal();
 
   return (
@@ -23,13 +31,13 @@ const CelebrateMotion = ({ handleChangeState, currentObjId }: ICelebrateMotionPr
       <StCelebrateMotionWrapper>
         <CustomSpline scene={'https://prod.spline.design/55BQyyYxSOmUQ1Mh/scene.splinecode'} />
         <StCelebrateTextBox>
-          <StCelebrateTitle>문샷님 축하드립니다!</StCelebrateTitle>
+          <StCelebrateTitle>{nickname}님 축하드립니다!</StCelebrateTitle>
           <StCelebrateDescription>
             모든 KR에 대한 목표를 달성했네요. 도전적인 목표를 이어가볼까요?
           </StCelebrateDescription>
         </StCelebrateTextBox>
         <StCelebrateBtnBox>
-          <StFinishBtn type="button" onClick={() => handleChangeState(0)}>
+          <StFinishBtn type="button" onClick={() => navigate('/history')}>
             목표 완료하기
           </StFinishBtn>
           <StMoreBtn type="button" onClick={handleShowModal}>
@@ -37,9 +45,12 @@ const CelebrateMotion = ({ handleChangeState, currentObjId }: ICelebrateMotionPr
           </StMoreBtn>
         </StCelebrateBtnBox>
       </StCelebrateMotionWrapper>
-      <Modal ref={modalRef}>
-        <DrawerModal currentObjId={currentObjId} />
-      </Modal>
+      <DrawerModal
+        currentObjId={currentObjId}
+        modalRef={modalRef}
+        handleChangeState={handleChangeState}
+        objExpireAt={objExpireAt}
+      />
     </section>
   );
 };

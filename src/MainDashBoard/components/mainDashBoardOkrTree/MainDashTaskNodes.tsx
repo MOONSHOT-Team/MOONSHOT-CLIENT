@@ -24,7 +24,7 @@ export const MainDashTaskNodes = ({ isFirstChild, taskIdx, taskList }: IMainTask
 
   return (
     <StNodesContainer>
-      {isFirstChild && <StTaskLabel>Tasks</StTaskLabel>}
+      {isFirstChild && <StMainTaskLabel>Tasks</StMainTaskLabel>}
       <StTaskNodeContainer>
         <NodeLines />
         <StMainDashTaskBoxWrapper>
@@ -36,6 +36,10 @@ export const MainDashTaskNodes = ({ isFirstChild, taskIdx, taskList }: IMainTask
     </StNodesContainer>
   );
 };
+
+const StMainTaskLabel = styled(StTaskLabel)`
+  top: -1.4rem;
+`;
 
 const StMainDashTaskBoxWrapper = styled(StTaskBoxWrapper)`
   display: flex;

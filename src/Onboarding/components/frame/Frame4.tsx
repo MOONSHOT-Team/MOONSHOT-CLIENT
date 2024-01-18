@@ -8,14 +8,14 @@ import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 import TextField from './TextField';
 
-const Frame4 = () => {
+const Frame5 = () => {
   return (
     <section css={section}>
       <TextField
         subTitle="KR 체크인"
         subTitleColor="sub_mint"
         title={`달에 쏘아올릴 도전적인 목표와\n실패가 용인되는 유연한 여정`}
-        description=" 북극성을 따라 성취를 기록하고, 환경에 따라 수정하며 끊임없이 나아가세요"
+        description="북극성을 따라 성취를 기록하고, 환경에 따라 수정하며 끊임없이 나아가세요"
       />
       <div css={imgContainer}>
         <LeftLateImgPopUp
@@ -53,7 +53,7 @@ const Frame4 = () => {
   );
 };
 
-export default Frame4;
+export default Frame5;
 
 const section = css`
   gap: 27.5rem;

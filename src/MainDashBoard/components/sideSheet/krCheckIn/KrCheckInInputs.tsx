@@ -58,10 +58,11 @@ interface IKrCheckInProps {
   title?: string;
   target?: number;
   metric?: string;
+  handleChangeState?: (state: number) => void;
 }
 
 /** 진척 정도 입력하는 뷰입니다 */
-export const 진척정도입력하기 = ({ onCancel, keyResultId }: IKrCheckInProps) => {
+export const 진척정도입력하기 = ({ onCancel, keyResultId, handleChangeState }: IKrCheckInProps) => {
   const [logNum, setLogNum] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
@@ -113,8 +114,10 @@ export const 진척정도입력하기 = ({ onCancel, keyResultId }: IKrCheckInPr
     const response = await postCheckIn('/v1/log', data);
     await mutate(`/v1/key-result/${keyResultId}`);
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       //축하모션
+      console.log(response);
+      handleChangeState?.(2);
     }
     onCancel();
   };
@@ -294,10 +297,10 @@ const StCnclBtn = styled.button`
 `;
 
 const StEnterBtn1 = styled(StCnclBtn)<{ isActiveBtn: boolean }>`
-  ${({ theme, isActiveBtn }) => css`
-    color: ${isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
-    background-color: ${isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
-  `};
+  color: ${({ theme, isActiveBtn }) =>
+    isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
+  background-color: ${({ theme, isActiveBtn }) =>
+    isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
 `;
 
 const StLabel = styled.label`

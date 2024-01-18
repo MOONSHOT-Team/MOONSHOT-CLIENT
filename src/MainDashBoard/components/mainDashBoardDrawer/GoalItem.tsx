@@ -16,6 +16,7 @@ import RightClickBox from './RightClickBox';
 
 interface IGoalItemProps extends IObjListTypes {
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
+  handleChangeState?: (state: number) => void;
 }
 
 const GoalItem: React.FC<IGoalItemProps> = ({
@@ -30,6 +31,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   index = 0,
   moveGoal,
   setIsRightClick,
+  handleChangeState,
 }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
@@ -73,6 +75,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
 
   const handleOnClick = () => {
     onClickGoal?.(id);
+    handleChangeState?.(0);
   };
 
   //서버 통신 함수

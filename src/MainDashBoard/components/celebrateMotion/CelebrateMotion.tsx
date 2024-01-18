@@ -1,10 +1,21 @@
 import animationData from '@assets/lotties/congratulation.json';
+import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import useModal from '@hooks/useModal';
 import Spline from '@splinetool/react-spline';
 import Lottie from 'lottie-react';
 
-const CelebrateMotion = () => {
+import DrawerModal from '../drawer/DrawerModal';
+
+interface ICelebrateMotionProps {
+  handleChangeState: (state: number) => void;
+  currentObjId: number;
+}
+
+const CelebrateMotion = ({ handleChangeState, currentObjId }: ICelebrateMotionProps) => {
+  const { modalRef, handleShowModal } = useModal();
+
   return (
     <section css={CelebrateMotionContainer}>
       <CustomLottie animationData={animationData} loop={false} />
@@ -18,10 +29,17 @@ const CelebrateMotion = () => {
           </StCelebrateDescription>
         </StCelebrateTextBox>
         <StCelebrateBtnBox>
-          <StFinishBtn type="button">목표 완료하기</StFinishBtn>
-          <StMoreBtn type="button">목표 이어가기</StMoreBtn>
+          <StFinishBtn type="button" onClick={() => handleChangeState(0)}>
+            목표 완료하기
+          </StFinishBtn>
+          <StMoreBtn type="button" onClick={handleShowModal}>
+            목표 이어가기
+          </StMoreBtn>
         </StCelebrateBtnBox>
       </StCelebrateMotionWrapper>
+      <Modal ref={modalRef}>
+        <DrawerModal currentObjId={currentObjId} />
+      </Modal>
     </section>
   );
 };

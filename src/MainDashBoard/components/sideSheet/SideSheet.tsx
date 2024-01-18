@@ -17,9 +17,17 @@ interface ISideSheetProps {
   keyResultId: number;
   objStartAt: string;
   objExpireAt: string;
+  handleChangeState?: (state: number) => void;
 }
 
-const SideSheet = ({ isOpen, onClose, keyResultId, objStartAt, objExpireAt }: ISideSheetProps) => {
+const SideSheet = ({
+  isOpen,
+  onClose,
+  keyResultId,
+  objStartAt,
+  objExpireAt,
+  handleChangeState,
+}: ISideSheetProps) => {
   const { data: sideSheetData } = useSWR(`/v1/key-result/${keyResultId}`, getDashBoardData);
   const krDetailData = sideSheetData?.data;
 
@@ -81,6 +89,7 @@ const SideSheet = ({ isOpen, onClose, keyResultId, objStartAt, objExpireAt }: IS
               title={title}
               target={target}
               metric={metric}
+              handleChangeState={handleChangeState}
             />
           )}
           {!isCheckinView && (

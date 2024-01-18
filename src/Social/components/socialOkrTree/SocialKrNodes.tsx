@@ -19,20 +19,20 @@ export const SocialKrNodes = ({ krIdx, krList }: ISocialKrNodesProps) => {
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
-      <StMainDashKrBoxWrapper>
+      <StSocialKrBoxWrapper>
         <StraightLine />
-        <StMainDashBox>{keyResultTitle}</StMainDashBox>
-      </StMainDashKrBoxWrapper>
+        <StSocialBox>{keyResultTitle}</StSocialBox>
+      </StSocialKrBoxWrapper>
     </StNodesContainer>
   );
 };
 
-const StMainDashKrBoxWrapper = styled(StKrBoxWrapper)`
+const StSocialKrBoxWrapper = styled(StKrBoxWrapper)`
   display: flex;
   align-items: center;
 `;
 
-const StMainDashBox = styled(StKrBox)`
+const StSocialBox = styled(StKrBox)`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_13_medium};
 `;

@@ -141,6 +141,7 @@ const fonts = {
     weight: 500,
     lineHeight: 1.4,
   }),
+
   btn_11_semibold: FONT({
     family: PRETENDARDFAMILY,
     size: 1.1,

@@ -26,12 +26,14 @@ export default Header;
 const StHeader = styled.header`
   position: fixed;
   top: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100vw;
   height: 7.6rem;
   padding: 0 3.5rem;
+  background-color: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid ${({ theme }) => theme.colors.transparent_white};
 `;
 

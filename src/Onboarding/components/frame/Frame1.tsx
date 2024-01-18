@@ -20,13 +20,6 @@ const Frame1 = () => {
       <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />
-        {/* <img
-          css={dashboardZIndex}
-          src={imgFrame4MainDashboardDark}
-          alt="dashboard-img"
-          width={996}
-          height={560}
-        /> */}
         <LateImgPopUp
           fromX={17.7}
           fromY={0}

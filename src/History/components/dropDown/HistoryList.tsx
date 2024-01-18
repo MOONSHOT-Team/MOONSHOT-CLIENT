@@ -73,13 +73,13 @@ const historyListMarginBottom = css`
 const progressInfo = css`
   display: flex;
   align-items: center;
-  margin-left: auto;
+  justify-content: space-between;
 `;
 
 const StObjectiveContainer = styled.button<{ visibility: string }>`
   display: flex;
-  gap: 1.6rem;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   min-width: 105.8rem;
   height: 6rem;

@@ -6,7 +6,7 @@ interface ITaskResultListProps {
   taskIdx: number;
 }
 
-const TaskResultList = ({ taskId, taskTitle, taskIdx }: ITaskResultListProps) => {
+const TaskList = ({ taskId, taskTitle, taskIdx }: ITaskResultListProps) => {
   return (
     <>
       <StTaskContainer key={`${taskId}+${taskTitle}`}>
@@ -19,7 +19,7 @@ const TaskResultList = ({ taskId, taskTitle, taskIdx }: ITaskResultListProps) =>
   );
 };
 
-export default TaskResultList;
+export default TaskList;
 
 const StOKRIndex = styled.p`
   display: flex;

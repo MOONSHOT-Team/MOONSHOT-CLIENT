@@ -3,31 +3,39 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { THEME } from '../constants/theme';
-import { Group } from '../type/historyData';
+import { ObjectiveData } from '../type/okrTypes';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
 
-const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: string[] }) => {
+const HistoryDrawer = ({
+  categories,
+  years,
+  onThemeSelect,
+  // , onYearSelect
+}: ObjectiveData) => {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const handleSelectTheme = (selectedTheme: string) => {
     setSelectedTheme((prevTheme) => (prevTheme === selectedTheme ? null : selectedTheme));
+    onThemeSelect(selectedTheme);
+    console.log(selectedTheme);
   };
 
   const handleSelectYear = (selectedYear: number) => {
     setSelectedYear((prevYear) => (prevYear === selectedYear ? null : selectedYear));
+    // onYearSelect(selectedYear);
   };
 
-  const currentYear = new Date().getFullYear();
+  // const currentYear = new Date().getFullYear();
 
   return (
     <HistoryAside>
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
-          {THEME.map(({ category }) => {
-            const isDisabled = !categories.includes(category);
+          {THEME?.map(({ category }) => {
+            const isDisabled = !categories?.includes(category);
 
             return (
               <ThemeButton
@@ -45,22 +53,22 @@ const HistoryDrawer = ({ groups, categories }: { groups: Group[]; categories: st
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
-          {!groups.some((group) => group.year === currentYear) && (
+          {/* {!groups.some((group) => group.year === currentYear) && (
             <YearButton
-              year={currentYear}
+            currentYear={currentYear}
               count={0} // 더미 값
               onSelectYear={() => handleSelectYear(currentYear)}
               isActive={currentYear === selectedYear}
             />
-          )}
+          )} */}
 
-          {groups.map(({ year, count }) => (
+          {Object?.entries(years)?.map(([year, count]) => (
             <YearButton
               key={year}
               year={year}
               count={count}
-              onSelectYear={() => handleSelectYear(year)}
-              isActive={year === selectedYear}
+              onSelectYear={() => handleSelectYear(parseInt(year, 10))}
+              isActive={parseInt(year, 10) === selectedYear}
             />
           ))}
         </ul>

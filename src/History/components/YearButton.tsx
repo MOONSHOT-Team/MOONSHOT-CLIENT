@@ -3,17 +3,17 @@ import styled from '@emotion/styled';
 import { CheckIcon } from '../assets/icons';
 
 interface IYearBtnProps {
-  year: number;
+  year: string;
+
   count: number;
   onSelectYear: () => void;
   isActive: boolean;
 }
-
 const YearButton = ({ year, count, onSelectYear, isActive }: IYearBtnProps) => {
   return (
     <StYearBtn onClick={onSelectYear} isActive={isActive}>
       {isActive && <CheckIcon />}
-      {year}({count})
+      {count === 0 ? year : `${year}(${count})`}
     </StYearBtn>
   );
 };

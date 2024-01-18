@@ -1,40 +1,30 @@
-import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import useModal from '@hooks/useModal';
-import { useState } from 'react';
 
-const PreviewModal = () => {
-  const [addOkrOption] = useState<'직접 생성하기' | '가이드에 따라 설정하기'>(
-    '가이드에 따라 설정하기',
-  );
-  const { modalRef, handleShowModal } = useModal();
-  const progressStep = addOkrOption === '직접 생성하기' ? '5/5' : '7/7;';
+const IS_GUIDE = '가이드에 따라 설정하기';
+
+const PreviewModal = ({ selectedMethod }: { selectedMethod: string }) => {
+  const progressStep = selectedMethod === IS_GUIDE ? '6/6' : '5/5';
 
   return (
     <>
-      <button style={{ color: 'red' }} type="button" onClick={handleShowModal}>
-        CLICK ME!!!
-      </button>
-      <Modal ref={modalRef}>
-        <div css={modalForm}>
-          <AddOkrOptionText>{addOkrOption}</AddOkrOptionText>
-          <StMainTextContainer>
-            <p>목표 저장 전 내용을 수정하고</p>
-            <p>KR을 달성할 수 있는 task를 추가해보세요!</p>
-          </StMainTextContainer>
-          <StSubTextContainer>
-            <p>KR에서는 수치값을 제외한 텍스트만 수정이 가능하며,</p>
-            <p>task는 KR 당 최대 3개까지 추가 가능합니다.</p>
-          </StSubTextContainer>
-          <form method="dialog">
-            <StConfirmButton>확인</StConfirmButton>
-          </form>
-          <ProgressBox>
-            <ProgressRightText>{progressStep}</ProgressRightText>
-          </ProgressBox>
-        </div>
-      </Modal>
+      <div css={modalForm}>
+        <AddOkrOptionText>{selectedMethod}</AddOkrOptionText>
+        <StMainTextContainer>
+          <p>목표 저장 전 내용을 수정하고</p>
+          <p>KR을 달성할 수 있는 task를 추가해보세요!</p>
+        </StMainTextContainer>
+        <StSubTextContainer>
+          <p>KR에서는 수치값을 제외한 텍스트만 수정이 가능하며,</p>
+          <p>task는 KR 당 최대 3개까지 추가 가능합니다.</p>
+        </StSubTextContainer>
+        <form method="dialog">
+          <StConfirmButton>확인</StConfirmButton>
+        </form>
+        <ProgressBox>
+          <ProgressRightText>{progressStep}</ProgressRightText>
+        </ProgressBox>
+      </div>
     </>
   );
 };
@@ -92,6 +82,10 @@ const StConfirmButton = styled.button`
   color: ${({ theme }) => theme.colors.gray_650};
   background-color: ${({ theme }) => theme.colors.gray_100};
   border-radius: 6px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ProgressBox = styled.div`

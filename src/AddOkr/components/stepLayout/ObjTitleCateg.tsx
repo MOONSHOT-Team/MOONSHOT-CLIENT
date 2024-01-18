@@ -95,6 +95,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
             value={objTitle}
             placeholder={hoverObjPlaceHolder}
             onChange={handleChangeObjValue}
+            autoComplete="off"
           />
           <StObjTextAreaCntTxt>
             {currObjCount}/{MAX_OBJ_INPUT_CNT}
@@ -108,6 +109,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
             value={objTitle}
             placeholder="목표를 입력하세요"
             onChange={handleChangeObjValue}
+            autoComplete="off"
           />
           <StObjInputCntTxt>
             {currObjCount} / {MAX_OBJ_INPUT_CNT}

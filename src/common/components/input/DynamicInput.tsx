@@ -17,7 +17,7 @@ const DynamicInput = ({
   maxLength,
   isAutoFocus = false,
 }: IDynamicInputProps) => {
-  const [width, setWidth] = useState(minWidth ? minWidth : 0);
+  const [width, setWidth] = useState(minWidth ? minWidth : 10);
 
   const mirrorRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -61,6 +61,7 @@ const dynamicInputContainerStyle = css`
 
 const StDynamicInput = styled.input<{ width: number }>`
   width: ${({ width }) => width / 10}rem;
+  min-width: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
   background-color: transparent;
@@ -68,11 +69,18 @@ const StDynamicInput = styled.input<{ width: number }>`
   outline: none;
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &:focus {
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.gray_550};
+    border: none;
+  }
 `;
 
 const StInputMirror = styled.div`
   display: inline-block;
   width: fit-content;
+  min-width: 1rem;
   height: 0;
   padding: 0 0.2rem;
   visibility: hidden;

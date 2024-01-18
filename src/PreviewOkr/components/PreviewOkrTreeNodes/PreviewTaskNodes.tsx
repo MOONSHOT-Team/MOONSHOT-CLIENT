@@ -1,7 +1,6 @@
 import DynamicInput from '@components/input/DynamicInput';
 import NodeLines from '@components/okrTree/lines/NodeLines';
 import StraightLine from '@components/okrTree/lines/StraightLine';
-import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import styled from '@emotion/styled';
 import {
   StNodesContainer,
@@ -13,12 +12,31 @@ import {
 import { ITaskNodesTypes } from '@type/okrTree/TasksTypes';
 import { useState } from 'react';
 
+import { IPreviewTaskInfoTypes } from '../../../AddOkr/types/TaskInfoTypes';
 import { IcPlusSmall } from '../../assets/icons';
 
-export const PreviewTaskNodes = ({ isFirstChild, krIdx, taskIdx }: ITaskNodesTypes) => {
-  const { title, idx } = MOCK_OKR_DATA.krList[krIdx].taskList[taskIdx]; //krIdx번의 kr의 taskIdx task의 데이터를 다루는 tasknode
-  const [taskValue, setTaskValue] = useState(title);
+interface IPreviewTasknodesProps extends ITaskNodesTypes {
+  previewTaskListInfo: IPreviewTaskInfoTypes[];
+  setPreviewTaskListInfo: React.Dispatch<React.SetStateAction<IPreviewTaskInfoTypes[]>>;
+}
+
+const MAX_TASK_LENGTH = 30;
+
+export const PreviewTaskNodes = ({
+  isFirstChild,
+  krIdx,
+  taskIdx,
+  previewTaskListInfo,
+  setPreviewTaskListInfo,
+}: IPreviewTasknodesProps) => {
   const [isClikcedPlusBtn, setIsClickedPlusBtn] = useState(false);
+
+  const title = previewTaskListInfo[krIdx].taskList[taskIdx].title;
+
+  const handleChangeTaskValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    previewTaskListInfo[krIdx].taskList[taskIdx].title = e.target.value;
+    setPreviewTaskListInfo([...previewTaskListInfo]);
+  };
 
   return (
     <StNodesContainer>
@@ -28,12 +46,12 @@ export const PreviewTaskNodes = ({ isFirstChild, krIdx, taskIdx }: ITaskNodesTyp
         <StTaskBoxWrapper>
           <StraightLine />
           {isClikcedPlusBtn ? (
-            <StPreviewTaskBox $idx={idx}>
+            <StPreviewTaskBox $idx={taskIdx}>
               <DynamicInput
-                value={taskValue}
-                handleChangeValue={(e) => setTaskValue(e.target.value)}
+                value={title}
+                handleChangeValue={handleChangeTaskValue}
                 isAutoFocus={true}
-                maxLength={30}
+                maxLength={MAX_TASK_LENGTH}
               />
             </StPreviewTaskBox>
           ) : (

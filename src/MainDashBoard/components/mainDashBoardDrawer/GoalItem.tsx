@@ -1,3 +1,4 @@
+import instance from '@apis/instance';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { getCategoryColor } from '@utils/getCategoryColor';
@@ -52,9 +53,13 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     setRightClickPoints({ x: e.pageX, y: e.pageY });
   };
 
-  const handleClickComplete = () => {
-    console.log(rightClickedGoalId);
-    // 완료 서버 통신?
+  const handleClickComplete = async () => {
+    await instance.patch('/v1/objective', {
+      objectiveId: rightClickedGoalId,
+      isClosed: true,
+    });
+    //목표 완료 -> 대시보드
+    navigate('/history');
   };
 
   const handleClickDelete = async () => {

@@ -1,5 +1,6 @@
-import { css } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import imgFrame1Background from '../../assets/imgFrame1Background.png';
@@ -7,26 +8,30 @@ import imgFrame1Background from '../../assets/imgFrame1Background.png';
 import imgFrame1ObjectiveList from '../../assets/imgFrame1ObjectiveList.png';
 import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
 import imgFrame4MainDashboardDark from '../../assets/imgFrame4MainDashboardDark.png';
+import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 
 const Frame1 = () => {
+  const [textIdx, setTextIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTextIdx((prev) => (TEXT_ROLLING.length - 1 === textIdx ? 0 : (prev += 1)));
+    }, 3000);
+
+    return () => clearInterval(timer);
+  });
+
   return (
     <section css={section}>
-      <RollingTextList>
-        <li>매년 세우는 새해 계획이 무용지물이라면</li>
-      </RollingTextList>
+      <RollingTextBox>
+        <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p>
+      </RollingTextBox>
       <MainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</MainText>
       <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />
-        {/* <img
-          css={dashboardZIndex}
-          src={imgFrame4MainDashboardDark}
-          alt="dashboard-img"
-          width={996}
-          height={560}
-        /> */}
         <LateImgPopUp
           fromX={17.7}
           fromY={0}
@@ -71,6 +76,32 @@ const section = css`
   ${sectionStyle}
 `;
 
+const liftUp = keyframes`
+  0% {
+    transform: translateY(3rem);
+    opacity: 0;
+  }
+
+  15% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  85% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-3rem);
+    opacity: 0;
+  }
+`;
+
+const textRolling = css`
+  animation: ${liftUp} 3s ease-out infinite;
+`;
+
 const imgContainer = css`
   position: relative;
   display: flex;
@@ -88,13 +119,14 @@ const fixedBackground = css`
   transform: translateX(-50%);
 `;
 
-const RollingTextList = styled.ul`
+const RollingTextBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32.2rem;
   height: 3.8rem;
   margin-bottom: 3.8rem;
+  overflow: hidden;
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 1.8rem;

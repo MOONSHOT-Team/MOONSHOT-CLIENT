@@ -20,8 +20,8 @@ const Frame3 = () => {
       />
       <div css={imgContainer}>
         <LateImgPopUp
-          from={26}
-          to={6}
+          fromY={26}
+          toY={6}
           delay={1}
           src={imgFrame3Question1}
           alt="question-img-1"
@@ -29,16 +29,16 @@ const Frame3 = () => {
           height={520}
         />
         <ImgPopUp
-          from={20}
-          to={0}
+          fromY={20}
+          toY={0}
           src={imgFrame3Question2}
           alt="question-img-2"
           width={464}
           height={520}
         />
         <LateImgPopUp
-          from={26}
-          to={6}
+          fromY={26}
+          toY={6}
           delay={2}
           src={imgFrame3Question3}
           alt="question-img-3"
@@ -55,7 +55,9 @@ export default Frame3;
 
 const section = css`
   position: relative;
+  gap: 10rem;
   height: 106.5rem;
+  padding-top: 10rem;
 
   ${sectionStyle};
 `;
@@ -79,5 +81,4 @@ const background = css`
 
 const LateImgPopUp = styled(ImgPopUp)`
   opacity: 0;
-  transform: translateY(6rem);
 `;

@@ -2,12 +2,14 @@ import { css } from '@emotion/react';
 
 import Frame2 from './components/frame/Frame2';
 import Frame3 from './components/frame/Frame3';
+import Frame4 from './components/frame/Frame4';
 
 const Onboarding = () => {
   return (
     <div css={frameContainer}>
       <Frame2 />
       <Frame3 />
+      <Frame4 />
     </div>
   );
 };

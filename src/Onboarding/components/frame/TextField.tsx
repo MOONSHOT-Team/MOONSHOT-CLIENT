@@ -26,7 +26,6 @@ const textContainer = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8rem;
 `;
 
 const SubTitle = styled.p<{ subTitleColor: keyof ColorsTypes }>`

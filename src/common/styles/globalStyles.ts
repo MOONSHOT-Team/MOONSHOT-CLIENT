@@ -14,6 +14,12 @@ const globalStyles = css`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   body {

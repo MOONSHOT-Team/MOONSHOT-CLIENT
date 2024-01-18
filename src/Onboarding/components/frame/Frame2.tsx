@@ -20,7 +20,7 @@ const Frame2 = () => {
         src={imgFrame2TreeGraph}
         alt="tree-img"
         width={986}
-        height={576}
+        height={657}
       />
     </section>
   );

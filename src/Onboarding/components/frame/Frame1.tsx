@@ -91,11 +91,11 @@ const imgSlide = css`
   position: absolute;
   top: 27rem;
   width: 100vw;
-  height: 97.8rem;
+  height: 92.5rem;
   background-image: url(${imgFrame1MovingBackground});
 
   /* stylelint-disable property-no-vendor-prefix */
-  background-size: 136.6rem 97.8rem;
+  background-size: 194rem 92.5rem;
   -webkit-animation: ${slideIn} 5000s ease;
   animation: ${slideIn} 5000s ease;
   -webkit-animation-iteration-count: infinite;

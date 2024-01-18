@@ -12,28 +12,33 @@ interface IMainDashboardOKRTreeProps {
 }
 
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
+  if (!currentOkrData) return;
   const { krList, objTitle } = currentOkrData;
   return (
     <article css={okrTreeContainer}>
       <div css={okrTree}>
-        <OkrTreeTemplate
-          ObjNode={() => <MainDashObjectNode objValue={objTitle} objStroke="#7165CA" />}
-          keyResultList={krList}
-          KrNodes={(krIdx) => (
-            <MainDashKrNodes
-              krIdx={krIdx}
-              krList={krList[krIdx]}
-              onShowSideSheet={onShowSideSheet}
-            />
-          )}
-          TaskNodes={(isFirstChild, krIdx, taskIdx) => (
-            <MainDashTaskNodes
-              isFirstChild={isFirstChild}
-              taskIdx={taskIdx}
-              taskList={currentOkrData.krList[krIdx]?.taskList}
-            />
-          )}
-        />
+        {currentOkrData ? (
+          <OkrTreeTemplate
+            ObjNode={() => <MainDashObjectNode objValue={objTitle} objStroke="#7165CA" />}
+            keyResultList={krList}
+            KrNodes={(krIdx) => (
+              <MainDashKrNodes
+                krIdx={krIdx}
+                krList={krList[krIdx]}
+                onShowSideSheet={onShowSideSheet}
+              />
+            )}
+            TaskNodes={(isFirstChild, krIdx, taskIdx) => (
+              <MainDashTaskNodes
+                isFirstChild={isFirstChild}
+                taskIdx={taskIdx}
+                taskList={currentOkrData.krList[krIdx]?.taskList}
+              />
+            )}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </article>
   );

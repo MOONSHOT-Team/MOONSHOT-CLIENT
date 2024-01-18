@@ -59,6 +59,7 @@ const MainDashBoard = () => {
                 objList={goalListTreeData}
                 onChangeCurrentGoalId={handleCurrentGoalId}
                 handleClickAddObjcBtn={handleClickAddObjcBtn}
+                objListSize={okrTreeData?.objListSize}
               />
               <MainDashboardOKRTree
                 onShowSideSheet={handleShowSideSheet}
@@ -85,6 +86,7 @@ const MainDashBoard = () => {
               onChangeCurrentGoalId={handleCurrentGoalId}
               handleClickAddObjcBtn={handleClickAddObjcBtn}
               handleChangeState={handleChangeState}
+              objListSize={okrTreeData?.objListSize}
             />
             <SelectMethod
               selectedMethod={selectedMethod}

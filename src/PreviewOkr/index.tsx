@@ -1,48 +1,168 @@
-import OkrTreeTemplate from '@components/OkrTree/template/OkrTreeTemplate';
-import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
+import Modal from '@components/Modal';
+import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import useModal from '@hooks/useModal';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
+import { IFinalOkrListInfoTypes } from '../AddOkr/types/FinalKrListInfo';
+import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
+import { IPreviewTaskInfoTypes } from '../AddOkr/types/TaskInfoTypes';
+import PreviewModal from './components/PreviewModal';
 import PreviewOkrAlertMsg from './components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
 import PreviewObjNode from './components/PreviewOkrTreeNodes/PreviewObjNode';
-import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
+import { PreviewTaskNodes } from './components/PreviewOkrTreeNodes/PreviewTaskNodes';
 
 const PreviewOkr = () => {
-  const { objTitle, krList } = MOCK_OKR_DATA;
-  const [objValue, setObjValue] = useState(objTitle);
+  const location = useLocation();
+
+  const { modalRef, handleShowModal } = useModal();
+
+  const { selectedMethod, objInfo, krListInfo } = location.state;
+  const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
+
+  const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
+  const [previewTaskListInfo, setPreviewTaskListInfo] = useState<IPreviewTaskInfoTypes[]>([
+    {
+      krIdx: 0,
+      taskList: [
+        {
+          title: '',
+          idx: 0,
+        },
+        {
+          title: '',
+          idx: 1,
+        },
+        {
+          title: '',
+          idx: 2,
+        },
+      ],
+    },
+    {
+      krIdx: 1,
+      taskList: [
+        {
+          title: '',
+          idx: 0,
+        },
+        {
+          title: '',
+          idx: 1,
+        },
+        {
+          title: '',
+          idx: 2,
+        },
+      ],
+    },
+    {
+      krIdx: 2,
+      taskList: [
+        {
+          title: '',
+          idx: 0,
+        },
+        {
+          title: '',
+          idx: 1,
+        },
+        {
+          title: '',
+          idx: 2,
+        },
+      ],
+    },
+  ]);
 
   const handleClickSaveOkrBtn = () => {
     console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
+
+    const { objStartAt, objExpireAt } = objInfo;
+
+    const finalOkrInfo: IFinalOkrListInfoTypes = {
+      ...objInfo,
+      objStartAt: objStartAt.split('. ').join('-'),
+      objExpireAt: objExpireAt.split('. ').join('-'),
+      krList: [
+        {
+          ...previewKrListInfo[0],
+          startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
+          expireAt: previewKrListInfo[0].startAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[0],
+        },
+        {
+          ...previewKrListInfo[1],
+          startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
+          expireAt: previewKrListInfo[1].startAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[1],
+        },
+        {
+          ...previewKrListInfo[2],
+          startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
+          expireAt: previewKrListInfo[2].startAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[2],
+        },
+      ],
+    };
+
+    console.log(finalOkrInfo, '###');
   };
 
   const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setObjValue(e.target.value);
+    setPreviewObjValue(e.target.value);
   };
+
+  useEffect(() => {
+    console.log(location.state, '!!!');
+    location.state && handleShowModal();
+  }, []);
 
   return (
     // O 노드<의 위치 고정을 위해 트리 가져올때 항상 상위 요소에 높이 값(100vh or 100%), 세로 가운데 정렬해야함 !
-    <section css={previewOkrContainer}>
-      <PreviewOkrAlertMsg />
+    <>
+      <Modal ref={modalRef}>
+        <PreviewModal selectedMethod={selectedMethod} />
+      </Modal>
+      <section css={previewOkrContainer}>
+        <PreviewOkrAlertMsg />
 
-      <div css={okrTreeDiv}>
-        <OkrTreeTemplate
-          ObjNode={() => (
-            <PreviewObjNode objValue={objValue} handleChangeObjValue={handlechangeObjTextArea} />
-          )}
-          keyResultList={krList}
-          KrNodes={(krIdx) => <PreviewKrNodes krIdx={krIdx} />}
-          TaskNodes={(isFirstChild, krIdx, taskIdx) => (
-            <PreviewTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
-          )}
-        />
-      </div>
+        <div css={okrTreeDiv}>
+          <OkrTreeTemplate
+            ObjNode={() => (
+              <PreviewObjNode
+                objValue={previewObjValue}
+                handleChangeObjValue={handlechangeObjTextArea}
+              />
+            )}
+            keyResultList={krListInfo}
+            KrNodes={(krIdx) => (
+              <PreviewKrNodes
+                krIdx={krIdx}
+                previewKrListInfo={previewKrListInfo}
+                setPreviewKrListInfo={setPreviewKrListInfo}
+              />
+            )}
+            TaskNodes={(isFirstChild, krIdx, taskIdx) => (
+              <PreviewTaskNodes
+                isFirstChild={isFirstChild}
+                krIdx={krIdx}
+                taskIdx={taskIdx}
+                previewTaskListInfo={previewTaskListInfo}
+                setPreviewTaskListInfo={setPreviewTaskListInfo}
+              />
+            )}
+          />
+        </div>
 
-      <StSaveOkrBtn type="button" onClick={handleClickSaveOkrBtn}>
-        저장하기
-      </StSaveOkrBtn>
-    </section>
+        <StSaveOkrBtn type="button" onClick={handleClickSaveOkrBtn}>
+          저장하기
+        </StSaveOkrBtn>
+      </section>
+    </>
   );
 };
 

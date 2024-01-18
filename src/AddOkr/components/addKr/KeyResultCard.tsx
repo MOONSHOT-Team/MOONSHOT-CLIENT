@@ -109,6 +109,7 @@ const KeyResultCard = ({
           onChange={(e) => handlChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
           $isMax={isValidMax.title}
+          autoComplete="off"
         />
       </StKrInputDescWrapper>
 
@@ -125,6 +126,7 @@ const KeyResultCard = ({
             onChange={(e) => handlChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
+            autoComplete="off"
           />
           <StTargetMetricinput
             type="text"
@@ -133,6 +135,7 @@ const KeyResultCard = ({
             onChange={(e) => handlChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}
+            autoComplete="off"
           />
         </StTargetMetricInputBox>
       </StKrInputDescWrapper>

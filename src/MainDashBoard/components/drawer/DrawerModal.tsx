@@ -172,11 +172,11 @@ const DrawerModal = ({ currentObjId }: { currentObjId: number }) => {
     <>
       <div css={modalForm}>
         <StMainTextContainer>
-          <p>해당 목표의 달성 기간이 종료되었습니다.</p>
+          <p>해당 목표의 달성 기간이 종료되었습니다</p>
           <p>더 도전하기 위해 기간을 연장할까요?</p>
         </StMainTextContainer>
         <StSubTextContainer>
-          완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.
+          완료된 목표에 대한 내용은 히스토리에서 확인 가능해요
         </StSubTextContainer>
         <StDateContainer>
           <ModalInput

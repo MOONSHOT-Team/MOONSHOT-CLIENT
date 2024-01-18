@@ -39,8 +39,14 @@ const MainDashBoard = () => {
     navigate('/add-okr', { state: { selectedMethod: e.currentTarget.id } });
   };
 
+  //목표 추가하기 버튼 눌렀을 때 핸들러
   const handleClickAddObjcBtn = () => {
     setShowState(DASHBOARD_SHOW_STATE[1]);
+  };
+
+  //목표카드 눌렀을 때 showState 바꿔주는 핸들러
+  const handleChangeState = (state: number) => {
+    setShowState(DASHBOARD_SHOW_STATE[state]);
   };
 
   const renderMainState = () => {
@@ -78,6 +84,7 @@ const MainDashBoard = () => {
               objList={goalListTreeData}
               onChangeCurrentGoalId={handleCurrentGoalId}
               handleClickAddObjcBtn={handleClickAddObjcBtn}
+              handleChangeState={handleChangeState}
             />
             <SelectMethod
               selectedMethod={selectedMethod}
@@ -126,40 +133,7 @@ const MainDashBoard = () => {
   };
 
   if (isLoading) return <>로딩중 ...</>;
-  return (
-    <>
-      {/* {showCelebrate ? (
-        <>
-          <CelebrateMotion />
-        </>
-      ) : (
-        <>
-          {goalListTreeData && goalListTreeData.length > 0 && (
-            <section css={mainDashboardStyle}>
-              <MainDashBoardDrawer
-                objList={goalListTreeData}
-                onChangeCurrentGoalId={handleCurrentGoalId}
-              />
-              <MainDashboardOKRTree
-                onShowSideSheet={handleShowSideSheet}
-                currentOkrData={okrTreeData}
-              />
-            </section>
-          )}
-          {showSideSheet && (
-            <SideSheet
-              isOpen={showSideSheet}
-              onClose={handleCloseSideSheet}
-              keyResultId={currentKrId}
-              objStartAt={okrTreeData.objStartAt}
-              objExpireAt={okrTreeData.objExpireAt}
-            />
-          )}
-        </>
-      )} */}
-      {renderMainState()}
-    </>
-  );
+  return <>{renderMainState()}</>;
 };
 
 export default MainDashBoard;

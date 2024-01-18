@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
+import { IPreviewTaskInfoTypes } from '../AddOkr/types/TaskInfoTypes';
 import PreviewModal from './components/PreviewModal';
 import PreviewOkrAlertMsg from './components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
@@ -22,9 +23,65 @@ const PreviewOkr = () => {
   const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
 
   const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
+  const [previewTaskListInfo, setPreviewTaskListInfo] = useState<IPreviewTaskInfoTypes[]>([
+    {
+      krIdx: 0,
+      taskList: [
+        {
+          title: '',
+          idx: 0,
+        },
+        {
+          title: '',
+          idx: 1,
+        },
+        {
+          title: '',
+          idx: 2,
+        },
+      ],
+    },
+    {
+      krIdx: 1,
+      taskList: [
+        {
+          title: '',
+          idx: 0,
+        },
+        {
+          title: '',
+          idx: 1,
+        },
+        {
+          title: '',
+          idx: 2,
+        },
+      ],
+    },
+    {
+      krIdx: 2,
+      taskList: [
+        {
+          title: '',
+          idx: 0,
+        },
+        {
+          title: '',
+          idx: 1,
+        },
+        {
+          title: '',
+          idx: 2,
+        },
+      ],
+    },
+  ]);
 
   const handleClickSaveOkrBtn = () => {
     console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
+    console.log(objInfo, 'objInfo');
+    console.log(previewKrListInfo, 'krList');
+    console.log(previewTaskListInfo, 'taskList');
   };
 
   const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,12 +89,9 @@ const PreviewOkr = () => {
   };
 
   useEffect(() => {
+    console.log(location.state, '!!!');
     location.state && handleShowModal();
   }, []);
-
-  useEffect(() => {
-    console.log(previewKrListInfo);
-  }, [previewKrListInfo]);
 
   return (
     // O 노드<의 위치 고정을 위해 트리 가져올때 항상 상위 요소에 높이 값(100vh or 100%), 세로 가운데 정렬해야함 !
@@ -65,7 +119,13 @@ const PreviewOkr = () => {
               />
             )}
             TaskNodes={(isFirstChild, krIdx, taskIdx) => (
-              <PreviewTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
+              <PreviewTaskNodes
+                isFirstChild={isFirstChild}
+                krIdx={krIdx}
+                taskIdx={taskIdx}
+                previewTaskListInfo={previewTaskListInfo}
+                setPreviewTaskListInfo={setPreviewTaskListInfo}
+              />
             )}
           />
         </div>

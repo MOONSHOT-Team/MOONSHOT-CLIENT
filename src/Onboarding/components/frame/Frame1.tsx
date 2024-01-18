@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 import imgFrame1Background from '../../assets/imgFrame1Background.png';
 // import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
-// import imgFrame1Objective from '../../assets/imgFrame1Objective.png';
-// import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
+import imgFrame1ObjectiveList from '../../assets/imgFrame1ObjectiveList.png';
+import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
 import imgFrame4MainDashboardDark from '../../assets/imgFrame4MainDashboardDark.png';
+import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 
 const Frame1 = () => {
@@ -19,12 +20,42 @@ const Frame1 = () => {
       <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />
-        <img
+        {/* <img
           css={dashboardZIndex}
           src={imgFrame4MainDashboardDark}
           alt="dashboard-img"
           width={996}
           height={560}
+        /> */}
+        <LateImgPopUp
+          fromX={17.7}
+          fromY={0}
+          toX={17.7}
+          toY={-15.8}
+          delay={1}
+          src={imgFrame1ObjectiveList}
+          alt="objective-img"
+          width={262}
+          height={235}
+        />
+        <ImgPopUp
+          fromY={20}
+          toY={0}
+          src={imgFrame4MainDashboardDark}
+          alt="dashboard-img"
+          width={996}
+          height={560}
+        />
+        <LateImgPopUp
+          fromX={-18.7}
+          fromY={39}
+          toX={-18.7}
+          toY={19}
+          delay={2}
+          src={imgFrame1Sidesheet}
+          alt="sidesheet-img"
+          width={272}
+          height={570}
         />
       </div>
     </section>
@@ -42,6 +73,7 @@ const section = css`
 
 const imgContainer = css`
   position: relative;
+  display: flex;
 `;
 
 const fixedBackground = css`
@@ -54,10 +86,6 @@ const fixedBackground = css`
   background-image: url(${imgFrame1Background});
   background-size: 100vw 120rem;
   transform: translateX(-50%);
-`;
-
-const dashboardZIndex = css`
-  z-index: 2;
 `;
 
 const RollingTextList = styled.ul`
@@ -98,4 +126,8 @@ const CtaLink = styled(Link)`
   color: ${({ theme }) => theme.colors.gray_000};
   border: 1px solid #655e94;
   border-radius: 6px;
+`;
+
+const LateImgPopUp = styled(ImgPopUp)`
+  opacity: 0;
 `;

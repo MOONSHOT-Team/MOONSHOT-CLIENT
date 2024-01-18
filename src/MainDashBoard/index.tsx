@@ -20,7 +20,6 @@ const MainDashBoard = () => {
   // const {data, error, isLoading} = useSWR('/v1//v1/objective/{objectiveId}')
 
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
-  // const [showCelebrate] = useState(false); //축하 모션 보이는 여부 플래그
   const [currentGoalId, setCurrentGoalId] = useState<number>();
   const [currentKrId, setCurrentKrId] = useState<number>(0);
 
@@ -39,8 +38,14 @@ const MainDashBoard = () => {
     navigate('/add-okr', { state: { selectedMethod: e.currentTarget.id } });
   };
 
+  //목표 추가하기 버튼 눌렀을 때 핸들러
   const handleClickAddObjcBtn = () => {
     setShowState(DASHBOARD_SHOW_STATE[1]);
+  };
+
+  //showState 바꿔주는 핸들러
+  const handleChangeState = (state: number) => {
+    setShowState(DASHBOARD_SHOW_STATE[state]);
   };
 
   const renderMainState = () => {
@@ -67,6 +72,7 @@ const MainDashBoard = () => {
                 keyResultId={currentKrId}
                 objStartAt={okrTreeData.objStartAt}
                 objExpireAt={okrTreeData.objExpireAt}
+                handleChangeState={handleChangeState}
               />
             )}
           </>
@@ -78,6 +84,7 @@ const MainDashBoard = () => {
               objList={goalListTreeData}
               onChangeCurrentGoalId={handleCurrentGoalId}
               handleClickAddObjcBtn={handleClickAddObjcBtn}
+              handleChangeState={handleChangeState}
             />
             <SelectMethod
               selectedMethod={selectedMethod}
@@ -88,21 +95,14 @@ const MainDashBoard = () => {
       case DASHBOARD_SHOW_STATE[2]:
         return (
           <>
-            <CelebrateMotion />
+            <CelebrateMotion
+              handleChangeState={handleChangeState}
+              currentObjId={okrTreeData.objId}
+            />
           </>
         );
     }
   };
-
-  useEffect(() => {
-    if (!treeData?.tree) return;
-    if (treeData.status === 404) {
-      navigate('/add-okr');
-    }
-    if (treeData.objIsExpired) {
-      //기간 만료 모달 띄우기
-    }
-  }, [treeData, navigate]);
 
   useEffect(() => {
     // add-okr에서 '처음으로'로 돌아오면 방식 선택 화면 뜨도록
@@ -126,40 +126,7 @@ const MainDashBoard = () => {
   };
 
   if (isLoading) return <>로딩중 ...</>;
-  return (
-    <>
-      {/* {showCelebrate ? (
-        <>
-          <CelebrateMotion />
-        </>
-      ) : (
-        <>
-          {goalListTreeData && goalListTreeData.length > 0 && (
-            <section css={mainDashboardStyle}>
-              <MainDashBoardDrawer
-                objList={goalListTreeData}
-                onChangeCurrentGoalId={handleCurrentGoalId}
-              />
-              <MainDashboardOKRTree
-                onShowSideSheet={handleShowSideSheet}
-                currentOkrData={okrTreeData}
-              />
-            </section>
-          )}
-          {showSideSheet && (
-            <SideSheet
-              isOpen={showSideSheet}
-              onClose={handleCloseSideSheet}
-              keyResultId={currentKrId}
-              objStartAt={okrTreeData.objStartAt}
-              objExpireAt={okrTreeData.objExpireAt}
-            />
-          )}
-        </>
-      )} */}
-      {renderMainState()}
-    </>
-  );
+  return <>{renderMainState()}</>;
 };
 
 export default MainDashBoard;

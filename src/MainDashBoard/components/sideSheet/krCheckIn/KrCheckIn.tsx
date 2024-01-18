@@ -10,10 +10,18 @@ interface IKrCheckInProps {
   title: string;
   target: number;
   metric: string;
+  handleChangeState?: (state: number) => void;
 }
 
 /** 체크인을 할 수 있는 뷰 입니다 (진척정도입력, kr수정) */
-const KrCheckIn = ({ onCancel, keyResultId, title, target, metric }: IKrCheckInProps) => {
+const KrCheckIn = ({
+  onCancel,
+  keyResultId,
+  title,
+  target,
+  metric,
+  handleChangeState,
+}: IKrCheckInProps) => {
   const [isActive, setIsActive] = useState('진척 정도 입력하기');
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +53,11 @@ const KrCheckIn = ({ onCancel, keyResultId, title, target, metric }: IKrCheckInP
         </StRadioLabel>
       </div>
       {isActive === '진척 정도 입력하기' ? (
-        <진척정도입력하기 onCancel={onCancel} keyResultId={keyResultId} />
+        <진척정도입력하기
+          onCancel={onCancel}
+          keyResultId={keyResultId}
+          handleChangeState={handleChangeState}
+        />
       ) : (
         <KR수정하기
           onCancel={onCancel}

@@ -103,11 +103,9 @@ const StAddGoalBtn = styled.button<{ isAble: boolean }>`
   width: 18.8rem;
   height: 3.6rem;
   margin: 2.4rem 2.2rem;
-
-  ${({ theme, isAble }) => css`
-    color: ${isAble ? theme.colors.gray_000 : theme.colors.gray_200};
-    background-color: ${isAble ? theme.colors.main_darkpurple : theme.colors.gray_500};
-  `}
+  color: ${({ theme, isAble }) => (isAble ? theme.colors.gray_000 : theme.colors.gray_200)};
+  background-color: ${({ theme, isAble }) =>
+    isAble ? theme.colors.main_darkpurple : theme.colors.gray_500};
 
   ${({ theme }) => theme.fonts.btn_14_semibold};
 

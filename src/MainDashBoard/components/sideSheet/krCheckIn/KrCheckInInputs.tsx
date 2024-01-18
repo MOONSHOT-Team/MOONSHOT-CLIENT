@@ -294,10 +294,10 @@ const StCnclBtn = styled.button`
 `;
 
 const StEnterBtn1 = styled(StCnclBtn)<{ isActiveBtn: boolean }>`
-  ${({ theme, isActiveBtn }) => css`
-    color: ${isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
-    background-color: ${isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
-  `};
+  color: ${({ theme, isActiveBtn }) =>
+    isActiveBtn ? theme.colors.gray_600 : theme.colors.gray_000};
+  background-color: ${({ theme, isActiveBtn }) =>
+    isActiveBtn ? theme.colors.sub_mint : theme.colors.gray_500};
 `;
 
 const StLabel = styled.label`

@@ -22,7 +22,6 @@ to {
 `;
 
 export const ImgPopUp = styled.img<popUpType>`
-  border-radius: 12px;
   animation: ${({ fromX, fromY, toX, toY }) => popUp(fromX, fromY, toX, toY)} 1s ease-out forwards;
   animation-delay: ${({ delay = 0 }) => `${delay}s`};
 `;

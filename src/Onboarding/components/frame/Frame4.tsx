@@ -18,7 +18,7 @@ const Frame4 = () => {
         description="북극성을 따라 성취를 기록하고, 환경에 따라 수정하며 끊임없이 나아가세요"
       />
       <div css={imgContainer}>
-        <LeftLateImgPopUp
+        <LateImgPopUp
           fromX={31.7}
           fromY={52.2}
           toX={31.7}
@@ -29,7 +29,7 @@ const Frame4 = () => {
           width={420}
           height={479}
         />
-        <ImgPopUp
+        <CenterImgPopUp
           fromY={20}
           toY={0}
           src={imgFrame4MainDashboardDark}
@@ -37,7 +37,7 @@ const Frame4 = () => {
           width={800}
           height={450}
         />
-        <RightLateImgPopUp
+        <LateImgPopUp
           fromX={-31.7}
           fromY={0}
           toX={-31.7}
@@ -70,12 +70,11 @@ const imgContainer = css`
   width: 100vw;
 `;
 
-const LeftLateImgPopUp = styled(ImgPopUp)`
-  z-index: 2;
-  opacity: 0;
+const CenterImgPopUp = styled(ImgPopUp)`
+  border-radius: 8px;
 `;
 
-const RightLateImgPopUp = styled(ImgPopUp)`
+const LateImgPopUp = styled(CenterImgPopUp)`
   z-index: 2;
   opacity: 0;
 `;

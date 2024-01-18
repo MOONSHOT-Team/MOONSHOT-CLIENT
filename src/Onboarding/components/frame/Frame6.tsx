@@ -15,29 +15,27 @@ export default Frame6;
 const slideIn = keyframes`
   from {
     background-position: top;
-    background-size: 300rem; 
   }
   to {
-    background-position: -100px 0px;
-    background-size: 275rem;
+    background-position: 10000vw 0px;
   }
 `;
 
 const section = css`
-  width: 100rem;
+  width: 100vw;
   height: 36.1rem;
   padding: 11.8rem 0;
 `;
 
 const imgSlide = css`
-  width: 100%;
+  width: 100vw;
   height: 13.6rem;
   background-image: url(${imgFrame6Background});
 
   /* stylelint-disable property-no-vendor-prefix */
-  background-size: contain;
-  -webkit-animation: ${slideIn} 100s;
-  animation: ${slideIn} 100s;
+  background-size: 136.6rem 13.6rem;
+  -webkit-animation: ${slideIn} 2500s ease;
+  animation: ${slideIn} 2500s ease;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
   -webkit-animation-direction: alternate;

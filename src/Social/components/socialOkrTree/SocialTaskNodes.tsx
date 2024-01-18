@@ -22,7 +22,7 @@ export const SocialTaskNodes = ({ isFirstChild, taskIdx, taskList }: ISocialTask
 
   return (
     <StNodesContainer>
-      {isFirstChild && <StTaskLabel>Tasks</StTaskLabel>}
+      {isFirstChild && <StSocialTaskLabel>Tasks</StSocialTaskLabel>}
       <StTaskNodeContainer>
         <NodeLines />
         <StSocialTaskBoxWrapper>
@@ -44,7 +44,6 @@ const StSocialTaskBox = styled(StTaskBox)`
   align-items: center;
   justify-content: center;
   width: fit-content;
-  min-width: 18rem;
   padding: 0.6rem 1.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_12_medium};
@@ -53,4 +52,8 @@ const StSocialTaskBox = styled(StTaskBox)`
     background-color: ${({ theme }) => theme.colors.gray_600};
     outline: 1px solid ${({ theme }) => theme.colors.gray_500};
   }
+`;
+
+const StSocialTaskLabel = styled(StTaskLabel)`
+  top: -1.4rem;
 `;

@@ -16,12 +16,14 @@ const colors = {
   gray_550: '#2F2F2F',
   gray_600: '#242424',
   gray_650: '#222222',
+  gray_700: '#131313',
   main_purple: '#8D7EFD',
   main_darkpurple: '#7165CA',
   sub_yellow: '#FFF9C6',
   sub_mint: '#A6EEF6',
   sub_pink: '#F4B5FA',
   sub_blue: '#6CA4F6',
+  sub_lightred: '#FF6969',
   sub_yellowgreen: '#86DC68',
   transparent_purple: '#8D7EFD29',
   transparent_white: '#FFFFFF1A',
@@ -70,7 +72,7 @@ const fonts = {
   body_14_medium: FONT({
     size: 1.4,
     weight: 500,
-    lineHeight: 1.4,
+    lineHeight: 2.0,
   }),
   body_14_regular: FONT({
     size: 1.4,
@@ -114,7 +116,7 @@ const fonts = {
   }),
   btn_11_medium: FONT({
     size: 1.1,
-    weight: 600,
+    weight: 500,
     lineHeight: 1.1,
   }),
   caption_10_medium: FONT({

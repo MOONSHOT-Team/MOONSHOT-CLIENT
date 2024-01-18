@@ -113,7 +113,7 @@ const StUserIntro = styled.p`
   word-break: keep-all;
   word-wrap: break-word;
 
-  ${({ theme }) => theme.fonts.body_10_regular};
+  /* ${({ theme }) => theme.fonts.body_10_regular}; */
 `;
 
 const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`

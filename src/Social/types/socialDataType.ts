@@ -1,4 +1,4 @@
-import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
 export interface IOkrTreeDataType {
   objTitle: string;

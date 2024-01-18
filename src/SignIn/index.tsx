@@ -9,7 +9,7 @@ import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
 /** 로그인 페이지 */
 const SignIn = () => {
   const Rest_api_key = import.meta.env.VITE_KAKAO_REST_API_KEY;
-  const redirect_uri = 'http://localhost:5173/login/oauth2/code/kakao';
+  const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
 
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 

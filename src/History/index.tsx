@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import useSWR from 'swr';
 
 import { getOKRHistory } from './apis/fetcher';
 import HistoryList from './components/dropDown/HistoryList';
@@ -14,15 +14,19 @@ const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
     null,
   );
+
+  const [years, setYears] = useState<{ [year: string]: number }>({});
+  const [categories, setCategories] = useState<string[]>([]);
   const { data: HistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
 
   useEffect(() => {
     if (!isLoading && HistoryData) {
       setHistoryData(HistoryData?.data.data);
+      setYears(HistoryData?.data.data.years || []);
+      setCategories(HistoryData?.data.data.categories || []);
     }
   }, [HistoryData, isLoading]);
 
-  if (isLoading) return <>로딩중 ...</>;
   if (!HistoryData) return <>데이터를 가져오는 중입니다...</>;
   console.log(HistoryData.data.data, isLoading);
 
@@ -34,9 +38,7 @@ const History = () => {
           category: selectedTheme,
         },
       });
-
-      mutate(() => '/v1/objective/history');
-
+      console.log(response.data);
       setHistoryData(response.data);
       console.log(historyData, isLoading);
     } catch (error) {
@@ -60,8 +62,8 @@ const History = () => {
     <section css={historyUi}>
       <HistoryDrawer
         groups={historyData ? historyData.groups : []}
-        categories={historyData ? historyData.categories : []}
-        years={HistoryData?.data.data.years}
+        categories={categories}
+        years={years}
         onThemeSelect={handleThemeSelect}
         // onYearSelect={handleYearSelect}
       />

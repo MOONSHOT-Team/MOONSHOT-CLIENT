@@ -17,13 +17,13 @@ const Error = () => {
           width={123}
           height={147}
         />
-        <StErrorTitle>원하시는 페이지를 찾을 수 없습니다.</StErrorTitle>
+        <StErrorTitle>원하시는 페이지를 찾을 수 없습니다</StErrorTitle>
         <StErrorText>
           찾으려는 페이지의 주소가 잘못 입력되었거나,
           <br />
-          주소의 변경 혹은 삭제로 인해 사용하실 수 없습니다.
+          주소의 변경 혹은 삭제로 인해 사용하실 수 없습니다
           <br />
-          입력하신 페이지의 주소가 정확한지 다시 한 번 확인해주세요.
+          입력하신 페이지의 주소가 정확한지 다시 한 번 확인해주세요
         </StErrorText>
         <StBackToHomeLink to="/">홈페이지 돌아가기</StBackToHomeLink>
       </div>

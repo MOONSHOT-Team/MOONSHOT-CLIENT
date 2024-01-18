@@ -44,7 +44,7 @@ const MainDashBoard = () => {
     setShowState(DASHBOARD_SHOW_STATE[1]);
   };
 
-  //목표카드 눌렀을 때 showState 바꿔주는 핸들러
+  //showState 바꿔주는 핸들러
   const handleChangeState = (state: number) => {
     setShowState(DASHBOARD_SHOW_STATE[state]);
   };
@@ -73,6 +73,7 @@ const MainDashBoard = () => {
                 keyResultId={currentKrId}
                 objStartAt={okrTreeData.objStartAt}
                 objExpireAt={okrTreeData.objExpireAt}
+                handleChangeState={handleChangeState}
               />
             )}
           </>
@@ -100,16 +101,6 @@ const MainDashBoard = () => {
         );
     }
   };
-
-  useEffect(() => {
-    if (!treeData?.tree) return;
-    if (treeData.status === 404) {
-      navigate('/add-okr');
-    }
-    if (treeData.objIsExpired) {
-      //기간 만료 모달 띄우기
-    }
-  }, [treeData, navigate]);
 
   useEffect(() => {
     // add-okr에서 '처음으로'로 돌아오면 방식 선택 화면 뜨도록

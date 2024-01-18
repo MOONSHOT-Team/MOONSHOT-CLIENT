@@ -68,6 +68,12 @@ const StDynamicInput = styled.input<{ width: number }>`
   outline: none;
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &:focus {
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.gray_550};
+    border: none;
+  }
 `;
 
 const StInputMirror = styled.div`

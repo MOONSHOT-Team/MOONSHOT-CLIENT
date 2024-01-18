@@ -170,6 +170,12 @@ const CtaLink = styled(Link)`
   color: ${({ theme }) => theme.colors.gray_000};
   border: 1px solid #655e94;
   border-radius: 6px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #8d7efd29;
+    border: 1px solid ${({ theme }) => theme.colors.main_purple};
+  }
 `;
 
 const LateImgPopUp = styled(ImgPopUp)`

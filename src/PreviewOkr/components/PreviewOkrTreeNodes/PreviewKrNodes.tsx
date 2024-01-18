@@ -11,9 +11,8 @@ import {
 import { useState } from 'react';
 
 export const PreviewKrNodes = ({ krIdx }: { krIdx: number }) => {
-  const { descriptionBefore, descriptionAfter, target, metric } = MOCK_OKR_DATA.krList[krIdx];
+  const { descriptionBefore, target, metric } = MOCK_OKR_DATA.krList[krIdx];
   const [beforeValue, setBeforeValue] = useState(descriptionBefore);
-  const [afterValue, setAfterValue] = useState(descriptionAfter);
 
   return (
     <StNodesContainer>
@@ -31,17 +30,12 @@ export const PreviewKrNodes = ({ krIdx }: { krIdx: number }) => {
 
           {/*수치 값*/}
           <StPreviewKrBoxValue>
-            {target}
-            {metric}
+            <span>:</span>
+            <span>
+              {target}
+              {metric}
+            </span>
           </StPreviewKrBoxValue>
-
-          {/*수치 값 뒤 문장*/}
-          {afterValue && (
-            <DynamicInput
-              value={afterValue}
-              handleChangeValue={(e) => setAfterValue(e.target.value)}
-            />
-          )}
         </StPreviewKrBox>
       </StKrBoxWrapper>
     </StNodesContainer>
@@ -54,6 +48,8 @@ const StPreviewKrBox = styled(StKrBox)`
 `;
 
 const StPreviewKrBoxValue = styled.p`
+  display: flex;
+  gap: 0.4rem;
   margin-right: 0.1rem;
   color: ${({ theme }) => theme.colors.gray_400};
 

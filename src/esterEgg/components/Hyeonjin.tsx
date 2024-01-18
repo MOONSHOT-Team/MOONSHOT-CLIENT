@@ -5,15 +5,15 @@ import { ColorsTypes } from '@styles/theme';
 import Lottie from 'lottie-react';
 import { useEffect, useRef, useState } from 'react';
 
-import hyeonjin from '../../assets/hyeonjin.png';
-import hyeonjin2 from '../../assets/hyeonjin2.jpg';
-import hyeonjin3 from '../../assets/hyeonjin3.jpeg';
-import hyeonjin4 from '../../assets/hyeonjin4.jpeg';
-import hyeonjin5 from '../../assets/hyeonjin5.jpg';
-import hyeonjin6 from '../../assets/hyeonjin6.jpeg';
-import hyeonjin7 from '../../assets/hyeonjin7.jpg';
-import { ImgPopUp } from '../../styles/animation';
-import { sectionStyle } from '../../styles/common';
+import { ImgPopUp } from '../../Onboarding/styles/animation';
+import { sectionStyle } from '../../Onboarding/styles/common';
+import hyeonjin from '../assets/hyeonjin.png';
+import hyeonjin2 from '../assets/hyeonjin2.jpg';
+import hyeonjin3 from '../assets/hyeonjin3.jpeg';
+import hyeonjin4 from '../assets/hyeonjin4.jpeg';
+import hyeonjin5 from '../assets/hyeonjin5.jpg';
+import hyeonjin6 from '../assets/hyeonjin6.jpeg';
+import hyeonjin7 from '../assets/hyeonjin7.jpg';
 
 const Hyeonjin = () => {
   const [active, setActive] = useState(false);

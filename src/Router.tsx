@@ -1,10 +1,11 @@
 import Error from '@components/Error';
-import MainLayout from '@components/Layout/MainLayout';
+import MainLayout from '@components/layout/MainLayout';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AddOkr from './AddOkr';
 import AuthGoogle from './Auth/AuthGoogle';
 import AuthKakao from './Auth/AuthKakao';
+import Hyeonjin from './esterEgg/components/Hyeonjin';
 import History from './History';
 import MainDashBoard from './MainDashBoard';
 import My from './My';
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
         element: <AuthGoogle />,
       },
     ],
+  },
+  {
+    path: '/hyeonjin',
+    element: <Hyeonjin />,
   },
 ]);
 

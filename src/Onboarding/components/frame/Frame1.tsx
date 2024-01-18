@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import imgFrame1Background from '../../assets/imgFrame1Background.png';
+import imgFrame1MainDashboard from '../../assets/imgFrame1MainDashboard.png';
 import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
 import imgFrame1ObjectiveList from '../../assets/imgFrame1ObjectiveList.png';
 import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
-import imgFrame4MainDashboardDark from '../../assets/imgFrame4MainDashboardDark.png';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -47,7 +47,7 @@ const Frame1 = () => {
         <ImgPopUp
           fromY={20}
           toY={0}
-          src={imgFrame4MainDashboardDark}
+          src={imgFrame1MainDashboard}
           alt="dashboard-img"
           width={996}
           height={560}

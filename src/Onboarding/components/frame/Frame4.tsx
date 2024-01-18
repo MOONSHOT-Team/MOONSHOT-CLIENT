@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import imgFrame4MainDashboardDark from '../../assets/imgFrame4MainDashboardDark.png';
+import imgFrame4DashboardDark from '../../assets/imgFrame4DashboardDark.png';
 import imgFrame4SideSheet from '../../assets/imgFrame4SideSheet.png';
 import imgFrame4SideSheetCheckIn from '../../assets/imgFrame4SideSheetCheckIn.png';
 import { ImgPopUp } from '../../styles/animation';
@@ -32,7 +32,7 @@ const Frame4 = () => {
         <CenterImgPopUp
           fromY={20}
           toY={0}
-          src={imgFrame4MainDashboardDark}
+          src={imgFrame4DashboardDark}
           alt="main-dashboard-img-2"
           width={800}
           height={450}

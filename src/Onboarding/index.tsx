@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 
-import Hyeonjin from '../esterEgg/components/Hyeonjin';
 import Frame1 from './components/frame/Frame1';
 import Frame2 from './components/frame/Frame2';
 import Frame3 from './components/frame/Frame3';
@@ -14,7 +13,6 @@ const Onboarding = () => {
       <Frame1 />
       <Frame2 />
       <Frame3 />
-      <Hyeonjin />
       <Frame4 />
       <Frame5 />
       <Frame6 />

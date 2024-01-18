@@ -34,6 +34,7 @@ const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
           onChange={handleContentTextarea}
           maxLength={100}
           rows={5}
+          autoComplete="off"
         />
         <StContentTextAreaCntTxt>
           {currContentCnt}/{MAX_OBJ_TEXTAREA_CNT}

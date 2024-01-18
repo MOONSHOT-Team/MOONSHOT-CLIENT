@@ -87,6 +87,7 @@ const GuideFirstKeyResultCard = ({
           placeholder={KR_TITLE_PLACEHOLDER}
           onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
           $isMax={isMaxTitle}
+          autoComplete="off"
         />
       </StKrInputBox>
 

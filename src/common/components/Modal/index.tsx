@@ -50,6 +50,6 @@ const ModalDialog = styled.dialog`
   }
 
   &::backdrop {
-    background: ${({ theme }) => theme.colors.background};
+    background: ${({ theme }) => theme.colors.transparent_black_50};
   }
 `;

@@ -68,12 +68,14 @@ const GuideSecondKeyResultCard = ({
             onChange={(e) => handleGuidTargetInput(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
+            autoComplete="off"
           />
           <StTargetMetricInput
             value={metric}
             onChange={(e) => handleGuideMetricInput(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}
+            autoComplete="off"
           />
         </div>
       </StSecondKrTargetMetricBox>

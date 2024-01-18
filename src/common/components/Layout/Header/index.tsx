@@ -32,6 +32,7 @@ const StHeader = styled.header`
   width: 100vw;
   height: 7.6rem;
   padding: 0 3.5rem;
+  background-color: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid ${({ theme }) => theme.colors.transparent_white};
 `;
 

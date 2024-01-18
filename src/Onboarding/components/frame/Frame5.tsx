@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
-import imgFrame5List1 from '../../assets/imgFrame5List1.png';
-import imgFrame5List1Open from '../../assets/imgFrame5List1Open.png';
+import imgFrame5HistoryClose from '../../assets/imgFrame5HistoryClose.png';
+import imgFrame5HistoryOpen from '../../assets/imgFrame5HistoryOpen.png';
+import imgFrame5HistoryTask from '../../assets/imgFrame5HistoryTask.png';
 import imgFrame5List2 from '../../assets/imgFrame5List2.png';
 import imgFrame5List3 from '../../assets/imgFrame5List3.png';
 import imgFrame5List4 from '../../assets/imgFrame5List4.png';
@@ -11,6 +13,16 @@ import { sectionStyle } from '../../styles/common';
 import TextField from './TextField';
 
 const Frame5 = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 2200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section css={section}>
       <TextField
@@ -20,13 +32,20 @@ const Frame5 = () => {
         description="꾸준함으로 쌓인 발자취를 확인하며 앞으로의 미래를 향해 다시 나아가세요"
       />
       <div css={imgContainer}>
-        <ImgPopUp src={imgFrame5List1} alt="main-dashboard-img-1" width={1005} height={57} />
+        {isOpen && (
+          <img src={imgFrame5HistoryOpen} alt="main-dashboard-img-1" width={1005} height={57} />
+        )}
+        {!isOpen && (
+          <img src={imgFrame5HistoryClose} alt="main-dashboard-img-1" width={1005} height={57} />
+        )}
         <LateImgPopUp
+          fromY={5.7}
+          toY={7.2}
           delay={2.2}
-          src={imgFrame5List1Open}
+          src={imgFrame5HistoryTask}
           alt="main-dashboard-img-2"
           width={1005}
-          height={240}
+          height={168}
         />
         <ImgPopUp
           fromY={0}

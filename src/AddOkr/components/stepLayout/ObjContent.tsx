@@ -26,7 +26,7 @@ const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
 
   return (
     <section css={ObjContentContainer}>
-      <StObjContentTitle>목표를 달성하고 싶은 이유와 그 다짐을 기록해주세요.</StObjContentTitle>
+      <StObjContentTitle>목표를 달성하고 싶은 이유와 다짐을 기록해주세요</StObjContentTitle>
       <div css={ContentTextAreaWrapper}>
         <StObjContentTextArea
           value={objContent}

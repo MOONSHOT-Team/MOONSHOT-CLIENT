@@ -12,11 +12,11 @@ const PreviewModal = ({ selectedMethod }: { selectedMethod: string }) => {
         <AddOkrOptionText>{selectedMethod}</AddOkrOptionText>
         <StMainTextContainer>
           <p>목표 저장 전 내용을 수정하고</p>
-          <p>KR을 달성할 수 있는 task를 추가해보세요!</p>
+          <p>KR을 달성할 수 있는 task를 추가해보세요</p>
         </StMainTextContainer>
         <StSubTextContainer>
-          <p>KR에서는 수치값을 제외한 텍스트만 수정이 가능하며,</p>
-          <p>task는 KR 당 최대 3개까지 추가 가능합니다.</p>
+          <p>KR은 수치값을 제외한 텍스트만 수정이 가능하며</p>
+          <p>task는 하나의 KR에 대해 최대 3개 추가 가능합니다</p>
         </StSubTextContainer>
         <form method="dialog">
           <StConfirmButton>확인</StConfirmButton>

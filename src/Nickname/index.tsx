@@ -38,7 +38,7 @@ const Nickname = () => {
         <StDescriptionText>문샷에서 사용할 닉네임을 설정해 주세요.</StDescriptionText>
         <StNicknameInput
           type="text"
-          placeholder="닉네임 (특수기호, 공백 제외 7자리 이내)"
+          placeholder="닉네임 (7자리 이내)"
           maxLength={7}
           value={nickname}
           onChange={handleEnteredNickname}

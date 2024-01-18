@@ -8,7 +8,7 @@ import { mutate } from 'swr';
 import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
 
 const CHECKINPLACEHOLDER =
-  '회고 내용을 입력하세요.\n\n  • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n  • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n  • 실행 과정에 얼마나 만족하는지 알려주세요.';
+  '회고 내용을 입력하세요\n\n  • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n  • 핵심 지표가 목표를 달성하는데 도움 되었나요?\n  • 달성하는 동안 어떤 어려움이 있었는지 기록 해보세요';
 
 const MAX_NUMCNT = 6;
 const MAX_TEXTCNT = 100;
@@ -131,7 +131,7 @@ export const 진척정도입력하기 = ({ onCancel, keyResultId, handleChangeSt
             <StEnterProgressInput
               type="text"
               id="enterProgress"
-              placeholder="진척 정도를 확인할 수 있는 수치값을 입력하세요."
+              placeholder="진척 정도를 확인할 수 있는 수치를 입력하세요"
               value={logNum.toLocaleString()}
               onChange={handleLogNumChange}
               autoComplete="off"

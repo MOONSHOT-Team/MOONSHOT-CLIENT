@@ -53,7 +53,7 @@ const AddKr = ({
     <StAddOkrLayoutContainer>
       <StAddOkrTitle>
         {
-          '어떤 성과를 이루면 목표 달성에 가까워질 수 있을까요?\n목표를 측정할 수 있는 핵심 지표를 구체적으로 설정해주세요.'
+          '어떤 성과를 이루면 목표 달성에 가까워질 수 있을까요?\n목표를 측정할 수 있는 핵심 지표를 구체적으로 작성 해주세요'
         }
       </StAddOkrTitle>
       <StAddOkrObjectBox>

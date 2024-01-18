@@ -1,12 +1,12 @@
 import Modal from '@components/Modal';
 import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
-import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
+import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
 import PreviewModal from './components/PreviewModal';
 import PreviewOkrAlertMsg from './components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
@@ -15,27 +15,29 @@ import { PreviewTaskNodes } from './components/PreviewOkrTreeNodes/PreviewTaskNo
 
 const PreviewOkr = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const { modalRef, handleShowModal } = useModal();
 
-  const { objTitle, krList } = MOCK_OKR_DATA;
-  const [objValue, setObjValue] = useState(objTitle);
+  const { selectedMethod, objInfo, krListInfo } = location.state;
+  const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
 
-  if (location.state) navigate('/error');
-  const { selectedMethod } = location.state;
+  const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
 
   const handleClickSaveOkrBtn = () => {
     console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
   };
 
   const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setObjValue(e.target.value);
+    setPreviewObjValue(e.target.value);
   };
 
   useEffect(() => {
     location.state && handleShowModal();
   }, []);
+
+  useEffect(() => {
+    console.log(previewKrListInfo);
+  }, [previewKrListInfo]);
 
   return (
     // O 노드<의 위치 고정을 위해 트리 가져올때 항상 상위 요소에 높이 값(100vh or 100%), 세로 가운데 정렬해야함 !
@@ -49,10 +51,19 @@ const PreviewOkr = () => {
         <div css={okrTreeDiv}>
           <OkrTreeTemplate
             ObjNode={() => (
-              <PreviewObjNode objValue={objValue} handleChangeObjValue={handlechangeObjTextArea} />
+              <PreviewObjNode
+                objValue={previewObjValue}
+                handleChangeObjValue={handlechangeObjTextArea}
+              />
             )}
-            keyResultList={krList}
-            KrNodes={(krIdx) => <PreviewKrNodes krIdx={krIdx} />}
+            keyResultList={krListInfo}
+            KrNodes={(krIdx) => (
+              <PreviewKrNodes
+                krIdx={krIdx}
+                previewKrListInfo={previewKrListInfo}
+                setPreviewKrListInfo={setPreviewKrListInfo}
+              />
+            )}
             TaskNodes={(isFirstChild, krIdx, taskIdx) => (
               <PreviewTaskNodes isFirstChild={isFirstChild} krIdx={krIdx} taskIdx={taskIdx} />
             )}

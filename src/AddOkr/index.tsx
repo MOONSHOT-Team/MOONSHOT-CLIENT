@@ -22,13 +22,20 @@ const AddOkr = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const resetObjInfoState = {
-    objTitle: '',
-    objCategory: '',
-    objContent: '',
-    objStartAt: OBJ_START_AT,
-    objExpireAt: '',
-  };
+  const resetTaskInfo = [
+    {
+      title: '',
+      idx: 0,
+    },
+    {
+      title: '',
+      idx: 1,
+    },
+    {
+      title: '',
+      idx: 2,
+    },
+  ];
 
   const resetKrListInfo = [
     {
@@ -38,7 +45,7 @@ const AddOkr = () => {
       expireAt: '',
       target: '',
       metric: '',
-      taskList: [],
+      taskList: resetTaskInfo,
     },
     {
       idx: 1,
@@ -47,7 +54,7 @@ const AddOkr = () => {
       expireAt: '',
       target: '',
       metric: '',
-      taskList: [],
+      taskList: resetTaskInfo,
     },
     {
       idx: 2,
@@ -56,9 +63,17 @@ const AddOkr = () => {
       expireAt: '',
       target: '',
       metric: '',
-      taskList: [],
+      taskList: resetTaskInfo,
     },
   ];
+
+  const resetObjInfoState = {
+    objTitle: '',
+    objCategory: '',
+    objContent: '',
+    objStartAt: OBJ_START_AT,
+    objExpireAt: '',
+  };
 
   // step 관리 값
   const [step, setStep] = useState(0);
@@ -101,6 +116,19 @@ const AddOkr = () => {
     if (step === 4 && selectedMethod === IS_GUIDE && isActiveSecondKrCard === false) {
       isActiveNext && setIsActiveSecondKrCard(true);
       return;
+    }
+
+    if (
+      (step === 4 && selectedMethod !== IS_GUIDE) ||
+      (step === 4 && selectedMethod === IS_GUIDE && isActiveSecondKrCard === true)
+    ) {
+      navigate('/preview-okr', {
+        state: {
+          selectedMethod: selectedMethod,
+          objInfo: objInfo,
+          krListInfo: krListInfo.filter((kr) => kr.title),
+        },
+      });
     }
     isActiveNext && setStep((prev) => prev + 1);
   };
@@ -253,17 +281,17 @@ const AddOkr = () => {
     validNextStep();
   }, [step, objInfo, krListInfo, clickedCard]);
 
-  useEffect(() => {
-    // step 5 - previewOkr로 add-okr에서 생성된 정보들 보내주고 redirect, 이때 krList 중 값이 있는 것만 보낼수 있도록 필터한다.
-    step === 5 &&
-      navigate('/preview-okr', {
-        state: {
-          selectedMethod: selectedMethod,
-          objInfo: objInfo,
-          krListInfo: krListInfo.filter((kr) => kr.title),
-        },
-      });
-  }, [step]);
+  // useEffect(() => {
+  //   // step 5 - previewOkr로 add-okr에서 생성된 정보들 보내주고 redirect, 이때 krList 중 값이 있는 것만 보낼수 있도록 필터한다.
+  //   step === 5 &&
+  //     navigate('/preview-okr', {
+  //       state: {
+  //         selectedMethod: selectedMethod,
+  //         objInfo: objInfo,
+  //         krListInfo: krListInfo.filter((kr) => kr.title),
+  //       },
+  //     });
+  // }, [step]);
 
   return (
     <section css={AddOkrContainer}>

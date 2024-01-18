@@ -43,7 +43,6 @@
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
     "@emotion/eslint-plugin": "^11.11.0",
-    "@stylelint/postcss-css-in-js": "^0.38.0",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.46",
@@ -64,6 +63,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "postcss": "^8.4.32",
+    "postcss-jsx": "^0.36.4",
     "postcss-styled-syntax": "^0.6.0",
     "postcss-syntax": "^0.36.2",
     "prettier": "^3.1.1",

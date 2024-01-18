@@ -89,9 +89,8 @@ const StWithdraw = styled.button`
   bottom: 4rem;
   width: 4.5rem;
   height: 2rem;
-  font-size: 1.3rem;
-  font-weight: 500;
-  line-height: 2rem;
+  ${({ theme }) => theme.fonts.body_13_medium};
+
   color: ${({ theme }) => theme.colors.gray_450};
   border-bottom: 1px solid currentcolor;
 `;

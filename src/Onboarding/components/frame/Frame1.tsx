@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import imgFrame1Background from '../../assets/imgFrame1Background.png';
-// import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
+import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
 import imgFrame1ObjectiveList from '../../assets/imgFrame1ObjectiveList.png';
 import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
 import imgFrame4MainDashboardDark from '../../assets/imgFrame4MainDashboardDark.png';
@@ -25,6 +25,7 @@ const Frame1 = () => {
 
   return (
     <section css={section}>
+      <div css={imgSlide} />
       <RollingTextBox>
         <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p>
       </RollingTextBox>
@@ -70,10 +71,39 @@ const Frame1 = () => {
 export default Frame1;
 
 const section = css`
+  position: relative;
   height: 119.6rem;
   padding-top: 6.4rem;
 
   ${sectionStyle}
+`;
+
+const slideIn = keyframes`
+  from {
+    background-position: top;
+  }
+  to {
+    background-position: 10000vw 0px;
+  }
+`;
+
+const imgSlide = css`
+  position: absolute;
+  top: 27rem;
+  width: 100vw;
+  height: 97.8rem;
+  background-image: url(${imgFrame1MovingBackground});
+
+  /* stylelint-disable property-no-vendor-prefix */
+  background-size: 136.6rem 97.8rem;
+  -webkit-animation: ${slideIn} 5000s ease;
+  animation: ${slideIn} 5000s ease;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 `;
 
 const liftUp = keyframes`
@@ -158,6 +188,7 @@ const MainText = styled.h1`
 `;
 
 const CtaLink = styled(Link)`
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -257,7 +257,11 @@ const AddOkr = () => {
     // step 5 - previewOkr로 add-okr에서 생성된 정보들 보내주고 redirect, 이때 krList 중 값이 있는 것만 보낼수 있도록 필터한다.
     step === 5 &&
       navigate('/preview-okr', {
-        state: { objInfo: objInfo, krListInfo: krListInfo.filter((kr) => kr.title) },
+        state: {
+          selectedMethod: selectedMethod,
+          objInfo: objInfo,
+          krListInfo: krListInfo.filter((kr) => kr.title),
+        },
       });
   }, [step]);
 

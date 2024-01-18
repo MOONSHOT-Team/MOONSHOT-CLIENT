@@ -1,10 +1,10 @@
 import instance from '@apis/instance';
-import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
 import type { ComponentProps, FocusEvent } from 'react';
 import { useId, useReducer, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { validateDate } from '../../utils/validateDate';
 
@@ -16,7 +16,7 @@ interface IModalInputProps extends ComponentProps<'input'> {
 /** 날짜 입력 받는 인풋창 */
 const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
   const uniqueId = useId();
-  const { name, value, defaultValue, placeholder, maxLength, onChange, onBlur } = props;
+  const { name, value, placeholder, maxLength, onChange, onBlur } = props;
   const isYear = placeholder?.length === 4;
   const InputComponent = isYear ? YearInput : DateInput;
 
@@ -30,7 +30,6 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
         disabled={!isActive}
         name={name}
         value={value}
-        defaultValue={defaultValue}
         type="text"
         placeholder={placeholder}
         maxLength={maxLength}
@@ -72,7 +71,7 @@ const dateReducer = (state: dateStateType, action: actionType): dateStateType =>
 };
 
 /** Drawer Modal 창 */
-const DrawerModal = () => {
+const DrawerModal = ({ currentObjId }: { currentObjId: number }) => {
   const [activeExtend, setActiveExtend] = useState(false);
   const [isValidInput, setIsValidInput] = useState('');
   const [dateState, dispatchDate] = useReducer(dateReducer, {
@@ -82,7 +81,8 @@ const DrawerModal = () => {
   });
   const { year, month, day } = dateState;
 
-  const { modalRef, handleShowModal } = useModal();
+  const { modalRef } = useModal();
+  const navigate = useNavigate();
 
   const isSave = isValidInput === '' && year !== '' && month !== '' && day !== '';
 
@@ -106,18 +106,26 @@ const DrawerModal = () => {
 
     isProperValue ? setIsValidInput('') : setIsValidInput('올바른 날짜를 입력해 주세요.');
 
-    await instance.patch('/v1/objective', {
-      objectiveId: 1,
+    const response = await instance.patch('/v1/objective', {
+      objectiveId: currentObjId,
       isClosed: false,
       expireAt: `${year}-${month}-${day}`,
     });
+    console.log(response);
+    if (response.status === 204) {
+      console.log('204');
+      modalRef.current?.close();
+    }
   };
 
   const handleComplete = async () => {
-    await instance.patch('/v1/objective', {
-      objectiveId: 1,
+    const response = await instance.patch('/v1/objective', {
+      objectiveId: currentObjId,
       isClosed: true,
     });
+    //목표 완료 -> 대시보드
+    console.log(response);
+    navigate('/history');
   };
 
   /** 모달창 첫 화면 버튼 */
@@ -162,76 +170,71 @@ const DrawerModal = () => {
 
   return (
     <>
-      <button style={{ color: 'red' }} type="button" onClick={handleShowModal}>
-        CLICK ME!!
-      </button>
-      <Modal ref={modalRef}>
-        <div css={modalForm}>
-          <StMainTextContainer>
-            <p>해당 목표의 달성 기간이 종료되었습니다.</p>
-            <p>더 도전하기 위해 기간을 연장할까요?</p>
-          </StMainTextContainer>
-          <StSubTextContainer>
-            완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.
-          </StSubTextContainer>
-          <StDateContainer>
-            <ModalInput
-              required
-              label="년"
-              isActive={activeExtend}
-              disabled={!activeExtend}
-              name="year"
-              value={year}
-              defaultValue="2024"
-              type="text"
-              placeholder="2024"
-              maxLength={4}
-              onChange={(e) => {
-                dispatchDate({ type: 'INPUT_YEAR', value: e.target.value });
-                setIsValidInput('');
-              }}
-            />
-            <ModalInput
-              required
-              label="월"
-              isActive={activeExtend}
-              disabled={!activeExtend}
-              name="month"
-              value={month}
-              defaultValue="01"
-              type="text"
-              placeholder="01"
-              maxLength={2}
-              onChange={(e) => {
-                e.preventDefault();
-                dispatchDate({ type: 'INPUT_MONTH', value: e.target.value });
-                setIsValidInput('');
-              }}
-              onBlur={handleMakeTwoDigits}
-            />
-            <ModalInput
-              required
-              label="일"
-              isActive={activeExtend}
-              disabled={!activeExtend}
-              name="day"
-              value={day}
-              defaultValue="09"
-              type="text"
-              placeholder="09"
-              maxLength={2}
-              onChange={(e) => {
-                e.preventDefault();
-                dispatchDate({ type: 'INPUT_DAY', value: e.target.value });
-                setIsValidInput('');
-              }}
-              onBlur={handleMakeTwoDigits}
-            />
-            {isValidInput !== '' && <ErrorText>{isValidInput}</ErrorText>}
-          </StDateContainer>
-          <div css={buttonStyle}>{!activeExtend ? renderExtendButton() : renderSaveButton()}</div>
-        </div>
-      </Modal>
+      <div css={modalForm}>
+        <StMainTextContainer>
+          <p>해당 목표의 달성 기간이 종료되었습니다.</p>
+          <p>더 도전하기 위해 기간을 연장할까요?</p>
+        </StMainTextContainer>
+        <StSubTextContainer>
+          완료된 목표에 대한 내용은 히스토리에서 확인 가능해요.
+        </StSubTextContainer>
+        <StDateContainer>
+          <ModalInput
+            required
+            label="년"
+            isActive={activeExtend}
+            disabled={!activeExtend}
+            name="year"
+            value={year}
+            defaultValue="2024"
+            type="text"
+            placeholder="2024"
+            maxLength={4}
+            onChange={(e) => {
+              dispatchDate({ type: 'INPUT_YEAR', value: e.target.value });
+              setIsValidInput('');
+            }}
+          />
+          <ModalInput
+            required
+            label="월"
+            isActive={activeExtend}
+            disabled={!activeExtend}
+            name="month"
+            value={month}
+            defaultValue="01"
+            type="text"
+            placeholder="01"
+            maxLength={2}
+            onChange={(e) => {
+              e.preventDefault();
+              dispatchDate({ type: 'INPUT_MONTH', value: e.target.value });
+              setIsValidInput('');
+            }}
+            onBlur={handleMakeTwoDigits}
+          />
+          <ModalInput
+            required
+            label="일"
+            isActive={activeExtend}
+            disabled={!activeExtend}
+            name="day"
+            value={day}
+            defaultValue="09"
+            type="text"
+            placeholder="09"
+            maxLength={2}
+            onChange={(e) => {
+              e.preventDefault();
+              dispatchDate({ type: 'INPUT_DAY', value: e.target.value });
+              setIsValidInput('');
+            }}
+            onBlur={handleMakeTwoDigits}
+          />
+          {isValidInput !== '' && <ErrorText>{isValidInput}</ErrorText>}
+        </StDateContainer>
+        <div css={buttonStyle}>{!activeExtend ? renderExtendButton() : renderSaveButton()}</div>
+      </div>
     </>
   );
 };

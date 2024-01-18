@@ -20,7 +20,6 @@ const MainDashBoard = () => {
   // const {data, error, isLoading} = useSWR('/v1//v1/objective/{objectiveId}')
 
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
-  // const [showCelebrate] = useState(false); //축하 모션 보이는 여부 플래그
   const [currentGoalId, setCurrentGoalId] = useState<number>();
   const [currentKrId, setCurrentKrId] = useState<number>(0);
 
@@ -96,7 +95,10 @@ const MainDashBoard = () => {
       case DASHBOARD_SHOW_STATE[2]:
         return (
           <>
-            <CelebrateMotion />
+            <CelebrateMotion
+              handleChangeState={handleChangeState}
+              currentObjId={okrTreeData.objId}
+            />
           </>
         );
     }

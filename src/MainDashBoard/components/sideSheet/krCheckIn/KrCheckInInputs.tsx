@@ -114,8 +114,9 @@ export const 진척정도입력하기 = ({ onCancel, keyResultId, handleChangeSt
     const response = await postCheckIn('/v1/log', data);
     await mutate(`/v1/key-result/${keyResultId}`);
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       //축하모션
+      console.log(response);
       handleChangeState?.(2);
     }
     onCancel();

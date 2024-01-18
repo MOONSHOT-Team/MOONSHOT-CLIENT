@@ -43,6 +43,8 @@ const Title = styled.h2`
   font-weight: 600;
   line-height: 5rem;
   color: ${({ theme }) => theme.colors.gray_100};
+  text-align: center;
+  white-space: pre-line;
 `;
 
 const Description = styled.p`

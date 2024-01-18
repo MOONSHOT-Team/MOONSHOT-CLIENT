@@ -1,4 +1,4 @@
-import OkrTreeTemplate from '@components/OkrTree/template/OkrTreeTemplate';
+import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 import PreviewOkrAlertMsg from './components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
 import PreviewObjNode from './components/PreviewOkrTreeNodes/PreviewObjNode';
-import { PreviewTaskNodes } from './components/previewOkrTreeNodes/PreviewTaskNodes';
+import { PreviewTaskNodes } from './components/PreviewOkrTreeNodes/PreviewTaskNodes';
 
 const PreviewOkr = () => {
   const location = useLocation();

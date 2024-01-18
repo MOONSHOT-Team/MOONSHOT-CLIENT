@@ -2,7 +2,7 @@ import { ITaskTypes } from './TasksTypes';
 
 export interface IKeyResultTypes {
   keyResultTitle: string;
-  keyResultId?: number;
+  keyResultId: number;
   startAt?: string;
   expireAt?: string;
   idx: number;

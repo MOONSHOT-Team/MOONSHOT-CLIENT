@@ -6,9 +6,10 @@ export const MOCK_OKR_DATA = {
   objExpireAt: '2024-01-30T00:00:00',
   krList: [
     {
-      title: '1번째 Key Result',
+      keyResultTitle: '1번째 Key Result',
       startAt: '2024-01-05T00:00:00',
       expireAt: '2024-01-30T00:00:00',
+      keyResultId: 1,
       idx: 0,
       target: 200000,
       metric: '건',
@@ -30,9 +31,10 @@ export const MOCK_OKR_DATA = {
       ],
     },
     {
-      title: '2번째 Key Result',
+      keyResultTitle: '2번째 Key Result',
       startAt: '2024-01-05T00:00:00',
       expireAt: '2024-01-30T00:00:00',
+      keyResultId: 2,
       idx: 1,
       target: 200000,
       metric: '건',
@@ -54,9 +56,10 @@ export const MOCK_OKR_DATA = {
       ],
     },
     {
-      title: '3번째 Key Result',
+      keyResultTitle: '3번째 Key Result',
       startAt: '2024-01-05T00:00:00',
       expireAt: '2024-01-30T00:00:00',
+      keyResultId: 33,
       idx: 2,
       target: 200000,
       metric: '건',

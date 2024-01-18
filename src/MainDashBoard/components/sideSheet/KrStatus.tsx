@@ -1,7 +1,10 @@
 import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { mutate } from 'swr';
 
+import { patchCheckIn } from '../../apis/fetcher';
 import {
   IcDoneState,
   IcDropDownThin,
@@ -32,20 +35,31 @@ const KrStatusItem = ({ icon, label }: IKrStatusItemProps) => {
   );
 };
 
-const KrStatus = () => {
-  const [krStatusLabel, setKrStatusLabel] = useState('진행');
+const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: number }) => {
+  const [krStatusLabel, setKrStatusLabel] = useState(krStatus);
   const [krStatusIcon, setKrStatusIcon] = useState<React.ReactNode>(<IcOnGoingState />);
   const [isDrop, setIsDrop] = useState(false);
+  const navigator = useNavigate();
 
   useEffect(() => {
     const tmp = KR_STATUS.find((status) => status.label === krStatusLabel)?.icon;
     if (tmp) setKrStatusIcon(tmp);
   }, [krStatusLabel]);
 
-  const handleKrStatus = (currentStatusLabel: string) => {
+  const handleKrStatus = async (currentStatusLabel: string) => {
     setKrStatusLabel(currentStatusLabel);
+    const data = {
+      keyResultId: keyResultId,
+      state: currentStatusLabel,
+    };
+
+    try {
+      await patchCheckIn('/v1/key-result', data);
+      await mutate(`/v1/key-result/${keyResultId}`);
+    } catch (err) {
+      navigator('/error');
+    }
     setIsDrop(false);
-    //서버통신
   };
 
   const handleIsDrop = () => {

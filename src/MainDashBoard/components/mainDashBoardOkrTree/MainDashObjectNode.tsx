@@ -1,4 +1,4 @@
-import { CommonObjNode } from '@components/OkrTree/Nodes/CommonObjNode';
+import { CommonObjNode } from '@components/okrTree/nodes/CommonObjNode';
 import styled from '@emotion/styled';
 export interface IMainBoardObjNodeProps {
   objValue: string;

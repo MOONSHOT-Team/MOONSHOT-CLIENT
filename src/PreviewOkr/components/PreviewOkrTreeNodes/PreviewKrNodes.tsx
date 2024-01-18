@@ -1,5 +1,5 @@
 import DynamicInput from '@components/input/DynamicInput';
-import StraightLine from '@components/OkrTree/lines/StraightLine';
+import StraightLine from '@components/okrTree/lines/StraightLine';
 import { MOCK_OKR_DATA } from '@constants/MOCK_OKR_DATA';
 import styled from '@emotion/styled';
 import {

@@ -1,4 +1,4 @@
-import { CommonObjNode } from '@components/OkrTree/Nodes/CommonObjNode';
+import { CommonObjNode } from '@components/okrTree/nodes/CommonObjNode';
 import styled from '@emotion/styled';
 import TextareaAutosize from 'react-textarea-autosize';
 export interface IPreviewObjNodeProps {

@@ -1,27 +1,29 @@
-import StraightLine from '@components/OkrTree/lines/StraightLine';
+import StraightLine from '@components/okrTree/lines/StraightLine';
 import styled from '@emotion/styled';
 import {
   StKrBox,
   StKrBoxWrapper,
   StKrLabel,
   StNodesContainer,
-} from '@styles/OkrTree/CommonNodeStyle';
+} from '@styles/okrTree/CommonNodeStyle';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
 import { IcDrag } from '../../assets/icons';
-import { MOCK_MAIN_OKR_DATA } from '../../constants/MOCK_MAIN_OKR_DATA';
 
 interface IMainDashKrNodesProps {
   krIdx: number;
-  onShowSideSheet: () => void;
+  krList: IKeyResultTypes;
+  onShowSideSheet: (keyResultId: number) => void;
 }
 
-export const MainDashKrNodes = ({ krIdx, onShowSideSheet }: IMainDashKrNodesProps) => {
-  const { keyResultTitle } = MOCK_MAIN_OKR_DATA.krList[krIdx];
+export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrNodesProps) => {
+  if (!krList) return;
+  const { keyResultTitle, keyResultId } = krList;
 
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
-      <StMainDashKrBoxWrapper onClick={onShowSideSheet}>
+      <StMainDashKrBoxWrapper onClick={() => onShowSideSheet(keyResultId)}>
         <StraightLine />
         <StyledIcDrag />
         <StMainDashBox>{keyResultTitle}</StMainDashBox>

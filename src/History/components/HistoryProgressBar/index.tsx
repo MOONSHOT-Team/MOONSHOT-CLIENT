@@ -30,7 +30,6 @@ export default HistoryProgressBar;
 const StProgressBarContainer = styled.div<{ isComplete: number }>`
   display: flex;
   flex-direction: row;
-  gap: 1.6rem;
   color: ${({ theme, isComplete }) =>
     isComplete < 40
       ? theme.colors.sub_pink
@@ -48,6 +47,7 @@ const StProgressBarWrapper = styled.div`
 const Progress = styled('progress')<{ isComplete: number }>`
   width: 20rem;
   height: 0.4rem;
+  margin-right: ${({ isComplete }) => (isComplete === 100 ? '1.6rem' : '2.1rem')};
   color: ${({ theme }) => theme.colors.gray_450};
   appearance: none;
 

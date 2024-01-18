@@ -62,7 +62,7 @@ const HistoryDrawer = ({
             />
           )} */}
 
-          {Object?.entries(years)?.map(([year, count]) => (
+          {Object.entries(years || {}).map(([year, count]) => (
             <YearButton
               key={year}
               year={year}

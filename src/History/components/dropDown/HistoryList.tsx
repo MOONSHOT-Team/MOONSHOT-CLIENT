@@ -80,8 +80,7 @@ const StObjectiveContainer = styled.button<{ visibility: string }>`
   display: flex;
   gap: 1.6rem;
   align-items: center;
-  width: 100%;
-  min-width: 105.8rem;
+  width: 105.8rem;
   height: 6rem;
   padding: 0 2.4rem;
   background-color: ${({ theme }) => theme.colors.gray_500};

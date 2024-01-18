@@ -3,28 +3,52 @@ import { ConfigProvider, DatePicker } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
+import { mutate } from 'swr';
+
+import { patchCheckIn } from '../../apis/fetcher';
 
 const { RangePicker } = DatePicker;
 
-const KRPeriodSelect = () => {
-  const startDate = '2024-01-1';
-  const endDate = '2024-01-09';
-  const [period, setPeriod] = useState([startDate, endDate]);
+const KRPeriodSelect = ({
+  keyResultId,
+  objStartAt,
+  objExpireAt,
+  startAt,
+  expireAt,
+}: {
+  keyResultId: number;
+  objStartAt: string;
+  objExpireAt: string;
+  startAt: string;
+  expireAt: string;
+}) => {
+  const [period, setPeriod] = useState([startAt, expireAt]);
 
-  const handleKrPeriodChange = (
+  const handleKrPeriodChange = async (
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
-  ): void => {
+  ) => {
     formatString[0] && formatString[1] ? setPeriod(formatString) : {};
+    const data = {
+      keyResultId: keyResultId,
+      startAt: formatDate(formatString[0]),
+      expireAt: formatDate(formatString[1]),
+    };
+    try {
+      await patchCheckIn('/v1/key-result', data);
+      await mutate(`/v1/key-result/${keyResultId}`);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const formatDate = (dateString: string) => {
-    const formattedDate = dateString.replace(/\./g, '-');
+    const formattedDate = dateString.replace(/\./g, '-').replace(/\s/g, '');
     return formattedDate;
   };
 
   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
-    return current < dayjs(startDate).endOf('day') || current > dayjs(endDate).startOf('day');
+    return current < dayjs(objStartAt).endOf('day') || current > dayjs(objExpireAt).startOf('day');
   };
 
   return (
@@ -49,7 +73,7 @@ const KRPeriodSelect = () => {
           variant="borderless"
           onChange={handleKrPeriodChange}
           value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
-          defaultValue={[dayjs(), dayjs()]}
+          defaultValue={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
           format={'YYYY. MM. DD'}
           disabledDate={disabledDate}
         />

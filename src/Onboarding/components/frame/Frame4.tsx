@@ -8,7 +8,7 @@ import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 import TextField from './TextField';
 
-const Frame5 = () => {
+const Frame4 = () => {
   return (
     <section css={section}>
       <TextField
@@ -53,7 +53,7 @@ const Frame5 = () => {
   );
 };
 
-export default Frame5;
+export default Frame4;
 
 const section = css`
   gap: 27.5rem;

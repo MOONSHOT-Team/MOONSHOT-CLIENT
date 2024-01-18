@@ -1,6 +1,6 @@
-import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
-import { IobjListTypes } from './goalItemTypes';
+import { IObjListTypes } from './goalItemTypes';
 
 export interface IMainData {
   objId: number;
@@ -9,5 +9,5 @@ export interface IMainData {
   objIsExpired: boolean;
   objListSize: number;
   krList: IKeyResultTypes[];
-  objList: IobjListTypes[];
+  objList: IObjListTypes[];
 }

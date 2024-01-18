@@ -26,7 +26,9 @@ const ProgressBar = ({
       >
         <progress value={currentProgress} max={maximumProgress}></progress>
         {isCurrentProgress && (
-          <StCurrentProgressBox textColor={textColor}>{percentValue}%</StCurrentProgressBox>
+          <StCurrentProgressBox textColor={textColor}>
+            {Math.floor(percentValue)}%
+          </StCurrentProgressBox>
         )}
       </StProgressBarWrapper>
     </div>

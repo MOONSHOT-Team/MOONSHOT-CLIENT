@@ -1,5 +1,5 @@
-import NodeLines from '@components/OkrTree/lines/NodeLines';
-import StraightLine from '@components/OkrTree/lines/StraightLine';
+import NodeLines from '@components/okrTree/lines/NodeLines';
+import StraightLine from '@components/okrTree/lines/StraightLine';
 import styled from '@emotion/styled';
 import {
   StNodesContainer,
@@ -8,7 +8,7 @@ import {
   StTaskLabel,
   StTaskNodeContainer,
 } from '@styles/okrTree/CommonNodeStyle';
-import { ITaskTypes } from '@type/OkrTree/TasksTypes';
+import { ITaskTypes } from '@type/okrTree/TasksTypes';
 
 interface ISocialTaskProps {
   isFirstChild?: boolean;

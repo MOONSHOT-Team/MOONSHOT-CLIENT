@@ -34,8 +34,8 @@ const imgSlide = css`
 
   /* stylelint-disable property-no-vendor-prefix */
   background-size: 136.6rem 13.6rem;
-  -webkit-animation: ${slideIn} 2500s ease;
-  animation: ${slideIn} 2500s ease;
+  -webkit-animation: ${slideIn} 5000s ease;
+  animation: ${slideIn} 5000s ease;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
   -webkit-animation-direction: alternate;

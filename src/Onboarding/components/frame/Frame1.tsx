@@ -1,21 +1,34 @@
-import { css } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import imgFrame1Background from '../../assets/imgFrame1Background.png';
-// import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
+import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
 import imgFrame1ObjectiveList from '../../assets/imgFrame1ObjectiveList.png';
 import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
 import imgFrame4MainDashboardDark from '../../assets/imgFrame4MainDashboardDark.png';
+import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 
 const Frame1 = () => {
+  const [textIdx, setTextIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTextIdx((prev) => (TEXT_ROLLING.length - 1 === textIdx ? 0 : (prev += 1)));
+    }, 3000);
+
+    return () => clearInterval(timer);
+  });
+
   return (
     <section css={section}>
-      <RollingTextList>
-        <li>매년 세우는 새해 계획이 무용지물이라면</li>
-      </RollingTextList>
+      <div css={imgSlide} />
+      <RollingTextBox>
+        <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p>
+      </RollingTextBox>
       <MainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</MainText>
       <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
       <div css={imgContainer}>
@@ -58,10 +71,70 @@ const Frame1 = () => {
 export default Frame1;
 
 const section = css`
+  position: relative;
   height: 119.6rem;
   padding-top: 6.4rem;
 
   ${sectionStyle}
+`;
+
+const slideIn = keyframes`
+  from {
+    background-position: top;
+  }
+  to {
+    background-position: 10000vw 0px;
+  }
+`;
+
+const imgSlide = css`
+  position: absolute;
+  top: 27rem;
+  width: 100vw;
+  height: 97.8rem;
+  background-image: url(${imgFrame1MovingBackground});
+
+  /* stylelint-disable property-no-vendor-prefix */
+  background-size: 136.6rem 97.8rem;
+  -webkit-animation: ${slideIn} 5000s ease;
+  animation: ${slideIn} 5000s ease;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+`;
+
+const liftUp = keyframes`
+  0% {
+    transform: translateY(3rem);
+    opacity: 0;
+  }
+
+  15% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  85% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-3rem);
+    opacity: 0;
+  }
+`;
+
+const textRolling = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  animation: ${liftUp} 3s ease-out infinite;
 `;
 
 const imgContainer = css`
@@ -81,18 +154,26 @@ const fixedBackground = css`
   transform: translateX(-50%);
 `;
 
-const RollingTextList = styled.ul`
+const RollingTextBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32.2rem;
   height: 3.8rem;
   margin-bottom: 3.8rem;
+  overflow: hidden;
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 1.8rem;
   color: ${({ theme }) => theme.colors.gray_150};
-  border: 1px solid red;
+  background-image: linear-gradient(
+      ${({ theme }) => theme.colors.background},
+      ${({ theme }) => theme.colors.background}
+    ),
+    linear-gradient(87.29deg, #444 8.86%, #7165ca 55.07%, #444 91.76%);
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+  border: 1px solid transparent;
   border-radius: 24px;
 `;
 
@@ -107,6 +188,7 @@ const MainText = styled.h1`
 `;
 
 const CtaLink = styled(Link)`
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,6 +201,12 @@ const CtaLink = styled(Link)`
   color: ${({ theme }) => theme.colors.gray_000};
   border: 1px solid #655e94;
   border-radius: 6px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #8d7efd29;
+    border: 1px solid ${({ theme }) => theme.colors.main_purple};
+  }
 `;
 
 const LateImgPopUp = styled(ImgPopUp)`

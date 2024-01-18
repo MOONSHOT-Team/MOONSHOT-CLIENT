@@ -6,6 +6,7 @@ import useModal from '@hooks/useModal';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { IFinalOkrListInfoTypes } from '../AddOkr/types/FinalKrListInfo';
 import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
 import { IPreviewTaskInfoTypes } from '../AddOkr/types/TaskInfoTypes';
 import PreviewModal from './components/PreviewModal';
@@ -79,9 +80,36 @@ const PreviewOkr = () => {
 
   const handleClickSaveOkrBtn = () => {
     console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
-    console.log(objInfo, 'objInfo');
-    console.log(previewKrListInfo, 'krList');
-    console.log(previewTaskListInfo, 'taskList');
+
+    const { objStartAt, objExpireAt } = objInfo;
+
+    const finalOkrInfo: IFinalOkrListInfoTypes = {
+      ...objInfo,
+      objStartAt: objStartAt.split('. ').join('-'),
+      objExpireAt: objExpireAt.split('. ').join('-'),
+      krList: [
+        {
+          ...previewKrListInfo[0],
+          startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
+          expireAt: previewKrListInfo[0].startAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[0],
+        },
+        {
+          ...previewKrListInfo[1],
+          startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
+          expireAt: previewKrListInfo[1].startAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[1],
+        },
+        {
+          ...previewKrListInfo[2],
+          startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
+          expireAt: previewKrListInfo[2].startAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[2],
+        },
+      ],
+    };
+
+    console.log(finalOkrInfo, '###');
   };
 
   const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

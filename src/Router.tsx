@@ -1,6 +1,7 @@
 import Error from '@components/Error';
 import MainLayout from '@components/Layout/MainLayout';
 import Loading from '@components/Lodaing';
+import { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AddOkr from './AddOkr';
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <MainLayout />,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <MainLayout />
+      </Suspense>
+    ),
     errorElement: <Error />,
     children: [
       {
@@ -75,7 +80,7 @@ const router = createBrowserRouter([
         element: <AddOkr />,
       },
       {
-        path: '/loading',
+        path: 'loading',
         element: <Loading />,
       },
     ],

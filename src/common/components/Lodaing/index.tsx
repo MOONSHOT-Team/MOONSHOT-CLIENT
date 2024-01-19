@@ -6,8 +6,9 @@ const Loading = () => {
   return (
     <StLoadingContainer>
       {/* <StLoadingGif src={loading} alt="loading-img" /> */}
-      <StCustomLoadingLottie animationData={animateData} loop={true} />
-      <StLoadingTxt>로딩 중입니다</StLoadingTxt>
+      <StCustomLoadingLottie animationData={animateData} loop={true}>
+        <StLoadingTxt>로딩 중입니다</StLoadingTxt>
+      </StCustomLoadingLottie>
     </StLoadingContainer>
   );
 };
@@ -15,21 +16,17 @@ const Loading = () => {
 export default Loading;
 
 const StLoadingContainer = styled.section`
-  margin: 50vh auto 0;
-  text-align: center;
-  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100%;
 `;
-
-// const StLoadingGif = styled.img`
-//   position: relative;
-//   width: 63.8rem;
-//   height: 63.8rem;
-// `;
 
 const StLoadingTxt = styled.p`
   position: absolute;
+  top: 25rem;
   right: 50%;
-  bottom: 0;
   transform: translate(50%, 0);
 
   ${({ theme }) => theme.colors.gray_000};

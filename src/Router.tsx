@@ -1,5 +1,6 @@
 import Error from '@components/Error';
 import MainLayout from '@components/Layout/MainLayout';
+import Loading from '@components/Lodaing';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AddOkr from './AddOkr';
@@ -68,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: 'add-okr',
         element: <AddOkr />,
+      },
+      {
+        path: 'add-okr',
+        element: <AddOkr />,
+      },
+      {
+        path: '/loading',
+        element: <Loading />,
       },
     ],
   },

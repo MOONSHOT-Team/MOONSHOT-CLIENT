@@ -9,7 +9,12 @@ type popUpType = {
   delay?: number;
 };
 
-const popUp = (fromX: number = 0, fromY: number = 0, toX: number = 0, toY: number = 0) => keyframes`
+export const popUp = (
+  fromX: number = 0,
+  fromY: number = 0,
+  toX: number = 0,
+  toY: number = 0,
+) => keyframes`
 from {
   transform: translate(${fromX}rem, ${fromY}rem);
   opacity: 0;

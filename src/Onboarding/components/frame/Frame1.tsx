@@ -9,7 +9,7 @@ import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.pn
 import imgFrame1ObjectiveList from '../../assets/imgFrame1ObjectiveList.png';
 import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
-import { ImgPopUp } from '../../styles/animation';
+import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 
 const Frame1 = () => {
@@ -33,31 +33,33 @@ const Frame1 = () => {
       <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />
-        <LateImgPopUp
+        <LeftLateImgPopUp
           fromX={17.7}
           fromY={0}
           toX={17.7}
           toY={-15.8}
-          delay={1}
+          delay={2}
           src={imgFrame1ObjectiveList}
           alt="objective-img"
           width={262}
           height={235}
         />
-        <ImgPopUp
-          fromY={20}
-          toY={0}
-          src={imgFrame1MainDashboard}
-          alt="dashboard-img"
-          width={996}
-          height={560}
-        />
-        <LateImgPopUp
+        <DashboardContainer>
+          <ImgDashboardPopUp
+            fromY={20}
+            toY={0}
+            src={imgFrame1MainDashboard}
+            alt="dashboard-img"
+            width={996}
+            height={560}
+          />
+        </DashboardContainer>
+        <RightLateImgPopUp
           fromX={-18.7}
           fromY={39}
           toX={-18.7}
           toY={19}
-          delay={2}
+          delay={3}
           src={imgFrame1Sidesheet}
           alt="sidesheet-img"
           width={272}
@@ -209,6 +211,58 @@ const CtaLink = styled(Link)`
   }
 `;
 
-const LateImgPopUp = styled(ImgPopUp)`
+const animatedGradient = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const DashboardContainer = styled.div`
+  position: relative;
+  z-index: 2;
+  width: 99.6rem;
+  height: 56rem;
+  background: ${({ theme }) => theme.colors.background};
+  border-width: 4px;
+  border-radius: 12px;
+  animation: ${popUp(0, 60, 0, 0)} 1.5s ease-out;
+
+  &::after {
+    position: absolute;
+    top: -0.4rem;
+    left: -0.4rem;
+    z-index: -1;
+    width: 100.4rem;
+    height: 56.8rem;
+    content: '';
+    background: linear-gradient(
+      72.96deg,
+      rgb(68 68 68 / 80%) 3.5%,
+      rgb(141 126 253 / 80%) 49.05%,
+      rgb(68 68 68 / 80%) 97.5%
+    );
+    background-size: 300% 300%;
+    border-radius: 12px;
+    animation: ${animatedGradient} 3s ease alternate infinite;
+  }
+`;
+
+const ImgDashboardPopUp = styled(ImgPopUp)`
+  border-radius: 12px;
+  animation: ${popUp(0, 20, 0, 0)} 0.5s ease-out;
+`;
+
+const LeftLateImgPopUp = styled(ImgPopUp)`
+  opacity: 0;
+`;
+
+const RightLateImgPopUp = styled(ImgPopUp)`
+  z-index: 3;
   opacity: 0;
 `;

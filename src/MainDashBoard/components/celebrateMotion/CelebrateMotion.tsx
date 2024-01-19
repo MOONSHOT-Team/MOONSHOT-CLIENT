@@ -1,21 +1,29 @@
+import instance from '@apis/instance';
 import animationData from '@assets/lotties/congratulation.json';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Spline from '@splinetool/react-spline';
-import Link from 'antd/es/typography/Link';
 import Lottie from 'lottie-react';
-import { LinkProps } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface ICelebrateMotionProps {
   handleChangeState: (state: number) => void;
+  currentObjId: number;
   nickname: string;
 }
 
-const CelebrateMotion = ({
-  handleChangeState,
+const CelebrateMotion = ({ handleChangeState, nickname, currentObjId }: ICelebrateMotionProps) => {
+  const navigate = useNavigate();
 
-  nickname,
-}: ICelebrateMotionProps) => {
+  const handleComplete = async () => {
+    await instance.patch('/v1/objective', {
+      objectiveId: currentObjId,
+      isClosed: true,
+    });
+    //목표 완료 -> 대시보드
+    navigate('/history');
+  };
+
   return (
     <section css={CelebrateMotionContainer}>
       <CustomLottie animationData={animationData} loop={false} />
@@ -29,7 +37,9 @@ const CelebrateMotion = ({
           </StCelebrateDescription>
         </StCelebrateTextBox>
         <StCelebrateBtnBox>
-          <StFinishBtn to="/history">목표 완료하기</StFinishBtn>
+          <StFinishBtn type="button" onClick={handleComplete}>
+            목표 완료하기
+          </StFinishBtn>
           <StMoreBtn type="button" onClick={() => handleChangeState(0)}>
             목표 이어가기
           </StMoreBtn>
@@ -115,17 +125,9 @@ const StCelebrateBtnStyle = styled.button`
   ${({ theme }) => theme.fonts.btn_14_semibold};
 `;
 
-const StFinishBtn = styled(Link)<LinkProps>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15.5rem;
-  height: 4rem;
+const StFinishBtn = styled(StCelebrateBtnStyle)`
   color: ${({ theme }) => theme.colors.gray_000};
   background-color: ${({ theme }) => theme.colors.gray_500};
-  border-radius: 6px;
-
-  ${({ theme }) => theme.fonts.btn_14_semibold};
 `;
 
 const StMoreBtn = styled(StCelebrateBtnStyle)`

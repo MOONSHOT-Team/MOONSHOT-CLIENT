@@ -113,6 +113,7 @@ const MainDashBoard = () => {
               <CelebrateMotion
                 handleChangeState={handleChangeState}
                 nickname={treeData.data.nickname}
+                currentObjId={okrTreeData?.objId}
               />
             )}
           </>

@@ -16,7 +16,6 @@ const CelebrateMotion = ({
   nickname,
 }: ICelebrateMotionProps) => {
   const navigate = useNavigate();
-  console.log(nickname);
 
   return (
     <section css={CelebrateMotionContainer}>

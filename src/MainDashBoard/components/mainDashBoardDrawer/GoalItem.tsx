@@ -5,7 +5,7 @@ import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
-import { mutate } from 'swr';
+import { useSWRConfig } from 'swr';
 
 import { deleteObj, patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
@@ -35,6 +35,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   handleChangeState,
 }) => {
   const ref = useRef<HTMLLIElement>(null);
+  const { mutate } = useSWRConfig();
   const navigate = useNavigate();
 
   const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
@@ -62,7 +63,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
 
     try {
       await deleteObj(`/v1/objective/${rightClickedGoalId}`);
-      mutate('/v1/objective');
+      await mutate('/v1/objective');
     } catch (err) {
       navigate('/error');
     }

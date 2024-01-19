@@ -121,9 +121,7 @@ const DrawerModal = ({
       isClosed: false,
       expireAt: `${year}-${month}-${day}`,
     });
-    console.log(response);
     if (response.status === 204) {
-      console.log('204');
       handleChangeState?.(0);
     }
   };

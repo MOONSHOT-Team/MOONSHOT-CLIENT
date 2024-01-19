@@ -125,7 +125,6 @@ export const 진척정도입력하기 = ({
     try {
       const response = await postCheckIn('/v1/log', data);
       await mutate(`/v1/key-result/${keyResultId}`);
-      console.log(`/v1/objective?objectiveId=${objId}`);
       await mutate(`/v1/objective?objectiveId=${objId}`);
       if (response.status === 200) {
         //축하모션
@@ -234,13 +233,11 @@ export const KR수정하기 = ({
       target: Number(targetValue),
       logContent,
     };
-    console.log(data);
 
     try {
       const response = await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
       await mutate(`/v1/objective?objectiveId=${objId}`);
-      console.log(response);
       if (response?.data) {
         handleChangeState?.(2);
       }

@@ -34,8 +34,6 @@ const HistoryDrawer = ({
     });
   };
 
-  // const currentYear = new Date().getFullYear();
-
   return (
     <HistoryAside>
       <article css={themeContainer}>
@@ -61,15 +59,6 @@ const HistoryDrawer = ({
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
-          {/* {!groups.some((group) => group.year === currentYear) && (
-            <YearButton
-            currentYear={currentYear}
-              count={0} // 더미 값
-              onSelectYear={() => handleSelectYear(currentYear)}
-              isActive={currentYear === selectedYear}
-            />
-          )} */}
-
           {fixedYears?.map(({ year, count }) => {
             const isDisabled = selectedTheme ? !years?.some((item) => item.year === year) : false;
             return (

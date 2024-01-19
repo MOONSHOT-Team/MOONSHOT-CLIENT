@@ -14,14 +14,21 @@ const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
     null,
   );
+
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
+
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
 
   const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
+
   const [categories, setCategories] = useState<string[]>([]);
+
   const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
+
   const [fixedCategories, setFixedCategories] = useState<string[]>([]);
+
   const { data: OKRHistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
 
   useEffect(() => {
@@ -42,9 +49,7 @@ const History = () => {
             criteria: selectedFilter,
           },
         });
-        console.log(`params:${selectedFilter}`);
-        if (response) console.log(response.data, '!!!!');
-        setYears(response.data.data.years || []);
+        if (response) setYears(response.data.data.years || []);
         setCategories(response.data.data.categories);
         setHistoryData(response.data.data);
       } catch (error) {
@@ -58,15 +63,15 @@ const History = () => {
   const handleThemeSelect = async (selectedTheme: string) => {
     setSelectedTheme(selectedTheme);
   };
+
   const handleFilterSelection = (selectedFilter: string) => {
     setSelectedFilter(selectedFilter);
   };
-  console.log(selectedFilter);
+
   const handleYearSelect = async (selectedYear: number) => {
     setSelectedYear(selectedYear);
   };
 
-  console.log(historyData);
   if (!OKRHistoryData) return <>데이터를 가져오는 중입니다...</>;
 
   return (
@@ -80,6 +85,7 @@ const History = () => {
         onThemeSelect={handleThemeSelect}
         onYearSelect={handleYearSelect}
       />
+
       <section css={DropDownSection}>
         <ListOrder onFilterSelection={handleFilterSelection} />
         {(selectedTheme || selectedYear
@@ -132,14 +138,14 @@ const DropDownSection = css`
     background-color: #444;
   }
 `;
+
 const listMarginBottom = css`
   &:not(:last-child) {
     margin-bottom: 3.4rem;
   }
 `;
 
-const StListOrderContainer = styled.div // <{ isFirst: boolean }>
-`
+const StListOrderContainer = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;

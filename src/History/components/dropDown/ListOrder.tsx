@@ -10,8 +10,10 @@ interface IListOrderProps {
 }
 
 const ListOrder: React.FC<IListOrderProps> = ({ onFilterSelection }) => {
-  const initialFilter = '최신순'; // 초기 필터 값을 설정합니다.
+  const initialFilter = '최신순';
+
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
+
   const [currentFilter, setCurrentFilter] = useState(initialFilter);
 
   const handleCurrentFilterClick = () => {

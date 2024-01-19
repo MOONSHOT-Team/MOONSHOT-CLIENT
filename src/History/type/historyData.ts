@@ -33,5 +33,4 @@ export interface ObjectiveData {
   };
   categories: string[];
   onThemeSelect: (selectedTheme: string) => void;
-  // onYearSelect: (selectedYear: number) => void;
 }

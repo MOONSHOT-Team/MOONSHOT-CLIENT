@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import Loading from '@components/Lodaing';
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -125,7 +126,7 @@ const MainDashBoard = () => {
     setCurrentGoalId(id);
   };
 
-  if (isLoading) return <>로딩중 ...</>;
+  if (isLoading) return <Loading />;
   return <>{renderMainState()}</>;
 };
 

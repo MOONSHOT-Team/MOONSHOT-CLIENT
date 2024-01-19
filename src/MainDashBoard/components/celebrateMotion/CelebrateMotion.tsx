@@ -1,20 +1,28 @@
+import instance from '@apis/instance';
 import animationData from '@assets/lotties/congratulation.json';
-import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import useModal from '@hooks/useModal';
 import Spline from '@splinetool/react-spline';
 import Lottie from 'lottie-react';
-
-import DrawerModal from '../drawer/DrawerModal';
+import { useNavigate } from 'react-router-dom';
 
 interface ICelebrateMotionProps {
   handleChangeState: (state: number) => void;
   currentObjId: number;
+  nickname: string;
 }
 
-const CelebrateMotion = ({ handleChangeState, currentObjId }: ICelebrateMotionProps) => {
-  const { modalRef, handleShowModal } = useModal();
+const CelebrateMotion = ({ handleChangeState, nickname, currentObjId }: ICelebrateMotionProps) => {
+  const navigate = useNavigate();
+
+  const handleComplete = async () => {
+    await instance.patch('/v1/objective', {
+      objectiveId: currentObjId,
+      isClosed: true,
+    });
+    //목표 완료 -> 대시보드
+    navigate('/history');
+  };
 
   return (
     <section css={CelebrateMotionContainer}>
@@ -23,23 +31,20 @@ const CelebrateMotion = ({ handleChangeState, currentObjId }: ICelebrateMotionPr
       <StCelebrateMotionWrapper>
         <CustomSpline scene={'https://prod.spline.design/55BQyyYxSOmUQ1Mh/scene.splinecode'} />
         <StCelebrateTextBox>
-          <StCelebrateTitle>문샷님 축하드립니다!</StCelebrateTitle>
+          <StCelebrateTitle>{nickname}님 축하드립니다!</StCelebrateTitle>
           <StCelebrateDescription>
             모든 KR에 대한 목표를 달성했네요. 도전적인 목표를 이어가볼까요?
           </StCelebrateDescription>
         </StCelebrateTextBox>
         <StCelebrateBtnBox>
-          <StFinishBtn type="button" onClick={() => handleChangeState(0)}>
+          <StFinishBtn type="button" onClick={handleComplete}>
             목표 완료하기
           </StFinishBtn>
-          <StMoreBtn type="button" onClick={handleShowModal}>
+          <StMoreBtn type="button" onClick={() => handleChangeState(0)}>
             목표 이어가기
           </StMoreBtn>
         </StCelebrateBtnBox>
       </StCelebrateMotionWrapper>
-      <Modal ref={modalRef}>
-        <DrawerModal currentObjId={currentObjId} />
-      </Modal>
     </section>
   );
 };

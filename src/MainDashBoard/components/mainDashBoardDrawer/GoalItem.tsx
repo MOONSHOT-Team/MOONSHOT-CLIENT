@@ -1,10 +1,11 @@
+import instance from '@apis/instance';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { getCategoryColor } from '@utils/getCategoryColor';
 import React, { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
-import { mutate } from 'swr';
+import { useSWRConfig } from 'swr';
 
 import { deleteObj, patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
@@ -33,17 +34,13 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   setIsRightClick,
   handleChangeState,
 }) => {
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
+  const { mutate } = useSWRConfig();
   const navigate = useNavigate();
 
   const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
 
   const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
-
-  // const { data } = useSWR('/v1/objective', getDashBoardData);
-
-  // const {data, isLoading} = useSWR()
 
   const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
     e.preventDefault();
@@ -52,25 +49,23 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     setRightClickPoints({ x: e.pageX, y: e.pageY });
   };
 
-  const handleClickComplete = () => {
-    console.log(rightClickedGoalId);
-    // 완료 서버 통신?
+  const handleClickComplete = async () => {
+    await instance.patch('/v1/objective', {
+      objectiveId: rightClickedGoalId,
+      isClosed: true,
+    });
+    //목표 완료 -> 대시보드
+    navigate('/history');
   };
 
-  const handleClickDelete = async () => {
-    // console.log(rightClickedGoalId);
-
+  const handleClickDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     try {
       await deleteObj(`/v1/objective/${rightClickedGoalId}`);
-      mutate('/v1/objective');
+      await mutate('/v1/objective');
     } catch (err) {
       navigate('/error');
     }
-  };
-
-  const handleOnClickIcon = (event: React.MouseEvent) => {
-    setIsDetailOpen(!isDetailOpen);
-    event.stopPropagation();
   };
 
   const handleOnClick = () => {
@@ -150,21 +145,15 @@ const GoalItem: React.FC<IGoalItemProps> = ({
         </header>
         <article css={goalItemArticle}>
           <StGoalItemTitle>{title}</StGoalItemTitle>
-          <i>
-            {isDetailOpen ? (
-              <IcDropUp onClick={handleOnClickIcon} />
-            ) : (
-              <IcDropDown onClick={handleOnClickIcon} />
-            )}
-          </i>
+          <i>{currentGoalId === id ? <IcDropUp /> : <IcDropDown />}</i>
         </article>
-        {isDetailOpen && <StGoalItemContent>{content}</StGoalItemContent>}
+        {currentGoalId === id && <StGoalItemContent>{content}</StGoalItemContent>}
       </GoalItemContainer>
       <footer css={ProgressBarContainer}>
         <MainDashProgressBar
           currentProgress={progress}
-          progressBarColor={'#5B5B5B'}
-          progressValueColor={currentGoalId === id ? '#FFFFFF' : '#C2C2C2'}
+          progressBarColor={currentGoalId === id ? '#5B5B5B' : '#444444'}
+          progressValueColor={currentGoalId === id ? '#FFFFFF' : '#8E8E8E'}
           textColor={'#A7A7A7'}
           isCurrentProgress={false}
         />
@@ -184,10 +173,6 @@ const StGoalItemli = styled.li<{ bgColor: boolean; isDragging: boolean }>`
     bgColor ? theme.colors.gray_500 : theme.colors.gray_550};
   border-radius: 6px;
   opacity: ${({ isDragging }) => (isDragging ? 0.5 : 1)};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_500};
-  }
 `;
 
 const GoalItemContainer = styled.section`

@@ -21,10 +21,13 @@ const My = () => {
   return (
     <section css={myPageUi}>
       <StUserInfoContainer>
-        <StUserProfileImg src={profileImg} alt="사용자 사진" />
+        <StUserProfileImg
+          src={userInfo?.data.data.profileImgUrl ? userInfo?.data.data.profileImgUrl : profileImg}
+          alt="사용자 사진"
+        />
         <StUserNickName>{userInfo?.data.data.nickname}</StUserNickName>
         <StUserIdentification>
-          {userInfo?.data.data.socailPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
+          {userInfo?.data.data.socialPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
         </StUserIdentification>
         <StWithdraw>회원탈퇴</StWithdraw>
       </StUserInfoContainer>
@@ -79,6 +82,9 @@ const StUserProfileImg = styled.img`
   display: inline-flex;
   width: 12rem;
   height: 12rem;
+  border: 2px solid ${({ theme }) => theme.colors.gray_400};
+  border-radius: 60px;
+  object-fit: cover;
 `;
 
 const StUserNickName = styled.p`

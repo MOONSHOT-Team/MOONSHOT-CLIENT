@@ -28,10 +28,10 @@ export interface Group {
 
 export interface ObjectiveData {
   groups: Group[];
-  years: {
-    [year: string]: number;
-  };
+  years: { year: number; count: number }[];
+  fixedYears: { year: number; count: number }[] | null;
   categories: string[];
+  fixedCategories: string[];
   onThemeSelect: (selectedTheme: string) => void;
-  // onYearSelect: (selectedYear: number) => void;
+  onYearSelect: (selectedYear: number) => void;
 }

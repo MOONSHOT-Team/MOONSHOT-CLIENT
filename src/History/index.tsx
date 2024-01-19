@@ -1,6 +1,6 @@
+import instance from '@apis/instance';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
@@ -14,82 +14,88 @@ const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
     null,
   );
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
 
-  const [years, setYears] = useState<{ [year: string]: number }>({});
+  const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
   const [categories, setCategories] = useState<string[]>([]);
-  const { data: HistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
+  const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
+  const [fixedCategories, setFixedCategories] = useState<string[]>([]);
+  const { data: OKRHistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
 
   useEffect(() => {
-    if (!isLoading && HistoryData) {
-      setHistoryData(HistoryData?.data.data);
-      setYears(HistoryData?.data.data.years || []);
-      setCategories(HistoryData?.data.data.categories || []);
+    if (!isLoading && OKRHistoryData) {
+      setHistoryData(OKRHistoryData?.data.data);
+      setFixedYears(OKRHistoryData?.data.data.years || []);
+      setFixedCategories(OKRHistoryData?.data.data.categories || []);
     }
-  }, [HistoryData, isLoading]);
+  }, [OKRHistoryData, isLoading]);
 
-  if (!HistoryData) return <>데이터를 가져오는 중입니다...</>;
-  console.log(HistoryData.data.data, isLoading);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await instance.get('/v1/objective/history', {
+          params: {
+            year: selectedYear,
+            category: selectedTheme,
+            criteria: selectedFilter,
+          },
+        });
+        console.log(`params:${selectedFilter}`);
+        if (response) console.log(response.data, '!!!!');
+        setYears(response.data.data.years || []);
+        setCategories(response.data.data.categories);
+        setHistoryData(response.data.data);
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchData();
+  }, [selectedTheme, selectedYear, selectedFilter]);
 
   const handleThemeSelect = async (selectedTheme: string) => {
-    try {
-      console.log('Params:', { category: selectedTheme });
-      const response = await axios.get('/v1/objective/history', {
-        params: {
-          category: selectedTheme,
-        },
-      });
-      console.log(response.data);
-      setHistoryData(response.data);
-      console.log(historyData, isLoading);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    setSelectedTheme(selectedTheme);
   };
-  // const handleYearSelect = (selectedYear: number) => {
-  //   console.log('선택된 연도:', selectedYear);
-  // };
+  const handleFilterSelection = (selectedFilter: string) => {
+    setSelectedFilter(selectedFilter);
+  };
+  console.log(selectedFilter);
+  const handleYearSelect = async (selectedYear: number) => {
+    setSelectedYear(selectedYear);
+  };
 
-  // const [firstGroupYear, setFirstGroupYear] = useState<number | null>(null);
+  console.log(historyData);
+  if (!OKRHistoryData) return <>데이터를 가져오는 중입니다...</>;
 
-  // useEffect(() => {
-  //   if (HistoryData.data.data.years.length > 0) {
-  //     setFirstGroupYear(HistoryData.data.data.years[0].year);
-  //   }
-  // }, [HistoryData.data.data.years]);
-
-  // const { groups, categories, years } = ObjectiveData;
   return (
     <section css={historyUi}>
       <HistoryDrawer
         groups={historyData ? historyData.groups : []}
         categories={categories}
         years={years}
+        fixedYears={fixedYears}
+        fixedCategories={fixedCategories}
         onThemeSelect={handleThemeSelect}
-        // onYearSelect={handleYearSelect}
+        onYearSelect={handleYearSelect}
       />
       <section css={DropDownSection}>
-        <ListOrder />
-        {HistoryData.data.data.groups.map(({ year, objList }: Group) => (
-          <div key={year} css={listMarginBottom}>
-            <StListOrderContainer
-            //  isFirst={year === firstGroupYear}
-            >
+        <ListOrder onFilterSelection={handleFilterSelection} />
+        {(selectedTheme || selectedYear
+          ? historyData?.groups
+          : OKRHistoryData?.data?.data?.groups
+        )?.map(({ year, objList }: Group) => (
+          <div key={`${year}*${year}`} css={listMarginBottom}>
+            <StListOrderContainer>
               <StEachYear>{year}년</StEachYear>
             </StListOrderContainer>
             <ul>
               <li>
                 {objList.map(
-                  ({
-                    objIdx,
-                    objId,
-                    title,
-                    objCategory,
-                    progress,
-                    objPeriod,
-                    krList,
-                  }: IObjective) => (
+                  ({ objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
                     <HistoryList
-                      key={`${objIdx}+${objId}`}
+                      key={`${title}+${objId}`}
                       objId={objId}
                       title={title}
                       objCategory={objCategory}

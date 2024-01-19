@@ -10,6 +10,9 @@ const TaskList = ({ taskId, taskTitle, taskIdx }: ITaskResultListProps) => {
   return (
     <>
       <StTaskContainer key={`${taskId}+${taskTitle}`}>
+        {taskIdx === 0 ? <div /> : null}
+        {taskIdx === 0 || taskIdx === 1 ? <div /> : null}
+
         <StTaskWrapper>
           <StOKRIndex>Task {taskIdx + 1}</StOKRIndex>
           <StOKRContent>{taskTitle}</StOKRContent>
@@ -37,8 +40,9 @@ const StOKRContent = styled.p`
 
 const StTaskContainer = styled.li`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 100%/3;
   min-width: 34rem;
   height: 4rem;
   padding-left: 1.6rem;

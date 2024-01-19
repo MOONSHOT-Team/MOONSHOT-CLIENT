@@ -62,6 +62,16 @@ const HistoryDrawer = ({
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
+          {(!fixedYears || !fixedYears.some((item) => item.year === currentYear)) && (
+            <YearButton
+              key={0}
+              year={currentYear}
+              count={0}
+              onSelectYear={() => handleSelectYear(0)}
+              isActive={false}
+              isDisabled={selectedTheme ? !years?.some((item) => item.year === currentYear) : false}
+            />
+          )}
           {fixedYears?.map(({ year, count }) => {
             const isDisabled = selectedTheme ? !years?.some((item) => item.year === year) : false;
             return (
@@ -75,16 +85,6 @@ const HistoryDrawer = ({
               />
             );
           })}
-          {!fixedYears?.length && (
-            <YearButton
-              key={0}
-              year={currentYear}
-              count={0}
-              onSelectYear={() => handleSelectYear(0)}
-              isActive={0 !== (selectedYear || 0)}
-              isDisabled={false}
-            />
-          )}
         </ul>
       </article>
     </HistoryAside>

@@ -102,7 +102,7 @@ const History = () => {
             <ul>
               <li>
                 {objList.map(
-                  ({ objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
+                  ({ objId, title, objCategory, progress, objPeriod, krList }: IObjective, idx) => (
                     <HistoryList
                       key={`${title}+${objId}`}
                       objId={objId}
@@ -111,6 +111,8 @@ const History = () => {
                       progress={progress}
                       objPeriod={objPeriod}
                       krList={krList}
+                      objIdx={idx}
+                      isLast={idx === objList.length - 1}
                     />
                   ),
                 )}

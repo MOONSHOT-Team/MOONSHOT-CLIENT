@@ -15,12 +15,16 @@ const HistoryList: React.FC<IObjective> = ({
   objCategory,
   progress,
   objPeriod,
+  objIdx,
+  isLast,
   krList,
 }) => {
   const [isVisable, setIsVisable] = useState<number | null>(null);
   const handleObjectiveClick = (objId: number) => {
     setIsVisable((previousObjId) => (previousObjId === objId ? null : objId));
   };
+
+  console.log(objIdx, isLast, '!!!');
   return (
     <>
       <ul css={historyListMarginBottom}>
@@ -124,9 +128,12 @@ const KrTaskLayout = css`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  width: 100%;
 `;
 
 const TaskLayout = css`
-  display: flex;
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.9rem;
 `;

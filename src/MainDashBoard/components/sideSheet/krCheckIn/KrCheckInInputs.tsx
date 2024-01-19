@@ -379,7 +379,7 @@ const StEditNum = styled.div`
 `;
 
 const StEditNumInput = styled.input<{ isMaxNum: boolean }>`
-  width: 12rem;
+  width: 9rem;
   padding: 1.1rem 1.2rem;
   color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;

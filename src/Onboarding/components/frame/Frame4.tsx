@@ -2,8 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import imgFrame4DashboardDark from '../../assets/frame/imgFrame4DashboardDark.png';
-import imgFrame4SideSheet from '../../assets/frame/imgFrame4SideSheet.png';
-import imgFrame4SideSheetCheckIn from '../../assets/frame/imgFrame4SideSheetCheckIn.png';
+import imgFrame4SideSheetLeft from '../../assets/frame/imgFrame4SideSheetLeft.png';
+import imgFrame4SideSheetRight from '../../assets/frame/imgFrame4SideSheetRight.png';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -28,7 +28,7 @@ const Frame4 = () => {
             toX={31.7}
             toY={28.2}
             delay={2}
-            src={imgFrame4SideSheetCheckIn}
+            src={imgFrame4SideSheetLeft}
             alt="main-dashboard-img-1"
             width={420}
             height={479}
@@ -47,7 +47,7 @@ const Frame4 = () => {
             toX={-31.7}
             toY={-24}
             delay={1}
-            src={imgFrame4SideSheet}
+            src={imgFrame4SideSheetRight}
             alt="main-dashboard-img-3"
             width={420}
             height={323}

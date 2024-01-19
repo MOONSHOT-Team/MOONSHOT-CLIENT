@@ -20,3 +20,18 @@ export interface ITask {
   taskIdx: number;
   taskTitle: string;
 }
+
+export interface Group {
+  year: number;
+  objList: IObjective[];
+}
+
+export interface IObjectiveDataProps {
+  groups: Group[];
+  years: { year: number; count: number }[];
+  fixedYears: { year: number; count: number }[] | null;
+  categories: string[];
+  fixedCategories: string[];
+  onThemeSelect: (selectedTheme: string) => void;
+  onYearSelect: (selectedYear: number) => void;
+}

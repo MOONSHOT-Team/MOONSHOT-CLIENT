@@ -1,4 +1,5 @@
 import Loading from '@components/Lodaing';
+import { css } from '@emotion/react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
@@ -10,7 +11,7 @@ const AuthKakao = () => {
   const navigate = useNavigate();
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
-  const { data, error, isLoading } = useSWR<SwrType, Error>('/v1/user/login', (url: string) =>
+  const { data } = useSWR<SwrType, Error>('/v1/user/login', (url: string) =>
     fetcherPost(url, kakaoCode!, 'KAKAO'),
   );
 
@@ -26,13 +27,18 @@ const AuthKakao = () => {
   }, [data, navigate]);
 
   return (
-    <>
-      <p>{kakaoCode}</p>
-      {isLoading && <Loading />}
-      {error && <p style={{ fontSize: '12rem' }}>Error,,,</p>}
-      {data && <p style={{ fontSize: '12rem' }}>Success!!!</p>}
-    </>
+    <div css={loadingCenter}>
+      <Loading />
+    </div>
   );
 };
 
 export default AuthKakao;
+
+const loadingCenter = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+`;

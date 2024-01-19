@@ -47,7 +47,7 @@ const HistoryList: React.FC<IObjective> = ({
               <div css={TaskLayout}>
                 {taskList.map(({ taskId, taskTitle, taskIdx }: ITask) => (
                   <TaskList
-                    key={`${taskId}+${taskTitle}`}
+                    key={`${taskTitle}+${taskTitle}`}
                     taskId={taskId}
                     taskTitle={taskTitle}
                     taskIdx={taskIdx}

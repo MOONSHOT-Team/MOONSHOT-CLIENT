@@ -43,7 +43,9 @@ const Nickname = () => {
           value={nickname}
           onChange={handleEnteredNickname}
         />
-        <StStartButton type="submit">서비스 시작하기</StStartButton>
+        <StStartButton type="submit" disabled={nickname === ''}>
+          서비스 시작하기
+        </StStartButton>
       </form>
     </section>
   );
@@ -69,7 +71,7 @@ const formStyle = css`
   align-items: center;
 `;
 
-const StStartButton = styled.button`
+const StStartButton = styled.button<{ disabled: boolean }>`
   ${({ theme }) => theme.fonts.btn_14_semibold};
 
   display: flex;
@@ -78,7 +80,8 @@ const StStartButton = styled.button`
   width: 20rem;
   height: 4rem;
   color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ theme }) => theme.colors.main_darkpurple};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.gray_500 : theme.colors.main_darkpurple};
   border-radius: 6px;
 `;
 

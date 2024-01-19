@@ -7,7 +7,7 @@ import imgFrame1Background from '../../assets/frame/imgFrame1Background.png';
 import imgFrame1MainDashboard from '../../assets/frame/imgFrame1MainDashboard.png';
 import imgFrame1MovingBackground from '../../assets/frame/imgFrame1MovingBackground.png';
 import imgFrame1ObjectiveItem from '../../assets/frame/imgFrame1ObjectiveItem.png';
-import imgFrame1Sidesheet from '../../assets/frame/imgFrame1Sidesheet.png';
+import imgFrame1SideSheetRight from '../../assets/frame/imgFrame1SideSheetRight.png';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -27,7 +27,12 @@ const Frame1 = () => {
     <section css={section}>
       <div css={imgSlide} />
       <RollingTextBox>
-        <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p>
+        {TEXT_ROLLING.filter((_, idx) => idx === textIdx).map((text) => (
+          <p css={textRolling} key={text}>
+            {text}
+          </p>
+        ))}
+        {/* <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p> */}
       </RollingTextBox>
       <MainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</MainText>
       <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
@@ -60,7 +65,7 @@ const Frame1 = () => {
           toX={-18.7}
           toY={19}
           delay={1.5}
-          src={imgFrame1Sidesheet}
+          src={imgFrame1SideSheetRight}
           alt="sidesheet-img"
           width={272}
           height={570}
@@ -85,7 +90,7 @@ const slideIn = keyframes`
     background-position: top;
   }
   to {
-    background-position: 10000vw 0px;
+    background-position: 100000vw 0px;
   }
 `;
 
@@ -98,8 +103,8 @@ const imgSlide = css`
 
   /* stylelint-disable property-no-vendor-prefix */
   background-size: 194rem 92.5rem;
-  -webkit-animation: ${slideIn} 5000s ease;
-  animation: ${slideIn} 5000s ease;
+  -webkit-animation: ${slideIn} 40000s ease;
+  animation: ${slideIn} 40000s ease;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
   -webkit-animation-direction: alternate;
@@ -110,7 +115,7 @@ const imgSlide = css`
 
 const liftUp = keyframes`
   0% {
-    transform: translateY(3rem);
+    transform: translateY(4rem);
     opacity: 0;
   }
 
@@ -125,7 +130,7 @@ const liftUp = keyframes`
   }
 
   100% {
-    transform: translateY(-3rem);
+    transform: translateY(-4rem);
     opacity: 0;
   }
 `;

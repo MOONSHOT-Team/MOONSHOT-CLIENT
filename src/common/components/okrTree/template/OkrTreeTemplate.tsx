@@ -1,6 +1,6 @@
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
+import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 
 import KrContainer from './krTemplate/KrContainer';
 

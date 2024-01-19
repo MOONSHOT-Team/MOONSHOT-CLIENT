@@ -8,7 +8,7 @@ import {
   StTaskLabel,
   StTaskNodeContainer,
 } from '@styles/okrTree/CommonNodeStyle';
-import { ITaskTypes } from '@type/okrTree/TasksTypes';
+import { ITaskTypes } from '@type/OkrTree/TasksTypes';
 
 interface ISocialTaskProps {
   isFirstChild?: boolean;

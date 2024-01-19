@@ -1,5 +1,5 @@
 import Error from '@components/Error';
-import MainLayout from '@components/layout/MainLayout';
+import MainLayout from '@components/Layout/MainLayout';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AddOkr from './AddOkr';

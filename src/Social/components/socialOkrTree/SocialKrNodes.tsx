@@ -6,7 +6,7 @@ import {
   StKrLabel,
   StNodesContainer,
 } from '@styles/okrTree/CommonNodeStyle';
-import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
+import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
 
 interface ISocialKrNodesProps {
   krIdx: number;

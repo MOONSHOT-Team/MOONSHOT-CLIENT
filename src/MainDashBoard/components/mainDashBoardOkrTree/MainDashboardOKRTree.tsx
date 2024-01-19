@@ -82,6 +82,7 @@ const StNoneOkrText = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 3.44rem;
+  font-size: 2rem;
+  font-weight: 500;
   color: ${({ theme }) => theme.colors.gray_400};
-  ${({ theme }) => theme.fonts.title_20_semibold};
 `;

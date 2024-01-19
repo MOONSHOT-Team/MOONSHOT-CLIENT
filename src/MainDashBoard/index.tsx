@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { css } from '@emotion/react';
+import useModal from '@hooks/useModal';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
@@ -7,6 +8,7 @@ import useSWR from 'swr';
 import SelectMethod from '../AddOkr/components/stepLayout/SelectMethod';
 import { getDashBoardData } from './apis/fetcher';
 import CelebrateMotion from './components/celebrateMotion/CelebrateMotion';
+import DrawerModal from './components/drawer/DrawerModal';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
 import SideSheet from './components/sideSheet/SideSheet';
@@ -14,10 +16,10 @@ import SideSheet from './components/sideSheet/SideSheet';
 const DASHBOARD_SHOW_STATE = ['OKR_TREE', 'ADD_SELECT_METHOD', 'CONGRATE'];
 
 const MainDashBoard = () => {
+  const { modalRef, handleShowModal } = useModal();
+
   const location = useLocation();
   const navigate = useNavigate();
-
-  // const {data, error, isLoading} = useSWR('/v1//v1/objective/{objectiveId}')
 
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [currentGoalId, setCurrentGoalId] = useState<number>();
@@ -32,6 +34,9 @@ const MainDashBoard = () => {
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
   const { data: treeData, isLoading } = useSWR(url, getDashBoardData);
 
+  if (treeData?.tree?.objIsExpired) {
+    handleShowModal();
+  }
   // stpe 0 - SELECT METHOD 관련 handler
   const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedMethod(e.currentTarget.id);
@@ -49,6 +54,7 @@ const MainDashBoard = () => {
   };
 
   const renderMainState = () => {
+    if (isLoading) return <>로딩 중,,,</>;
     switch (showState) {
       // 일반 대시보드 화면 = okr Tree 있는 화면 or Empty view
       case DASHBOARD_SHOW_STATE[0]:
@@ -60,6 +66,7 @@ const MainDashBoard = () => {
                 onChangeCurrentGoalId={handleCurrentGoalId}
                 handleClickAddObjcBtn={handleClickAddObjcBtn}
                 objListSize={okrTreeData?.objListSize}
+                objId={okrTreeData.objId}
               />
               <MainDashboardOKRTree
                 onShowSideSheet={handleShowSideSheet}
@@ -87,6 +94,7 @@ const MainDashBoard = () => {
               handleClickAddObjcBtn={handleClickAddObjcBtn}
               handleChangeState={handleChangeState}
               objListSize={okrTreeData?.objListSize}
+              objId={okrTreeData?.objId}
             />
             <SelectMethod
               selectedMethod={selectedMethod}
@@ -97,17 +105,18 @@ const MainDashBoard = () => {
       case DASHBOARD_SHOW_STATE[2]:
         return (
           <>
-            <CelebrateMotion
-              handleChangeState={handleChangeState}
-              currentObjId={okrTreeData.objId}
-              objExpireAt={okrTreeData.objExpireAt}
-              nickname={treeData.nickname}
-            />
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              <CelebrateMotion
+                handleChangeState={handleChangeState}
+                nickname={treeData.data.nickname}
+              />
+            )}
           </>
         );
     }
   };
-
   useEffect(() => {
     // add-okr에서 '처음으로'로 돌아오면 방식 선택 화면 뜨도록
     location.state ? setShowState(DASHBOARD_SHOW_STATE[1]) : setShowState(DASHBOARD_SHOW_STATE[0]);
@@ -129,8 +138,19 @@ const MainDashBoard = () => {
     setCurrentGoalId(id);
   };
 
-  if (isLoading) return <>로딩중 ...</>;
-  return <>{renderMainState()}</>;
+  return (
+    <>
+      {renderMainState()}
+      {treeData?.data?.tree && (
+        <DrawerModal
+          currentObjId={okrTreeData?.objId}
+          modalRef={modalRef}
+          handleChangeState={handleChangeState}
+          objExpireAt={okrTreeData.objExpireAt}
+        />
+      )}
+    </>
+  );
 };
 
 export default MainDashBoard;

@@ -38,7 +38,7 @@ export const MainDashTaskNodes = ({ isFirstChild, taskIdx, taskList }: IMainTask
 };
 
 const StMainTaskLabel = styled(StTaskLabel)`
-  top: -1.4rem;
+  top: -1.6rem;
 `;
 
 const StMainDashTaskBoxWrapper = styled(StTaskBoxWrapper)`

@@ -1,28 +1,22 @@
 import animationData from '@assets/lotties/congratulation.json';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import useModal from '@hooks/useModal';
 import Spline from '@splinetool/react-spline';
 import Lottie from 'lottie-react';
 import { useNavigate } from 'react-router-dom';
 
-import DrawerModal from '../drawer/DrawerModal';
-
 interface ICelebrateMotionProps {
   handleChangeState: (state: number) => void;
-  currentObjId: number;
-  objExpireAt: string;
   nickname: string;
 }
 
 const CelebrateMotion = ({
   handleChangeState,
-  currentObjId,
-  objExpireAt,
+
   nickname,
 }: ICelebrateMotionProps) => {
   const navigate = useNavigate();
-  const { modalRef, handleShowModal } = useModal();
+  console.log(nickname);
 
   return (
     <section css={CelebrateMotionContainer}>
@@ -40,17 +34,11 @@ const CelebrateMotion = ({
           <StFinishBtn type="button" onClick={() => navigate('/history')}>
             목표 완료하기
           </StFinishBtn>
-          <StMoreBtn type="button" onClick={handleShowModal}>
+          <StMoreBtn type="button" onClick={() => handleChangeState(0)}>
             목표 이어가기
           </StMoreBtn>
         </StCelebrateBtnBox>
       </StCelebrateMotionWrapper>
-      <DrawerModal
-        currentObjId={currentObjId}
-        modalRef={modalRef}
-        handleChangeState={handleChangeState}
-        objExpireAt={objExpireAt}
-      />
     </section>
   );
 };

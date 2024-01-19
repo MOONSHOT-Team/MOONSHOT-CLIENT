@@ -29,7 +29,7 @@ const SignIn = () => {
         <button type="button" onClick={handleLogin}>
           <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />
         </button>
-        <Link to="https://prod.moonshotyou.com/v1/user/googleLogin">
+        <Link to={`${import.meta.env.VITE_BASE_URL}/v1/user/googleLogin`}>
           <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
         </Link>
       </section>

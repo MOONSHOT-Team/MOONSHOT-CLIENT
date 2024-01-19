@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { THEME } from '../constants/theme';
-import { ObjectiveData } from '../type/okrTypes';
+import { IObjectiveDataProps } from '../type/okrTypes';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
 
@@ -14,7 +14,7 @@ const HistoryDrawer = ({
   fixedYears,
   fixedCategories,
   onYearSelect,
-}: ObjectiveData) => {
+}: IObjectiveDataProps) => {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 

@@ -1,4 +1,5 @@
 import Loading from '@components/Lodaing';
+import { css } from '@emotion/react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
@@ -25,7 +26,19 @@ const AuthKakao = () => {
     navigate('/sign-in/nickname');
   }, [data, navigate]);
 
-  return <Loading />;
+  return (
+    <div css={loadingCenter}>
+      <Loading />
+    </div>
+  );
 };
 
 export default AuthKakao;
+
+const loadingCenter = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+`;

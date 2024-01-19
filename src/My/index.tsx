@@ -1,5 +1,5 @@
 import instance from '@apis/instance';
-import Loading from '@components/Lodaing';
+import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';

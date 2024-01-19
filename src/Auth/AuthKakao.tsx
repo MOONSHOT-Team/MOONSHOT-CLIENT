@@ -10,7 +10,7 @@ const AuthKakao = () => {
   const navigate = useNavigate();
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
-  const { data, error, isLoading } = useSWR<SwrType, Error>('/v1/user/login', (url: string) =>
+  const { data } = useSWR<SwrType, Error>('/v1/user/login', (url: string) =>
     fetcherPost(url, kakaoCode!, 'KAKAO'),
   );
 
@@ -25,14 +25,7 @@ const AuthKakao = () => {
     navigate('/sign-in/nickname');
   }, [data, navigate]);
 
-  return (
-    <>
-      <p>{kakaoCode}</p>
-      {isLoading && <Loading />}
-      {error && <p style={{ fontSize: '12rem' }}>Error,,,</p>}
-      {data && <p style={{ fontSize: '12rem' }}>Success!!!</p>}
-    </>
-  );
+  return <Loading />;
 };
 
 export default AuthKakao;

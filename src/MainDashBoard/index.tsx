@@ -81,6 +81,7 @@ const MainDashBoard = () => {
                 objStartAt={okrTreeData.objStartAt}
                 objExpireAt={okrTreeData.objExpireAt}
                 handleChangeState={handleChangeState}
+                objId={okrTreeData?.objId}
               />
             )}
           </>

@@ -11,6 +11,7 @@ interface IKrCheckInProps {
   target: number;
   metric: string;
   handleChangeState?: (state: number) => void;
+  objId: number;
 }
 
 /** 체크인을 할 수 있는 뷰 입니다 (진척정도입력, kr수정) */
@@ -21,6 +22,7 @@ const KrCheckIn = ({
   target,
   metric,
   handleChangeState,
+  objId,
 }: IKrCheckInProps) => {
   const [isActive, setIsActive] = useState('진척 정도 입력하기');
 
@@ -57,6 +59,7 @@ const KrCheckIn = ({
           onCancel={onCancel}
           keyResultId={keyResultId}
           handleChangeState={handleChangeState}
+          objId={objId}
         />
       ) : (
         <KR수정하기
@@ -66,6 +69,7 @@ const KrCheckIn = ({
           target={target}
           metric={metric}
           handleChangeState={handleChangeState}
+          objId={objId}
         />
       )}
     </KrCheckInContainer>

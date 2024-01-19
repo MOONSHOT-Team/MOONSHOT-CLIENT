@@ -152,8 +152,8 @@ const GoalItem: React.FC<IGoalItemProps> = ({
       <footer css={ProgressBarContainer}>
         <MainDashProgressBar
           currentProgress={progress}
-          progressBarColor={currentGoalId === id ? '#FFFFFF' : '#8E8E8E'}
-          progressValueColor={currentGoalId === id ? '#5B5B5B' : '#444444'}
+          progressBarColor={currentGoalId === id ? '#5B5B5B' : '#444444'}
+          progressValueColor={currentGoalId === id ? '#FFFFFF' : '#8E8E8E'}
           textColor={'#A7A7A7'}
           isCurrentProgress={false}
         />

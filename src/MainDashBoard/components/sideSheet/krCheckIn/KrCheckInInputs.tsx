@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
-import { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mutate } from 'swr';
+import { useSWRConfig } from 'swr';
 
 import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
 
@@ -59,15 +59,25 @@ interface IKrCheckInProps {
   target?: number;
   metric?: string;
   handleChangeState?: (state: number) => void;
+  objId: number;
 }
 
 /** 진척 정도 입력하는 뷰입니다 */
-export const 진척정도입력하기 = ({ onCancel, keyResultId, handleChangeState }: IKrCheckInProps) => {
+export const 진척정도입력하기 = ({
+  onCancel,
+  keyResultId,
+  handleChangeState,
+  objId,
+}: IKrCheckInProps) => {
   const [logNum, setLogNum] = useState('');
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isMaxNum, setIsMaxnum] = useState(false);
+
+  const { mutate } = useSWRConfig();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     logNum && logContent ? setIsActiveBtn(true) : setIsActiveBtn(false);
@@ -104,20 +114,27 @@ export const 진척정도입력하기 = ({ onCancel, keyResultId, handleChangeSt
   };
 
   //서버 통신 함수
-  const submitCheckIn = async () => {
+  const submitCheckIn = async (e: React.MouseEvent) => {
+    e.preventDefault();
     const data = {
       keyResultId: keyResultId,
       logNum: parseInt(logNum.replace(/,/g, '')),
       logContent: logContent,
     };
 
-    const response = await postCheckIn('/v1/log', data);
-    await mutate(`/v1/key-result/${keyResultId}`);
-
-    if (response.status === 200) {
-      //축하모션
-      handleChangeState?.(2);
+    try {
+      const response = await postCheckIn('/v1/log', data);
+      await mutate(`/v1/key-result/${keyResultId}`);
+      console.log(`/v1/objective?objectiveId=${objId}`);
+      await mutate(`/v1/objective?objectiveId=${objId}`);
+      if (response.status === 200) {
+        //축하모션
+        handleChangeState?.(2);
+      }
+    } catch (err) {
+      navigate('/error');
     }
+
     onCancel();
   };
 
@@ -165,6 +182,7 @@ export const KR수정하기 = ({
   target = 0,
   metric,
   handleChangeState,
+  objId,
 }: IKrCheckInProps) => {
   const [targetValue, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
@@ -172,6 +190,8 @@ export const KR수정하기 = ({
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isMaxNum, setIsMaxnum] = useState(false);
   const navigator = useNavigate();
+
+  const { mutate } = useSWRConfig();
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
@@ -214,18 +234,20 @@ export const KR수정하기 = ({
       target: Number(targetValue),
       logContent,
     };
+    console.log(data);
 
     try {
       const response = await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
+      await mutate(`/v1/objective?objectiveId=${objId}`);
       console.log(response);
       if (response?.data) {
         handleChangeState?.(2);
       }
-      onCancel();
     } catch (err) {
       navigator('/error');
     }
+    onCancel();
   };
 
   return (

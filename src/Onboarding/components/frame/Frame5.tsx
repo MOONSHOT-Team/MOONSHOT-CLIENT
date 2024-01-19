@@ -20,7 +20,7 @@ const Frame5 = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 2200);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, []);

@@ -47,11 +47,7 @@ const StMainDashTaskBoxWrapper = styled(StTaskBoxWrapper)`
 `;
 
 const StMainDashTaskBox = styled(StTaskBox)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: fit-content;
-  min-width: 18rem;
   padding: 0.6rem 1.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_12_medium};

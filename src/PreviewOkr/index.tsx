@@ -100,14 +100,14 @@ const PreviewOkr = () => {
           target: Number(previewKrListInfo[1].target.split(',').join('')),
           startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[1].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[0].taskList,
+          taskList: previewTaskListInfo[1].taskList,
         },
         previewKrListInfo[2] && {
           ...previewKrListInfo[2],
           target: Number(previewKrListInfo[2].target.split(',').join('')),
           startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[2].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[0].taskList,
+          taskList: previewTaskListInfo[2].taskList,
         },
       ],
     };

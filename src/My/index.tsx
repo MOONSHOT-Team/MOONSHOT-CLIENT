@@ -16,23 +16,26 @@ interface IAcquiredItemList {
 const My = () => {
   const [nickname, setNickname] = useState('');
   const [socialPlatform, setSocialPlatform] = useState('');
-  const { data } = useSWR('/v1/user/mypage', getUserInfo);
+  const { data: userInfo, isLoading } = useSWR('/v1/user/mypage', getUserInfo);
 
-  console.log(data, '!!');
+  console.log(userInfo?.data.data, '!!');
 
   useEffect(() => {
-    if (data) {
-      setNickname(data?.data.nickname);
-      setSocialPlatform(data?.data.socialPlatform);
-    }
-  }, [data]);
+    if (!isLoading && userInfo) {
+      setNickname(userInfo?.data.data.nickname);
 
+      setSocialPlatform(userInfo?.data.data.socialPlatform);
+    }
+  }, [isLoading, userInfo]);
+  console.log(nickname);
   return (
     <section css={myPageUi}>
       <StUserInfoContainer>
         <StUserProfileImg src={profileImg} alt="사용자 사진" />
         <StUserNickName>{nickname}</StUserNickName>
-        <StUserIdentification>{socialPlatform} 로그인 유저입니다.</StUserIdentification>
+        <StUserIdentification>
+          {socialPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
+        </StUserIdentification>
         <StWithdraw>회원탈퇴</StWithdraw>
       </StUserInfoContainer>
       <section css={pageCenter}>

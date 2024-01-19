@@ -41,7 +41,7 @@ const StContainer = styled.aside`
   flex-direction: column;
   min-width: 23.2rem;
   height: 100%;
-  overflow-y: hidden;
+  overflow-y: auto;
 
   /* 전역에 스크롤 숨기는 기능 생기면 scroll로 수정 */
   background-color: ${({ theme }) => theme.colors.gray_600};

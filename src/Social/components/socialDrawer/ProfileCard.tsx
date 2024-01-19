@@ -94,8 +94,8 @@ const Img = styled.img<{ isCurrent: boolean }>`
 `;
 
 const StUserName = styled.p`
-  margin-top: 0.8rem;
-  margin-bottom: 0.6rem;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
@@ -107,13 +107,13 @@ const StLikeCnt = styled.p`
 
 const StUserIntro = styled.p`
   width: 15.6rem;
-  margin-top: 0.8rem;
+  margin-top: 0.9rem;
   color: ${({ theme }) => theme.colors.gray_250};
   text-align: center;
   word-break: keep-all;
   word-wrap: break-word;
 
-  /* ${({ theme }) => theme.fonts.body_10_regular}; */
+  ${({ theme }) => theme.fonts.body_10_regular};
 `;
 
 const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`

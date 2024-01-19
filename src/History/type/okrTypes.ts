@@ -5,6 +5,7 @@ export interface IObjective {
   progress: number;
   objPeriod: string;
   objIdx?: number;
+  isLast?: boolean;
   krList: IKeyResult[];
 }
 export interface IKeyResult {

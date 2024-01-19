@@ -36,7 +36,7 @@ const StKeyResultContainer = styled.article`
   width: 100%;
   min-width: 105.8rem;
   height: 5.2rem;
-  padding: 1.6rem 14.4rem 1.6rem 2rem;
+  padding: 1.6rem 0 1.6rem 2rem;
   list-style-type: none;
   background: ${({ theme }) => theme.colors.gray_550};
   border-radius: 6px;
@@ -53,8 +53,7 @@ const StKeyResultProgressBar = styled.div`
   flex-direction: row;
   gap: 1.6rem;
   align-items: center;
-  width: 27.6rem;
-  margin-left: 11rem;
+  width: 48.2rem;
   color: ${({ theme }) => theme.colors.gray_300};
   ${({ theme }) => theme.fonts.body_13_medium};
 `;

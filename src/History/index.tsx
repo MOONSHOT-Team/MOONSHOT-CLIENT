@@ -74,12 +74,9 @@ const History = () => {
 
   if (!OKRHistoryData) return <>데이터를 가져오는 중입니다...</>;
 
-  const listOrderComponent = OKRHistoryData?.data?.data?.groups &&
-    OKRHistoryData.data.data.groups.length > 0 &&
-    !selectedYear &&
-    !selectedTheme &&
-    !selectedFilter && <ListOrder onFilterSelection={handleFilterSelection} />;
-
+  const listOrderComponent = OKRHistoryData.data.data.groups.length !== 0 && (
+    <ListOrder onFilterSelection={handleFilterSelection} />
+  );
   return (
     <section css={historyUi}>
       <HistoryDrawer
@@ -97,7 +94,7 @@ const History = () => {
         {(selectedTheme || selectedYear || selectedFilter
           ? historyData?.groups
           : OKRHistoryData?.data?.data?.groups
-        )?.map(({ year, objList }: Group) => (
+        )?.map(({ year, objList }: Group, idx: number) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
             <StListOrderContainer>
               <StEachYear>{year}년</StEachYear>
@@ -114,6 +111,7 @@ const History = () => {
                       progress={progress}
                       objPeriod={objPeriod}
                       krList={krList}
+                      isLast={idx === objList.length - 1}
                     />
                   ),
                 )}

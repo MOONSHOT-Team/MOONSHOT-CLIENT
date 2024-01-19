@@ -16,6 +16,7 @@ const HistoryDrawer = ({
   onYearSelect,
 }: IObjectiveDataProps) => {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const handleSelectTheme = (selectedTheme: string) => {
@@ -33,6 +34,8 @@ const HistoryDrawer = ({
       return newYear;
     });
   };
+
+  const currentYear = new Date().getFullYear();
 
   return (
     <HistoryAside>
@@ -59,6 +62,16 @@ const HistoryDrawer = ({
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
+          {(!fixedYears || !fixedYears.some((item) => item.year === currentYear)) && (
+            <YearButton
+              key={0}
+              year={currentYear}
+              count={0}
+              onSelectYear={() => handleSelectYear(0)}
+              isActive={false}
+              isDisabled={selectedTheme ? !years?.some((item) => item.year === currentYear) : false}
+            />
+          )}
           {fixedYears?.map(({ year, count }) => {
             const isDisabled = selectedTheme ? !years?.some((item) => item.year === year) : false;
             return (

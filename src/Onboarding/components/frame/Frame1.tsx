@@ -7,7 +7,7 @@ import imgFrame1Background from '../../assets/frame/imgFrame1Background.png';
 import imgFrame1MainDashboard from '../../assets/frame/imgFrame1MainDashboard.png';
 import imgFrame1MovingBackground from '../../assets/frame/imgFrame1MovingBackground.png';
 import imgFrame1ObjectiveItem from '../../assets/frame/imgFrame1ObjectiveItem.png';
-import imgFrame1Sidesheet from '../../assets/frame/imgFrame1Sidesheet.png';
+import imgFrame1SideSheetRight from '../../assets/frame/imgFrame1SideSheetRight.png';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -60,7 +60,7 @@ const Frame1 = () => {
           toX={-18.7}
           toY={19}
           delay={1.5}
-          src={imgFrame1Sidesheet}
+          src={imgFrame1SideSheetRight}
           alt="sidesheet-img"
           width={272}
           height={570}

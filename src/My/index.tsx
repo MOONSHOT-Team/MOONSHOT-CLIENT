@@ -1,6 +1,6 @@
+import Loading from '@components/Lodaing';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { getUserInfo } from './apis/fetcher';
@@ -14,27 +14,17 @@ interface IAcquiredItemList {
 }
 
 const My = () => {
-  const [nickname, setNickname] = useState('');
-  const [socialPlatform, setSocialPlatform] = useState('');
   const { data: userInfo, isLoading } = useSWR('/v1/user/mypage', getUserInfo);
 
-  console.log(userInfo?.data.data, '!!');
+  if (isLoading) return <Loading />;
 
-  useEffect(() => {
-    if (!isLoading && userInfo) {
-      setNickname(userInfo?.data.data.nickname);
-
-      setSocialPlatform(userInfo?.data.data.socialPlatform);
-    }
-  }, [isLoading, userInfo]);
-  console.log(nickname);
   return (
     <section css={myPageUi}>
       <StUserInfoContainer>
         <StUserProfileImg src={profileImg} alt="사용자 사진" />
-        <StUserNickName>{nickname}</StUserNickName>
+        <StUserNickName>{userInfo?.data.data.nickname}</StUserNickName>
         <StUserIdentification>
-          {socialPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
+          {userInfo?.data.data.socailPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
         </StUserIdentification>
         <StWithdraw>회원탈퇴</StWithdraw>
       </StUserInfoContainer>

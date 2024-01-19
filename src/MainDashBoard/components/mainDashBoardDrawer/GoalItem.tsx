@@ -222,8 +222,7 @@ const StGoalItemTitle = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_11_bold};
 
-  word-break: keep-all;
-  overflow-wrap: break-word;
+  word-break: break-all;
 `;
 
 const StGoalItemContent = styled.p`
@@ -231,8 +230,7 @@ const StGoalItemContent = styled.p`
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_10_regular};
 
-  word-break: keep-all;
-  overflow-wrap: break-word;
+  word-break: break-all;
 `;
 
 const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`

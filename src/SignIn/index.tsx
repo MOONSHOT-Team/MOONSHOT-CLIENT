@@ -87,6 +87,5 @@ const StSubText = styled.h2`
   ${({ theme }) => theme.fonts.title_20_semibold};
 
   margin-bottom: 3.4rem;
-  word-break: keep-all;
-  word-wrap: break-word;
+  word-break: break-all;
 `;

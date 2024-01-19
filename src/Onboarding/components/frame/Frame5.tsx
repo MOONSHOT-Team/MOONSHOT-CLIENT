@@ -44,7 +44,7 @@ const Frame5 = () => {
           <LateImgPopUp
             fromY={5.7}
             toY={7.2}
-            delay={2.2}
+            delay={1.2}
             src={imgFrame5HistoryTask}
             alt="main-dashboard-img-2"
             width={1005}
@@ -53,7 +53,7 @@ const Frame5 = () => {
           <ImgPopUp
             fromY={0}
             toY={19}
-            delay={2}
+            delay={1}
             src={imgFrame5List2}
             alt="main-dashboard-img-3"
             width={1005}
@@ -62,7 +62,7 @@ const Frame5 = () => {
           <ImgPopUp
             fromY={0}
             toY={19}
-            delay={2}
+            delay={1}
             src={imgFrame5List3}
             alt="main-dashboard-img-3"
             width={1005}
@@ -71,7 +71,7 @@ const Frame5 = () => {
           <ImgPopUp
             fromY={0}
             toY={19}
-            delay={2}
+            delay={1}
             src={imgFrame5List4}
             alt="main-dashboard-img-3"
             width={1005}

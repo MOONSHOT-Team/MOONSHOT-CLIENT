@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import imgFrame1Background from '../../assets/imgFrame1Background.png';
 import imgFrame1MainDashboard from '../../assets/imgFrame1MainDashboard.png';
 import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
-import imgFrame1ObjectiveList from '../../assets/imgFrame1ObjectiveList.png';
+import imgFrame1ObjectiveItem from '../../assets/imgFrame1ObjectiveItem.png';
 import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
@@ -38,8 +38,8 @@ const Frame1 = () => {
           fromY={0}
           toX={17.7}
           toY={-15.8}
-          delay={2}
-          src={imgFrame1ObjectiveList}
+          delay={1}
+          src={imgFrame1ObjectiveItem}
           alt="objective-img"
           width={262}
           height={235}
@@ -59,7 +59,7 @@ const Frame1 = () => {
           fromY={39}
           toX={-18.7}
           toY={19}
-          delay={3}
+          delay={1.5}
           src={imgFrame1Sidesheet}
           alt="sidesheet-img"
           width={272}
@@ -231,7 +231,7 @@ const DashboardContainer = styled.div`
   background: ${({ theme }) => theme.colors.background};
   border-width: 4px;
   border-radius: 12px;
-  animation: ${popUp(0, 60, 0, 0)} 1.5s ease-out;
+  animation: ${popUp(0, 20, 0, 0)} 1s ease-out;
 
   &::after {
     position: absolute;
@@ -255,7 +255,7 @@ const DashboardContainer = styled.div`
 
 const ImgDashboardPopUp = styled(ImgPopUp)`
   border-radius: 12px;
-  animation: ${popUp(0, 20, 0, 0)} 0.5s ease-out;
+  animation: ${popUp(0, 20, 0, 0)} 0.1s ease-out;
 `;
 
 const LeftLateImgPopUp = styled(ImgPopUp)`

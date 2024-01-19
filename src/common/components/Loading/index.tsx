@@ -1,11 +1,10 @@
-import animateData from '@components/Lodaing/assets/lottie/loading.json';
+import animateData from '@components/Loading/assets/lottie/loading.json';
 import styled from '@emotion/styled';
 import Lottie from 'lottie-react';
 
-const Loading = () => {
+const Loading = ({ isDrawer = false }: { isDrawer?: boolean }) => {
   return (
-    <StLoadingContainer>
-      {/* <StLoadingGif src={loading} alt="loading-img" /> */}
+    <StLoadingContainer $isDrawer={isDrawer}>
       <StCustomLoadingLottie animationData={animateData} loop={true}>
         <StLoadingTxt>로딩 중입니다</StLoadingTxt>
       </StCustomLoadingLottie>
@@ -15,11 +14,11 @@ const Loading = () => {
 
 export default Loading;
 
-const StLoadingContainer = styled.section`
+const StLoadingContainer = styled.section<{ $isDrawer: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: ${({ $isDrawer }) => ($isDrawer ? 'calc(100vw - 23.2rem)' : '100vw')};
   height: 100%;
 `;
 

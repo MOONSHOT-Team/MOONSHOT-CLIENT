@@ -85,6 +85,7 @@ const PreviewOkr = () => {
 
     const finalOkrInfo: IFinalOkrListInfoTypes = {
       ...objInfo,
+      objTitle: previewObjValue,
       objStartAt: objStartAt.split('. ').join('-'),
       objExpireAt: objExpireAt.split('. ').join('-'),
       krList: [
@@ -114,7 +115,7 @@ const PreviewOkr = () => {
 
     try {
       const res = await postOkrInfo('/v1/objective', finalOkrInfo);
-      console.log(res);
+      console.log(finalOkrInfo, '???');
       if (res) navigate('/dashboard');
     } catch (err) {
       navigate('/error');

@@ -15,7 +15,6 @@ const HistoryList: React.FC<IObjective> = ({
   objCategory,
   progress,
   objPeriod,
-  objIdx,
   isLast,
   krList,
 }) => {
@@ -24,10 +23,9 @@ const HistoryList: React.FC<IObjective> = ({
     setIsVisable((previousObjId) => (previousObjId === objId ? null : objId));
   };
 
-  console.log(objIdx, isLast, '!!!');
   return (
     <>
-      <ul css={historyListMarginBottom}>
+      <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer
           visibility={isVisable === objId ? 'true' : 'false'}
           onClick={() => handleObjectiveClick(objId)}
@@ -61,16 +59,20 @@ const HistoryList: React.FC<IObjective> = ({
             </ul>
           ))}
         </HistoryListDetails>
-      </ul>
+      </StHistoryListWrapperUl>
     </>
   );
 };
 
 export default HistoryList;
 
-const historyListMarginBottom = css`
+const StHistoryListWrapperUl = styled.ul<{ $isLast: boolean | undefined }>`
   &:not(:last-child) {
     margin-bottom: 1.6rem;
+  }
+
+  &:last-child > li {
+    margin-bottom: ${({ $isLast }) => $isLast && '0'};
   }
 `;
 

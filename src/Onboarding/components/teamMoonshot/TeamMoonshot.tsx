@@ -26,7 +26,7 @@ const TeamMoonshot = () => {
       <Profile src={imgJihyeon} crewName="JiHyeon.L" crewRole="Product Designer" />
       <Profile src={imgMihyeon} crewName="MiHyeon.J" crewRole="Product Designer" />
       <Profile src={imgHyeonjin} crewName="HyeonJin.P" crewRole="Product Designer" />
-      <Profile src={imgYeonseo} crewName="YeonSeo.K" crewRole="Web Front-End Developer" />
+      <Profile src={imgYeonseo} crewName="YeonSeo.J" crewRole="Web Front-End Developer" />
       <Profile src={imgEonseok} crewName="EonSeok.J" crewRole="Web Front-End Developer" />
       <Profile src={imgSooyeon} crewName="SooYeon.S" crewRole="Web Front-End Developer" />
       <Profile src={imgJunmin} crewName="JunMin.C" crewRole="Web Front-End Developer" />

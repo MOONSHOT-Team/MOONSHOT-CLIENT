@@ -50,7 +50,9 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
     <section css={ObjPeriodContainer}>
       <StPeriodBtnTitle>앞으로 몇 개월 동안 목표에 집중해볼까요?</StPeriodBtnTitle>
       <div css={PeriodDateBox}>
-        <StPeriodDateTxt>{`${objStartAt} - ${objExpireAt}`}</StPeriodDateTxt>
+        <StPeriodDateTxt
+          $isSelected={selectedPeriod !== ''}
+        >{`${objStartAt} - ${objExpireAt}`}</StPeriodDateTxt>
       </div>
       <div css={PeriodBtnWrapper}>
         {OBJ_PERIOD_LIST.map(({ length, periodName }) => {
@@ -82,7 +84,7 @@ const ObjPeriodContainer = css`
 `;
 
 const StPeriodBtnTitle = styled.h1`
-  margin-bottom: 2.6rem;
+  margin: 1rem 0 2.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_20_semibold};
 `;
@@ -103,10 +105,12 @@ const PeriodDateBox = css`
   margin-bottom: 3.7rem;
 `;
 
-const StPeriodDateTxt = styled.p`
+const StPeriodDateTxt = styled.p<{ $isSelected: boolean }>`
   padding: 0 1.2rem 1.2rem;
   ${({ theme }) => theme.fonts.body_14_regular};
 
-  color: ${({ theme }) => theme.colors.gray_400};
-  border-bottom: 1px solid white;
+  color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.gray_200 : theme.colors.gray_400};
+  border-bottom: 1px solid
+    ${({ theme, $isSelected }) => ($isSelected ? theme.colors.gray_200 : theme.colors.gray_400)};
 `;

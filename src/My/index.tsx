@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
+import { getUserInfo } from './apis/fetcher';
 import profileImg from './assets/images/profileImg.png';
 import { ITEM_LIST } from './constants/itemList';
 
@@ -11,12 +14,25 @@ interface IAcquiredItemList {
 }
 
 const My = () => {
+  const [nickname, setNickname] = useState('');
+  const [socialPlatform, setSocialPlatform] = useState('');
+  const { data } = useSWR('/v1/user/mypage', getUserInfo);
+
+  console.log(data, '!!');
+
+  useEffect(() => {
+    if (data) {
+      setNickname(data?.data.nickname);
+      setSocialPlatform(data?.data.socialPlatform);
+    }
+  }, [data]);
+
   return (
     <section css={myPageUi}>
       <StUserInfoContainer>
         <StUserProfileImg src={profileImg} alt="사용자 사진" />
-        <StUserNickName>닉네임</StUserNickName>
-        <StUserIdentification>카카오 로그인 유저입니다.</StUserIdentification>
+        <StUserNickName>{nickname}</StUserNickName>
+        <StUserIdentification>{socialPlatform} 로그인 유저입니다.</StUserIdentification>
         <StWithdraw>회원탈퇴</StWithdraw>
       </StUserInfoContainer>
       <section css={pageCenter}>

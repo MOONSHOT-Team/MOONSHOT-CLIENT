@@ -18,6 +18,7 @@ import RightClickBox from './RightClickBox';
 interface IGoalItemProps extends IObjListTypes {
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
   handleChangeState?: (state: number) => void;
+  showState: string;
 }
 
 const GoalItem: React.FC<IGoalItemProps> = ({
@@ -33,12 +34,16 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   moveGoal,
   setIsRightClick,
   handleChangeState,
+  showState,
 }) => {
   const ref = useRef<HTMLLIElement>(null);
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
 
   const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
+  if (showState === 'ADD_SELECT_METHOD') {
+    currentGoalId = -1;
+  }
 
   const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
 
@@ -213,16 +218,19 @@ const goalItemArticle = css`
 `;
 
 const StGoalItemTitle = styled.p`
+  width: 100%;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_11_bold};
 
-  word-break: keep-all;
+  word-break: break-all;
 `;
 
 const StGoalItemContent = styled.p`
   margin-top: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_10_regular};
+
+  word-break: break-all;
 `;
 
 const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`

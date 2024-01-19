@@ -16,6 +16,7 @@ interface IDrawerProps {
   handleChangeState?: (state: number) => void;
   objListSize: number;
   objId: number;
+  showState: string;
 }
 
 const MainDashBoardDrawer = ({
@@ -25,6 +26,7 @@ const MainDashBoardDrawer = ({
   handleChangeState,
   objListSize,
   objId,
+  showState,
 }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(objId);
   const [goals, setGoals] = useState(objList);
@@ -85,6 +87,7 @@ const MainDashBoardDrawer = ({
                       moveGoal={moveGoal}
                       setIsRightClick={setIsRightClick}
                       handleChangeState={handleChangeState}
+                      showState={showState}
                     />
                   ))}
                 </ul>

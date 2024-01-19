@@ -1,6 +1,8 @@
+import instance from '@apis/instance';
 import Loading from '@components/Lodaing';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 
 import { getUserInfo } from './apis/fetcher';
@@ -14,6 +16,16 @@ interface IAcquiredItemList {
 }
 
 const My = () => {
+  const navigate = useNavigate();
+
+  const handleWithdrawal = async () => {
+    await instance.delete('/v1/user/withdrawal');
+    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('REFRESH_TOKEN');
+
+    navigate('/');
+  };
+
   const { data: userInfo, isLoading } = useSWR('/v1/user/mypage', getUserInfo);
 
   if (isLoading) return <Loading />;
@@ -29,7 +41,7 @@ const My = () => {
         <StUserIdentification>
           {userInfo?.data.data.socialPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
         </StUserIdentification>
-        <StWithdraw>회원탈퇴</StWithdraw>
+        <StWithdrawalButton onClick={handleWithdrawal}>회원탈퇴</StWithdrawalButton>
       </StUserInfoContainer>
       <section css={pageCenter}>
         <div>
@@ -98,7 +110,7 @@ const StUserIdentification = styled.p`
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
 
-const StWithdraw = styled.button`
+const StWithdrawalButton = styled.button`
   position: absolute;
   right: 4rem;
   bottom: 4rem;

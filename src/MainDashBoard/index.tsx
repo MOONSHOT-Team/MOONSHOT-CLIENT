@@ -68,6 +68,7 @@ const MainDashBoard = () => {
                 handleClickAddObjcBtn={handleClickAddObjcBtn}
                 objListSize={okrTreeData?.objListSize}
                 objId={okrTreeData?.objId}
+                showState={showState}
               />
               <MainDashboardOKRTree
                 onShowSideSheet={handleShowSideSheet}
@@ -97,6 +98,7 @@ const MainDashBoard = () => {
               handleChangeState={handleChangeState}
               objListSize={okrTreeData?.objListSize}
               objId={okrTreeData?.objId}
+              showState={showState}
             />
             <SelectMethod
               selectedMethod={selectedMethod}

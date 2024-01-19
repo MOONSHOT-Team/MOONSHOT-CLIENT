@@ -1,11 +1,21 @@
+import instance from '@apis/instance';
 import { IcLogo } from '@assets/icons';
 import { NAVIGATIONS } from '@constants/NavigationLink';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await instance.post('/v1/user/log-out');
+    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('REFRESH_TOKEN');
+
+    navigate('/');
+  };
 
   return (
     <StHeader>
@@ -19,7 +29,7 @@ const Header = () => {
           </StNavigation>
         ))}
         {!ACCESS_TOKEN && <StSignInLink to="/sign-in">로그인</StSignInLink>}
-        {ACCESS_TOKEN && <StSignOutButton>로그아웃</StSignOutButton>}
+        {ACCESS_TOKEN && <StSignOutButton onClick={handleSignOut}>로그아웃</StSignOutButton>}
       </StNavigationBar>
     </StHeader>
   );

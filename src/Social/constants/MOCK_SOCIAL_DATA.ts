@@ -108,7 +108,7 @@ export const MOCK_SOCIAL_DATA = [
       objExpireAt: '2024-01-30T00:00:00',
       krList: [
         {
-          keyResultTitle: '저축 계획 수립하여 50000000원 저축하기',
+          keyResultTitle: '저축 계획 수립하여 저축하기: 500,000원',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 3,
@@ -133,7 +133,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          keyResultTitle: '부가적인 수입원 발굴을 위해 부업으로 50만원 확보하기',
+          keyResultTitle: '부가적인 수입원 발굴을 위해 부업으로 확보하기 : 50만원',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 4,
@@ -158,7 +158,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          keyResultTitle: '지출 100000원 이상 절감하기',
+          keyResultTitle: '지출 절감하기 : 100,000원',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 5,
@@ -200,7 +200,7 @@ export const MOCK_SOCIAL_DATA = [
       objExpireAt: '2024-01-30T00:00:00',
       krList: [
         {
-          keyResultTitle: '리더십 관련 도서 3권 읽기',
+          keyResultTitle: '리더십 관련 도서 읽기 : 3권',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 6,
@@ -225,7 +225,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          keyResultTitle: '주변 사람들에게 짧은 발표 5회 연습하기',
+          keyResultTitle: '주변 사람들에게 짧은 발표 연습하기 : 5회',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 7,
@@ -250,7 +250,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          keyResultTitle: '리더 역할 2회 이상 맡기',
+          keyResultTitle: '리더 역할 맡기 : 2회',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 8,
@@ -292,7 +292,7 @@ export const MOCK_SOCIAL_DATA = [
       objExpireAt: '2024-01-30T00:00:00',
       krList: [
         {
-          keyResultTitle: '균형 잡힌 식사 10회 이상 섭취',
+          keyResultTitle: '균형 잡힌 식사 섭취 : 10회',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 9,
@@ -317,7 +317,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          keyResultTitle: '명상 또는 마음을 진정시키는 시간 10시간 이상 확보하기',
+          keyResultTitle: '명상 또는 마음을 진정시키는 시간 확보하기 : 10시간',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 10,
@@ -342,7 +342,7 @@ export const MOCK_SOCIAL_DATA = [
           ],
         },
         {
-          keyResultTitle: '운동 15회 이상 하기',
+          keyResultTitle: '운동 하기 : 15회',
           startAt: '2024-01-05T00:00:00',
           expireAt: '2024-01-30T00:00:00',
           keyResultId: 11,

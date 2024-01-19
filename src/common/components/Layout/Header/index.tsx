@@ -49,7 +49,13 @@ const StNavigationBar = styled.ol`
 const StNavigation = styled.li`
   display: flex;
   color: ${({ theme }) => theme.colors.gray_350};
+  transition: all 0.3s ease;
+
   ${({ theme }) => theme.fonts.body_14_regular};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.gray_000};
+  }
 `;
 
 const StNavStyle = styled(NavLink)`

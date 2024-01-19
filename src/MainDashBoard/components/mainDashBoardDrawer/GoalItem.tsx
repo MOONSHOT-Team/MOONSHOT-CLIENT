@@ -218,16 +218,21 @@ const goalItemArticle = css`
 `;
 
 const StGoalItemTitle = styled.p`
+  width: 100%;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_11_bold};
 
   word-break: keep-all;
+  overflow-wrap: break-word;
 `;
 
 const StGoalItemContent = styled.p`
   margin-top: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_200};
   ${({ theme }) => theme.fonts.body_10_regular};
+
+  word-break: keep-all;
+  overflow-wrap: break-word;
 `;
 
 const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`

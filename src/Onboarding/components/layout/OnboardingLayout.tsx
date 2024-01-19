@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import { Outlet } from 'react-router-dom';
 
-import OnboardingFooter from './OnboardingFooter';
 import OnboardingHeader from './OnboardingHeader';
 
 const OnboardingLayout = () => {
@@ -11,7 +10,6 @@ const OnboardingLayout = () => {
       <main css={mainStyle}>
         <Outlet />
       </main>
-      <OnboardingFooter />
     </>
   );
 };

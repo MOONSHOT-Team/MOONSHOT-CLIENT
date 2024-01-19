@@ -6,6 +6,7 @@ import Frame3 from './components/frame/Frame3';
 import Frame4 from './components/frame/Frame4';
 import Frame5 from './components/frame/Frame5';
 import Frame6 from './components/frame/Frame6';
+import OnboardingFooter from './components/layout/OnboardingFooter';
 
 const Onboarding = () => {
   return (
@@ -16,6 +17,7 @@ const Onboarding = () => {
       <Frame4 />
       <Frame5 />
       <Frame6 />
+      <OnboardingFooter />
     </div>
   );
 };

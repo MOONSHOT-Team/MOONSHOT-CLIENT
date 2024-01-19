@@ -55,6 +55,12 @@ const StNavItem = styled.ul`
 `;
 
 const StNavItemLink = styled(NavLink)`
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.gray_000};
+  }
+
   &.active {
     color: ${({ theme }) => theme.colors.gray_000};
   }

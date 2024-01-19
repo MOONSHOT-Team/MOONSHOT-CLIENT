@@ -26,7 +26,7 @@ export interface Group {
   objList: IObjective[];
 }
 
-export interface ObjectiveData {
+export interface IObjectiveDataProps {
   groups: Group[];
   years: {
     [year: string]: number;

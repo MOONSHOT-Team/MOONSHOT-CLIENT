@@ -15,7 +15,7 @@ const Frame2 = () => {
         subTitle="OKR tree"
         subTitleColor="main_purple"
         title={`흩어져 있는 할 일을\n하나의 북극성 아래`}
-        description="파편화된 할일들을 단 3개의 우선순위로 정렬시켜 핵심 지표를 달성하는데 집중하세요"
+        description="파편화된 할 일들을 단 3개의 우선순위로 정렬시켜 핵심 지표를 달성하는데 집중하세요"
       />
       {active && (
         <ImgPopUp

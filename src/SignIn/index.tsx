@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import imgGoogleLogin from './assets/images/imgGoogleLogin.png';
 import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
-import imgViewcollection from './assets/images/imgViewcollection.png';
+import imgViewcollections from './assets/images/imgViewcollections.png';
 
 /** 로그인 페이지 */
 const SignIn = () => {
@@ -78,7 +78,7 @@ const brandingSection = css`
   max-width: 100%;
   height: 100%;
   min-height: 58.7rem;
-  background-image: url(${imgViewcollection});
+  background-image: url(${imgViewcollections});
   background-size: cover;
   transform: translateY(-50%);
 `;

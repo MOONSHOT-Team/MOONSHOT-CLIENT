@@ -1,5 +1,7 @@
+import instance from '@apis/instance';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import profileImg from './assets/images/profileImg.png';
 import { ITEM_LIST } from './constants/itemList';
@@ -11,13 +13,23 @@ interface IAcquiredItemList {
 }
 
 const My = () => {
+  const navigate = useNavigate();
+
+  const handleWithdrawal = async () => {
+    await instance.delete('/v1/user/withdrawal');
+    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('REFRESH_TOKEN');
+
+    navigate('/');
+  };
+
   return (
     <section css={myPageUi}>
       <StUserInfoContainer>
         <StUserProfileImg src={profileImg} alt="사용자 사진" />
         <StUserNickName>닉네임</StUserNickName>
         <StUserIdentification>카카오 로그인 유저입니다.</StUserIdentification>
-        <StWithdraw>회원탈퇴</StWithdraw>
+        <StWithdrawalButton onClick={handleWithdrawal}>회원탈퇴</StWithdrawalButton>
       </StUserInfoContainer>
       <section css={pageCenter}>
         <div>
@@ -83,7 +95,7 @@ const StUserIdentification = styled.p`
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
 
-const StWithdraw = styled.button`
+const StWithdrawalButton = styled.button`
   position: absolute;
   right: 4rem;
   bottom: 4rem;

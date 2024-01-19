@@ -96,7 +96,7 @@ export const MOCK_SOCIAL_DATA = [
   //2
   {
     category: '경제',
-    userName: '질문을 던지는 사람',
+    userName: '트렌드세터',
     userImg: userImg2,
     like: 129,
     userIntro: 'ESTJ/목표를 성취하는 과정에서 짜릿함을 느껴요',

@@ -69,10 +69,9 @@ const Progress = styled('progress')<{ isComplete: number }>`
   }
 `;
 
-// history_progressbar 현재 진행 마크용
 const StMarker = styled.div<MarkerProps>`
   position: absolute;
-  left: ${({ value }) => value}rem; /* 프로그래스 바의 현재 값에 따라 위치 동적으로 조정 */
+  left: ${({ value }) => value}rem;
   display: flex;
   align-items: center;
   justify-content: center;

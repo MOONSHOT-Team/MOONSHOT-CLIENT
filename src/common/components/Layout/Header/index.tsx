@@ -10,7 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await instance.patch('/v1/user/log-out');
+    await instance.post('/v1/user/log-out');
 
     navigate('/');
   };

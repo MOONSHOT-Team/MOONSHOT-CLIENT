@@ -24,7 +24,7 @@ export const MainDashTaskNodes = ({ isFirstChild, taskIdx, taskList }: IMainTask
 
   return (
     <StNodesContainer>
-      {isFirstChild && <StTaskLabel>Tasks</StTaskLabel>}
+      {isFirstChild && <StMainTaskLabel>Tasks</StMainTaskLabel>}
       <StTaskNodeContainer>
         <NodeLines />
         <StMainDashTaskBoxWrapper>
@@ -36,6 +36,10 @@ export const MainDashTaskNodes = ({ isFirstChild, taskIdx, taskList }: IMainTask
     </StNodesContainer>
   );
 };
+
+const StMainTaskLabel = styled(StTaskLabel)`
+  top: -1.6rem;
+`;
 
 const StMainDashTaskBoxWrapper = styled(StTaskBoxWrapper)`
   display: flex;
@@ -52,8 +56,10 @@ const StMainDashTaskBox = styled(StTaskBox)`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_12_medium};
 
+  background-color: ${({ theme }) => theme.colors.background};
+
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_600};
+    background-color: ${({ theme }) => theme.colors.background};
     outline: 1px solid ${({ theme }) => theme.colors.gray_500};
   }
 `;

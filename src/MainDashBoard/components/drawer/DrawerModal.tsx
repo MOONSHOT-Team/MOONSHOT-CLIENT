@@ -1,9 +1,9 @@
 import instance from '@apis/instance';
+import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import useModal from '@hooks/useModal';
-import type { ComponentProps, FocusEvent } from 'react';
-import { useId, useReducer, useState } from 'react';
+import type { ComponentProps, FocusEvent, RefObject } from 'react';
+import { forwardRef, useId, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { validateDate } from '../../utils/validateDate';
@@ -70,19 +70,26 @@ const dateReducer = (state: dateStateType, action: actionType): dateStateType =>
   }
 };
 
+interface IDrawerModalProps {
+  currentObjId: number;
+  handleChangeState: (state: number) => void;
+  objExpireAt: string;
+}
+
 /** Drawer Modal 창 */
-const DrawerModal = ({ currentObjId }: { currentObjId: number }) => {
+const DrawerModal = forwardRef<HTMLDialogElement, IDrawerModalProps>((props, ref) => {
+  const { currentObjId, handleChangeState, objExpireAt } = props;
   const [activeExtend, setActiveExtend] = useState(false);
   const [isValidInput, setIsValidInput] = useState('');
   const [dateState, dispatchDate] = useReducer(dateReducer, {
-    year: '2024',
-    month: '01',
-    day: '09',
+    year: objExpireAt.slice(0, 4),
+    month: objExpireAt.slice(5, 7),
+    day: objExpireAt.slice(8, 10),
   });
   const { year, month, day } = dateState;
 
-  const { modalRef } = useModal();
   const navigate = useNavigate();
+  const modalRef = ref as RefObject<HTMLDialogElement>;
 
   const isSave = isValidInput === '' && year !== '' && month !== '' && day !== '';
 
@@ -111,20 +118,17 @@ const DrawerModal = ({ currentObjId }: { currentObjId: number }) => {
       isClosed: false,
       expireAt: `${year}-${month}-${day}`,
     });
-    console.log(response);
     if (response.status === 204) {
-      console.log('204');
-      modalRef.current?.close();
+      handleChangeState(0);
     }
   };
 
   const handleComplete = async () => {
-    const response = await instance.patch('/v1/objective', {
+    await instance.patch('/v1/objective', {
       objectiveId: currentObjId,
       isClosed: true,
     });
     //목표 완료 -> 대시보드
-    console.log(response);
     navigate('/history');
   };
 
@@ -169,7 +173,7 @@ const DrawerModal = ({ currentObjId }: { currentObjId: number }) => {
   };
 
   return (
-    <>
+    <Modal ref={modalRef}>
       <div css={modalForm}>
         <StMainTextContainer>
           <p>해당 목표의 달성 기간이 종료되었습니다</p>
@@ -235,9 +239,11 @@ const DrawerModal = ({ currentObjId }: { currentObjId: number }) => {
         </StDateContainer>
         <div css={buttonStyle}>{!activeExtend ? renderExtendButton() : renderSaveButton()}</div>
       </div>
-    </>
+    </Modal>
   );
-};
+});
+
+DrawerModal.displayName = 'DrawerModal';
 
 export default DrawerModal;
 

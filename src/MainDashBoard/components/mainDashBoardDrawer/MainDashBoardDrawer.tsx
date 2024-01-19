@@ -14,6 +14,8 @@ interface IDrawerProps {
   onChangeCurrentGoalId: (id: number) => void;
   handleClickAddObjcBtn: () => void;
   handleChangeState?: (state: number) => void;
+  objListSize: number;
+  objId: number;
 }
 
 const MainDashBoardDrawer = ({
@@ -21,8 +23,10 @@ const MainDashBoardDrawer = ({
   onChangeCurrentGoalId,
   handleClickAddObjcBtn,
   handleChangeState,
+  objListSize,
+  objId,
 }: IDrawerProps) => {
-  const [currentGoalId, setCurrentGoalId] = useState(7);
+  const [currentGoalId, setCurrentGoalId] = useState(objId);
   const [goals, setGoals] = useState(objList);
   const [isRightClick, setIsRightClick] = useState(false);
 
@@ -52,38 +56,47 @@ const MainDashBoardDrawer = ({
       <div>
         <StAddGoalBtn
           type="button"
-          isAble={objList.length < 10}
-          disabled={objList.length < 10 ? false : true}
+          isAble={!objList || objListSize < 10}
+          disabled={objListSize < 10 || !objList ? false : true}
           onClick={handleClickAddObjcBtn}
         >
           <IcUnion />
           목표 추가하기
         </StAddGoalBtn>
-      </div>
-      <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
+
         <div css={goalListHeader}>
           <St목표리스트>목표 리스트</St목표리스트>
-          <St목표리스트개수>{goals.length}/10</St목표리스트개수>
+          <St목표리스트개수>{objListSize ? objListSize : 0}/10</St목표리스트개수>
         </div>
-        <StScrollContainer $isRightClick={isRightClick}>
-          <DndProvider backend={HTML5Backend}>
-            <ul css={ulStyles}>
-              {goals?.map((objListItem, index) => (
-                <GoalItem
-                  key={objListItem.id}
-                  {...objListItem}
-                  currentGoalId={currentGoalId}
-                  onClickGoal={handleClickGoal}
-                  index={index}
-                  moveGoal={moveGoal}
-                  setIsRightClick={setIsRightClick}
-                  handleChangeState={handleChangeState}
-                />
-              ))}
-            </ul>
-          </DndProvider>
-        </StScrollContainer>
       </div>
+      {objList ? (
+        <>
+          <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
+            <StScrollContainer $isRightClick={isRightClick}>
+              <DndProvider backend={HTML5Backend}>
+                <ul css={ulStyles}>
+                  {goals?.map((objListItem, index) => (
+                    <GoalItem
+                      key={objListItem.id}
+                      {...objListItem}
+                      currentGoalId={currentGoalId}
+                      onClickGoal={handleClickGoal}
+                      index={index}
+                      moveGoal={moveGoal}
+                      setIsRightClick={setIsRightClick}
+                      handleChangeState={handleChangeState}
+                    />
+                  ))}
+                </ul>
+              </DndProvider>
+            </StScrollContainer>
+          </div>
+        </>
+      ) : (
+        <StNullText>
+          <p>추가한 목표가 없습니다.</p>
+        </StNullText>
+      )}
     </StContainer>
   );
 };
@@ -158,4 +171,13 @@ const ulStyles = css`
   flex-direction: column;
   flex-shrink: 0;
   gap: 2rem;
+`;
+
+const StNullText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 23.9rem;
+  color: ${({ theme }) => theme.colors.gray_400};
+  ${({ theme }) => theme.fonts.body_12_medium};
 `;

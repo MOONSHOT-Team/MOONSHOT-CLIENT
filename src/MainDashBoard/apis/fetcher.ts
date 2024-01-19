@@ -6,7 +6,6 @@ import { IPostLogResType } from '../type/mainResTypes';
 
 export const getDashBoardData = async (url: string) => {
   const response = await instance.get(url);
-
   return response.data;
 };
 

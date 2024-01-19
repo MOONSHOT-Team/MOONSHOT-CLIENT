@@ -12,7 +12,7 @@ import My from './My';
 import Nickname from './Nickname';
 import Onboarding from './Onboarding';
 import OnboardingLayout from './Onboarding/components/layout/OnboardingLayout';
-import TeamMoonshot from './Onboarding/components/TeamMoonshot';
+import TeamMoonshot from './Onboarding/components/teamMoonshot/TeamMoonshot';
 import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';

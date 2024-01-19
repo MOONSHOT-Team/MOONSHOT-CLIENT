@@ -9,7 +9,7 @@ import {
   StTaskLabel,
   StTaskNodeContainer,
 } from '@styles/okrTree/CommonNodeStyle';
-import { ITaskNodesTypes } from '@type/OkrTree/TasksTypes';
+import { ITaskNodesTypes } from '@type/okrTree/TasksTypes';
 import { useState } from 'react';
 
 import { IPreviewTaskInfoTypes } from '../../../AddOkr/types/TaskInfoTypes';

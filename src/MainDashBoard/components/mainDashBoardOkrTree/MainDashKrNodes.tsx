@@ -6,7 +6,7 @@ import {
   StKrLabel,
   StNodesContainer,
 } from '@styles/okrTree/CommonNodeStyle';
-import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
 import { IcDrag } from '../../assets/icons';
 

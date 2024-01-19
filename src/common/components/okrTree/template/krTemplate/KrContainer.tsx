@@ -1,7 +1,7 @@
 import NodeLines from '@components/okrTree/lines/NodeLines';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import { IKeyResultTypes } from '@type/OkrTree/KeyResultTypes';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
 import KrTaskContainer from './KrTaskContainer';
 

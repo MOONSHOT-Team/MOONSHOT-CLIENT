@@ -182,16 +182,22 @@ const previewOkrContainer = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: calc(100vh - 7.6rem);
+  padding: 0;
+  margin-top: 7.6rem;
 `;
 
 const okrTreeDiv = css`
   display: flex;
   align-self: flex-start;
+  height: calc(100vh - 7.6rem);
   padding-left: 26.9rem;
+  margin-bottom: 8rem;
 `;
 
 const StSaveOkrBtn = styled.button`
+  position: absolute;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;

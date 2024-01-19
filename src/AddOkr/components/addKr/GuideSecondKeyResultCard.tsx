@@ -55,13 +55,12 @@ const GuideSecondKeyResultCard = ({
   return (
     <StGuideSecondKeyResultCardWrapper>
       <StSecondKrTitleBox>
-        목표를 달성하기 위해 필요한 성과는
+        <p>목표를 달성하기 위해 필요한 성과는 다음과 같아요.</p>
         <StTargetKrTitle>{title}</StTargetKrTitle>
-        입니다.
       </StSecondKrTitleBox>
 
       <StSecondKrTargetMetricBox>
-        이 성과를 측정할 수 있는 수치값과 단위를 입력하세요.
+        <p>이 성과를 측정할 수 있는 수치값과 단위를 입력하세요.</p>
         <div css={TargetMetricInputBox}>
           <StTargetMetricInput
             value={target}

@@ -5,13 +5,14 @@ import { createBrowserRouter } from 'react-router-dom';
 import AddOkr from './AddOkr';
 import AuthGoogle from './Auth/AuthGoogle';
 import AuthKakao from './Auth/AuthKakao';
+import Hyeonjin from './esterEgg/components/Hyeonjin';
 import History from './History';
 import MainDashBoard from './MainDashBoard';
 import My from './My';
 import Nickname from './Nickname';
 import Onboarding from './Onboarding';
 import OnboardingLayout from './Onboarding/components/layout/OnboardingLayout';
-import TeamMoonshot from './Onboarding/components/TeamMoonshot';
+import TeamMoonshot from './Onboarding/components/teamMoonshot/TeamMoonshot';
 import PreviewOkr from './PreviewOkr';
 import SignIn from './SignIn';
 import Social from './Social';
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
         element: <AuthGoogle />,
       },
     ],
+  },
+  {
+    path: '/hyeonjin',
+    element: <Hyeonjin />,
   },
 ]);
 

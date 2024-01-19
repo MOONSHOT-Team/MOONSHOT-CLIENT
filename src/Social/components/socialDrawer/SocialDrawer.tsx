@@ -14,7 +14,7 @@ const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number
   };
   return (
     <StContainer>
-      <div css={{ padding: '2.6rem 1rem 0 2.2rem' }}>
+      <div css={{ padding: '2.6rem 2.2rem 0' }}>
         <StDrawerHeader>공유 리스트</StDrawerHeader>
         <ul css={profileContainer}>
           {MOCK_SOCIAL_DATA.map((data, idx) => (
@@ -41,24 +41,10 @@ const StContainer = styled.aside`
   flex-direction: column;
   min-width: 23.2rem;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: hidden;
+
+  /* 전역에 스크롤 숨기는 기능 생기면 scroll로 수정 */
   background-color: ${({ theme }) => theme.colors.gray_600};
-
-  &::-webkit-scrollbar {
-    width: 1.2rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.gray_500};
-    background-clip: padding-box;
-    border: 4px solid transparent;
-    border-radius: 50px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-    background-size: cover;
-  }
 `;
 
 const StDrawerHeader = styled.div`

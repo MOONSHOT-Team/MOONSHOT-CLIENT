@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import imgFrame1Background from '../../assets/imgFrame1Background.png';
-import imgFrame1MainDashboard from '../../assets/imgFrame1MainDashboard.png';
-import imgFrame1MovingBackground from '../../assets/imgFrame1MovingBackground.png';
-import imgFrame1ObjectiveItem from '../../assets/imgFrame1ObjectiveItem.png';
-import imgFrame1Sidesheet from '../../assets/imgFrame1Sidesheet.png';
+import imgFrame1Background from '../../assets/frame/imgFrame1Background.png';
+import imgFrame1MainDashboard from '../../assets/frame/imgFrame1MainDashboard.png';
+import imgFrame1MovingBackground from '../../assets/frame/imgFrame1MovingBackground.png';
+import imgFrame1ObjectiveItem from '../../assets/frame/imgFrame1ObjectiveItem.png';
+import imgFrame1Sidesheet from '../../assets/frame/imgFrame1Sidesheet.png';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';

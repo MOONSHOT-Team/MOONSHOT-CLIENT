@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import imgFrame3GradientBackground from '../../assets/imgFrame3GradientBackground.png';
-import imgFrame3Question1 from '../../assets/imgFrame3Question1.png';
-import imgFrame3Question2 from '../../assets/imgFrame3Question2.png';
-import imgFrame3Question3 from '../../assets/imgFrame3Question3.png';
+import imgFrame3GradientBackground from '../../assets/frame/imgFrame3GradientBackground.png';
+import imgFrame3Question1 from '../../assets/frame/imgFrame3Question1.png';
+import imgFrame3Question2 from '../../assets/frame/imgFrame3Question2.png';
+import imgFrame3Question3 from '../../assets/frame/imgFrame3Question3.png';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';

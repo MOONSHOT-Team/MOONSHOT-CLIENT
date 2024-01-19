@@ -1,6 +1,6 @@
 import { css, keyframes } from '@emotion/react';
 
-import imgFrame6MovingBackground from '../../assets/imgFrame6MovingBackground.png';
+import imgFrame6MovingBackground from '../../assets/frame/imgFrame6MovingBackground.png';
 
 const Frame6 = () => {
   return (

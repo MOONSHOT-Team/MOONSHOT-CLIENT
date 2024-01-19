@@ -2,12 +2,12 @@ import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 
-import imgFrame5HistoryClose from '../../assets/imgFrame5HistoryClose.png';
-import imgFrame5HistoryOpen from '../../assets/imgFrame5HistoryOpen.png';
-import imgFrame5HistoryTask from '../../assets/imgFrame5HistoryTask.png';
-import imgFrame5List2 from '../../assets/imgFrame5List2.png';
-import imgFrame5List3 from '../../assets/imgFrame5List3.png';
-import imgFrame5List4 from '../../assets/imgFrame5List4.png';
+import imgFrame5HistoryClose from '../../assets/frame/imgFrame5HistoryClose.png';
+import imgFrame5HistoryOpen from '../../assets/frame/imgFrame5HistoryOpen.png';
+import imgFrame5HistoryTask from '../../assets/frame/imgFrame5HistoryTask.png';
+import imgFrame5List2 from '../../assets/frame/imgFrame5List2.png';
+import imgFrame5List3 from '../../assets/frame/imgFrame5List3.png';
+import imgFrame5List4 from '../../assets/frame/imgFrame5List4.png';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';

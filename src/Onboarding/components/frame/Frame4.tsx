@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import imgFrame4DashboardDark from '../../assets/imgFrame4DashboardDark.png';
-import imgFrame4SideSheet from '../../assets/imgFrame4SideSheet.png';
-import imgFrame4SideSheetCheckIn from '../../assets/imgFrame4SideSheetCheckIn.png';
+import imgFrame4DashboardDark from '../../assets/frame/imgFrame4DashboardDark.png';
+import imgFrame4SideSheet from '../../assets/frame/imgFrame4SideSheet.png';
+import imgFrame4SideSheetCheckIn from '../../assets/frame/imgFrame4SideSheetCheckIn.png';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';

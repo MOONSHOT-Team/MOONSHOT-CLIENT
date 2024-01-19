@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import imgFrame2TreeGraph from '../../assets/imgFrame2TreeGraph.png';
+import imgFrame2TreeGraph from '../../assets/frame/imgFrame2TreeGraph.png';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';

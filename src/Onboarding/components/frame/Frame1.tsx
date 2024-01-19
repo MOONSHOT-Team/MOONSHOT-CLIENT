@@ -27,7 +27,12 @@ const Frame1 = () => {
     <section css={section}>
       <div css={imgSlide} />
       <RollingTextBox>
-        <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p>
+        {TEXT_ROLLING.filter((_, idx) => idx === textIdx).map((text) => (
+          <p css={textRolling} key={text}>
+            {text}
+          </p>
+        ))}
+        {/* <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p> */}
       </RollingTextBox>
       <MainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</MainText>
       <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
@@ -85,7 +90,7 @@ const slideIn = keyframes`
     background-position: top;
   }
   to {
-    background-position: 10000vw 0px;
+    background-position: 100000vw 0px;
   }
 `;
 
@@ -98,8 +103,8 @@ const imgSlide = css`
 
   /* stylelint-disable property-no-vendor-prefix */
   background-size: 194rem 92.5rem;
-  -webkit-animation: ${slideIn} 5000s ease;
-  animation: ${slideIn} 5000s ease;
+  -webkit-animation: ${slideIn} 40000s ease;
+  animation: ${slideIn} 40000s ease;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
   -webkit-animation-direction: alternate;
@@ -110,7 +115,7 @@ const imgSlide = css`
 
 const liftUp = keyframes`
   0% {
-    transform: translateY(3rem);
+    transform: translateY(4rem);
     opacity: 0;
   }
 
@@ -125,7 +130,7 @@ const liftUp = keyframes`
   }
 
   100% {
-    transform: translateY(-3rem);
+    transform: translateY(-4rem);
     opacity: 0;
   }
 `;

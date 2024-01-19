@@ -18,6 +18,7 @@ import RightClickBox from './RightClickBox';
 interface IGoalItemProps extends IObjListTypes {
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
   handleChangeState?: (state: number) => void;
+  showState: string;
 }
 
 const GoalItem: React.FC<IGoalItemProps> = ({
@@ -33,12 +34,16 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   moveGoal,
   setIsRightClick,
   handleChangeState,
+  showState,
 }) => {
   const ref = useRef<HTMLLIElement>(null);
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
 
   const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
+  if (showState === 'ADD_SELECT_METHOD') {
+    currentGoalId = -1;
+  }
 
   const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
 

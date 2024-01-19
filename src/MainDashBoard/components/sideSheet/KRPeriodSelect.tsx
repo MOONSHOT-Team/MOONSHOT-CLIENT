@@ -3,6 +3,7 @@ import { ConfigProvider, DatePicker } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mutate } from 'swr';
 
 import { patchCheckIn } from '../../apis/fetcher';
@@ -23,6 +24,7 @@ const KRPeriodSelect = ({
   expireAt: string;
 }) => {
   const [period, setPeriod] = useState([startAt, expireAt]);
+  const navigate = useNavigate();
 
   const handleKrPeriodChange = async (
     _values: [Dayjs | null, Dayjs | null] | null,
@@ -38,7 +40,7 @@ const KRPeriodSelect = ({
       await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
     } catch (err) {
-      console.error(err);
+      navigate('/error');
     }
   };
 

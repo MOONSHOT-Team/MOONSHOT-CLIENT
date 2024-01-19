@@ -114,7 +114,6 @@ const PreviewOkr = () => {
 
     try {
       const res = await postOkrInfo('/v1/objective', finalOkrInfo);
-      console.log(res);
       if (res) navigate('/dashboard');
     } catch (err) {
       navigate('/error');

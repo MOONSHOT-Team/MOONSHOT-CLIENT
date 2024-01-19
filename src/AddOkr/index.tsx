@@ -252,7 +252,7 @@ const AddOkr = () => {
         // step 4 - KR 추가
         return selectedMethod === IS_GUIDE ? (
           <AddGuideKr
-            objTitle={objTitle}
+            objInfo={objInfo}
             clickedCard={clickedCard}
             handleClickPlusCard={handleClickPlusCard}
             handleClickCloseBtn={handleClickCloseBtn}
@@ -262,7 +262,7 @@ const AddOkr = () => {
           />
         ) : (
           <AddKr
-            objTitle={objTitle}
+            objInfo={objInfo}
             clickedCard={clickedCard}
             handleClickPlusCard={handleClickPlusCard}
             handleClickCloseBtn={handleClickCloseBtn}

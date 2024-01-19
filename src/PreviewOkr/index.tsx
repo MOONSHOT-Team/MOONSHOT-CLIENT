@@ -4,11 +4,12 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { IFinalOkrListInfoTypes } from '../AddOkr/types/FinalKrListInfo';
 import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
 import { IPreviewTaskInfoTypes } from '../AddOkr/types/TaskInfoTypes';
+import { postOkrInfo } from './apis/postOkrFetcher';
 import PreviewModal from './components/PreviewModal';
 import PreviewOkrAlertMsg from './components/PreviewOkrAlertMsg';
 import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes';
@@ -17,6 +18,7 @@ import { PreviewTaskNodes } from './components/PreviewOkrTreeNodes/PreviewTaskNo
 
 const PreviewOkr = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -78,9 +80,7 @@ const PreviewOkr = () => {
     },
   ]);
 
-  const handleClickSaveOkrBtn = () => {
-    console.log('여기서 okr 생성 post api 한 번에 통신 예쩡');
-
+  const handleClickSaveOkrBtn = async () => {
     const { objStartAt, objExpireAt } = objInfo;
 
     const finalOkrInfo: IFinalOkrListInfoTypes = {
@@ -88,28 +88,37 @@ const PreviewOkr = () => {
       objStartAt: objStartAt.split('. ').join('-'),
       objExpireAt: objExpireAt.split('. ').join('-'),
       krList: [
-        {
+        previewKrListInfo[0] && {
           ...previewKrListInfo[0],
+          target: Number(previewKrListInfo[0].target.split(',').join('')),
           startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[0].startAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[0],
+          expireAt: previewKrListInfo[0].expireAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[0].taskList,
         },
-        {
+        previewKrListInfo[1] && {
           ...previewKrListInfo[1],
+          target: Number(previewKrListInfo[1].target.split(',').join('')),
           startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[1].startAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[1],
+          expireAt: previewKrListInfo[1].expireAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[0].taskList,
         },
-        {
+        previewKrListInfo[2] && {
           ...previewKrListInfo[2],
+          target: Number(previewKrListInfo[2].target.split(',').join('')),
           startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[2].startAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[2],
+          expireAt: previewKrListInfo[2].expireAt.split('. ').join('-'),
+          taskList: previewTaskListInfo[0].taskList,
         },
       ],
     };
 
-    console.log(finalOkrInfo, '###');
+    try {
+      const res = await postOkrInfo('/v1/objective', finalOkrInfo);
+      console.log(res);
+      if (res) navigate('/dashboard');
+    } catch (err) {
+      navigate('/error');
+    }
   };
 
   const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -117,7 +126,6 @@ const PreviewOkr = () => {
   };
 
   useEffect(() => {
-    console.log(location.state, '!!!');
     location.state && handleShowModal();
   }, []);
 

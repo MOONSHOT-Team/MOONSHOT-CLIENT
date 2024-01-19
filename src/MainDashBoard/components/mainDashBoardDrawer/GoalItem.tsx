@@ -58,9 +58,8 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     navigate('/history');
   };
 
-  const handleClickDelete = async () => {
-    // console.log(rightClickedGoalId);
-
+  const handleClickDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     try {
       await deleteObj(`/v1/objective/${rightClickedGoalId}`);
       await mutate('/v1/objective');

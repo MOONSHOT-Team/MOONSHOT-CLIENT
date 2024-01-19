@@ -30,7 +30,7 @@ const StMethodBtn = styled.button<{ $isClicked: boolean | undefined }>`
   justify-content: flex-start;
   width: 40rem;
   height: 32rem;
-  padding: 3.2rem 11.8rem 3.2rem 3rem;
+  padding: 3.2rem 0 0 3rem;
   color: ${({ theme }) => theme.colors.gray_100};
   text-align: start;
   background-color: ${({ theme, $isClicked }) =>
@@ -53,4 +53,6 @@ const StMethodBtnTitle = styled.p`
 const StMethodBtnDescription = styled.p`
   color: ${({ theme }) => theme.colors.gray_100};
   ${({ theme }) => theme.fonts.body_10_regular};
+
+  white-space: pre-line;
 `;

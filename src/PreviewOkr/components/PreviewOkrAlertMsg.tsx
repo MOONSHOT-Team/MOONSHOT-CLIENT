@@ -8,9 +8,10 @@ const PreviewOkrAlertMsg = () => {
       <i css={noticeIconStyle}>
         <IcNotice />
       </i>
-      <p>
-        ‘저장하기’ 버튼을 누른 후 목표(O), Tasks에 대한 수정은 불가능하며, KR에 대한 목표 수치는
-        수정이 가능합니다.
+      <p css={AlertMsgTxt}>
+        {
+          '목표 저장 이후 목표(O)와 Tasks는 수정이 불가능하며\n KR에 대한 수치값은 체크인을 통해 수정 가능해요'
+        }
       </p>
     </StAlertMsgBox>
   );
@@ -38,4 +39,8 @@ const StAlertMsgBox = styled.div`
 const noticeIconStyle = css`
   width: 2.4rem;
   height: 2.4rem;
+`;
+
+const AlertMsgTxt = css`
+  white-space: pre-line;
 `;

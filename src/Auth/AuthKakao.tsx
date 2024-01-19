@@ -1,3 +1,4 @@
+import Loading from '@components/Lodaing';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
@@ -27,7 +28,7 @@ const AuthKakao = () => {
   return (
     <>
       <p>{kakaoCode}</p>
-      {isLoading && <p style={{ fontSize: '12rem' }}>loading,,,</p>}
+      {isLoading && <Loading />}
       {error && <p style={{ fontSize: '12rem' }}>Error,,,</p>}
       {data && <p style={{ fontSize: '12rem' }}>Success!!!</p>}
     </>

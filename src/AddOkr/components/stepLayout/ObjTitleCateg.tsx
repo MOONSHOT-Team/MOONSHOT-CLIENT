@@ -15,7 +15,7 @@ interface IObjTitleCategProps extends IAddObjFlowProps {
 const MAX_OBJ_INPUT_CNT = 30;
 
 // 가이드에 따라 설정하기 기본 placeholder
-const GUIDE_DEFAULT_PLACEHOLDER = '목표를 입력하세요.';
+const GUIDE_DEFAULT_PLACEHOLDER = '목표를 입력하세요';
 
 const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) => {
   const { objCategory: selectedObjCateg, objTitle } = objInfo;
@@ -68,7 +68,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
   return (
     <section css={ObjTitleCategContainer}>
       <StObjTitleCategTitle>
-        {'어떤 목표를 달성하고 싶나요?\n가슴 뛰는 목표를 구체적으로 적어주세요.'}
+        {'어떤 목표를 달성하고 싶나요?\n테마를 선택하고, 가슴 뛰는 목표를 구체적으로 적어주세요'}
       </StObjTitleCategTitle>
 
       {/* 카테고리 선택 영역*/}
@@ -129,7 +129,6 @@ const ObjTitleCategContainer = css`
 `;
 
 const StObjTitleCategTitle = styled.h1`
-  width: 31.9rem;
   margin-top: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;

@@ -146,7 +146,7 @@ export const 진척정도입력하기 = ({
             <StEnterProgressInput
               type="text"
               id="enterProgress"
-              placeholder="진척 정도를 확인할 수 있는 수치값을 입력하세요."
+              placeholder="진척 정도를 확인할 수 있는 수치를 입력하세요"
               value={logNum.toLocaleString()}
               onChange={handleLogNumChange}
               autoComplete="off"

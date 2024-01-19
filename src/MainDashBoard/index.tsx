@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import Loading from '@components/Lodaing';
 import { css } from '@emotion/react';
 import useModal from '@hooks/useModal';
 import { useEffect, useState } from 'react';
@@ -54,7 +55,7 @@ const MainDashBoard = () => {
   };
 
   const renderMainState = () => {
-    if (isLoading) return <>로딩 중,,,</>;
+    if (isLoading) return <Loading />;
     switch (showState) {
       // 일반 대시보드 화면 = okr Tree 있는 화면 or Empty view
       case DASHBOARD_SHOW_STATE[0]:
@@ -107,7 +108,7 @@ const MainDashBoard = () => {
         return (
           <>
             {isLoading ? (
-              <div>Loading...</div>
+              <Loading />
             ) : (
               <CelebrateMotion
                 handleChangeState={handleChangeState}

@@ -1,6 +1,6 @@
 import { css, keyframes } from '@emotion/react';
 
-import imgFrame6Background from '../../assets/imgFrame6Background.png';
+import imgFrame6MovingBackground from '../../assets/frame/imgFrame6MovingBackground.png';
 
 const Frame6 = () => {
   return (
@@ -24,16 +24,19 @@ const slideIn = keyframes`
 const section = css`
   width: 100vw;
   height: 36.1rem;
-  padding: 11.8rem 0;
+  padding: 17rem 0 10.7rem;
 `;
 
 const imgSlide = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
-  height: 13.6rem;
-  background-image: url(${imgFrame6Background});
+  height: 8.4rem;
+  background-image: url(${imgFrame6MovingBackground});
 
   /* stylelint-disable property-no-vendor-prefix */
-  background-size: 136.6rem 13.6rem;
+  background-size: 118.8rem 8.4rem;
   -webkit-animation: ${slideIn} 5000s ease;
   animation: ${slideIn} 5000s ease;
   -webkit-animation-iteration-count: infinite;

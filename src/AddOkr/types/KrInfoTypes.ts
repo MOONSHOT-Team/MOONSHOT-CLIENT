@@ -1,3 +1,4 @@
+import { IObjInfoTypes } from './ObjectInfoTypes';
 import { ITaskInfoTypes } from './TaskInfoTypes';
 
 export interface IKrListInfoTypes {
@@ -11,7 +12,7 @@ export interface IKrListInfoTypes {
 }
 
 export interface IAddKrFlowProps {
-  objTitle: string;
+  objInfo: IObjInfoTypes;
   clickedCard: number[];
   handleClickPlusCard: (item: number) => void;
   handleClickCloseBtn: (cardIdx: number) => void;

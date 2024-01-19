@@ -24,7 +24,7 @@ const SignIn = () => {
           <img src={imgWordmarkWhite} alt="work" width={257} height={68} />
         </h1>
         <StSubText>
-          유난한 도전을 위한 체계적인 목표 관리와 성과 트래킹, 지금 바로 문샷에서 시작해보세요.
+          유난한 도전을 위한 체계적인 목표 관리와 성과 트래킹, 지금 바로 문샷에서 시작해보세요
         </StSubText>
         <button type="button" onClick={handleLogin}>
           <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />

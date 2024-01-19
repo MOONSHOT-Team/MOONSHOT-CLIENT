@@ -7,9 +7,11 @@ import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
 import { MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
+import { IObjInfoTypes } from '../../types/ObjectInfoTypes';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 
 interface IGuideFirstKeyResultCard {
+  objInfo: IObjInfoTypes;
   krListInfo: IKrListInfoTypes[];
   setKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
   cardIdx: number;
@@ -19,6 +21,7 @@ interface IGuideFirstKeyResultCard {
 const KR_TITLE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
 
 const GuideFirstKeyResultCard = ({
+  objInfo,
   krListInfo,
   setKrListInfo,
   cardIdx,
@@ -95,7 +98,11 @@ const GuideFirstKeyResultCard = ({
         <StKrInputDescription>해당 성과를 달성할 기간은?</StKrInputDescription>
         <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
           {isShowCalender ? (
-            <KeyResultPeriodInput handleClickSelectDate={handleClickSelectDate} period={krPeriod} />
+            <KeyResultPeriodInput
+              handleClickSelectDate={handleClickSelectDate}
+              period={krPeriod}
+              objInfo={objInfo}
+            />
           ) : (
             <p>YYYY.MM.DD - YYYY.MM.DD</p>
           )}

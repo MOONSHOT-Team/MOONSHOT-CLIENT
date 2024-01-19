@@ -15,7 +15,7 @@ interface IAddGuideKrProps extends IAddKrFlowProps {
 const MAX_KR_LENGTH = 3;
 
 const AddGuideKr = ({
-  objTitle,
+  objInfo,
   clickedCard,
   handleClickPlusCard,
   handleClickCloseBtn,
@@ -23,12 +23,16 @@ const AddGuideKr = ({
   setKrListInfo,
   isActiveSecondKrCard,
 }: IAddGuideKrProps) => {
+  const { objTitle } = objInfo;
+
   const renderFirstKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
+
     return (
       <>
         <GuideFirstKeyResultCard
           cardIdx={0}
+          objInfo={objInfo}
           krListInfo={krListInfo}
           setKrListInfo={setKrListInfo}
         />
@@ -39,6 +43,7 @@ const AddGuideKr = ({
                 <GuideFirstKeyResultCard
                   key={item}
                   cardIdx={item}
+                  objInfo={objInfo}
                   krListInfo={krListInfo}
                   setKrListInfo={setKrListInfo}
                   handleClickCloseBtn={handleClickCloseBtn}
@@ -86,16 +91,16 @@ const AddGuideKr = ({
       {isActiveSecondKrCard ? (
         <>
           <StSecondAddGuideKrTxt>
-            {'달에 탐사선을 쏘아올릴 마음으로, 목표를 측정할 수 있는 핵심 지표를 설정해주세요.'}
+            {'달에 탐사선을 쏘아올릴 마음으로, 목표를 측정할 수 있는 핵심 지표를 설정해주세요'}
           </StSecondAddGuideKrTxt>
           <StSubGuideTxt>
-            moonshot에서 설정되는 목표 수치는 70-80%에 도달할 시 완료된 것으로 간주되어요.
+            moonshot에서 설정되는 목표 값은 70%에 도달할 시 완료로 간주되어요
           </StSubGuideTxt>
         </>
       ) : (
         <StFirstAddGuideKrTxt>
           {
-            '목표를 이루기 위한 측정 가능한 이정표를 설정해볼거예요.\n먼저, 목표를 달성하기 위해 어떤 성과들이 필요할까요?'
+            '목표를 이루기 위한 측정 가능한 이정표를 설정해볼거예요\n먼저, 목표를 달성하기 위해 어떤 성과들이 필요할까요?'
           }
         </StFirstAddGuideKrTxt>
       )}
@@ -121,6 +126,7 @@ const AddGuideKrContainer = css`
 
 const StAddGuideKrTxt = styled.h1`
   color: ${({ theme }) => theme.colors.gray_000};
+  text-align: center;
   white-space: pre-line;
 
   ${({ theme }) => theme.fonts.title_20_semibold};
@@ -152,10 +158,3 @@ const StObjTitleBox = styled.div`
 
   ${({ theme }) => theme.fonts.title_16_semibold};
 `;
-
-// const KrGuideCardWrapper = css`
-//   display: flex;
-//   gap: 2rem;
-//   align-items: center;
-//   width: 100%;
-// `;

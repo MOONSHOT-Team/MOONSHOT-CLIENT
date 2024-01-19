@@ -26,7 +26,7 @@ const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
 
   return (
     <section css={ObjContentContainer}>
-      <StObjContentTitle>목표를 달성하고 싶은 이유와 그 다짐을 기록해주세요.</StObjContentTitle>
+      <StObjContentTitle>목표를 달성하고 싶은 이유와 다짐을 기록해주세요</StObjContentTitle>
       <div css={ContentTextAreaWrapper}>
         <StObjContentTextArea
           value={objContent}
@@ -54,7 +54,7 @@ const ObjContentContainer = css`
 `;
 
 const StObjContentTitle = styled.h1`
-  margin-bottom: 5.3rem;
+  margin: 1rem 0 5.3rem;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_20_semibold};
 `;

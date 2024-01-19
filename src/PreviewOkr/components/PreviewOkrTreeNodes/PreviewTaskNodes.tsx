@@ -38,6 +38,11 @@ export const PreviewTaskNodes = ({
     setPreviewTaskListInfo([...previewTaskListInfo]);
   };
 
+  const handleClickPlusBtn = () => {
+    previewTaskListInfo[krIdx].taskList.filter((task) => task.idx < taskIdx && task.title === '')
+      .length === 0 && setIsClickedPlusBtn(true);
+  };
+
   return (
     <StNodesContainer>
       {isFirstChild && <StTaskLabel>Tasks</StTaskLabel>}
@@ -55,7 +60,7 @@ export const PreviewTaskNodes = ({
               />
             </StPreviewTaskBox>
           ) : (
-            <StPreviewPlusBtn type="button" onClick={() => setIsClickedPlusBtn(true)}>
+            <StPreviewPlusBtn type="button" onClick={handleClickPlusBtn}>
               <IcPlusSmall />
             </StPreviewPlusBtn>
           )}
@@ -81,7 +86,7 @@ const StPreviewPlusBtn = styled.button`
   width: 18rem;
   height: 3rem;
   margin: calc(1.2rem / 2) 0; /* task와 task 사이 간격 */
-  background-color: ${({ theme }) => theme.colors.gray_600};
+  background-color: ${({ theme }) => theme.colors.background};
   border-radius: 75px;
   outline: 1px solid ${({ theme }) => theme.colors.gray_500};
 

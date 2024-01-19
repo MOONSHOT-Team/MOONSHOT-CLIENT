@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import SocialDrawer from './components/socialDrawer/SocialDrawer';
@@ -15,6 +16,7 @@ const Social = () => {
     <section css={mainSocialStyle}>
       <SocialDrawer onHandleCurrentIdx={handleCurrentIdx} />
       <SocialOKRTree okrTreeData={MOCK_SOCIAL_DATA[currentIdx]?.okrTreeData} />
+      <StUserName>{MOCK_SOCIAL_DATA[currentIdx]?.userName}님의 OKR</StUserName>
     </section>
   );
 };
@@ -25,4 +27,12 @@ const mainSocialStyle = css`
   display: flex;
   width: 100vw;
   height: 100%;
+`;
+
+const StUserName = styled.div`
+  position: fixed;
+  top: 10rem;
+  left: 28.2rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme }) => theme.fonts.title_20_semibold};
 `;

@@ -6,7 +6,6 @@ import item5 from '../assets/images/item5.png';
 import item6 from '../assets/images/item6.png';
 import item7 from '../assets/images/item7.png';
 import item8 from '../assets/images/item8.png';
-
 export const ITEM_LIST = [
   { src: item1, title: 'STAR', subTitle: '유난한 도전 시작' },
   { src: item2, title: 'FIRST AID KIT', subTitle: ' 쏘아올릴 준비' },
@@ -15,5 +14,5 @@ export const ITEM_LIST = [
   { src: item5, title: 'MOON', subTitle: '북극성을 따라서' },
   { src: item6, title: 'ASTRONAUT', subTitle: '진정한 우주비행사' },
   { src: item7, title: 'TELESCOPE', subTitle: ' 탐색의 기본' },
-  { src: item8, title: 'STUFOAR', subTitle: '우주의 슈퍼스타' },
+  { src: item8, title: 'UFO', subTitle: '우주의 슈퍼스타' },
 ];

@@ -9,18 +9,24 @@ import KeyResultPlusCard from '../addKr/KeyResultPlusCard';
 const MAX_KR_LENGTH = 3;
 
 const AddKr = ({
-  objTitle,
+  objInfo,
   clickedCard,
   handleClickPlusCard,
   handleClickCloseBtn,
   krListInfo,
   setKrListInfo,
 }: IAddKrFlowProps) => {
+  const { objTitle } = objInfo;
   const renderKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
     return (
       <>
-        <KeyResultCard cardIdx={0} krListInfo={krListInfo} setKrListInfo={setKrListInfo} />
+        <KeyResultCard
+          cardIdx={0}
+          objInfo={objInfo}
+          krListInfo={krListInfo}
+          setKrListInfo={setKrListInfo}
+        />
         {plusCardLength.map((item) => {
           return (
             <React.Fragment key={item}>
@@ -28,6 +34,7 @@ const AddKr = ({
                 <KeyResultCard
                   key={item}
                   cardIdx={item}
+                  objInfo={objInfo}
                   krListInfo={krListInfo}
                   setKrListInfo={setKrListInfo}
                   handleClickCloseBtn={handleClickCloseBtn}
@@ -53,7 +60,7 @@ const AddKr = ({
     <StAddOkrLayoutContainer>
       <StAddOkrTitle>
         {
-          '어떤 성과를 이루면 목표 달성에 가까워질 수 있을까요?\n목표를 측정할 수 있는 핵심 지표를 구체적으로 설정해주세요.'
+          '어떤 성과를 이루면 목표 달성에 가까워질 수 있을까요?\n목표를 측정할 수 있는 핵심 지표를 구체적으로 작성 해주세요'
         }
       </StAddOkrTitle>
       <StAddOkrObjectBox>

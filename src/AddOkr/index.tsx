@@ -252,7 +252,7 @@ const AddOkr = () => {
         // step 4 - KR 추가
         return selectedMethod === IS_GUIDE ? (
           <AddGuideKr
-            objTitle={objTitle}
+            objInfo={objInfo}
             clickedCard={clickedCard}
             handleClickPlusCard={handleClickPlusCard}
             handleClickCloseBtn={handleClickCloseBtn}
@@ -262,7 +262,7 @@ const AddOkr = () => {
           />
         ) : (
           <AddKr
-            objTitle={objTitle}
+            objInfo={objInfo}
             clickedCard={clickedCard}
             handleClickPlusCard={handleClickPlusCard}
             handleClickCloseBtn={handleClickCloseBtn}
@@ -280,18 +280,6 @@ const AddOkr = () => {
   useEffect(() => {
     validNextStep();
   }, [step, objInfo, krListInfo, clickedCard]);
-
-  // useEffect(() => {
-  //   // step 5 - previewOkr로 add-okr에서 생성된 정보들 보내주고 redirect, 이때 krList 중 값이 있는 것만 보낼수 있도록 필터한다.
-  //   step === 5 &&
-  //     navigate('/preview-okr', {
-  //       state: {
-  //         selectedMethod: selectedMethod,
-  //         objInfo: objInfo,
-  //         krListInfo: krListInfo.filter((kr) => kr.title),
-  //       },
-  //     });
-  // }, [step]);
 
   return (
     <section css={AddOkrContainer}>

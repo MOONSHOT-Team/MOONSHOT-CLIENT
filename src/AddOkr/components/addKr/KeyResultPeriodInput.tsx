@@ -3,6 +3,8 @@ import { ConfigProvider, DatePicker } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs, { Dayjs } from 'dayjs';
 
+import { IObjInfoTypes } from '../../types/ObjectInfoTypes';
+
 const { RangePicker } = DatePicker;
 
 interface IKeyResultPeriodInputProps {
@@ -11,16 +13,26 @@ interface IKeyResultPeriodInputProps {
     formatString: [string, string],
   ) => void;
   period: string[];
+  objInfo: IObjInfoTypes;
 }
 
-const KeyResultPeriodInput = ({ handleClickSelectDate, period }: IKeyResultPeriodInputProps) => {
+const KeyResultPeriodInput = ({
+  handleClickSelectDate,
+  period,
+  objInfo,
+}: IKeyResultPeriodInputProps) => {
+  const { objStartAt, objExpireAt } = objInfo;
+
   const formatDate = (dateString: string) => {
     const formattedDate = dateString.replace(/\./g, '-');
     return formattedDate;
   };
 
   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
-    return current && current < dayjs().startOf('day');
+    return (
+      current < dayjs(objStartAt.split('. ').join('')).endOf('day') ||
+      current > dayjs(objExpireAt.split('. ').join('')).startOf('day')
+    );
   };
 
   return (

@@ -118,9 +118,7 @@ const KeyResultCard = ({
 
       {/*수치값 단위 입력 부분*/}
       <StKrInputDescWrapper>
-        <StKrInputDescription>
-          핵심 지표를 측정할 수치값과 단위를 입력해주세요.
-        </StKrInputDescription>
+        <StKrInputDescription>핵심 지표를 측정할 수치값과 단위를 입력해주세요</StKrInputDescription>
         <StTargetMetricInputBox>
           <StTargetMetricinput
             type="text"
@@ -145,7 +143,7 @@ const KeyResultCard = ({
 
       {/*달성 기간 입력 부분*/}
       <StKrInputDescWrapper>
-        <StKrInputDescription>핵심 지표를 달성할 기간을 입력해주세요.</StKrInputDescription>
+        <StKrInputDescription>핵심 지표를 달성할 기간을 입력해주세요</StKrInputDescription>
         <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
           {isShowCalender ? (
             <KeyResultPeriodInput

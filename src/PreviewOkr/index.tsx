@@ -85,6 +85,7 @@ const PreviewOkr = () => {
 
     const finalOkrInfo: IFinalOkrListInfoTypes = {
       ...objInfo,
+      objTitle: previewObjValue,
       objStartAt: objStartAt.split('. ').join('-'),
       objExpireAt: objExpireAt.split('. ').join('-'),
       krList: [
@@ -114,7 +115,7 @@ const PreviewOkr = () => {
 
     try {
       const res = await postOkrInfo('/v1/objective', finalOkrInfo);
-      console.log(res);
+      if (res.data.status.toString().startsWith('40')) alert('OKR 생성에 실패했습니다');
       if (res) navigate('/dashboard');
     } catch (err) {
       navigate('/error');

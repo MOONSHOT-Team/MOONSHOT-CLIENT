@@ -1,4 +1,4 @@
-import Loading from '@components/Lodaing';
+import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

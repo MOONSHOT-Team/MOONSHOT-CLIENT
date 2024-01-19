@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import imgGoogleLogin from './assets/images/imgGoogleLogin.png';
 import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
+import imgViewcollection from './assets/images/imgViewcollection.png';
 
 /** 로그인 페이지 */
 const SignIn = () => {
@@ -33,10 +34,8 @@ const SignIn = () => {
           <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
         </Link>
       </section>
-      <section css={brandingSection}>
-        image / gif 브랜딩 관련 소스 or 프로토타입 소스가 들어갈 예정. 합숙 1주차 내 전달
-        예정입니다!
-      </section>
+      <div css={emptyContainer} />
+      <section css={brandingSection} />
     </div>
   );
 };
@@ -44,13 +43,13 @@ const SignIn = () => {
 export default SignIn;
 
 const signInContainer = css`
+  position: relative;
   display: flex;
-  gap: 13.2rem;
+  gap: 7.5rem;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 9rem;
 `;
 
 const loginSection = css`
@@ -58,14 +57,31 @@ const loginSection = css`
   flex-direction: column;
   gap: 1rem;
   align-items: flex-start;
+  width: 50%;
   width: 42rem;
 `;
 
+const emptyContainer = css`
+  flex-shrink: 0;
+  min-width: 68.7rem;
+  max-width: 100%;
+  height: auto;
+  min-height: 58.7rem;
+`;
+
 const brandingSection = css`
-  width: 68.7rem;
-  height: 58.7rem;
-  color: #000;
-  background-color: #d9d9d9;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  flex-shrink: 0;
+  width: calc(50% + 7.5rem);
+  min-width: 68.7rem;
+  max-width: 100%;
+  height: 100%;
+  min-height: 58.7rem;
+  background-image: url(${imgViewcollection});
+  background-size: cover;
+  transform: translateY(-50%);
 `;
 
 const StSubText = styled.h2`

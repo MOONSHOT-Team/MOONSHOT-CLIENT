@@ -6,4 +6,9 @@ export interface IPatchCheckInReqType {
   target?: number;
   state?: string;
   logContent?: string;
+  data?: {
+    objId: number;
+    nickname: string;
+    progress: number;
+  };
 }

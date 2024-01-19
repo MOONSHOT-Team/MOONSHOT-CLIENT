@@ -6,7 +6,7 @@ import { IcComplete, IcTrash } from '../../assets/icons';
 interface IRightClickBoxProps {
   rightClickPoints: { x: number; y: number };
   handleClickComplete: () => void;
-  handleClickDelete: () => void;
+  handleClickDelete: (e: React.MouseEvent) => void;
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

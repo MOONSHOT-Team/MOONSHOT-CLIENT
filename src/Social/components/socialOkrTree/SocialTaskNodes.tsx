@@ -49,8 +49,10 @@ const StSocialTaskBox = styled(StTaskBox)`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_12_medium};
 
+  background-color: ${({ theme }) => theme.colors.background};
+
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_600};
+    background-color: ${({ theme }) => theme.colors.background};
     outline: 1px solid ${({ theme }) => theme.colors.gray_500};
   }
 `;

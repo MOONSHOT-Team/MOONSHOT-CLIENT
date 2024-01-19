@@ -46,7 +46,7 @@ const SideSheet = ({
       <StContainer $isOpen={isOpen}>
         <section css={krDetailUpperStyles}>
           <StKrDetailHeader>
-            <span>kr</span>
+            <span>KR</span>
             <span>
               <IcClose onClick={onClose} />
               <button onClick={onClose}>x</button>

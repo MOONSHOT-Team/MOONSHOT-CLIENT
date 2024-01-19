@@ -251,7 +251,7 @@ export const KR수정하기 = ({
     <section css={enterLayoutStyles}>
       <article css={enterArticleStyles}>
         <span css={enterInputBoxStyles}>
-          <StLabel htmlFor="enterProgress">kr 수정</StLabel>
+          <StLabel htmlFor="enterProgress">KR 수정</StLabel>
           <StEditNum>
             <span>{title}</span>
             <StEditNumInput

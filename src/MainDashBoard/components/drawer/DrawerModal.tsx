@@ -2,8 +2,8 @@ import instance from '@apis/instance';
 import Modal from '@components/Modal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import type { ComponentProps, FocusEvent, ForwardedRef, RefObject } from 'react';
-import { useId, useReducer, useState } from 'react';
+import type { ComponentProps, FocusEvent, RefObject } from 'react';
+import { forwardRef, useId, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { validateDate } from '../../utils/validateDate';
@@ -70,18 +70,15 @@ const dateReducer = (state: dateStateType, action: actionType): dateStateType =>
   }
 };
 
-/** Drawer Modal 창 */
-const DrawerModal = ({
-  currentObjId,
-  modalRef,
-  handleChangeState,
-  objExpireAt,
-}: {
+interface IDrawerModalProps {
   currentObjId: number;
-  modalRef: ForwardedRef<HTMLDialogElement>;
   handleChangeState: (state: number) => void;
   objExpireAt: string;
-}) => {
+}
+
+/** Drawer Modal 창 */
+const DrawerModal = forwardRef<HTMLDialogElement, IDrawerModalProps>((props, ref) => {
+  const { currentObjId, handleChangeState, objExpireAt } = props;
   const [activeExtend, setActiveExtend] = useState(false);
   const [isValidInput, setIsValidInput] = useState('');
   const [dateState, dispatchDate] = useReducer(dateReducer, {
@@ -92,7 +89,7 @@ const DrawerModal = ({
   const { year, month, day } = dateState;
 
   const navigate = useNavigate();
-  const ref = modalRef as RefObject<HTMLDialogElement>;
+  const modalRef = ref as RefObject<HTMLDialogElement>;
 
   const isSave = isValidInput === '' && year !== '' && month !== '' && day !== '';
 
@@ -122,7 +119,7 @@ const DrawerModal = ({
       expireAt: `${year}-${month}-${day}`,
     });
     if (response.status === 204) {
-      handleChangeState?.(0);
+      handleChangeState(0);
     }
   };
 
@@ -161,7 +158,7 @@ const DrawerModal = ({
         <StCompleteButton
           type="button"
           onClick={() => {
-            ref.current?.close();
+            modalRef.current?.close();
             setActiveExtend(false);
             setIsValidInput('');
           }}
@@ -244,7 +241,9 @@ const DrawerModal = ({
       </div>
     </Modal>
   );
-};
+});
+
+DrawerModal.displayName = 'DrawerModal';
 
 export default DrawerModal;
 

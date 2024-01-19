@@ -145,7 +145,7 @@ const MainDashBoard = () => {
       {treeData?.data?.tree && (
         <DrawerModal
           currentObjId={okrTreeData?.objId}
-          modalRef={modalRef}
+          ref={modalRef}
           handleChangeState={handleChangeState}
           objExpireAt={okrTreeData.objExpireAt}
         />

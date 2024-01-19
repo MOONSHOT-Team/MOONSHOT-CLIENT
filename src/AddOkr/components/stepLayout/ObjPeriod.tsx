@@ -111,6 +111,7 @@ const StPeriodDateTxt = styled.p<{ $isSelected: boolean }>`
 
   color: ${({ theme, $isSelected }) =>
     $isSelected ? theme.colors.gray_200 : theme.colors.gray_400};
+  cursor: default;
   border-bottom: 1px solid
     ${({ theme, $isSelected }) => ($isSelected ? theme.colors.gray_200 : theme.colors.gray_400)};
 `;

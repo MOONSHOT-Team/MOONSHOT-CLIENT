@@ -121,6 +121,7 @@ const AddGuideKrContainer = css`
 
 const StAddGuideKrTxt = styled.h1`
   color: ${({ theme }) => theme.colors.gray_000};
+  text-align: center;
   white-space: pre-line;
 
   ${({ theme }) => theme.fonts.title_20_semibold};
@@ -152,10 +153,3 @@ const StObjTitleBox = styled.div`
 
   ${({ theme }) => theme.fonts.title_16_semibold};
 `;
-
-// const KrGuideCardWrapper = css`
-//   display: flex;
-//   gap: 2rem;
-//   align-items: center;
-//   width: 100%;
-// `;

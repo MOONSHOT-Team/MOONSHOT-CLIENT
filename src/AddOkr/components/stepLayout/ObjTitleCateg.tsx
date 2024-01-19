@@ -129,7 +129,6 @@ const ObjTitleCategContainer = css`
 `;
 
 const StObjTitleCategTitle = styled.h1`
-  width: 31.9rem;
   margin-top: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;

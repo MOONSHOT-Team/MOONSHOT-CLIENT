@@ -1,8 +1,11 @@
 import instance from '@apis/instance';
+import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import useSWR from 'swr';
 
+import { getUserInfo } from './apis/fetcher';
 import profileImg from './assets/images/profileImg.png';
 import { ITEM_LIST } from './constants/itemList';
 
@@ -23,12 +26,21 @@ const My = () => {
     navigate('/');
   };
 
+  const { data: userInfo, isLoading } = useSWR('/v1/user/mypage', getUserInfo);
+
+  if (isLoading) return <Loading />;
+
   return (
     <section css={myPageUi}>
       <StUserInfoContainer>
-        <StUserProfileImg src={profileImg} alt="사용자 사진" />
-        <StUserNickName>닉네임</StUserNickName>
-        <StUserIdentification>카카오 로그인 유저입니다.</StUserIdentification>
+        <StUserProfileImg
+          src={userInfo?.data.data.profileImgUrl ? userInfo?.data.data.profileImgUrl : profileImg}
+          alt="사용자 사진"
+        />
+        <StUserNickName>{userInfo?.data.data.nickname}</StUserNickName>
+        <StUserIdentification>
+          {userInfo?.data.data.socialPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
+        </StUserIdentification>
         <StWithdrawalButton onClick={handleWithdrawal}>회원탈퇴</StWithdrawalButton>
       </StUserInfoContainer>
       <section css={pageCenter}>
@@ -82,6 +94,9 @@ const StUserProfileImg = styled.img`
   display: inline-flex;
   width: 12rem;
   height: 12rem;
+  border: 2px solid ${({ theme }) => theme.colors.gray_400};
+  border-radius: 60px;
+  object-fit: cover;
 `;
 
 const StUserNickName = styled.p`

@@ -17,6 +17,8 @@ const My = () => {
 
   const handleWithdrawal = async () => {
     await instance.delete('/v1/user/withdrawal');
+    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('REFRESH_TOKEN');
 
     navigate('/');
   };

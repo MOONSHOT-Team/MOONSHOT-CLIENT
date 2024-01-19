@@ -33,8 +33,8 @@ const TeamMoonshot = () => {
           <Profile src={imgEonseok} crewName="EonSeok.J" crewRole="Web Front-End Developer" />
           <Profile src={imgSooyeon} crewName="SooYeon.S" crewRole="Web Front-End Developer" />
           <Profile src={imgJunmin} crewName="JunMin.C" crewRole="Web Front-End Developer" />
-          <Profile src={imgYounglyn} crewName="YoungLyn.C" crewRole="Back-End Develop" />
-          <Profile src={imgMincheol} crewName="MinCheol.S" crewRole="Back-End Develop" />
+          <Profile src={imgYounglyn} crewName="YoungLyn.C" crewRole="Back-End Developer" />
+          <Profile src={imgMincheol} crewName="MinCheol.S" crewRole="Back-End Developer" />
         </div>
       </section>
       <footer css={footer}>

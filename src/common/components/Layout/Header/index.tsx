@@ -11,6 +11,8 @@ const Header = () => {
 
   const handleSignOut = async () => {
     await instance.post('/v1/user/log-out');
+    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('REFRESH_TOKEN');
 
     navigate('/');
   };

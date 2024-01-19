@@ -7,20 +7,25 @@ interface IYearBtnProps {
   count: number;
   onSelectYear: () => void;
   isActive: boolean;
+  isDisabled: boolean;
 }
-
-const YearButton = ({ year, count, onSelectYear, isActive }: IYearBtnProps) => {
+const YearButton = ({ year, count, onSelectYear, isActive, isDisabled }: IYearBtnProps) => {
   return (
-    <StYearBtn onClick={onSelectYear} isActive={isActive}>
+    <StYearBtn
+      onClick={onSelectYear}
+      isActive={isActive}
+      isDisabled={isDisabled}
+      disabled={isDisabled}
+    >
       {isActive && <CheckIcon />}
-      {year}({count})
+      {count === 0 ? year : `${year}(${count})`}
     </StYearBtn>
   );
 };
 
 export default YearButton;
 
-const StYearBtn = styled.button<{ isActive: boolean }>`
+const StYearBtn = styled.button<{ isActive: boolean; isDisabled: boolean }>`
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -28,10 +33,19 @@ const StYearBtn = styled.button<{ isActive: boolean }>`
   padding: 0.8rem 1rem;
   ${({ theme }) => theme.fonts.btn_11_medium};
 
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.colors.gray_550 : theme.colors.background};
+  color: ${({ isDisabled, theme }) => (isDisabled ? theme.colors.gray_450 : theme.colors.gray_000)};
+  background-color: ${({ isActive, isDisabled, theme }) =>
+    isDisabled
+      ? theme.colors.gray_550
+      : isActive
+        ? theme.colors.gray_550
+        : theme.colors.background};
   border: 1px solid
-    ${({ isActive, theme }) => (isActive ? theme.colors.gray_300 : theme.colors.gray_350)};
+    ${({ isActive, isDisabled, theme }) =>
+      isDisabled
+        ? theme.colors.gray_450
+        : isActive
+          ? theme.colors.gray_300
+          : theme.colors.gray_350};
   border-radius: 6px;
 `;

@@ -5,9 +5,15 @@ import React, { useState } from 'react';
 import { FilteringIcon } from '../../assets/icons';
 import { LIST_ORDER } from '../../constants/orderList';
 
-const ListOrder = () => {
-  const initialFilter = '최신순'; // 초기 필터 값을 설정합니다.
+interface IListOrderProps {
+  onFilterSelection: (filter: string) => void;
+}
+
+const ListOrder: React.FC<IListOrderProps> = ({ onFilterSelection }) => {
+  const initialFilter = '최신순';
+
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
+
   const [currentFilter, setCurrentFilter] = useState(initialFilter);
 
   const handleCurrentFilterClick = () => {
@@ -17,6 +23,7 @@ const ListOrder = () => {
   const handleFilterClick = (filter: string) => {
     setCurrentFilter(filter);
     setIsFilterDropdownOpen(false);
+    onFilterSelection(filter);
   };
 
   const filterOptions = LIST_ORDER.find(({ label }) => label === currentFilter)?.options || [];
@@ -35,7 +42,6 @@ const ListOrder = () => {
                 {filterOption}
               </StRemainFilterButton>
               {index < filterOptions.length - 1 && <StFilterBox />}{' '}
-              {/* 마지막 요소가 아닐 때만 StFilterBox 렌더링 */}
             </React.Fragment>
           ))}
         </StFilterWrapper>

@@ -79,8 +79,9 @@ const StStartButton = styled.button<{ disabled: boolean }>`
   justify-content: center;
   width: 20rem;
   height: 4rem;
-  color: ${({ theme, disabled }) => (disabled ? theme.colors.gray_500 : theme.colors.gray_000)};
-  background-color: ${({ theme }) => theme.colors.main_darkpurple};
+  color: ${({ theme }) => theme.colors.gray_000};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.gray_500 : theme.colors.main_darkpurple};
   border-radius: 6px;
 `;
 

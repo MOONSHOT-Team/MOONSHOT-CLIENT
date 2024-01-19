@@ -15,7 +15,7 @@ interface IAddGuideKrProps extends IAddKrFlowProps {
 const MAX_KR_LENGTH = 3;
 
 const AddGuideKr = ({
-  objTitle,
+  objInfo,
   clickedCard,
   handleClickPlusCard,
   handleClickCloseBtn,
@@ -23,12 +23,16 @@ const AddGuideKr = ({
   setKrListInfo,
   isActiveSecondKrCard,
 }: IAddGuideKrProps) => {
+  const { objTitle } = objInfo;
+
   const renderFirstKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
+
     return (
       <>
         <GuideFirstKeyResultCard
           cardIdx={0}
+          objInfo={objInfo}
           krListInfo={krListInfo}
           setKrListInfo={setKrListInfo}
         />
@@ -39,6 +43,7 @@ const AddGuideKr = ({
                 <GuideFirstKeyResultCard
                   key={item}
                   cardIdx={item}
+                  objInfo={objInfo}
                   krListInfo={krListInfo}
                   setKrListInfo={setKrListInfo}
                   handleClickCloseBtn={handleClickCloseBtn}

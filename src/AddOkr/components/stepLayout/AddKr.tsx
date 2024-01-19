@@ -9,18 +9,24 @@ import KeyResultPlusCard from '../addKr/KeyResultPlusCard';
 const MAX_KR_LENGTH = 3;
 
 const AddKr = ({
-  objTitle,
+  objInfo,
   clickedCard,
   handleClickPlusCard,
   handleClickCloseBtn,
   krListInfo,
   setKrListInfo,
 }: IAddKrFlowProps) => {
+  const { objTitle } = objInfo;
   const renderKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
     return (
       <>
-        <KeyResultCard cardIdx={0} krListInfo={krListInfo} setKrListInfo={setKrListInfo} />
+        <KeyResultCard
+          cardIdx={0}
+          objInfo={objInfo}
+          krListInfo={krListInfo}
+          setKrListInfo={setKrListInfo}
+        />
         {plusCardLength.map((item) => {
           return (
             <React.Fragment key={item}>
@@ -28,6 +34,7 @@ const AddKr = ({
                 <KeyResultCard
                   key={item}
                   cardIdx={item}
+                  objInfo={objInfo}
                   krListInfo={krListInfo}
                   setKrListInfo={setKrListInfo}
                   handleClickCloseBtn={handleClickCloseBtn}

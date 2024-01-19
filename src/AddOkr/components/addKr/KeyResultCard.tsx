@@ -7,6 +7,7 @@ import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
 import { MAX_KR_METRIC, MAX_KR_TARGET, MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
+import { IObjInfoTypes } from '../../types/ObjectInfoTypes';
 import KeyResultPeriodInput from './KeyResultPeriodInput';
 
 //힌트 메시지 상수
@@ -15,6 +16,7 @@ const HINT_TARGET = 'ex) 10';
 const HINT_METRIC = 'ex) 회';
 
 interface IKeyResultCardProps {
+  objInfo: IObjInfoTypes;
   krListInfo: IKrListInfoTypes[];
   setKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
   cardIdx: number;
@@ -22,6 +24,7 @@ interface IKeyResultCardProps {
 }
 
 const KeyResultCard = ({
+  objInfo,
   krListInfo,
   setKrListInfo,
   cardIdx,
@@ -145,7 +148,11 @@ const KeyResultCard = ({
         <StKrInputDescription>핵심 지표를 달성할 기간을 입력해주세요.</StKrInputDescription>
         <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
           {isShowCalender ? (
-            <KeyResultPeriodInput handleClickSelectDate={handleClickSelectDate} period={krPeriod} />
+            <KeyResultPeriodInput
+              handleClickSelectDate={handleClickSelectDate}
+              period={krPeriod}
+              objInfo={objInfo}
+            />
           ) : (
             <p>YYYY.MM.DD - YYYY.MM.DD</p>
           )}

@@ -38,6 +38,11 @@ export const PreviewTaskNodes = ({
     setPreviewTaskListInfo([...previewTaskListInfo]);
   };
 
+  const handleClickPlusBtn = () => {
+    previewTaskListInfo[krIdx].taskList.filter((task) => task.idx < taskIdx && task.title === '')
+      .length === 0 && setIsClickedPlusBtn(true);
+  };
+
   return (
     <StNodesContainer>
       {isFirstChild && <StTaskLabel>Tasks</StTaskLabel>}
@@ -55,7 +60,7 @@ export const PreviewTaskNodes = ({
               />
             </StPreviewTaskBox>
           ) : (
-            <StPreviewPlusBtn type="button" onClick={() => setIsClickedPlusBtn(true)}>
+            <StPreviewPlusBtn type="button" onClick={handleClickPlusBtn}>
               <IcPlusSmall />
             </StPreviewPlusBtn>
           )}

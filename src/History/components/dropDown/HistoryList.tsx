@@ -15,15 +15,17 @@ const HistoryList: React.FC<IObjective> = ({
   objCategory,
   progress,
   objPeriod,
+  isLast,
   krList,
 }) => {
   const [isVisable, setIsVisable] = useState<number | null>(null);
   const handleObjectiveClick = (objId: number) => {
     setIsVisable((previousObjId) => (previousObjId === objId ? null : objId));
   };
+
   return (
     <>
-      <ul css={historyListMarginBottom}>
+      <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer
           visibility={isVisable === objId ? 'true' : 'false'}
           onClick={() => handleObjectiveClick(objId)}
@@ -57,16 +59,20 @@ const HistoryList: React.FC<IObjective> = ({
             </ul>
           ))}
         </HistoryListDetails>
-      </ul>
+      </StHistoryListWrapperUl>
     </>
   );
 };
 
 export default HistoryList;
 
-const historyListMarginBottom = css`
+const StHistoryListWrapperUl = styled.ul<{ $isLast: boolean | undefined }>`
   &:not(:last-child) {
     margin-bottom: 1.6rem;
+  }
+
+  &:last-child > li {
+    margin-bottom: ${({ $isLast }) => $isLast && '0'};
   }
 `;
 
@@ -124,9 +130,12 @@ const KrTaskLayout = css`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  width: 100%;
 `;
 
 const TaskLayout = css`
-  display: flex;
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.9rem;
 `;

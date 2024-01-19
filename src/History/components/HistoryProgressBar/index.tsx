@@ -30,7 +30,7 @@ export default HistoryProgressBar;
 const StProgressBarContainer = styled.div<{ isComplete: number }>`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 1.6rem;
   width: 29.8rem;
   color: ${({ theme, isComplete }) =>
     isComplete < 40

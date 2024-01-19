@@ -113,7 +113,7 @@ const StAcquiredItemList = styled.div`
   position: relative;
 `;
 
-const StAcquiredItemTitle = styled.caption`
+const StAcquiredItemTitle = styled.div`
   position: absolute;
   bottom: 2.8rem;
   left: 50%;

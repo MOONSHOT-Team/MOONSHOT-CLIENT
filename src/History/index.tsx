@@ -94,7 +94,7 @@ const History = () => {
         {(selectedTheme || selectedYear || selectedFilter
           ? historyData?.groups
           : OKRHistoryData?.data?.data?.groups
-        )?.map(({ year, objList }: Group) => (
+        )?.map(({ year, objList }: Group, idx: number) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
             <StListOrderContainer>
               <StEachYear>{year}년</StEachYear>
@@ -111,6 +111,7 @@ const History = () => {
                       progress={progress}
                       objPeriod={objPeriod}
                       krList={krList}
+                      isLast={idx === objList.length - 1}
                     />
                   ),
                 )}

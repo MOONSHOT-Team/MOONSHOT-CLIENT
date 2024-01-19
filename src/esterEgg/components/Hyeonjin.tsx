@@ -3,8 +3,9 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ColorsTypes } from '@styles/theme';
 import Lottie from 'lottie-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import useScrollDetect from '../../Onboarding/hooks/useScrollDetect';
 import { ImgPopUp } from '../../Onboarding/styles/animation';
 import { sectionStyle } from '../../Onboarding/styles/common';
 import hyeonjin from '../assets/hyeonjin.png';
@@ -16,30 +17,8 @@ import hyeonjin6 from '../assets/hyeonjin6.jpeg';
 import hyeonjin7 from '../assets/hyeonjin7.jpg';
 
 const Hyeonjin = () => {
-  const [active, setActive] = useState(false);
   const [isCelebration, setIsCelebration] = useState(false);
-  const element = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY + 100; //현재 위치
-      //현재 페이지 상단
-      if (element.current) {
-        const pagePosTop = element.current.getBoundingClientRect().top + window.scrollY;
-        //현재 페이지 하단
-        const pagePosBot = element.current.getBoundingClientRect().bottom + window.scrollY;
-
-        if (pagePosTop < scrollTop && scrollTop < pagePosBot) {
-          setActive(true);
-        }
-      }
-    };
-    window.addEventListener('scroll', onScroll);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [active]);
+  const { active, element } = useScrollDetect();
 
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -6,32 +6,31 @@ import imgLogoForFooter from '../../assets/imgLogoForFooter.png';
 
 const OnboardingFooter = () => {
   return (
-    <footer css={footer}>
+    <StFooter>
       <img css={logo} src={imgLogoForFooter} alt="footer-logo" width={110} height={25} />
-      <FooterText to="#">TEAM moonshot</FooterText>
-      <FooterText to="#">개인정보 처리방침</FooterText>
-      <CopyRightText>Copyright 2024. TEAM moonshot All rights reserved.</CopyRightText>
-    </footer>
+      <StFooterText to="#">TEAM moonshot</StFooterText>
+      <StFooterText to="#">개인정보 처리방침</StFooterText>
+      <StCopyRightText>Copyright 2024. TEAM moonshot All rights reserved.</StCopyRightText>
+    </StFooter>
   );
 };
 
 export default OnboardingFooter;
 
-const footer = css`
-  display: flex;
-  align-items: center;
-  width: 100vw;
-
-  /* min-width: 136.6rem; */
-  height: 13.2rem;
-  padding: 5.4rem 10rem 5.3rem;
-`;
-
 const logo = css`
   margin-right: 8.4rem;
 `;
 
-const FooterText = styled(Link)`
+const StFooter = styled.footer`
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 13.2rem;
+  padding: 5.4rem 10rem 5.3rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray_550};
+`;
+
+const StFooterText = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +42,7 @@ const FooterText = styled(Link)`
   ${({ theme }) => theme.fonts.body_14_regular};
 `;
 
-const CopyRightText = styled.span`
+const StCopyRightText = styled.span`
   margin-left: auto;
   color: ${({ theme }) => theme.colors.gray_400};
 

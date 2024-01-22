@@ -9,7 +9,7 @@ import HistoryListDetails from './HistoryListDetails';
 import KeyResultList from './KeyResultList';
 import TaskList from './TaskList';
 
-const HistoryList: React.FC<IObjective> = ({
+const HistoryList = ({
   objId,
   title,
   objCategory,
@@ -17,7 +17,7 @@ const HistoryList: React.FC<IObjective> = ({
   objPeriod,
   isLast,
   krList,
-}) => {
+}: IObjective) => {
   const [isVisible, setIsVisible] = useState<number | null>(null);
   const handleObjectiveClick = (objId: number) => {
     setIsVisible((previousObjId) => (previousObjId === objId ? null : objId));

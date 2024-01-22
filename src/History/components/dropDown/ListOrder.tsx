@@ -25,7 +25,7 @@ const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
   };
 
   return (
-    <div css={FilterContainer}>
+    <div css={filterContainer}>
       <StCurrentFilterBtn onClick={handleCurrentFilterClick}>
         <span>{currentFilter}</span>
         <StFilteringIcon isFilterDropdownOpen={isFilterDropdownOpen} />
@@ -38,7 +38,7 @@ const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
               <StRemainFilterButton onClick={() => handleFilterClick(filterOption)}>
                 {filterOption}
               </StRemainFilterButton>
-              {index < filterOptions.length - 1 && <StFilterBox />}{' '}
+              {index < filterOptions.length - 1 && <StFilterBox />}
             </React.Fragment>
           ))}
         </StFilterWrapper>
@@ -49,7 +49,7 @@ const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
 
 export default ListOrder;
 
-const FilterContainer = css`
+const filterContainer = css`
   position: absolute;
   top: 5.6rem;
   right: 3.6rem;
@@ -77,11 +77,9 @@ const StFilterWrapper = styled.div`
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   align-items: center;
   justify-content: center;
   height: 6.7rem;
-  padding: 1.2rem 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray_400};
   border-radius: 6px;
 `;
@@ -90,13 +88,16 @@ const StRemainFilterButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 1.1rem;
+  width: 100%;
+  height: 3.3rem;
+  padding: 1.2rem 0.8rem 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
+
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
 const StFilterBox = styled.div`
   width: 6.5rem;
   height: 0.1rem;
-  background-color: ${({ theme }) => theme.colors.gray_500};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray_500};
 `;

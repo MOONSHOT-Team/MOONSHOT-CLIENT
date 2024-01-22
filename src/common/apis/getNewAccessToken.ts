@@ -11,6 +11,7 @@ const getNewAccessToken = async () => {
         Authorization: REFRESH_TOKEN,
       },
     });
+    console.log('res', response.data);
 
     const { accessToken, refreshToken } = response.data;
 

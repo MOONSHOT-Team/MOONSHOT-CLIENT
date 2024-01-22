@@ -13,7 +13,7 @@ import { createPortal } from 'react-dom';
  */
 const Modal = forwardRef<HTMLDialogElement, PropsWithChildren>(({ children }, ref) => {
   return createPortal(
-    <ModalDialog ref={ref}>{children}</ModalDialog>,
+    <StModalDialog ref={ref}>{children}</StModalDialog>,
     document.getElementById('modal')!,
   );
 });
@@ -33,7 +33,7 @@ const slideInFromTop = keyframes`
 }
 `;
 
-const ModalDialog = styled.dialog`
+const StModalDialog = styled.dialog`
   position: fixed;
   top: 50vh;
   left: 50%;

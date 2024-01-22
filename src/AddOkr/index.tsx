@@ -283,7 +283,7 @@ const AddOkr = () => {
 
   return (
     <section css={AddOkrContainer}>
-      {selectedMethod && <SelectedMethodTxt>{selectedMethod}</SelectedMethodTxt>}
+      {selectedMethod && <StSelectedMethodTxt>{selectedMethod}</StSelectedMethodTxt>}
       {renderStepLayout()}
       {selectedMethod && step < 5 && (
         <>
@@ -323,7 +323,7 @@ const AddOkrContainer = css`
   height: 100%;
 `;
 
-const SelectedMethodTxt = styled.p`
+const StSelectedMethodTxt = styled.p`
   color: ${({ theme }) => theme.colors.gray_300};
   ${({ theme }) => theme.fonts.body_12_medium};
 `;

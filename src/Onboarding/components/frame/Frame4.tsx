@@ -22,7 +22,7 @@ const Frame4 = () => {
       />
       {active && (
         <div css={imgContainer}>
-          <LateImgPopUp
+          <StLateImgPopUp
             fromX={31.7}
             fromY={52.2}
             toX={31.7}
@@ -33,7 +33,7 @@ const Frame4 = () => {
             width={420}
             height={479}
           />
-          <CenterImgPopUp
+          <StCenterImgPopUp
             fromY={20}
             toY={0}
             src={imgFrame4DashboardDark}
@@ -41,7 +41,7 @@ const Frame4 = () => {
             width={800}
             height={450}
           />
-          <LateImgPopUp
+          <StLateImgPopUp
             fromX={-31.7}
             fromY={0}
             toX={-31.7}
@@ -75,11 +75,11 @@ const imgContainer = css`
   width: 100vw;
 `;
 
-const CenterImgPopUp = styled(ImgPopUp)`
+const StCenterImgPopUp = styled(ImgPopUp)`
   border-radius: 8px;
 `;
 
-const LateImgPopUp = styled(CenterImgPopUp)`
+const StLateImgPopUp = styled(StCenterImgPopUp)`
   z-index: 2;
   opacity: 0;
 `;

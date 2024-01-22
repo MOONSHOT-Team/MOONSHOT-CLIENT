@@ -30,7 +30,7 @@ const KrCheckIn = ({
     setIsActive(e.target.value);
   };
   return (
-    <KrCheckInContainer>
+    <StKrCheckInContainer>
       <div css={checkRadioContainerStyles}>
         <StRadioLabel htmlFor="krCheckInput">
           <StRadioInput
@@ -72,13 +72,13 @@ const KrCheckIn = ({
           objId={objId}
         />
       )}
-    </KrCheckInContainer>
+    </StKrCheckInContainer>
   );
 };
 
 export default KrCheckIn;
 
-const KrCheckInContainer = styled.section`
+const StKrCheckInContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

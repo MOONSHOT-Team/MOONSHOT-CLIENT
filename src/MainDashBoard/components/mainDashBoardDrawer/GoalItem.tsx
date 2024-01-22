@@ -140,10 +140,10 @@ const GoalItem: React.FC<IGoalItemProps> = ({
           handleClickDelete={handleClickDelete}
         />
       )}
-      <GoalItemContainer>
+      <StGoalItemContainer>
         <header css={goalItemHeader}>
           <span css={goalItemCategoryBox}>
-            <StyledIcEllipse color={getCategoryColor(category)} />
+            <StIcEllipse color={getCategoryColor(category)} />
             <StGoalItemCategory>{category}</StGoalItemCategory>
           </span>
           <StGoalItemDate>{date}</StGoalItemDate>
@@ -153,7 +153,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
           <i>{currentGoalId === id ? <IcDropUp /> : <IcDropDown />}</i>
         </article>
         {currentGoalId === id && <StGoalItemContent>{content}</StGoalItemContent>}
-      </GoalItemContainer>
+      </StGoalItemContainer>
       <footer css={ProgressBarContainer}>
         <MainDashProgressBar
           currentProgress={progress}
@@ -180,7 +180,7 @@ const StGoalItemli = styled.li<{ bgColor: boolean; isDragging: boolean }>`
   opacity: ${({ isDragging }) => (isDragging ? 0.5 : 1)};
 `;
 
-const GoalItemContainer = styled.section`
+const StGoalItemContainer = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -233,7 +233,7 @@ const StGoalItemContent = styled.p`
   word-break: break-all;
 `;
 
-const StyledIcEllipse = styled(IcEllipse)<{ color?: string }>`
+const StIcEllipse = styled(IcEllipse)<{ color?: string }>`
   & > circle {
     fill: ${({ color }) => color};
   }

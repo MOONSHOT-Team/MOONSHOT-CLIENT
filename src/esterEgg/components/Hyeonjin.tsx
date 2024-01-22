@@ -32,18 +32,18 @@ const Hyeonjin = () => {
     <section css={section} ref={element}>
       {active && (
         <>
-          {isCelebration && <CustomLottie animationData={animationData} loop={true} />}
+          {isCelebration && <StCustomLottie animationData={animationData} loop={true} />}
           <div css={textContainer}>
-            <SubTitle isCelebration={isCelebration} subTitleColor="sub_pink">
+            <StSubTitle isCelebration={isCelebration} subTitleColor="sub_pink">
               🎉 24.01.18 🎉
-            </SubTitle>
-            <Title
+            </StSubTitle>
+            <StTitle
               isCelebration={isCelebration}
-            >{`한국은 3면이 아니라 4면이 바다라고 하던데?\n동해, 서해, 남해, 박현진 사랑해`}</Title>
-            <Description isCelebration={isCelebration}>🥳 현진이 생일축하해 🥳</Description>
+            >{`한국은 3면이 아니라 4면이 바다라고 하던데?\n동해, 서해, 남해, 박현진 사랑해`}</StTitle>
+            <StDescription isCelebration={isCelebration}>🥳 현진이 생일축하해 🥳</StDescription>
           </div>
           <div css={imgContainer}>
-            <LateImgPopUp
+            <StLateImgPopUp
               fromX={25}
               fromY={42.2}
               toX={25}
@@ -54,7 +54,7 @@ const Hyeonjin = () => {
               width={400}
               height={500}
             />
-            <LateImgPopUp
+            <StLateImgPopUp
               fromX={20}
               fromY={0}
               toX={20}
@@ -65,7 +65,7 @@ const Hyeonjin = () => {
               width={270}
               height={360}
             />
-            <LateImgPopUp
+            <StLateImgPopUp
               fromX={5}
               fromY={40}
               toX={5}
@@ -76,7 +76,7 @@ const Hyeonjin = () => {
               width={270}
               height={360}
             />
-            <LateImgPopUp
+            <StLateImgPopUp
               fromY={70}
               toY={0}
               delay={6}
@@ -85,7 +85,7 @@ const Hyeonjin = () => {
               width={540}
               height={720}
             />
-            <LateImgPopUp
+            <StLateImgPopUp
               fromX={-5}
               fromY={-10}
               toX={-5}
@@ -96,7 +96,7 @@ const Hyeonjin = () => {
               width={270}
               height={360}
             />
-            <LateImgPopUp
+            <StLateImgPopUp
               fromX={-10}
               fromY={50}
               toX={-10}
@@ -107,7 +107,7 @@ const Hyeonjin = () => {
               width={400}
               height={500}
             />
-            <LateImgPopUp
+            <StLateImgPopUp
               fromX={-70}
               fromY={50}
               toX={-70}
@@ -149,7 +149,7 @@ const textContainer = css`
   justify-content: center;
 `;
 
-const SubTitle = styled.p<{ subTitleColor: keyof ColorsTypes; isCelebration: boolean }>`
+const StSubTitle = styled.p<{ subTitleColor: keyof ColorsTypes; isCelebration: boolean }>`
   margin-bottom: 4rem;
   font-size: 3rem;
   font-weight: 400;
@@ -159,7 +159,7 @@ const SubTitle = styled.p<{ subTitleColor: keyof ColorsTypes; isCelebration: boo
   transition: opacity 5s ease;
 `;
 
-const Title = styled.h2<{ isCelebration: boolean }>`
+const StTitle = styled.h2<{ isCelebration: boolean }>`
   margin-bottom: 2rem;
   font-size: 4rem;
   font-weight: 600;
@@ -171,7 +171,7 @@ const Title = styled.h2<{ isCelebration: boolean }>`
   transition: opacity 5s ease;
 `;
 
-const Description = styled.p<{ isCelebration: boolean }>`
+const StDescription = styled.p<{ isCelebration: boolean }>`
   margin: 2rem 0;
   font-size: 4rem;
   font-weight: 500;
@@ -181,12 +181,12 @@ const Description = styled.p<{ isCelebration: boolean }>`
   transition: opacity 5s ease;
 `;
 
-const LateImgPopUp = styled(ImgPopUp)`
+const StLateImgPopUp = styled(ImgPopUp)`
   z-index: 2;
   opacity: 0;
 `;
 
-const CustomLottie = styled(Lottie)`
+const StCustomLottie = styled(Lottie)`
   position: fixed;
   top: 0;
   left: 0;

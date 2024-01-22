@@ -9,7 +9,7 @@ const PreviewModal = ({ selectedMethod }: { selectedMethod: string }) => {
   return (
     <>
       <div css={modalForm}>
-        <AddOkrOptionText>{selectedMethod}</AddOkrOptionText>
+        <StAddOkrOptionText>{selectedMethod}</StAddOkrOptionText>
         <StMainTextContainer>
           <p>목표 저장 전 내용을 수정하고</p>
           <p>KR을 달성할 수 있는 task를 추가해보세요</p>
@@ -21,9 +21,9 @@ const PreviewModal = ({ selectedMethod }: { selectedMethod: string }) => {
         <form method="dialog">
           <StConfirmButton>확인</StConfirmButton>
         </form>
-        <ProgressBox>
-          <ProgressRightText>{progressStep}</ProgressRightText>
-        </ProgressBox>
+        <StProgressBox>
+          <StProgressRightText>{progressStep}</StProgressRightText>
+        </StProgressBox>
       </div>
     </>
   );
@@ -41,7 +41,7 @@ const modalForm = css`
   padding: 0 7rem 0 6.9rem;
 `;
 
-const AddOkrOptionText = styled.p`
+const StAddOkrOptionText = styled.p`
   ${({ theme }) => theme.fonts.body_12_medium};
 
   margin-bottom: 1rem;
@@ -88,7 +88,7 @@ const StConfirmButton = styled.button`
   }
 `;
 
-const ProgressBox = styled.div`
+const StProgressBox = styled.div`
   position: relative;
   width: 38rem;
   height: 0.8rem;
@@ -104,6 +104,6 @@ const ProgressText = styled.span`
   color: ${({ theme }) => theme.colors.gray_300};
 `;
 
-const ProgressRightText = styled(ProgressText)`
+const StProgressRightText = styled(ProgressText)`
   right: 0;
 `;

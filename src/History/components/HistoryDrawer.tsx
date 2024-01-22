@@ -38,7 +38,7 @@ const HistoryDrawer = ({
   const currentYear = new Date().getFullYear();
 
   return (
-    <HistoryAside>
+    <StHistoryAside>
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
@@ -87,13 +87,13 @@ const HistoryDrawer = ({
           })}
         </ul>
       </article>
-    </HistoryAside>
+    </StHistoryAside>
   );
 };
 
 export default HistoryDrawer;
 
-const HistoryAside = styled.aside`
+const StHistoryAside = styled.aside`
   position: fixed;
   top: 7.6rem;
   left: 0;

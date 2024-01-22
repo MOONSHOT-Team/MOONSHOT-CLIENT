@@ -18,7 +18,7 @@ const ModalInput = ({ isActive, label, ...props }: IModalInputProps) => {
   const uniqueId = useId();
   const { name, value, placeholder, maxLength, onChange, onBlur } = props;
   const isYear = placeholder?.length === 4;
-  const InputComponent = isYear ? YearInput : DateInput;
+  const InputComponent = isYear ? StYearInput : StDateInput;
 
   return (
     <>
@@ -235,7 +235,7 @@ const DrawerModal = forwardRef<HTMLDialogElement, IDrawerModalProps>((props, ref
             }}
             onBlur={handleMakeTwoDigits}
           />
-          {isValidInput !== '' && <ErrorText>{isValidInput}</ErrorText>}
+          {isValidInput !== '' && <StErrorText>{isValidInput}</StErrorText>}
         </StDateContainer>
         <div css={buttonStyle}>{!activeExtend ? renderExtendButton() : renderSaveButton()}</div>
       </div>
@@ -307,11 +307,11 @@ const InputStyle = styled.input<IInputStyleProps>`
   border-bottom: 1px solid currentcolor;
 `;
 
-const YearInput = styled(InputStyle)`
+const StYearInput = styled(InputStyle)`
   width: 5.4rem;
 `;
 
-const DateInput = styled(InputStyle)`
+const StDateInput = styled(InputStyle)`
   width: 3.5rem;
 `;
 
@@ -327,7 +327,7 @@ const StModalButton = styled.button`
   border-radius: 6px;
 `;
 
-const ErrorText = styled.p`
+const StErrorText = styled.p`
   ${({ theme }) => theme.fonts.btn_14_medium};
 
   position: absolute;

@@ -9,6 +9,7 @@ const getNewAccessToken = async () => {
 
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/v1/user/reissue`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization:
           'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MDU5MzkzMDEsImV4cCI6MTcwNzE0ODkwMSwidXNlcklkIjoyfQ.kHmbU-lwrJY1Ktd9c_tfjHyph4p2li5H39Lh9Im2YFHYNU709TWMqioMAphI3qfGSi48ysHafHbVZB4A84uBUg',
       },

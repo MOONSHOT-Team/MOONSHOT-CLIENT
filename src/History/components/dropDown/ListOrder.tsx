@@ -27,7 +27,8 @@ const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
   return (
     <div css={FilterContainer}>
       <StCurrentFilterBtn onClick={handleCurrentFilterClick}>
-        {currentFilter} <FilteringIcon />
+        <span>{currentFilter}</span>
+        <StFilteringIcon isFilterDropdownOpen={isFilterDropdownOpen} />
       </StCurrentFilterBtn>
 
       {isFilterDropdownOpen && (
@@ -61,9 +62,15 @@ const FilterContainer = css`
 const StCurrentFilterBtn = styled.button`
   display: flex;
   gap: 0.4rem;
+  align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_12_medium};
+`;
+
+const StFilteringIcon = styled(FilteringIcon)<{ isFilterDropdownOpen: boolean }>`
+  transition: all 0.3s ease;
+  transform: ${({ isFilterDropdownOpen }) => (isFilterDropdownOpen ? 'rotate(-180deg)' : '')};
 `;
 
 const StFilterWrapper = styled.div`

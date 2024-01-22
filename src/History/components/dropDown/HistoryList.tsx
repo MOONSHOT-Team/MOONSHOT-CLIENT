@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { CloseDropDownIcon, DropDownIcon } from '../../assets/icons';
+import { DropDownIcon } from '../../assets/icons';
 import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
 import HistoryProgressBar from '../HistoryProgressBar';
 import HistoryListDetails from './HistoryListDetails';
@@ -31,7 +31,7 @@ const HistoryList: React.FC<IObjective> = ({
           onClick={() => handleObjectiveClick(objId)}
         >
           <StObjectiveWrapper>
-            {isVisible === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
+            <StToggleIcon isVisible={isVisible === objId} />
             <StObjectiveCategory>{objCategory}</StObjectiveCategory>
             <StObjectTitle>{title}</StObjectTitle>
           </StObjectiveWrapper>
@@ -101,6 +101,11 @@ const StObjectiveWrapper = styled.div`
   gap: 1.6rem;
   align-items: center;
   width: 52.8rem;
+`;
+
+const StToggleIcon = styled(DropDownIcon)<{ isVisible: boolean }>`
+  transition: all 0.5s ease;
+  transform: ${({ isVisible }) => (isVisible ? 'rotate(-180deg)' : '')};
 `;
 
 const StObjectiveCategory = styled.p`

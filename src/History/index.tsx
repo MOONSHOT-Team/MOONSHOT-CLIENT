@@ -127,10 +127,6 @@ const DropDownSection = css`
   padding: 3rem 3.6rem 3rem 4rem;
   margin-left: 23.2rem;
   overflow-y: auto;
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #444;
-  }
 `;
 
 const listMarginBottom = css`

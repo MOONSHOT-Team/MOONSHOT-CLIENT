@@ -1,6 +1,8 @@
 import instance from './instance';
 
 const getNewAccessToken = async () => {
+  console.log('is running');
+
   try {
     const REFRESH_TOKEN = localStorage.getItem('refreshToken');
 

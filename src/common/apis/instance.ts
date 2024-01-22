@@ -44,8 +44,11 @@ instance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     console.log('original request', originalRequest);
+    console.log('error', error.response);
 
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      console.log('_retry');
+
       originalRequest._retry = true;
       const isRefreshSuccessful = await getNewAccessToken();
 

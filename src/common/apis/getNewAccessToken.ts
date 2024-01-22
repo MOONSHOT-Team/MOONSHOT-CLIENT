@@ -4,7 +4,7 @@ const getNewAccessToken = async () => {
   console.log('is running');
 
   try {
-    const REFRESH_TOKEN = localStorage.getItem('refreshToken');
+    const REFRESH_TOKEN = localStorage.getItem('REFRESH_TOKEN');
     console.log('refresh token', REFRESH_TOKEN);
 
     const response = await instance.post('/v1/user/reissue', {

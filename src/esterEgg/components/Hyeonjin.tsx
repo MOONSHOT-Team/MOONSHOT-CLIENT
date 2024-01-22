@@ -5,7 +5,6 @@ import { ColorsTypes } from '@styles/theme';
 import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
 
-import useScrollDetect from '../../Onboarding/hooks/useScrollDetect';
 import { ImgPopUp } from '../../Onboarding/styles/animation';
 import { sectionStyle } from '../../Onboarding/styles/common';
 import hyeonjin from '../assets/hyeonjin.png';
@@ -18,109 +17,106 @@ import hyeonjin7 from '../assets/hyeonjin7.jpg';
 
 const Hyeonjin = () => {
   const [isCelebration, setIsCelebration] = useState(false);
-  const { active, element } = useScrollDetect();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCelebration(true);
-    }, 8000);
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section css={section} ref={element}>
-      {active && (
-        <>
-          {isCelebration && <StCustomLottie animationData={animationData} loop={true} />}
-          <div css={textContainer}>
-            <StSubTitle isCelebration={isCelebration} subTitleColor="sub_pink">
-              🎉 24.01.18 🎉
-            </StSubTitle>
-            <StTitle
-              isCelebration={isCelebration}
-            >{`한국은 3면이 아니라 4면이 바다라고 하던데?\n동해, 서해, 남해, 박현진 사랑해`}</StTitle>
-            <StDescription isCelebration={isCelebration}>🥳 현진이 생일축하해 🥳</StDescription>
-          </div>
-          <div css={imgContainer}>
-            <StLateImgPopUp
-              fromX={25}
-              fromY={42.2}
-              toX={25}
-              toY={18.2}
-              delay={4}
-              src={hyeonjin7}
-              alt="hyeonjin-hbd"
-              width={400}
-              height={500}
-            />
-            <StLateImgPopUp
-              fromX={20}
-              fromY={0}
-              toX={20}
-              toY={-15}
-              delay={2}
-              src={hyeonjin4}
-              alt="hyeonjin-hbd"
-              width={270}
-              height={360}
-            />
-            <StLateImgPopUp
-              fromX={5}
-              fromY={40}
-              toX={5}
-              toY={15}
-              delay={0}
-              src={hyeonjin2}
-              alt="hyeonjin-hbd"
-              width={270}
-              height={360}
-            />
-            <StLateImgPopUp
-              fromY={70}
-              toY={0}
-              delay={6}
-              src={hyeonjin}
-              alt="hyeonjin-hbd"
-              width={540}
-              height={720}
-            />
-            <StLateImgPopUp
-              fromX={-5}
-              fromY={-10}
-              toX={-5}
-              toY={-20}
-              delay={1}
-              src={hyeonjin3}
-              alt="hyeonjin-hbd"
-              width={270}
-              height={360}
-            />
-            <StLateImgPopUp
-              fromX={-10}
-              fromY={50}
-              toX={-10}
-              toY={10}
-              delay={3}
-              src={hyeonjin5}
-              alt="hyeonjin-hbd"
-              width={400}
-              height={500}
-            />
-            <StLateImgPopUp
-              fromX={-70}
-              fromY={50}
-              toX={-70}
-              toY={30}
-              delay={5}
-              src={hyeonjin6}
-              alt="hyeonjin-hbd"
-              width={270}
-              height={360}
-            />
-          </div>
-        </>
-      )}
+    <section css={section}>
+      <>
+        {isCelebration && <StCustomLottie animationData={animationData} loop={true} />}
+        <div css={textContainer}>
+          <StSubTitle isCelebration={isCelebration} subTitleColor="sub_pink">
+            🎉 24.01.18 🎉
+          </StSubTitle>
+          <StTitle
+            isCelebration={isCelebration}
+          >{`한국은 3면이 아니라 4면이 바다라고 하던데?\n동해, 서해, 남해, 박현진 사랑해`}</StTitle>
+          <StDescription isCelebration={isCelebration}>🥳 현진이 생일축하해 🥳</StDescription>
+        </div>
+        <div css={imgContainer}>
+          <StLateImgPopUp
+            fromX={25}
+            fromY={42.2}
+            toX={25}
+            toY={18.2}
+            delay={4}
+            src={hyeonjin7}
+            alt="hyeonjin-hbd"
+            width={400}
+            height={500}
+          />
+          <StLateImgPopUp
+            fromX={20}
+            fromY={0}
+            toX={20}
+            toY={-15}
+            delay={2}
+            src={hyeonjin4}
+            alt="hyeonjin-hbd"
+            width={270}
+            height={360}
+          />
+          <StLateImgPopUp
+            fromX={5}
+            fromY={40}
+            toX={5}
+            toY={15}
+            delay={0}
+            src={hyeonjin2}
+            alt="hyeonjin-hbd"
+            width={270}
+            height={360}
+          />
+          <StLateImgPopUp
+            fromY={70}
+            toY={0}
+            delay={6}
+            src={hyeonjin}
+            alt="hyeonjin-hbd"
+            width={540}
+            height={720}
+          />
+          <StLateImgPopUp
+            fromX={-5}
+            fromY={-10}
+            toX={-5}
+            toY={-20}
+            delay={1}
+            src={hyeonjin3}
+            alt="hyeonjin-hbd"
+            width={270}
+            height={360}
+          />
+          <StLateImgPopUp
+            fromX={-10}
+            fromY={50}
+            toX={-10}
+            toY={10}
+            delay={3}
+            src={hyeonjin5}
+            alt="hyeonjin-hbd"
+            width={400}
+            height={500}
+          />
+          <StLateImgPopUp
+            fromX={-70}
+            fromY={50}
+            toX={-70}
+            toY={30}
+            delay={5}
+            src={hyeonjin6}
+            alt="hyeonjin-hbd"
+            width={270}
+            height={360}
+          />
+        </div>
+      </>
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import instance from '@apis/instance';
+import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
@@ -61,7 +62,7 @@ const History = () => {
     fetchData();
   }, [selectedTheme, selectedYear, selectedFilter]);
 
-  if (!OKRHistoryData) return <>데이터를 가져오는 중입니다...</>;
+  if (!OKRHistoryData) return <Loading />;
 
   const listOrderComponent = OKRHistoryData.data.data.groups.length !== 0 && (
     <ListOrder onFilterSelection={handleFilterSelection} />

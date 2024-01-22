@@ -7,7 +7,7 @@ import useSWR from 'swr';
 
 import { getUserInfo } from './apis/fetcher';
 import profileImg from './assets/images/profileImg.png';
-import { ITEM_LIST } from './constants/itemList';
+import { ITEM_LIST } from './constants/ITEM_LIST';
 
 interface IAcquiredItemList {
   src: string;

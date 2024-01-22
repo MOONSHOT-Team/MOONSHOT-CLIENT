@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
 import { FilteringIcon } from '../../assets/icons';
-import { LIST_ORDER } from '../../constants/orderList';
+import { LIST_ORDER } from '../../constants/LIST_ORDER';
 
 interface IListOrderProps {
   onFilterSelection: (filter: string) => void;

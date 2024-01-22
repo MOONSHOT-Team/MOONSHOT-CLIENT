@@ -1,4 +1,4 @@
-export const THEME = [
+export const HISTORY_THEME = [
   { category: '성장' },
   { category: '건강' },
   { category: '생산성' },

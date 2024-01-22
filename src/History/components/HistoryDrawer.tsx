@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { THEME } from '../constants/theme';
+import { HISTORY_THEME } from '../constants/HISTORY_THEME';
 import { IObjectiveDataProps } from '../type/okrTypes';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
@@ -16,7 +16,6 @@ const HistoryDrawer = ({
   onYearSelect,
 }: IObjectiveDataProps) => {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const handleSelectTheme = (selectedTheme: string) => {
@@ -42,7 +41,7 @@ const HistoryDrawer = ({
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
-          {THEME?.map(({ category }) => {
+          {HISTORY_THEME?.map(({ category }) => {
             const isDisabled = selectedYear
               ? !fixedCategories?.includes(category) || !categories?.includes(category)
               : !fixedCategories?.includes(category);

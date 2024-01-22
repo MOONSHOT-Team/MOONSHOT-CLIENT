@@ -1,7 +1,7 @@
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { ICheckInLogTypes } from '../../type/CheckInLogTypes';
+import { ICheckInLogTypes } from '../../type/checkInLogTypes';
 
 const CheckInLogItem = ({ logState, dateTime, title, content }: ICheckInLogTypes) => {
   return (

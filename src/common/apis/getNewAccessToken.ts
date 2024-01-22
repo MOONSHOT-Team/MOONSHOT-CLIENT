@@ -23,6 +23,7 @@ const getNewAccessToken = async () => {
     return true;
   } catch {
     localStorage.clear();
+    console.log('what');
 
     window.location.href = '/sign-in';
 

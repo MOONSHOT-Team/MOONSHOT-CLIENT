@@ -12,14 +12,14 @@ const getNewAccessToken = async () => {
         Authorization: REFRESH_TOKEN,
       },
     });
-    console.log('res', response.data);
+    console.log('res', response);
 
-    const { accessToken, refreshToken } = response.data;
+    // const { accessToken, refreshToken } = response.data;
 
     console.log('res.data', response.data);
 
-    localStorage.setItem('ACCESS_TOKEN', accessToken);
-    localStorage.setItem('REFRESH_TOKEN', refreshToken);
+    // localStorage.setItem('ACCESS_TOKEN', accessToken);
+    // localStorage.setItem('REFRESH_TOKEN', refreshToken);
 
     return true;
   } catch {

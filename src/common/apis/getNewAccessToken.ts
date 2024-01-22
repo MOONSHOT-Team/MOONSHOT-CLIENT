@@ -20,7 +20,7 @@ const getNewAccessToken = async () => {
     );
     console.log('res', response);
 
-    const { accessToken, refreshToken } = response.data;
+    const { accessToken, refreshToken } = response.data.data;
 
     console.log('res.data', response.data);
 

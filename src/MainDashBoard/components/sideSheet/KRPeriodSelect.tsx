@@ -39,7 +39,7 @@ const KRPeriodSelect = ({
     try {
       await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
-    } catch (err) {
+    } catch {
       navigate('/error');
     }
   };

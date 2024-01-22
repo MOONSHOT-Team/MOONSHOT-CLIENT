@@ -68,7 +68,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     try {
       await deleteObj(`/v1/objective/${rightClickedGoalId}`);
       await mutate('/v1/objective');
-    } catch (err) {
+    } catch {
       navigate('/error');
     }
   };
@@ -88,7 +88,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
 
     try {
       await patchSwapGoalIndex('/v1/index', data);
-    } catch (err) {
+    } catch {
       navigate('/error');
     }
   };

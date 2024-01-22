@@ -130,7 +130,7 @@ export const 진척정도입력하기 = ({
         //축하모션
         handleChangeState?.(2);
       }
-    } catch (err) {
+    } catch {
       navigate('/error');
     }
 
@@ -241,7 +241,7 @@ export const KR수정하기 = ({
       if (response?.data) {
         handleChangeState?.(2);
       }
-    } catch (err) {
+    } catch {
       navigator('/error');
     }
     onCancel();

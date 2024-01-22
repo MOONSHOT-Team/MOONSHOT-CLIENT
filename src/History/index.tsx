@@ -41,20 +41,16 @@ const History = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await instance.get('/v1/objective/history', {
-          params: {
-            year: selectedYear,
-            category: selectedTheme,
-            criteria: selectedFilter,
-          },
-        });
-        if (response) setYears(response.data.data.years || []);
-        setCategories(response.data.data.categories);
-        setHistoryData(response.data.data);
-      } catch (error) {
-        console.error('데이터를 가져오는 중 오류 발생:', error);
-      }
+      const response = await instance.get('/v1/objective/history', {
+        params: {
+          year: selectedYear,
+          category: selectedTheme,
+          criteria: selectedFilter,
+        },
+      });
+      if (response) setYears(response.data.data.years || []);
+      setCategories(response.data.data.categories);
+      setHistoryData(response.data.data);
     };
 
     fetchData();

@@ -1,4 +1,4 @@
-import { signInInstance } from './instance';
+import instance from './instance';
 
 const getNewAccessToken = async () => {
   console.log('is running');
@@ -7,7 +7,7 @@ const getNewAccessToken = async () => {
     const REFRESH_TOKEN = localStorage.getItem('REFRESH_TOKEN');
     console.log('refresh token', REFRESH_TOKEN);
 
-    const response = await signInInstance.post('/v1/user/reissue', {
+    const response = await instance.post('/v1/user/reissue', {
       headers: {
         Authorization: REFRESH_TOKEN,
       },

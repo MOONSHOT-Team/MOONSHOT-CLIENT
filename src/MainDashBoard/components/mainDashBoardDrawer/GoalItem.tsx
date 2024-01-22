@@ -11,14 +11,14 @@ import { deleteObj, patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import useContextMenu from '../../hooks/useContextMenu';
 import { IObjListTypes } from '../../type/goalItemTypes';
-import { ItemTypes } from '../../type/ItemTypes';
+import { ItemTypes } from '../../type/itemType';
 import MainDashProgressBar from './MainDashProgressBar';
 import RightClickBox from './RightClickBox';
 
 interface IGoalItemProps extends IObjListTypes {
+  showState: string;
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
   handleChangeState?: (state: number) => void;
-  showState: string;
 }
 
 const GoalItem: React.FC<IGoalItemProps> = ({
@@ -29,23 +29,24 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   date,
   progress,
   currentGoalId,
-  onClickGoal,
+  showState,
   index = 0,
+  onClickGoal,
   moveGoal,
   setIsRightClick,
   handleChangeState,
-  showState,
 }) => {
   const ref = useRef<HTMLLIElement>(null);
-  const { mutate } = useSWRConfig();
-  const navigate = useNavigate();
 
   const [rightClickedGoalId, setRightClickedGoalId] = useState<number>();
+
+  const { mutate } = useSWRConfig();
+  const navigate = useNavigate();
+  const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
+
   if (showState === 'ADD_SELECT_METHOD') {
     currentGoalId = -1;
   }
-
-  const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
 
   const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
     e.preventDefault();
@@ -81,7 +82,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   //서버 통신 함수
   const updateSwapIndex = async (id: number, dropIdx: number) => {
     const data = {
-      id: id,
+      id,
       target: 'OBJECTIVE',
       idx: dropIdx,
     };
@@ -125,7 +126,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   drag(drop(ref));
 
   return (
-    <StGoalItemli
+    <StGoalItemLi
       bgColor={currentGoalId === id}
       onClick={handleOnClick}
       ref={ref}
@@ -163,13 +164,13 @@ const GoalItem: React.FC<IGoalItemProps> = ({
           isCurrentProgress={false}
         />
       </footer>
-    </StGoalItemli>
+    </StGoalItemLi>
   );
 };
 
 export default GoalItem;
 
-const StGoalItemli = styled.li<{ bgColor: boolean; isDragging: boolean }>`
+const StGoalItemLi = styled.li<{ bgColor: boolean; isDragging: boolean }>`
   position: relative;
   width: 18.8rem;
   overflow: hidden;

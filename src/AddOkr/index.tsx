@@ -96,7 +96,7 @@ const AddOkr = () => {
   const [clickedCard, setClickedCard] = useState<number[]>([0]);
 
   // 이전, 다음 버튼 관련 handler
-  const hanldeClickPrevBtn = () => {
+  const handleClickPrevBtn = () => {
     // 가이드에 따라 설정시 두 번째 kr 카드 -> 첫번째 kr 카드 다시 보여지도록 관리
     if (step === 4 && selectedMethod === IS_GUIDE && isActiveSecondKrCard === true) {
       setIsActiveSecondKrCard(false);
@@ -140,7 +140,7 @@ const AddOkr = () => {
     setClickedCard((prev) => [...prev, item]);
   };
 
-  // setp 4- KR 카드 추가 취소 버튼 핸들러
+  // step 4- KR 카드 추가 취소 버튼 핸들러
   const handleClickCloseBtn = (cardIdx: number) => {
     //순서 보장 조건 -> 앞에서부터 추가
     if (clickedCard.toString() === [0, 1, 2].toString() && cardIdx === 1) return;
@@ -234,7 +234,7 @@ const AddOkr = () => {
           />
         );
       case 2:
-        // stpe 2 - O 기간 설정
+        // step 2 - O 기간 설정
         return (
           <ObjPeriod
             objInfo={objInfo}
@@ -245,7 +245,7 @@ const AddOkr = () => {
         );
 
       case 3:
-        // stpe 3 - O 내용 설정
+        // step 3 - O 내용 설정
         return <ObjContent objInfo={objInfo} setObjInfo={setObjInfo} />;
 
       case 4:
@@ -290,7 +290,7 @@ const AddOkr = () => {
           <StepBtns
             isInit={step === 1}
             isActiveNext={isActiveNext}
-            handleClickPrev={hanldeClickPrevBtn}
+            handleClickPrev={handleClickPrevBtn}
             handleClickNext={handleClickNextBtn}
           />
           <StProgressBarBox $step={step} $selectedMethod={selectedMethod}>

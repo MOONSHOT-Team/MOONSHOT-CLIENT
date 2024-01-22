@@ -10,13 +10,13 @@ import { IObjListTypes } from '../../type/goalItemTypes';
 import GoalItem from './GoalItem';
 
 interface IDrawerProps {
-  objList: IObjListTypes[];
-  onChangeCurrentGoalId: (id: number) => void;
-  handleClickAddObjcBtn: () => void;
-  handleChangeState?: (state: number) => void;
   objListSize: number;
   objId: number;
   showState: string;
+  objList: IObjListTypes[];
+  handleClickAddObjcBtn: () => void;
+  onChangeCurrentGoalId: (id: number) => void;
+  handleChangeState?: (state: number) => void;
 }
 
 const MainDashBoardDrawer = ({
@@ -125,10 +125,9 @@ const StAddGoalBtn = styled.button<{ isAble: boolean }>`
   color: ${({ theme, isAble }) => (isAble ? theme.colors.gray_000 : theme.colors.gray_200)};
   background-color: ${({ theme, isAble }) =>
     isAble ? theme.colors.main_darkpurple : theme.colors.gray_500};
+  border-radius: 6px;
 
   ${({ theme }) => theme.fonts.btn_14_semibold};
-
-  border-radius: 6px;
 `;
 
 const goalListHeader = css`
@@ -136,6 +135,7 @@ const goalListHeader = css`
   justify-content: space-between;
   padding: 0 2.2rem 1.4rem;
 `;
+
 const St목표리스트 = styled.div`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_12_medium};
@@ -151,22 +151,6 @@ const StScrollContainer = styled.div<{ $isRightClick: boolean }>`
   padding: ${({ $isRightClick }) =>
     $isRightClick ? '0 2.3rem 2.2rem 2.2rem' : '0 1rem 2.2rem 2.2rem'};
   overflow-y: ${({ $isRightClick }) => ($isRightClick ? 'hidden' : 'scroll')};
-
-  &::-webkit-scrollbar {
-    width: 13px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.gray_500};
-    background-clip: padding-box; /* 스크롤에 여백넣기 -> background에 테두리영역 제외하여 표현 */
-    border: 4px solid transparent;
-    border-radius: 50px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-    background-size: cover;
-  }
 `;
 
 const ulStyles = css`

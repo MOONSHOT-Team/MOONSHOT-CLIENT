@@ -14,22 +14,27 @@ const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
     null,
   );
-
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-
   const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
-
   const [categories, setCategories] = useState<string[]>([]);
-
   const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
-
   const [fixedCategories, setFixedCategories] = useState<string[]>([]);
 
   const { data: OKRHistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
+
+  const handleThemeSelect = async (selectedTheme: string) => {
+    setSelectedTheme(selectedTheme);
+  };
+
+  const handleFilterSelection = (selectedFilter: string) => {
+    setSelectedFilter(selectedFilter);
+  };
+
+  const handleYearSelect = async (selectedYear: number) => {
+    setSelectedYear(selectedYear);
+  };
 
   useEffect(() => {
     if (!isLoading && OKRHistoryData) {
@@ -55,18 +60,6 @@ const History = () => {
 
     fetchData();
   }, [selectedTheme, selectedYear, selectedFilter]);
-
-  const handleThemeSelect = async (selectedTheme: string) => {
-    setSelectedTheme(selectedTheme);
-  };
-
-  const handleFilterSelection = (selectedFilter: string) => {
-    setSelectedFilter(selectedFilter);
-  };
-
-  const handleYearSelect = async (selectedYear: number) => {
-    setSelectedYear(selectedYear);
-  };
 
   if (!OKRHistoryData) return <>데이터를 가져오는 중입니다...</>;
 

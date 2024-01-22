@@ -7,7 +7,7 @@ import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 
 const MAX_OBJ_TEXTAREA_CNT = 100; //목표 다짐 제한 글자수
 // 기본 placeholder
-const OBJ_CONTETN_PLACEHOLDER =
+const OBJ_CONTENT_PLACEHOLDER =
   'ex) 앞으로 한 달간 다양한 마케팅을 통해 더 많은 고객을 유치하고 매출을 늘리고 싶기 때문이다.';
 
 const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
@@ -30,7 +30,7 @@ const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
       <div css={ContentTextAreaWrapper}>
         <StObjContentTextArea
           value={objContent}
-          placeholder={OBJ_CONTETN_PLACEHOLDER}
+          placeholder={OBJ_CONTENT_PLACEHOLDER}
           onChange={handleContentTextarea}
           maxLength={100}
           rows={5}

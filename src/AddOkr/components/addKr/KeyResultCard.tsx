@@ -45,7 +45,7 @@ const KeyResultCard = ({
   //캘린더 선택한 값
   const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
 
-  const handlChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
+  const handleChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
 
     switch (e.target.name) {
@@ -109,7 +109,7 @@ const KeyResultCard = ({
           type="text"
           name={'title'}
           value={title}
-          onChange={(e) => handlChangeBasicKr(e, MAX_KR_TITLE)}
+          onChange={(e) => handleChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
           $isMax={isValidMax.title}
           autoComplete="off"
@@ -120,20 +120,20 @@ const KeyResultCard = ({
       <StKrInputDescWrapper>
         <StKrInputDescription>핵심 지표를 측정할 수치값과 단위를 입력해주세요</StKrInputDescription>
         <StTargetMetricInputBox>
-          <StTargetMetricinput
+          <StTargetMetricInput
             type="text"
             name={'target'}
             value={target}
-            onChange={(e) => handlChangeBasicKr(e, MAX_KR_TARGET)}
+            onChange={(e) => handleChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
             autoComplete="off"
           />
-          <StTargetMetricinput
+          <StTargetMetricInput
             type="text"
             name={'metric'}
             value={metric}
-            onChange={(e) => handlChangeBasicKr(e, MAX_KR_METRIC)}
+            onChange={(e) => handleChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}
             autoComplete="off"
@@ -205,7 +205,7 @@ const StTargetMetricInputBox = styled.div`
   gap: 0.7rem;
 `;
 
-const StTargetMetricinput = styled.input<{ $isMax: boolean }>`
+const StTargetMetricInput = styled.input<{ $isMax: boolean }>`
   width: 14.6rem;
   height: 3.2rem;
   padding: 0.6rem 1rem;

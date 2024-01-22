@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 const StraightLine = () => {
-  return (
-    <>
-      <StStraightLine />
-    </>
-  );
+  return <StStraightLine />;
 };
 
 export default StraightLine;

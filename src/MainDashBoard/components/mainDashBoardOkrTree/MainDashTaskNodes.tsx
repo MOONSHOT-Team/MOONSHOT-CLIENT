@@ -50,9 +50,9 @@ const StMainDashTaskBox = styled(StTaskBox)`
   width: fit-content;
   padding: 0.6rem 1.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.body_12_medium};
-
   background-color: ${({ theme }) => theme.colors.background};
+
+  ${({ theme }) => theme.fonts.body_12_medium};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.background};

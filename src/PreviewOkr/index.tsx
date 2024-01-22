@@ -122,7 +122,7 @@ const PreviewOkr = () => {
     }
   };
 
-  const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPreviewObjValue(e.target.value);
   };
 
@@ -144,7 +144,7 @@ const PreviewOkr = () => {
             ObjNode={() => (
               <PreviewObjNode
                 objValue={previewObjValue}
-                handleChangeObjValue={handlechangeObjTextArea}
+                handleChangeObjValue={handleChangeObjTextArea}
               />
             )}
             keyResultList={krListInfo}

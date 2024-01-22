@@ -6,5 +6,5 @@ export interface IFinalOkrListInfoTypes {
   objContent: string;
   objStartAt: string;
   objExpireAte: string;
-  krLsit: IKrListInfoTypes[];
+  krList: IKrListInfoTypes[];
 }

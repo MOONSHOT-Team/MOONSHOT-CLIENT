@@ -9,12 +9,10 @@ interface IListOrderProps {
   onFilterSelection: (filter: string) => void;
 }
 
-const ListOrder: React.FC<IListOrderProps> = ({ onFilterSelection }) => {
-  const initialFilter = '최신순';
-
+const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
-
-  const [currentFilter, setCurrentFilter] = useState(initialFilter);
+  const [currentFilter, setCurrentFilter] = useState('최신순');
+  const filterOptions = LIST_ORDER.find(({ label }) => label === currentFilter)?.options || [];
 
   const handleCurrentFilterClick = () => {
     setIsFilterDropdownOpen(!isFilterDropdownOpen);
@@ -25,8 +23,6 @@ const ListOrder: React.FC<IListOrderProps> = ({ onFilterSelection }) => {
     setIsFilterDropdownOpen(false);
     onFilterSelection(filter);
   };
-
-  const filterOptions = LIST_ORDER.find(({ label }) => label === currentFilter)?.options || [];
 
   return (
     <div css={FilterContainer}>

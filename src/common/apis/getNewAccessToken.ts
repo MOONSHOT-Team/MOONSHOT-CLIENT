@@ -12,6 +12,8 @@ const getNewAccessToken = async () => {
 
     const { accessToken, refreshToken } = response.data;
 
+    console.log('res.data', response.data);
+
     localStorage.setItem('ACCESS_TOKEN', accessToken);
     localStorage.setItem('REFRESH_TOKEN', refreshToken);
 

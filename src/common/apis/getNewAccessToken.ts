@@ -1,4 +1,4 @@
-import instance from './instance';
+import axios from 'axios';
 
 const getNewAccessToken = async () => {
   console.log('is running');
@@ -7,19 +7,19 @@ const getNewAccessToken = async () => {
     const REFRESH_TOKEN = localStorage.getItem('REFRESH_TOKEN');
     console.log('refresh token', REFRESH_TOKEN);
 
-    const response = await instance.post('/v1/user/reissue', {
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/v1/user/reissue`, {
       headers: {
         Authorization: REFRESH_TOKEN,
       },
     });
     console.log('res', response);
 
-    // const { accessToken, refreshToken } = response.data;
+    const { accessToken, refreshToken } = response.data;
 
     console.log('res.data', response.data);
 
-    // localStorage.setItem('ACCESS_TOKEN', accessToken);
-    // localStorage.setItem('REFRESH_TOKEN', refreshToken);
+    localStorage.setItem('ACCESS_TOKEN', accessToken);
+    localStorage.setItem('REFRESH_TOKEN', refreshToken);
 
     return true;
   } catch {

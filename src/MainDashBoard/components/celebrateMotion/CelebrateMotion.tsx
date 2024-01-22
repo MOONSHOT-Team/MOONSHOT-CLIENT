@@ -26,10 +26,10 @@ const CelebrateMotion = ({ handleChangeState, nickname, currentObjId }: ICelebra
 
   return (
     <section css={CelebrateMotionContainer}>
-      <CustomLottie animationData={animationData} loop={false} />
+      <StCustomLottie animationData={animationData} loop={false} />
 
       <StCelebrateMotionWrapper>
-        <CustomSpline scene={'https://prod.spline.design/55BQyyYxSOmUQ1Mh/scene.splinecode'} />
+        <StCustomSpline scene={'https://prod.spline.design/55BQyyYxSOmUQ1Mh/scene.splinecode'} />
         <StCelebrateTextBox>
           <StCelebrateTitle>{nickname}님 축하드립니다!</StCelebrateTitle>
           <StCelebrateDescription>
@@ -51,7 +51,7 @@ const CelebrateMotion = ({ handleChangeState, nickname, currentObjId }: ICelebra
 
 export default CelebrateMotion;
 
-const CustomSpline = styled(Spline)`
+const StCustomSpline = styled(Spline)`
   display: flex;
   justify-content: center;
   width: 400px !important;
@@ -64,7 +64,7 @@ const CustomSpline = styled(Spline)`
   }
 `;
 
-const CustomLottie = styled(Lottie)`
+const StCustomLottie = styled(Lottie)`
   position: fixed;
   top: 0;
   left: 0;

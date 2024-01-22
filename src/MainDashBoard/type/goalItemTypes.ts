@@ -1,4 +1,4 @@
-export interface IgoalItemTypes {
+export interface IGoalItemTypes {
   objList: IObjListTypes[];
 }
 
@@ -10,8 +10,8 @@ export interface IObjListTypes {
   date: string;
   progress: number;
   currentGoalId?: number;
-  onClickGoal?: (id: number) => void;
   index?: number;
+  onClickGoal?: (id: number) => void;
   moveGoal?: (dragIndex: number, hoverIndex: number) => void;
 }
 

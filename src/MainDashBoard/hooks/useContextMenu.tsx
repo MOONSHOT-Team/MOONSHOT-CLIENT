@@ -6,6 +6,7 @@ const useContextMenu = () => {
     x: 0,
     y: 0,
   });
+
   useEffect(() => {
     const handleClick = () => setRightClicked(false);
     document.addEventListener('click', handleClick);
@@ -13,10 +14,11 @@ const useContextMenu = () => {
       document.removeEventListener('click', handleClick);
     };
   }, []);
+
   return {
     rightClicked,
-    setRightClicked,
     rightClickPoints,
+    setRightClicked,
     setRightClickPoints,
   };
 };

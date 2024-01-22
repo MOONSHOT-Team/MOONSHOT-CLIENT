@@ -135,6 +135,7 @@ const StAddGuideKrTxt = styled.h1`
 const StFirstAddGuideKrTxt = styled(StAddGuideKrTxt)`
   margin: 1rem 0 0.6rem;
 `;
+
 const StSecondAddGuideKrTxt = styled(StAddGuideKrTxt)`
   margin: 1rem 0 0.4rem;
 `;

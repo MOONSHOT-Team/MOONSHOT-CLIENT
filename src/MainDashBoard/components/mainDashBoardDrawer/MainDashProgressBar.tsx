@@ -59,6 +59,7 @@ export const StProgressBarWrapper = styled.div<{
     background-color: ${({ progressValueColor }) => progressValueColor};
   }
 `;
+
 const StCurrentProgressBox = styled.p<{ textColor: string }>`
   ${({ theme }) => theme.fonts.btn_11_medium};
 

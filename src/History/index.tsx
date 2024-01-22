@@ -14,51 +14,15 @@ const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
     null,
   );
-
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-
   const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
-
   const [categories, setCategories] = useState<string[]>([]);
-
   const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
-
   const [fixedCategories, setFixedCategories] = useState<string[]>([]);
 
   const { data: OKRHistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
-
-  useEffect(() => {
-    if (!isLoading && OKRHistoryData) {
-      setHistoryData(OKRHistoryData?.data.data);
-      setFixedYears(OKRHistoryData?.data.data.years || []);
-      setFixedCategories(OKRHistoryData?.data.data.categories || []);
-    }
-  }, [OKRHistoryData, isLoading]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await instance.get('/v1/objective/history', {
-          params: {
-            year: selectedYear,
-            category: selectedTheme,
-            criteria: selectedFilter,
-          },
-        });
-        if (response) setYears(response.data.data.years || []);
-        setCategories(response.data.data.categories);
-        setHistoryData(response.data.data);
-      } catch (error) {
-        console.error('데이터를 가져오는 중 오류 발생:', error);
-      }
-    };
-
-    fetchData();
-  }, [selectedTheme, selectedYear, selectedFilter]);
 
   const handleThemeSelect = async (selectedTheme: string) => {
     setSelectedTheme(selectedTheme);
@@ -71,6 +35,31 @@ const History = () => {
   const handleYearSelect = async (selectedYear: number) => {
     setSelectedYear(selectedYear);
   };
+
+  useEffect(() => {
+    if (!isLoading && OKRHistoryData) {
+      setHistoryData(OKRHistoryData?.data.data);
+      setFixedYears(OKRHistoryData?.data.data.years || []);
+      setFixedCategories(OKRHistoryData?.data.data.categories || []);
+    }
+  }, [OKRHistoryData, isLoading]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await instance.get('/v1/objective/history', {
+        params: {
+          year: selectedYear,
+          category: selectedTheme,
+          criteria: selectedFilter,
+        },
+      });
+      if (response) setYears(response.data.data.years || []);
+      setCategories(response.data.data.categories);
+      setHistoryData(response.data.data);
+    };
+
+    fetchData();
+  }, [selectedTheme, selectedYear, selectedFilter]);
 
   if (!OKRHistoryData) return <>데이터를 가져오는 중입니다...</>;
 

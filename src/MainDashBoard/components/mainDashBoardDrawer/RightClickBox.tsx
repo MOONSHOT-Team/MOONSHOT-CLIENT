@@ -23,6 +23,7 @@ const RightClickBox = ({
       setIsRightClick(false);
     };
   }, []);
+
   return (
     <StRightClickPopUpBox $rightClickPoints={rightClickPoints}>
       <StRightClickPopIpLi onClick={handleClickComplete}>

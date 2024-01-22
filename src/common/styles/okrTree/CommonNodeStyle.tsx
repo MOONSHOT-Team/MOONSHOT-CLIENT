@@ -47,6 +47,7 @@ export const StTaskLabel = styled.span`
 export const StTaskNodeContainer = styled.div`
   display: flex;
 `;
+
 export const StTaskBoxWrapper = styled.div`
   display: flex;
   align-items: center;

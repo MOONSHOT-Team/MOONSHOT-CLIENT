@@ -11,7 +11,7 @@ import ObjCategTag from '../objTitleCateg/ObjCategTag';
 interface IObjTitleCategProps extends IAddObjFlowProps {
   isGuide: boolean;
 }
-//object tilte input/textare 최대 글자수
+//object title input/textarea 최대 글자수
 const MAX_OBJ_INPUT_CNT = 30;
 
 // 가이드에 따라 설정하기 기본 placeholder
@@ -21,7 +21,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
   const { objCategory: selectedObjCateg, objTitle } = objInfo;
   //글자 수 관리 값
   const [currObjCount, setCurrObjCount] = useState(objTitle ? objTitle.length : 0);
-  // 2) 가이드 플로우 - hover한 objtag를 담는 상태
+  // 2) 가이드 플로우 - hover한 obj tag를 담는 상태
   const [hoverObjPlaceHolder, setHoverObjPlaceHolder] = useState(GUIDE_DEFAULT_PLACEHOLDER);
 
   /** 
@@ -47,7 +47,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
   /**
   가이드에 따라 설정하기 뷰 사용
   **/
-  // hover한 objtag를 가져오는 핸들러
+  // hover한 obj tag를 가져오는 핸들러
   const handleHoverObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { placeholder: targetPlaceholder } = GUIDE_OBJ_TITLE_PLACEHOLDER.filter(
       (tag) => tag.id === e.currentTarget.id,
@@ -175,7 +175,7 @@ const StObjInputCntTxt = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-//가이드에 따라 설정 - 목표 입력 textare 스타일
+//가이드에 따라 설정 - 목표 입력 textarea 스타일
 const ObjTextAreaBox = css`
   position: relative;
   width: fit-content;

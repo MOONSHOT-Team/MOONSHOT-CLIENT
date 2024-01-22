@@ -36,7 +36,7 @@ const KeyResultPeriodInput = ({
   };
 
   return (
-    <KRPeriodContainer>
+    <StKRPeriodContainer>
       <ConfigProvider
         theme={{
           token: {
@@ -62,13 +62,13 @@ const KeyResultPeriodInput = ({
           disabledDate={disabledDate}
         />
       </ConfigProvider>
-    </KRPeriodContainer>
+    </StKRPeriodContainer>
   );
 };
 
 export default KeyResultPeriodInput;
 
-const KRPeriodContainer = styled.div`
+const StKRPeriodContainer = styled.div`
   * {
     color: ${({ theme }) => theme.colors.gray_000};
   }

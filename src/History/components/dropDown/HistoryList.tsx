@@ -18,20 +18,20 @@ const HistoryList: React.FC<IObjective> = ({
   isLast,
   krList,
 }) => {
-  const [isVisable, setIsVisable] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState<number | null>(null);
   const handleObjectiveClick = (objId: number) => {
-    setIsVisable((previousObjId) => (previousObjId === objId ? null : objId));
+    setIsVisible((previousObjId) => (previousObjId === objId ? null : objId));
   };
 
   return (
     <>
       <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer
-          visibility={isVisable === objId ? 'true' : 'false'}
+          visibility={isVisible === objId ? 'true' : 'false'}
           onClick={() => handleObjectiveClick(objId)}
         >
           <StObjectiveWrapper>
-            {isVisable === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
+            {isVisible === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
             <StObjectiveCategory>{objCategory}</StObjectiveCategory>
             <StObjectTitle>{title}</StObjectTitle>
           </StObjectiveWrapper>
@@ -41,7 +41,7 @@ const HistoryList: React.FC<IObjective> = ({
           </div>
         </StObjectiveContainer>
 
-        <HistoryListDetails visibility={isVisable === objId}>
+        <HistoryListDetails visibility={isVisible === objId}>
           {krList.map(({ krId, krIdx, krTitle, krProgress, taskList }: IKeyResult) => (
             <ul css={KrTaskLayout} key={`${krId}+${krTitle}`}>
               <KeyResultList krIdx={krIdx} krProgress={krProgress} krTitle={krTitle} />

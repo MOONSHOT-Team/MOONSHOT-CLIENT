@@ -13,32 +13,32 @@ import KrStatus from './KrStatus';
 
 interface ISideSheetProps {
   isOpen: boolean;
-  onClose: () => void;
   keyResultId: number;
   objStartAt: string;
   objExpireAt: string;
-  handleChangeState?: (state: number) => void;
   objId: number;
+  onClose: () => void;
+  handleChangeState?: (state: number) => void;
 }
 
 const SideSheet = ({
   isOpen,
-  onClose,
   keyResultId,
   objStartAt,
   objExpireAt,
-  handleChangeState,
   objId,
+  onClose,
+  handleChangeState,
 }: ISideSheetProps) => {
   const { data: sideSheetData } = useSWR(`/v1/key-result/${keyResultId}`, getDashBoardData);
   const krDetailData = sideSheetData?.data;
 
-  const [isCheckinView, setIsCheckinView] = useState(false);
+  const [isCheckInView, setIsCheckInView] = useState(false);
   if (!sideSheetData) return;
   const { title, target, metric, progressBar, krState, startAt, expireAt, logList } = krDetailData;
 
   const handleCheckInView = () => {
-    setIsCheckinView(!isCheckinView);
+    setIsCheckInView(!isCheckInView);
   };
 
   return (
@@ -84,7 +84,7 @@ const SideSheet = ({
         </section>
 
         <section css={StKRDetailLowerStyles}>
-          {isCheckinView && (
+          {isCheckInView && (
             <KrCheckIn
               onCancel={handleCheckInView}
               keyResultId={keyResultId}
@@ -95,7 +95,7 @@ const SideSheet = ({
               objId={objId}
             />
           )}
-          {!isCheckinView && (
+          {!isCheckInView && (
             <>
               <StKrCheckInBtn type="button" onClick={handleCheckInView}>
                 체크인
@@ -132,6 +132,7 @@ const StContainer = styled.aside<{ $isOpen: boolean }>`
   transform: translateX(${({ $isOpen }) => ($isOpen ? '0' : '100%')});
   animation: ${({ $isOpen }) => ($isOpen ? slideIn : 'none')} 0.3s forwards;
 `;
+
 const slideIn = keyframes`
   from {
     transform: translateX(100%);

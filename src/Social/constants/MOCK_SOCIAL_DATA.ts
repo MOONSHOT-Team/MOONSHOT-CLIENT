@@ -119,7 +119,7 @@ export const MOCK_SOCIAL_DATA = [
           descriptionAfter: '달성',
           taskList: [
             {
-              title: '주 1회 20만원씩 저축하기', //값 없다면 빈 stirng('') 값으로, 형식은 유지
+              title: '주 1회 20만원씩 저축하기', //값 없다면 빈 string('') 값으로, 형식은 유지
               idx: 0,
             },
             {
@@ -211,7 +211,7 @@ export const MOCK_SOCIAL_DATA = [
           descriptionAfter: '달성',
           taskList: [
             {
-              title: '매주 한 권의 리더십 관련 도서 읽기', //값 없다면 빈 stirng('') 값으로, 형식은 유지
+              title: '매주 한 권의 리더십 관련 도서 읽기', //값 없다면 빈 string('') 값으로, 형식은 유지
               idx: 0,
             },
             {

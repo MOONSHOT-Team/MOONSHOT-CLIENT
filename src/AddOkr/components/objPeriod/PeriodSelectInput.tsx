@@ -24,7 +24,7 @@ const PeriodSelectInput = ({ handleClickSelectDate, period }: IPeriodSelectInput
   };
 
   return (
-    <KRPeriodContainer>
+    <StKRPeriodContainer>
       <ConfigProvider
         theme={{
           token: {
@@ -50,13 +50,13 @@ const PeriodSelectInput = ({ handleClickSelectDate, period }: IPeriodSelectInput
           disabledDate={disabledDate}
         />
       </ConfigProvider>
-    </KRPeriodContainer>
+    </StKRPeriodContainer>
   );
 };
 
 export default PeriodSelectInput;
 
-const KRPeriodContainer = styled.div`
+const StKRPeriodContainer = styled.div`
   * {
     color: ${({ theme }) => theme.colors.gray_000};
   }

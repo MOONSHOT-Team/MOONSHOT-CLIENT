@@ -12,9 +12,9 @@ interface ITextFieldProps {
 const TextField = ({ subTitle, subTitleColor, title, description }: ITextFieldProps) => {
   return (
     <div css={textContainer}>
-      <SubTitle subTitleColor={subTitleColor}>{subTitle}</SubTitle>
-      <Title>{title}</Title>
-      <Description>{description}</Description>
+      <StSubTitle subTitleColor={subTitleColor}>{subTitle}</StSubTitle>
+      <StTitle>{title}</StTitle>
+      <StDescription>{description}</StDescription>
     </div>
   );
 };
@@ -28,7 +28,7 @@ const textContainer = css`
   justify-content: center;
 `;
 
-const SubTitle = styled.p<{ subTitleColor: keyof ColorsTypes }>`
+const StSubTitle = styled.p<{ subTitleColor: keyof ColorsTypes }>`
   margin-bottom: 4rem;
   font-size: 2rem;
   font-weight: 400;
@@ -36,7 +36,7 @@ const SubTitle = styled.p<{ subTitleColor: keyof ColorsTypes }>`
   color: ${({ theme, subTitleColor }) => theme.colors[subTitleColor]};
 `;
 
-const Title = styled.h2`
+const StTitle = styled.h2`
   margin-bottom: 2rem;
   font-size: 4rem;
   font-weight: 600;
@@ -46,7 +46,7 @@ const Title = styled.h2`
   white-space: pre-line;
 `;
 
-const Description = styled.p`
+const StDescription = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   line-height: 2.4rem;

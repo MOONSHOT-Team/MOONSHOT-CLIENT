@@ -24,7 +24,7 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
     objInfo.objExpireAt ? objInfo.objExpireAt.split('. ').join('-') : CALE_END_DATE,
   ]);
 
-  const hanldeClickPeriodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickPeriodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedPeriod(e.currentTarget.id);
 
     if (e.currentTarget.id === 'null') return;
@@ -63,7 +63,7 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
               periodName={periodName}
               isClicked={selectedPeriod === length}
               isDate={periodName === 'SELECT_PERIOD'}
-              handleClickPeriodBtn={hanldeClickPeriodBtn}
+              handleClickPeriodBtn={handleClickPeriodBtn}
               handleClickSelectDate={handleClickSelectDate}
               period={period}
             />

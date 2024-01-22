@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { IPreviewTaskInfoTypes } from '../../../AddOkr/types/TaskInfoTypes';
 import { IcPlusSmall } from '../../assets/icons';
 
-interface IPreviewTasknodesProps extends ITaskNodesTypes {
+interface IPreviewTaskNodesProps extends ITaskNodesTypes {
   previewTaskListInfo: IPreviewTaskInfoTypes[];
   setPreviewTaskListInfo: React.Dispatch<React.SetStateAction<IPreviewTaskInfoTypes[]>>;
 }
@@ -28,8 +28,8 @@ export const PreviewTaskNodes = ({
   taskIdx,
   previewTaskListInfo,
   setPreviewTaskListInfo,
-}: IPreviewTasknodesProps) => {
-  const [isClikcedPlusBtn, setIsClickedPlusBtn] = useState(false);
+}: IPreviewTaskNodesProps) => {
+  const [isClickedPlusBtn, setIsClickedPlusBtn] = useState(false);
 
   const title = previewTaskListInfo[krIdx].taskList[taskIdx].title;
 
@@ -50,7 +50,7 @@ export const PreviewTaskNodes = ({
         <NodeLines />
         <StTaskBoxWrapper>
           <StraightLine />
-          {isClikcedPlusBtn ? (
+          {isClickedPlusBtn ? (
             <StPreviewTaskBox $idx={taskIdx}>
               <DynamicInput
                 value={title}

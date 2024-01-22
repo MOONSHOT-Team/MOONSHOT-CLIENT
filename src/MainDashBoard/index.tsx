@@ -28,7 +28,7 @@ const MainDashBoard = () => {
 
   const [showState, setShowState] = useState(DASHBOARD_SHOW_STATE[0]);
 
-  // Step 0 - SELECT METHOD 관련 State
+  // step 0 - SELECT METHOD 관련 State
   const [selectedMethod, setSelectedMethod] = useState('');
 
   //동적 파라미터 url
@@ -38,7 +38,7 @@ const MainDashBoard = () => {
   if (treeData?.tree?.objIsExpired) {
     handleShowModal();
   }
-  // stpe 0 - SELECT METHOD 관련 handler
+  // step 0 - SELECT METHOD 관련 handler
   const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedMethod(e.currentTarget.id);
     navigate('/add-okr', { state: { selectedMethod: e.currentTarget.id } });

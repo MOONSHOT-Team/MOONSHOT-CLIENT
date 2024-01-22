@@ -34,14 +34,14 @@ const Frame5 = () => {
         description="꾸준함으로 쌓인 발자취를 확인하며 앞으로의 미래를 향해 다시 나아가세요"
       />
       {active && (
-        <ImgContainer>
+        <StImgContainer>
           {isOpen && (
             <img src={imgFrame5HistoryOpen} alt="main-dashboard-img-1" width={1005} height={57} />
           )}
           {!isOpen && (
             <img src={imgFrame5HistoryClose} alt="main-dashboard-img-1" width={1005} height={57} />
           )}
-          <LateImgPopUp
+          <StLateImgPopUp
             fromY={5.7}
             toY={7.2}
             delay={1.2}
@@ -77,7 +77,7 @@ const Frame5 = () => {
             width={1005}
             height={57}
           />
-        </ImgContainer>
+        </StImgContainer>
       )}
     </section>
   );
@@ -103,7 +103,7 @@ const fadeIn = keyframes`
     }
   `;
 
-const ImgContainer = styled.div`
+const StImgContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -114,7 +114,7 @@ const ImgContainer = styled.div`
   animation: ${fadeIn} 1s;
 `;
 
-const LateImgPopUp = styled(ImgPopUp)`
+const StLateImgPopUp = styled(ImgPopUp)`
   position: absolute;
   top: 0;
   opacity: 0;

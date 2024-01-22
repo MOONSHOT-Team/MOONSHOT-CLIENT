@@ -1,7 +1,7 @@
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { ICheckInLogTypes } from '../../type/CheckInLogTypes';
+import { ICheckInLogTypes } from '../../type/checkInLogType';
 
 const CheckInLogItem = ({ logState, dateTime, title, content }: ICheckInLogTypes) => {
   return (
@@ -50,22 +50,6 @@ const StCheckInLogScroll = styled.article`
   overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.gray_550};
   border-top: 1px solid ${({ theme }) => theme.colors.transparent_white};
-
-  &::-webkit-scrollbar {
-    width: 13px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.gray_650};
-    background-clip: padding-box;
-    border: 4px solid transparent;
-    border-radius: 50px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-    background-size: cover;
-  }
 `;
 
 const checkInLogContainer = css`

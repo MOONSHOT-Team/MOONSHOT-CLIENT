@@ -6,6 +6,7 @@ import item5 from '../assets/images/item5.png';
 import item6 from '../assets/images/item6.png';
 import item7 from '../assets/images/item7.png';
 import item8 from '../assets/images/item8.png';
+
 export const ITEM_LIST = [
   { src: item1, title: 'STAR', subTitle: '유난한 도전 시작' },
   { src: item2, title: 'FIRST AID KIT', subTitle: ' 쏘아올릴 준비' },

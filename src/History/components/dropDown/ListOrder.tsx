@@ -67,6 +67,7 @@ const StCurrentFilterBtn = styled.button`
 `;
 
 const StFilterWrapper = styled.div`
+  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 1rem;

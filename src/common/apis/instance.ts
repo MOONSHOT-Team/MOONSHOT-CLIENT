@@ -28,7 +28,7 @@ instance.interceptors.request.use(
       return config;
     }
 
-    config.headers['Authorization'] = `${ACCESS_TOKEN}`;
+    config.headers.Authorization = ACCESS_TOKEN;
 
     return config;
   },
@@ -51,8 +51,11 @@ instance.interceptors.response.use(
 
       originalRequest._retry = true;
       const isRefreshSuccessful = await getNewAccessToken();
+      console.log('isLoading');
 
       if (isRefreshSuccessful) {
+        console.log('isSuccess');
+
         return instance(originalRequest);
       }
     }

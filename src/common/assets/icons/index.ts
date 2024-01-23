@@ -1,3 +1,4 @@
-// import IcArrow from './IcArrow.svg?react';
+import IcLogo from './IcLogo.svg?react';
+import IcNotice from './icNotice.svg?react';
 
-// export { IcArrow };
+export { IcLogo, IcNotice };

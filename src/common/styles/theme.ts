@@ -1,14 +1,11 @@
 import { Theme } from '@emotion/react';
 
-const PRETENDARDFAMILY =
-  '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif';
-
 const colors = {
   background: '#1E1E20',
   gray_000: '#FFFFFF',
   gray_50: '#FAFAFA',
   gray_100: '#F5F5F5',
-  gray_150: '#222222',
+  gray_150: '#EBEBEB',
   gray_200: '#DCDCDC',
   gray_250: '#C2C2C2',
   gray_300: '#A7A7A7',
@@ -19,12 +16,14 @@ const colors = {
   gray_550: '#2F2F2F',
   gray_600: '#242424',
   gray_650: '#222222',
+  gray_700: '#131313',
   main_purple: '#8D7EFD',
   main_darkpurple: '#7165CA',
-  sub_yellow: '#FFD749',
-  sub_green: '#63D7C6',
-  sub_red: '#D96D6D',
+  sub_yellow: '#FFF9C6',
+  sub_mint: '#A6EEF6',
+  sub_pink: '#F4B5FA',
   sub_blue: '#6CA4F6',
+  sub_lightred: '#FF6969',
   sub_yellowgreen: '#86DC68',
   transparent_purple: '#8D7EFD29',
   transparent_white: '#FFFFFF1A',
@@ -39,117 +38,96 @@ const colors = {
 };
 
 type Font = {
-  family: string;
   weight: number;
   size: number;
-  fontStyle: string;
   lineHeight: number;
-  textDecorationLine?: string;
 };
-const FONT = ({ family, weight, size, fontStyle, lineHeight }: Font): string => `
-  font-family: ${family};
+
+const FONT = ({ weight, size, lineHeight }: Font): string => `
   font-weight: ${weight};
   font-size: ${size}rem;
-  font-style: ${fontStyle};
   line-height: ${lineHeight}rem;
 `;
 
 const fonts = {
   title_20_semibold: FONT({
-    family: PRETENDARDFAMILY,
     size: 2,
-    fontStyle: 'normal',
     weight: 600,
     lineHeight: 3.2,
   }),
   title_16_semibold: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.6,
-    fontStyle: 'normal',
     weight: 600,
     lineHeight: 2.8,
   }),
   title_11_bold: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.1,
-    fontStyle: 'normal',
     weight: 670,
     lineHeight: 1.8,
   }),
   body_14_semibold: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.4,
-    fontStyle: 'normal',
     weight: 600,
     lineHeight: 3.2,
   }),
   body_14_medium: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.4,
-    fontStyle: 'normal',
     weight: 500,
-    lineHeight: 1.4,
+    lineHeight: 2.0,
+  }),
+  body_14_regular: FONT({
+    size: 1.4,
+    weight: 400,
+    lineHeight: 2.0,
   }),
   body_13_medium: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.3,
-    fontStyle: 'normal',
     weight: 500,
     lineHeight: 2,
   }),
   body_12_medium: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.2,
-    fontStyle: 'normal',
     weight: 500,
     lineHeight: 1.8,
   }),
   body_12_regular: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.2,
-    fontStyle: 'normal',
     weight: 400,
     lineHeight: 1.8,
   }),
   body_10_regular: FONT({
-    family: PRETENDARDFAMILY,
     size: 1,
-    fontStyle: 'normal',
     weight: 400,
     lineHeight: 1.5,
   }),
   btn_14_semibold: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.4,
-    fontStyle: 'normal',
     weight: 600,
     lineHeight: 1.4,
   }),
   btn_14_medium: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.4,
-    fontStyle: 'normal',
     weight: 500,
     lineHeight: 1.4,
   }),
+
   btn_11_semibold: FONT({
-    family: PRETENDARDFAMILY,
     size: 1.1,
-    fontStyle: 'normal',
+    weight: 600,
+    lineHeight: 1.1,
+  }),
+  btn_11_medium: FONT({
+    size: 1.1,
     weight: 500,
     lineHeight: 1.1,
   }),
   caption_10_medium: FONT({
-    family: PRETENDARDFAMILY,
     size: 1,
-    fontStyle: 'normal',
     weight: 500,
     lineHeight: 1.5,
   }),
   caption_9_regular: FONT({
-    family: PRETENDARDFAMILY,
     size: 0.9,
-    fontStyle: 'normal',
     weight: 400,
     lineHeight: 1.5,
   }),

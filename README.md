@@ -10,6 +10,22 @@
 	ㄴ objective를 설정하는 google의 기업 정신으로, 10%의 개선 보다는 10배의 혁신에 도전한다는 뜻
 ```
 
+<h4>기능 소개</h4>
+1. OKR 트리 - Dashboard
+
+![Frame 1000003906](https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/fce2fdc1-1f52-4a88-ae43-27006804803a)
+
+2. 목표 설정 - Add-OKR / Preview-OKR
+![Frame 1000003906 (1)](https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/c7416f7b-fee4-4fc6-b5c6-ed8a1d274017)
+
+3. KR 체크인 
+![Frame 1000003906 (2)](https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/1e59951d-7820-43f9-bf2f-2970725a74b0)
+
+4. History 
+![Frame 1000003906 (3)](https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/80380f37-1860-47d5-b1df-e935edbf167e)
+
+
+
 <br/>
 <hr/>
 
@@ -25,24 +41,32 @@
     <th> 최준민 <a href="https://github.com/Jun-min2"><img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white"/></a></th>
     <tr>
     <td> 팀원 소개 </td>
-    	<td> <img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-SERVER/assets/48898994/b337f737-0872-45cd-9ed6-52d9fab01202"></td>
-    	<td><img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-SERVER/assets/48898994/b337f737-0872-45cd-9ed6-52d9fab01202"></td>
-        <td> <img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-SERVER/assets/48898994/b337f737-0872-45cd-9ed6-52d9fab01202"></td>
-    	<td><img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-SERVER/assets/48898994/b337f737-0872-45cd-9ed6-52d9fab01202"></td>
+    	<td> <img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/4718b3fd-c789-406f-8651-2182f28cabea"></td>
+    	<td><img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/7137ea7c-7e50-4937-aff7-21e029962769"></td>
+        <td> <img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/5a4fbcf8-632d-4054-937a-a21dc1d3e329"></td>
+    	<td><img width="230" alt="image" src="https://github.com/MOONSHOT-Team/MOONSHOT-CLIENT/assets/77691829/9e3e00c5-321a-4af6-bcef-e2555f18f577"></td>
     </tr>
     <tr>
 	<td> 역할 </td>
 	<td>
-		<strong>WEB FRONTEND</strong>
+		<p>Add-OKR</p>
+		<p>Preview-OKR</p>
+		<p>Celebrate-Motion</p>
 	</td>
 	<td>
-		<strong>WEB FRONTEND</strong>
+		<p>Dashboard - Drawer</p>
+		<p>Dashboard - SideSheet</p>
+		<p>Social</p>
 	</td>
 	<td>
-		<strong>WEB FRONTEND</strong>
+		<p>Login(KaKao/Google)</p>
+		<p>Nickname</p>
+		<p>Modal</p>
+		<p>Error</p>
 	</td>
     <td>
-		<strong>WEB FRONTEND</strong>
+		<p>History</p>
+	        <p>My</p>
 	</td>
     </tr>
     </table>

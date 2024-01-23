@@ -1,25 +1,10 @@
 {
-  "extends": [
-    "stylelint-config-standard",
-    "stylelint-config-recess-order"
-  ],
-  "customSyntax": "postcss-styled-syntax",
+  "extends": ["stylelint-config-standard", "stylelint-config-recess-order"],
+  "customSyntax": "postcss-jsx",
   "rules": {
     "declaration-property-unit-allowed-list": {
-      "/^border/": [
-        "px"
-      ],
-      "unit-allowed-list": [
-        "%",
-        "deg",
-        "px",
-        "rem",
-        "ms",
-        "s",
-        "em",
-        "vw",
-        "vh"
-      ]
+      "/^border/": ["px"],
+      "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "s", "em", "vw", "vh"]
     }
   }
 }

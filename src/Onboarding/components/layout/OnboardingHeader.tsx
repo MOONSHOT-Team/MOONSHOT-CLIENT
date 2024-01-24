@@ -20,7 +20,9 @@ const OnboardingHeader = () => {
             </li>
           ))}
           <li>
-            <StCTALink to="/dashboard">서비스 신청하기</StCTALink>
+            <StCTALink to="/dashboard" className="tally-link-button">
+              서비스 신청하기
+            </StCTALink>
           </li>
         </StNavItem>
       </nav>

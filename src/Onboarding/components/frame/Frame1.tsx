@@ -35,7 +35,9 @@ const Frame1 = () => {
         {/* <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p> */}
       </RollingTextBox>
       <MainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</MainText>
-      <CtaLink to="/dashboard">서비스 시작하기</CtaLink>
+      <CtaLink to="/dashboard" className="tally-link-button">
+        서비스 시작하기
+      </CtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />
         <LeftLateImgPopUp

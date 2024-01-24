@@ -32,7 +32,6 @@ const Frame1 = () => {
             {text}
           </p>
         ))}
-        {/* <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p> */}
       </StRollingTextBox>
       <StMainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</StMainText>
       <StCtaLink to="https://tally.so/r/n0Ol0N" target="_blank" className="tally-link-button">

@@ -23,7 +23,7 @@ const Frame3 = () => {
       />
       {active && (
         <div css={imgContainer}>
-          <LateImgPopUp
+          <StLateImgPopUp
             fromY={26}
             toY={6}
             delay={1}
@@ -40,7 +40,7 @@ const Frame3 = () => {
             width={464}
             height={520}
           />
-          <LateImgPopUp
+          <StLateImgPopUp
             fromY={26}
             toY={6}
             delay={2}
@@ -84,6 +84,6 @@ const background = css`
   min-height: 37.7rem;
 `;
 
-const LateImgPopUp = styled(ImgPopUp)`
+const StLateImgPopUp = styled(ImgPopUp)`
   opacity: 0;
 `;

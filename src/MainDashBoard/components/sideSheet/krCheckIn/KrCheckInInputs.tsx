@@ -7,11 +7,11 @@ import { useSWRConfig } from 'swr';
 
 import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
 
-const CHECKINPLACEHOLDER =
+const CHECK_IN_PLACEHOLDER =
   '회고 내용을 입력하세요.\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요.';
 
-const MAX_NUMCNT = 6;
-const MAX_TEXTCNT = 100;
+const MAX_NUM_COUNT = 6;
+const MAX_TEXT_COUNT = 100;
 
 interface ICharacterCountProps {
   currentCnt: number;
@@ -41,13 +41,13 @@ const CheckInInput = ({
   return (
     <div css={inputBoxStyles}>
       <StCheckInTextArea
-        id="enterProgressCheckin"
-        placeholder={CHECKINPLACEHOLDER}
+        id="enterProgressCheckIn"
+        placeholder={CHECK_IN_PLACEHOLDER}
         value={logContent}
         onChange={handleLogContentChange}
         autoComplete="off"
       />
-      {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={MAX_TEXTCNT} />}
+      {logContent && <CharacterCount currentCnt={logContentCount} maxCnt={MAX_TEXT_COUNT} />}
     </div>
   );
 };
@@ -73,7 +73,7 @@ export const 진척정도입력하기 = ({
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
-  const [isMaxNum, setIsMaxnum] = useState(false);
+  const [isMaxNum, setIsMaxNum] = useState(false);
 
   const { mutate } = useSWRConfig();
 
@@ -88,13 +88,17 @@ export const 진척정도입력하기 = ({
       setLogNum('');
       return;
     }
-    if (e.target.value.length > MAX_NUMCNT + 1) {
-      setIsMaxnum(true);
+
+    if (e.target.value.length > MAX_NUM_COUNT + 1) {
+      setIsMaxNum(true);
     }
-    if (e.target.value.length <= MAX_NUMCNT) {
-      setIsMaxnum(false);
+
+    if (e.target.value.length <= MAX_NUM_COUNT) {
+      setIsMaxNum(false);
     }
-    const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUMCNT);
+
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUM_COUNT);
+
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
       setLogNum(num);
@@ -106,9 +110,11 @@ export const 진척정도입력하기 = ({
       setLogContentCount(0);
       setLogContent('');
     }
-    const lengthCount = limitMaxLength(e, MAX_TEXTCNT);
+
+    const lengthCount = limitMaxLength(e, MAX_TEXT_COUNT);
 
     if (!lengthCount) return;
+
     setLogContentCount(lengthCount);
     setLogContent(e.target.value);
   };
@@ -130,7 +136,7 @@ export const 진척정도입력하기 = ({
         //축하모션
         handleChangeState?.(2);
       }
-    } catch (err) {
+    } catch {
       navigate('/error');
     }
 
@@ -155,7 +161,7 @@ export const 진척정도입력하기 = ({
           </div>
         </span>
         <span css={enterInputBoxStyles}>
-          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
+          <StLabel htmlFor="enterProgressCheckIn">체크인</StLabel>
           <CheckInInput
             logContent={logContent}
             handleLogContentChange={handleLogContentChange}
@@ -187,7 +193,7 @@ export const KR수정하기 = ({
   const [logContent, setLogContent] = useState('');
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
-  const [isMaxNum, setIsMaxnum] = useState(false);
+  const [isMaxNum, setIsMaxNum] = useState(false);
   const navigator = useNavigate();
 
   const { mutate } = useSWRConfig();
@@ -197,13 +203,13 @@ export const KR수정하기 = ({
       setTarget('');
       return;
     }
-    if (e.target.value.length > MAX_NUMCNT + 1) {
-      setIsMaxnum(true);
+    if (e.target.value.length > MAX_NUM_COUNT + 1) {
+      setIsMaxNum(true);
     }
-    if (e.target.value.length <= MAX_NUMCNT) {
-      setIsMaxnum(false);
+    if (e.target.value.length <= MAX_NUM_COUNT) {
+      setIsMaxNum(false);
     }
-    const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUMCNT);
+    const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUM_COUNT);
     if (/^\d*$/.test(rawValue)) {
       const num = Number(rawValue).toLocaleString();
       setTarget(num);
@@ -241,7 +247,7 @@ export const KR수정하기 = ({
       if (response?.data) {
         handleChangeState?.(2);
       }
-    } catch (err) {
+    } catch {
       navigator('/error');
     }
     onCancel();
@@ -266,7 +272,7 @@ export const KR수정하기 = ({
           </StEditNum>
         </span>
         <span css={enterInputBoxStyles}>
-          <StLabel htmlFor="enterProgressCheckin">체크인</StLabel>
+          <StLabel htmlFor="enterProgressCheckIn">체크인</StLabel>
           <CheckInInput
             logContent={logContent}
             handleLogContentChange={handleLogContentChange}
@@ -379,7 +385,7 @@ const StEditNum = styled.div`
 `;
 
 const StEditNumInput = styled.input<{ isMaxNum: boolean }>`
-  width: 12rem;
+  width: 9rem;
   padding: 1.1rem 1.2rem;
   color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;

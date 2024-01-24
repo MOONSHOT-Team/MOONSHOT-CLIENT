@@ -20,7 +20,7 @@ const OnboardingHeader = () => {
             </li>
           ))}
           <li>
-            <StCTALink to="/dashboard" className="tally-link-button">
+            <StCTALink to="https://tally.so/r/n0Ol0N" target="_blank" className="tally-link-button">
               서비스 신청하기
             </StCTALink>
           </li>

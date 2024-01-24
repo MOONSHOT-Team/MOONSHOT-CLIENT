@@ -42,6 +42,7 @@ type Font = {
   size: number;
   lineHeight: number;
 };
+
 const FONT = ({ weight, size, lineHeight }: Font): string => `
   font-weight: ${weight};
   font-size: ${size}rem;

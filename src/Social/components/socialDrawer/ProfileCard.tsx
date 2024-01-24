@@ -45,7 +45,7 @@ const ProfileCard = ({
           <StCategory>{category}</StCategory>
         </div>
         <div css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Img src={userImg} alt={`${userName}프로필사진`} isCurrent={currentUserIdx === idx} />
+          <StImg src={userImg} alt={`${userName}프로필사진`} isCurrent={currentUserIdx === idx} />
           <StUserName>{userName}</StUserName>
           <div css={{ display: 'flex', justifyContent: 'center', gap: '0.4rem' }}>
             <i>{isLike ? <IcLikeFill onClick={handleLike} /> : <IcLike onClick={handleLike} />}</i>
@@ -85,7 +85,7 @@ const StCategory = styled.p`
   ${({ theme }) => theme.fonts.caption_10_medium};
 `;
 
-const Img = styled.img<{ isCurrent: boolean }>`
+const StImg = styled.img<{ isCurrent: boolean }>`
   width: 4rem;
   height: 4rem;
   background-color: '#ccc';

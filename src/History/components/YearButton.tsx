@@ -18,7 +18,7 @@ const YearButton = ({ year, count, onSelectYear, isActive, isDisabled }: IYearBt
       disabled={isDisabled}
     >
       {isActive && <CheckIcon />}
-      {count === 0 ? year : `${year}(${count})`}
+      {count === 0 ? `${year}(${0})` : `${year}(${count})`}
     </StYearBtn>
   );
 };

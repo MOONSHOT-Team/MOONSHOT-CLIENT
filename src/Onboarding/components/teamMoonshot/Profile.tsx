@@ -11,8 +11,8 @@ const Profile = ({ src, crewName, crewRole }: IProfileProps) => {
   return (
     <figure css={figure}>
       <img css={imgMarginBottom} src={src} alt="team-moonshot-profile" width={135} height={180} />
-      <Name>{crewName}</Name>
-      <Role>{crewRole}</Role>
+      <StName>{crewName}</StName>
+      <StRole>{crewRole}</StRole>
     </figure>
   );
 };
@@ -28,13 +28,13 @@ const imgMarginBottom = css`
   margin-bottom: 0.8rem;
 `;
 
-const Name = styled.figcaption`
+const StName = styled.figcaption`
   color: ${({ theme }) => theme.colors.gray_100};
 
   ${({ theme }) => theme.fonts.btn_14_medium};
 `;
 
-const Role = styled.figcaption`
+const StRole = styled.figcaption`
   color: ${({ theme }) => theme.colors.gray_100};
 
   ${({ theme }) => theme.fonts.caption_9_regular};

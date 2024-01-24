@@ -30,7 +30,7 @@ const KrCheckIn = ({
     setIsActive(e.target.value);
   };
   return (
-    <KrCheckInContainer>
+    <StKrCheckInContainer>
       <div css={checkRadioContainerStyles}>
         <StRadioLabel htmlFor="krCheckInput">
           <StRadioInput
@@ -72,13 +72,13 @@ const KrCheckIn = ({
           objId={objId}
         />
       )}
-    </KrCheckInContainer>
+    </StKrCheckInContainer>
   );
 };
 
 export default KrCheckIn;
 
-const KrCheckInContainer = styled.section`
+const StKrCheckInContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -106,15 +106,17 @@ const StRadioLabel = styled.label`
 const StRadioInput = styled.input`
   display: none;
 `;
+
 const StRadioSpan = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${({ theme }) => theme.fonts.body_12_medium};
-
   width: 100%;
   height: 100%;
   border-bottom: 2px solid ${({ theme }) => theme.colors.transparent_white};
+
+  ${({ theme }) => theme.fonts.body_12_medium};
+
   ${StRadioInput}:checked + & {
     color: ${({ theme }) => theme.colors.sub_mint};
     border-bottom: 2px solid ${({ theme }) => theme.colors.sub_mint};

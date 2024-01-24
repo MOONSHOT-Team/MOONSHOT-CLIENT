@@ -1,6 +1,6 @@
 import Error from '@components/Error';
 import MainLayout from '@components/Layout/MainLayout';
-import Loading from '@components/Lodaing';
+import Loading from '@components/Loading';
 import { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -82,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: 'loading',
         element: <Loading />,
+      },
+      {
+        path: 'error',
+        element: <Error />,
       },
     ],
   },

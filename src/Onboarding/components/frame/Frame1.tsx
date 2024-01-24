@@ -26,21 +26,21 @@ const Frame1 = () => {
   return (
     <section css={section}>
       <div css={imgSlide} />
-      <RollingTextBox>
+      <StRollingTextBox>
         {TEXT_ROLLING.filter((_, idx) => idx === textIdx).map((text) => (
           <p css={textRolling} key={text}>
             {text}
           </p>
         ))}
         {/* <p css={textRolling}>{TEXT_ROLLING[textIdx]}</p> */}
-      </RollingTextBox>
-      <MainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</MainText>
-      <CtaLink to="/dashboard" className="tally-link-button">
+      </StRollingTextBox>
+      <StMainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</StMainText>
+      <StCtaLink to="https://tally.so/r/n0Ol0N" target="_blank" className="tally-link-button">
         서비스 시작하기
-      </CtaLink>
+      </StCtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />
-        <LeftLateImgPopUp
+        <StLeftLateImgPopUp
           fromX={17.7}
           fromY={0}
           toX={17.7}
@@ -51,8 +51,8 @@ const Frame1 = () => {
           width={262}
           height={235}
         />
-        <DashboardContainer>
-          <ImgDashboardPopUp
+        <StDashboardContainer>
+          <StImgDashboardPopUp
             fromY={20}
             toY={0}
             src={imgFrame1MainDashboard}
@@ -60,8 +60,8 @@ const Frame1 = () => {
             width={996}
             height={560}
           />
-        </DashboardContainer>
-        <RightLateImgPopUp
+        </StDashboardContainer>
+        <StRightLateImgPopUp
           fromX={-18.7}
           fromY={39}
           toX={-18.7}
@@ -163,7 +163,7 @@ const fixedBackground = css`
   transform: translateX(-50%);
 `;
 
-const RollingTextBox = styled.div`
+const StRollingTextBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,7 +186,7 @@ const RollingTextBox = styled.div`
   border-radius: 24px;
 `;
 
-const MainText = styled.h1`
+const StMainText = styled.h1`
   margin-bottom: 4rem;
   font-size: 5.2rem;
   font-weight: 700;
@@ -196,7 +196,7 @@ const MainText = styled.h1`
   white-space: pre-line;
 `;
 
-const CtaLink = styled(Link)`
+const StCtaLink = styled(Link)`
   z-index: 2;
   display: flex;
   align-items: center;
@@ -230,7 +230,7 @@ const animatedGradient = keyframes`
   }
 `;
 
-const DashboardContainer = styled.div`
+const StDashboardContainer = styled.div`
   position: relative;
   z-index: 2;
   width: 99.6rem;
@@ -260,16 +260,16 @@ const DashboardContainer = styled.div`
   }
 `;
 
-const ImgDashboardPopUp = styled(ImgPopUp)`
+const StImgDashboardPopUp = styled(ImgPopUp)`
   border-radius: 12px;
   animation: ${popUp(0, 20, 0, 0)} 0.1s ease-out;
 `;
 
-const LeftLateImgPopUp = styled(ImgPopUp)`
+const StLeftLateImgPopUp = styled(ImgPopUp)`
   opacity: 0;
 `;
 
-const RightLateImgPopUp = styled(ImgPopUp)`
+const StRightLateImgPopUp = styled(ImgPopUp)`
   z-index: 3;
   opacity: 0;
 `;

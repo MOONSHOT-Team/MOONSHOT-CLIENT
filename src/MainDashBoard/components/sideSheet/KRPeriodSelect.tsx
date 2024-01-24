@@ -3,6 +3,7 @@ import { ConfigProvider, DatePicker } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mutate } from 'swr';
 
 import { patchCheckIn } from '../../apis/fetcher';
@@ -23,6 +24,7 @@ const KRPeriodSelect = ({
   expireAt: string;
 }) => {
   const [period, setPeriod] = useState([startAt, expireAt]);
+  const navigate = useNavigate();
 
   const handleKrPeriodChange = async (
     _values: [Dayjs | null, Dayjs | null] | null,
@@ -37,8 +39,8 @@ const KRPeriodSelect = ({
     try {
       await patchCheckIn('/v1/key-result', data);
       await mutate(`/v1/key-result/${keyResultId}`);
-    } catch (err) {
-      console.error(err);
+    } catch {
+      navigate('/error');
     }
   };
 
@@ -52,7 +54,7 @@ const KRPeriodSelect = ({
   };
 
   return (
-    <KRPeriodContainer>
+    <StKRPeriodContainer>
       <ConfigProvider
         theme={{
           token: {
@@ -78,13 +80,13 @@ const KRPeriodSelect = ({
           disabledDate={disabledDate}
         />
       </ConfigProvider>
-    </KRPeriodContainer>
+    </StKRPeriodContainer>
   );
 };
 
 export default KRPeriodSelect;
 
-const KRPeriodContainer = styled.div`
+const StKRPeriodContainer = styled.div`
   * {
     color: ${({ theme }) => theme.colors.gray_000};
     background-color: ${({ theme }) => theme.colors.gray_600};

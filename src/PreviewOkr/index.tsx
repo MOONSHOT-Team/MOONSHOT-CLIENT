@@ -85,6 +85,7 @@ const PreviewOkr = () => {
 
     const finalOkrInfo: IFinalOkrListInfoTypes = {
       ...objInfo,
+      objTitle: previewObjValue,
       objStartAt: objStartAt.split('. ').join('-'),
       objExpireAt: objExpireAt.split('. ').join('-'),
       krList: [
@@ -114,14 +115,14 @@ const PreviewOkr = () => {
 
     try {
       const res = await postOkrInfo('/v1/objective', finalOkrInfo);
-      console.log(res);
+      if (res.data.status.toString().startsWith('40')) alert('OKR 생성에 실패했습니다');
       if (res) navigate('/dashboard');
-    } catch (err) {
+    } catch {
       navigate('/error');
     }
   };
 
-  const handlechangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPreviewObjValue(e.target.value);
   };
 
@@ -143,7 +144,7 @@ const PreviewOkr = () => {
             ObjNode={() => (
               <PreviewObjNode
                 objValue={previewObjValue}
-                handleChangeObjValue={handlechangeObjTextArea}
+                handleChangeObjValue={handleChangeObjTextArea}
               />
             )}
             keyResultList={krListInfo}

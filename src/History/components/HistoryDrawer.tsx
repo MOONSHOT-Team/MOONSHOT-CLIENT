@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { THEME } from '../constants/theme';
+import { HISTORY_THEME } from '../constants/HISTORY_THEME';
 import { IObjectiveDataProps } from '../type/okrTypes';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
@@ -34,12 +34,14 @@ const HistoryDrawer = ({
     });
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
-    <HistoryAside>
+    <StHistoryAside>
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
-          {THEME?.map(({ category }) => {
+          {HISTORY_THEME?.map(({ category }) => {
             const isDisabled = selectedYear
               ? !fixedCategories?.includes(category) || !categories?.includes(category)
               : !fixedCategories?.includes(category);
@@ -59,6 +61,16 @@ const HistoryDrawer = ({
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
+          {(!fixedYears || !fixedYears.some((item) => item.year === currentYear)) && (
+            <YearButton
+              key={0}
+              year={currentYear}
+              count={0}
+              onSelectYear={() => handleSelectYear(0)}
+              isActive={false}
+              isDisabled={selectedTheme ? !years?.some((item) => item.year === currentYear) : false}
+            />
+          )}
           {fixedYears?.map(({ year, count }) => {
             const isDisabled = selectedTheme ? !years?.some((item) => item.year === year) : false;
             return (
@@ -74,13 +86,13 @@ const HistoryDrawer = ({
           })}
         </ul>
       </article>
-    </HistoryAside>
+    </StHistoryAside>
   );
 };
 
 export default HistoryDrawer;
 
-const HistoryAside = styled.aside`
+const StHistoryAside = styled.aside`
   position: fixed;
   top: 7.6rem;
   left: 0;

@@ -2,34 +2,36 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { CloseDropDownIcon, DropDownIcon } from '../../assets/icons';
+import { DropDownIcon } from '../../assets/icons';
 import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
 import HistoryProgressBar from '../HistoryProgressBar';
 import HistoryListDetails from './HistoryListDetails';
 import KeyResultList from './KeyResultList';
 import TaskList from './TaskList';
 
-const HistoryList: React.FC<IObjective> = ({
+const HistoryList = ({
   objId,
   title,
   objCategory,
   progress,
   objPeriod,
+  isLast,
   krList,
-}) => {
-  const [isVisable, setIsVisable] = useState<number | null>(null);
+}: IObjective) => {
+  const [isVisible, setIsVisible] = useState<number | null>(null);
   const handleObjectiveClick = (objId: number) => {
-    setIsVisable((previousObjId) => (previousObjId === objId ? null : objId));
+    setIsVisible((previousObjId) => (previousObjId === objId ? null : objId));
   };
+
   return (
     <>
-      <ul css={historyListMarginBottom}>
+      <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer
-          visibility={isVisable === objId ? 'true' : 'false'}
+          visibility={isVisible === objId ? 'true' : 'false'}
           onClick={() => handleObjectiveClick(objId)}
         >
           <StObjectiveWrapper>
-            {isVisable === objId ? <CloseDropDownIcon /> : <DropDownIcon />}
+            <StToggleIcon isVisible={isVisible === objId} />
             <StObjectiveCategory>{objCategory}</StObjectiveCategory>
             <StObjectTitle>{title}</StObjectTitle>
           </StObjectiveWrapper>
@@ -39,7 +41,7 @@ const HistoryList: React.FC<IObjective> = ({
           </div>
         </StObjectiveContainer>
 
-        <HistoryListDetails visibility={isVisable === objId}>
+        <HistoryListDetails visibility={isVisible === objId}>
           {krList.map(({ krId, krIdx, krTitle, krProgress, taskList }: IKeyResult) => (
             <ul css={KrTaskLayout} key={`${krId}+${krTitle}`}>
               <KeyResultList krIdx={krIdx} krProgress={krProgress} krTitle={krTitle} />
@@ -57,16 +59,20 @@ const HistoryList: React.FC<IObjective> = ({
             </ul>
           ))}
         </HistoryListDetails>
-      </ul>
+      </StHistoryListWrapperUl>
     </>
   );
 };
 
 export default HistoryList;
 
-const historyListMarginBottom = css`
+const StHistoryListWrapperUl = styled.ul<{ $isLast: boolean | undefined }>`
   &:not(:last-child) {
     margin-bottom: 1.6rem;
+  }
+
+  &:last-child > li {
+    margin-bottom: ${({ $isLast }) => $isLast && '0'};
   }
 `;
 
@@ -97,6 +103,11 @@ const StObjectiveWrapper = styled.div`
   width: 52.8rem;
 `;
 
+const StToggleIcon = styled(DropDownIcon)<{ isVisible: boolean }>`
+  transition: all 0.5s ease;
+  transform: ${({ isVisible }) => (isVisible ? 'rotate(-180deg)' : '')};
+`;
+
 const StObjectiveCategory = styled.p`
   padding: 8px 10px;
   ${({ theme }) => theme.fonts.btn_11_medium};
@@ -124,9 +135,12 @@ const KrTaskLayout = css`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  width: 100%;
 `;
 
 const TaskLayout = css`
-  display: flex;
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.9rem;
 `;

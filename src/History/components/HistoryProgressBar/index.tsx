@@ -16,7 +16,7 @@ const HistoryProgressBar = ({ currentProgress, maximumProgress = 100 }: Progress
   return (
     <StProgressBarContainer isComplete={percentValue}>
       <StProgressBarWrapper>
-        <Progress isComplete={percentValue} value={currentProgress} max={maximumProgress} />
+        <StProgress isComplete={percentValue} value={currentProgress} max={maximumProgress} />
         <StMarker value={leftValue} />
       </StProgressBarWrapper>
 
@@ -30,7 +30,7 @@ export default HistoryProgressBar;
 const StProgressBarContainer = styled.div<{ isComplete: number }>`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 1.6rem;
   width: 29.8rem;
   color: ${({ theme, isComplete }) =>
     isComplete < 40
@@ -46,7 +46,7 @@ const StProgressBarWrapper = styled.div`
   align-items: center;
 `;
 
-const Progress = styled('progress')<{ isComplete: number }>`
+const StProgress = styled.progress<{ isComplete: number }>`
   width: 20rem;
   height: 0.4rem;
   color: ${({ theme }) => theme.colors.gray_450};

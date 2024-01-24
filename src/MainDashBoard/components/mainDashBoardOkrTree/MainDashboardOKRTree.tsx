@@ -3,14 +3,14 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { imgNoneOkr } from '../../assets/images';
-import { IMainData } from '../../type/MainDashboardDataTypes';
+import { IMainData } from '../../type/mainDashboardDataType';
 import { MainDashKrNodes } from './MainDashKrNodes';
 import MainDashObjectNode from './MainDashObjectNode';
 import { MainDashTaskNodes } from './MainDashTaskNodes';
 
 interface IMainDashboardOKRTreeProps {
-  onShowSideSheet: (keyResultId: number) => void;
   currentOkrData: IMainData;
+  onShowSideSheet: (keyResultId: number) => void;
 }
 
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {

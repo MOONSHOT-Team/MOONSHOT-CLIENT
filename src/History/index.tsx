@@ -1,4 +1,5 @@
 import instance from '@apis/instance';
+import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
@@ -14,51 +15,15 @@ const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
     null,
   );
-
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-
   const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
-
   const [categories, setCategories] = useState<string[]>([]);
-
   const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
-
   const [fixedCategories, setFixedCategories] = useState<string[]>([]);
 
   const { data: OKRHistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
-
-  useEffect(() => {
-    if (!isLoading && OKRHistoryData) {
-      setHistoryData(OKRHistoryData?.data.data);
-      setFixedYears(OKRHistoryData?.data.data.years || []);
-      setFixedCategories(OKRHistoryData?.data.data.categories || []);
-    }
-  }, [OKRHistoryData, isLoading]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await instance.get('/v1/objective/history', {
-          params: {
-            year: selectedYear,
-            category: selectedTheme,
-            criteria: selectedFilter,
-          },
-        });
-        if (response) setYears(response.data.data.years || []);
-        setCategories(response.data.data.categories);
-        setHistoryData(response.data.data);
-      } catch (error) {
-        console.error('데이터를 가져오는 중 오류 발생:', error);
-      }
-    };
-
-    fetchData();
-  }, [selectedTheme, selectedYear, selectedFilter]);
 
   const handleThemeSelect = async (selectedTheme: string) => {
     setSelectedTheme(selectedTheme);
@@ -72,14 +37,36 @@ const History = () => {
     setSelectedYear(selectedYear);
   };
 
-  if (!OKRHistoryData) return <>데이터를 가져오는 중입니다...</>;
+  useEffect(() => {
+    if (!isLoading && OKRHistoryData) {
+      setHistoryData(OKRHistoryData?.data.data);
+      setFixedYears(OKRHistoryData?.data.data.years || []);
+      setFixedCategories(OKRHistoryData?.data.data.categories || []);
+    }
+  }, [OKRHistoryData, isLoading]);
 
-  const listOrderComponent = OKRHistoryData?.data?.data?.groups &&
-    OKRHistoryData.data.data.groups.length > 0 &&
-    !selectedYear &&
-    !selectedTheme &&
-    !selectedFilter && <ListOrder onFilterSelection={handleFilterSelection} />;
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await instance.get('/v1/objective/history', {
+        params: {
+          year: selectedYear,
+          category: selectedTheme,
+          criteria: selectedFilter,
+        },
+      });
+      if (response) setYears(response.data.data.years || []);
+      setCategories(response.data.data.categories);
+      setHistoryData(response.data.data);
+    };
 
+    fetchData();
+  }, [selectedTheme, selectedYear, selectedFilter]);
+
+  if (!OKRHistoryData) return <Loading />;
+
+  const listOrderComponent = OKRHistoryData.data.data.groups.length !== 0 && (
+    <ListOrder onFilterSelection={handleFilterSelection} />
+  );
   return (
     <section css={historyUi}>
       <HistoryDrawer
@@ -97,7 +84,7 @@ const History = () => {
         {(selectedTheme || selectedYear || selectedFilter
           ? historyData?.groups
           : OKRHistoryData?.data?.data?.groups
-        )?.map(({ year, objList }: Group) => (
+        )?.map(({ year, objList }: Group, idx: number) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
             <StListOrderContainer>
               <StEachYear>{year}년</StEachYear>
@@ -114,6 +101,7 @@ const History = () => {
                       progress={progress}
                       objPeriod={objPeriod}
                       krList={krList}
+                      isLast={idx === objList.length - 1}
                     />
                   ),
                 )}
@@ -139,10 +127,6 @@ const DropDownSection = css`
   padding: 3rem 3.6rem 3rem 4rem;
   margin-left: 23.2rem;
   overflow-y: auto;
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #444;
-  }
 `;
 
 const listMarginBottom = css`

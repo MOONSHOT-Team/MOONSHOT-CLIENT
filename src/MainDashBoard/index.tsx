@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import Loading from '@components/Lodaing';
+import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import useModal from '@hooks/useModal';
 import { useEffect, useState } from 'react';
@@ -28,7 +28,7 @@ const MainDashBoard = () => {
 
   const [showState, setShowState] = useState(DASHBOARD_SHOW_STATE[0]);
 
-  // Step 0 - SELECT METHOD 관련 State
+  // step 0 - SELECT METHOD 관련 State
   const [selectedMethod, setSelectedMethod] = useState('');
 
   //동적 파라미터 url
@@ -38,7 +38,7 @@ const MainDashBoard = () => {
   if (treeData?.tree?.objIsExpired) {
     handleShowModal();
   }
-  // stpe 0 - SELECT METHOD 관련 handler
+  // step 0 - SELECT METHOD 관련 handler
   const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedMethod(e.currentTarget.id);
     navigate('/add-okr', { state: { selectedMethod: e.currentTarget.id } });
@@ -55,7 +55,7 @@ const MainDashBoard = () => {
   };
 
   const renderMainState = () => {
-    if (isLoading) return <Loading />;
+    if (isLoading) return <Loading isDrawer={true} />;
     switch (showState) {
       // 일반 대시보드 화면 = okr Tree 있는 화면 or Empty view
       case DASHBOARD_SHOW_STATE[0]:
@@ -68,6 +68,7 @@ const MainDashBoard = () => {
                 handleClickAddObjcBtn={handleClickAddObjcBtn}
                 objListSize={okrTreeData?.objListSize}
                 objId={okrTreeData?.objId}
+                showState={showState}
               />
               <MainDashboardOKRTree
                 onShowSideSheet={handleShowSideSheet}
@@ -97,6 +98,7 @@ const MainDashBoard = () => {
               handleChangeState={handleChangeState}
               objListSize={okrTreeData?.objListSize}
               objId={okrTreeData?.objId}
+              showState={showState}
             />
             <SelectMethod
               selectedMethod={selectedMethod}
@@ -108,7 +110,7 @@ const MainDashBoard = () => {
         return (
           <>
             {isLoading ? (
-              <Loading />
+              <Loading isDrawer={true} />
             ) : (
               <CelebrateMotion
                 handleChangeState={handleChangeState}

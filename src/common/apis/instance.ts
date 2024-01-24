@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import getNewAccessToken from './getNewAccessToken';
+
 export const signInInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
@@ -26,11 +28,31 @@ instance.interceptors.request.use(
       return config;
     }
 
-    config.headers['Authorization'] = `${ACCESS_TOKEN}`;
+    config.headers.Authorization = ACCESS_TOKEN;
 
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  },
+);
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const isRefreshSuccessful = await getNewAccessToken();
+
+      if (isRefreshSuccessful) {
+        return instance(originalRequest);
+      }
+    }
+
     return Promise.reject(error);
   },
 );

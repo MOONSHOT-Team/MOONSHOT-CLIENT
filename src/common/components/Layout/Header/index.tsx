@@ -1,6 +1,6 @@
 import instance from '@apis/instance';
 import { IcLogo } from '@assets/icons';
-import { NAVIGATIONS } from '@constants/NavigationLink';
+import { NAVIGATION_LIST } from '@constants/NAVIGATION_LIST';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const Header = () => {
         <IcLogo />
       </Link>
       <StNavigationBar>
-        {NAVIGATIONS.map(({ id, text, path }) => (
+        {NAVIGATION_LIST.map(({ id, text, path }) => (
           <StNavigation key={`${id}-${text}-${path}`}>
             <StNavStyle to={path}>{text}</StNavStyle>
           </StNavigation>

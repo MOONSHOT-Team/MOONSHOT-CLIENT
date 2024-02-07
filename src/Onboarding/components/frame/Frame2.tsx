@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import imgFrame2TreeGraph from '../../assets/frame/imgFrame2TreeGraph.png';
+import webpFrame2TreeGraph from '../../assets/frame/webpFrame2TreeGraph.webp';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -18,14 +19,17 @@ const Frame2 = () => {
         description="파편화된 할 일들을 단 3개의 우선순위로 정렬시켜 핵심 지표를 달성하는데 집중하세요"
       />
       {active && (
-        <ImgPopUp
-          fromY={20}
-          toY={0}
-          src={imgFrame2TreeGraph}
-          alt="tree-img"
-          width={986}
-          height={657}
-        />
+        <picture>
+          <source srcSet={webpFrame2TreeGraph} type="image/webp" />
+          <ImgPopUp
+            fromY={20}
+            toY={0}
+            src={imgFrame2TreeGraph}
+            alt="tree-img"
+            width={986}
+            height={657}
+          />
+        </picture>
       )}
     </section>
   );

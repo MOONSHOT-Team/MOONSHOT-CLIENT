@@ -5,12 +5,14 @@ import imgFrame3GradientBackground from '../../assets/frame/imgFrame3GradientBac
 import imgFrame3Question1 from '../../assets/frame/imgFrame3Question1.png';
 import imgFrame3Question2 from '../../assets/frame/imgFrame3Question2.png';
 import imgFrame3Question3 from '../../assets/frame/imgFrame3Question3.png';
+import webpFrame3GradientBackground from '../../assets/frame/webpFrame3GradientBackground.webp';
 import webpFrame3Question1 from '../../assets/frame/webpFrame3Question1.webp';
 import webpFrame3Question2 from '../../assets/frame/webpFrame3Question2.webp';
 import webpFrame3Question3 from '../../assets/frame/webpFrame3Question3.webp';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
+import isWebPSupported from '../../utils/isWebPSupported';
 import TextField from './TextField';
 
 const Frame3 = () => {
@@ -63,7 +65,12 @@ const Frame3 = () => {
           </picture>
         </div>
       )}
-      <img css={background} src={imgFrame3GradientBackground} alt="123" height={377} />
+      <img
+        css={background}
+        src={isWebPSupported() ? webpFrame3GradientBackground : imgFrame3GradientBackground}
+        alt="gradient-background"
+        height={377}
+      />
     </section>
   );
 };

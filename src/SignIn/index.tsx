@@ -1,7 +1,6 @@
 import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 
 import imgGoogleLogin from './assets/images/imgGoogleLogin.png';
 import imgKakaoLogin from './assets/images/imgKakaoLogin.png';
@@ -14,8 +13,12 @@ const SignIn = () => {
 
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
-  const handleLogin = () => {
+  const handleKakaoLoginButton = () => {
     window.location.href = kakaoURL;
+  };
+
+  const handleGoogleLoginButton = () => {
+    window.open(`${import.meta.env.VITE_BASE_URL}/v1/user/googleLogin`);
   };
 
   return (
@@ -27,12 +30,12 @@ const SignIn = () => {
         <StSubText>
           유난한 도전을 위한 체계적인 목표 관리와 성과 트래킹, 지금 바로 문샷에서 시작해보세요
         </StSubText>
-        <button type="button" onClick={handleLogin}>
+        <button type="button" onClick={handleKakaoLoginButton}>
           <img src={imgKakaoLogin} alt="kakao-login-button" width={300} height={45} />
         </button>
-        <Link to={`${import.meta.env.VITE_BASE_URL}/v1/user/googleLogin`}>
+        <button type="button" onClick={handleGoogleLoginButton}>
           <img src={imgGoogleLogin} alt="google-login-button" width={300} height={45} />
-        </Link>
+        </button>
       </section>
       <div css={emptyContainer} />
       <section css={brandingSection} />

@@ -25,7 +25,7 @@ const Frame4 = () => {
       />
       {active && (
         <div css={imgContainer}>
-          <picture>
+          <picture css={zIndex}>
             <source srcSet={webpFrame4SideSheetLeft} type="image/webp" />
             <StLateImgPopUp
               fromX={31.7}
@@ -78,6 +78,10 @@ const section = css`
   padding-top: 10rem;
 
   ${sectionStyle}
+`;
+
+const zIndex = css`
+  z-index: 3;
 `;
 
 const imgContainer = css`

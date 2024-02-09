@@ -72,7 +72,7 @@ const Frame1 = () => {
             />
           </picture>
         </StDashboardContainer>
-        <picture>
+        <picture css={zIndex}>
           <source srcSet={webpFrame1SideSheetRight} type="image/webp" />
           <StRightLateImgPopUp
             fromX={-18.7}
@@ -99,6 +99,10 @@ const section = css`
   padding-top: 6.4rem;
 
   ${sectionStyle}
+`;
+
+const zIndex = css`
+  z-index: 3;
 `;
 
 const slideIn = keyframes`
@@ -284,6 +288,5 @@ const StLeftLateImgPopUp = styled(ImgPopUp)`
 `;
 
 const StRightLateImgPopUp = styled(ImgPopUp)`
-  z-index: 3;
   opacity: 0;
 `;

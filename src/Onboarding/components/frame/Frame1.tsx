@@ -8,15 +8,12 @@ import imgFrame1MainDashboard from '../../assets/frame/imgFrame1MainDashboard.pn
 import imgFrame1MovingBg from '../../assets/frame/imgFrame1MovingBg.png';
 import imgFrame1ObjectiveItem from '../../assets/frame/imgFrame1ObjectiveItem.png';
 import imgFrame1SideSheetRight from '../../assets/frame/imgFrame1SideSheetRight.png';
-import webpFrame1Background from '../../assets/frame/webpFrame1Background.webp';
 import webpFrame1MainDashboard from '../../assets/frame/webpFrame1MainDashboard.webp';
-import webpFrame1MovingBg from '../../assets/frame/webpFrame1MovingBg.webp';
 import webpFrame1ObjectiveItem from '../../assets/frame/webpFrame1ObjectiveItem.webp';
 import webpFrame1SideSheetRight from '../../assets/frame/webpFrame1SideSheetRight.webp';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
-import isWebPSupported from '../../utils/isWebPSupported';
 
 const Frame1 = () => {
   const [textIdx, setTextIdx] = useState(0);
@@ -119,7 +116,7 @@ const imgSlide = css`
   top: 27rem;
   width: 100vw;
   height: 92.5rem;
-  background-image: url(${isWebPSupported() ? webpFrame1MovingBg : imgFrame1MovingBg});
+  background-image: url(${imgFrame1MovingBg});
 
   /* stylelint-disable property-no-vendor-prefix */
   background-size: 194rem 92.5rem;
@@ -176,7 +173,7 @@ const fixedBackground = css`
   z-index: -1;
   width: 100vw;
   height: 120rem;
-  background-image: url(${isWebPSupported() ? webpFrame1Background : imgFrame1Background});
+  background-image: url(${imgFrame1Background});
   background-size: 100vw 120rem;
   transform: translateX(-50%);
 `;

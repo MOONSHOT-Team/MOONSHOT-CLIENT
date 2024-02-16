@@ -70,6 +70,7 @@ const Frame3 = () => {
         src={isWebPSupported() ? webpFrame3GradientBackground : imgFrame3GradientBackground}
         alt="gradient-background"
         height={377}
+        loading="lazy"
       />
     </section>
   );

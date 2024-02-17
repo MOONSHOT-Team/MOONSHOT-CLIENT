@@ -1,6 +1,3 @@
-import Error from '@components/Error';
-import MainLayout from '@components/Layout/MainLayout';
-import Loading from '@components/Loading';
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -10,9 +7,12 @@ import OnboardingLayout from './Onboarding/components/layout/OnboardingLayout';
 const AddOkr = lazy(() => import('./AddOkr'));
 const AuthGoogle = lazy(() => import('./Auth/AuthGoogle'));
 const AuthKakao = lazy(() => import('./Auth/AuthKakao'));
+const Error = lazy(() => import('@components/Error'));
 const Hyeonjin = lazy(() => import('./esterEgg/components/Hyeonjin'));
 const History = lazy(() => import('./History'));
+const Loading = lazy(() => import('@components/Loading'));
 const MainDashBoard = lazy(() => import('./MainDashBoard'));
+const MainLayout = lazy(() => import('@components/Layout/MainLayout'));
 const My = lazy(() => import('./My'));
 const Nickname = lazy(() => import('./Nickname'));
 const TeamMoonshot = lazy(() => import('./Onboarding/components/teamMoonshot/TeamMoonshot'));

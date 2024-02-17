@@ -80,7 +80,7 @@ const Frame1 = () => {
             src={imgFrame1SideSheetRight}
             alt="sidesheet-img"
             width={272}
-            height={570}
+            height={598}
           />
         </picture>
       </div>
@@ -285,5 +285,6 @@ const StLeftLateImgPopUp = styled(ImgPopUp)`
 `;
 
 const StRightLateImgPopUp = styled(ImgPopUp)`
+  border-radius: 8px;
   opacity: 0;
 `;

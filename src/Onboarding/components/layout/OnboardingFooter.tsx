@@ -7,7 +7,14 @@ import imgLogoForFooter from '../../assets/imgLogoForFooter.png';
 const OnboardingFooter = () => {
   return (
     <StFooter>
-      <img css={logo} src={imgLogoForFooter} alt="footer-logo" width={110} height={25} />
+      <img
+        css={logo}
+        src={imgLogoForFooter}
+        alt="footer-logo"
+        width={110}
+        height={25}
+        loading="lazy"
+      />
       <StFooterText to="/team-moonshot">TEAM moonshot</StFooterText>
       <StFooterText to="#">개인정보 처리방침</StFooterText>
       <StCopyRightText>Copyright 2024. TEAM moonshot All rights reserved.</StCopyRightText>

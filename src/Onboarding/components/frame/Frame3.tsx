@@ -5,9 +5,14 @@ import imgFrame3GradientBackground from '../../assets/frame/imgFrame3GradientBac
 import imgFrame3Question1 from '../../assets/frame/imgFrame3Question1.png';
 import imgFrame3Question2 from '../../assets/frame/imgFrame3Question2.png';
 import imgFrame3Question3 from '../../assets/frame/imgFrame3Question3.png';
+import webpFrame3GradientBackground from '../../assets/frame/webpFrame3GradientBackground.webp';
+import webpFrame3Question1 from '../../assets/frame/webpFrame3Question1.webp';
+import webpFrame3Question2 from '../../assets/frame/webpFrame3Question2.webp';
+import webpFrame3Question3 from '../../assets/frame/webpFrame3Question3.webp';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
+import isWebPSupported from '../../utils/isWebPSupported';
 import TextField from './TextField';
 
 const Frame3 = () => {
@@ -23,35 +28,50 @@ const Frame3 = () => {
       />
       {active && (
         <div css={imgContainer}>
-          <StLateImgPopUp
-            fromY={26}
-            toY={6}
-            delay={1}
-            src={imgFrame3Question1}
-            alt="question-img-1"
-            width={464}
-            height={520}
-          />
-          <ImgPopUp
-            fromY={20}
-            toY={0}
-            src={imgFrame3Question2}
-            alt="question-img-2"
-            width={464}
-            height={520}
-          />
-          <StLateImgPopUp
-            fromY={26}
-            toY={6}
-            delay={2}
-            src={imgFrame3Question3}
-            alt="question-img-3"
-            width={464}
-            height={520}
-          />
+          <picture>
+            <source srcSet={webpFrame3Question1} type="image/webp" />
+            <StLateImgPopUp
+              fromY={26}
+              toY={6}
+              delay={1}
+              src={imgFrame3Question1}
+              alt="question-img-1"
+              width={464}
+              height={520}
+            />
+          </picture>
+          <picture>
+            <source srcSet={webpFrame3Question2} type="image/webp" />
+            <ImgPopUp
+              fromY={20}
+              toY={0}
+              src={imgFrame3Question2}
+              alt="question-img-2"
+              width={464}
+              height={520}
+            />
+          </picture>
+          <picture>
+            <source srcSet={webpFrame3Question3} type="image/webp" />
+            <StLateImgPopUp
+              fromY={26}
+              toY={6}
+              delay={2}
+              src={imgFrame3Question3}
+              alt="question-img-3"
+              width={464}
+              height={520}
+            />
+          </picture>
         </div>
       )}
-      <img css={background} src={imgFrame3GradientBackground} alt="123" height={377} />
+      <img
+        css={background}
+        src={isWebPSupported() ? webpFrame3GradientBackground : imgFrame3GradientBackground}
+        alt="gradient-background"
+        height={377}
+        loading="lazy"
+      />
     </section>
   );
 };

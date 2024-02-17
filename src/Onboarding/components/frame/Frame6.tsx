@@ -1,6 +1,8 @@
 import { css, keyframes } from '@emotion/react';
 
-import imgFrame6MovingBackground from '../../assets/frame/imgFrame6MovingBackground.png';
+import imgFrame6MovingBg from '../../assets/frame/imgFrame6MovingBg.png';
+import webpFrame6MovingBg from '../../assets/frame/webpFrame6MovingBg.webp';
+import isWebPSupported from '../../utils/isWebPSupported';
 
 const Frame6 = () => {
   return (
@@ -33,7 +35,7 @@ const imgSlide = css`
   justify-content: center;
   width: 100vw;
   height: 8.4rem;
-  background-image: url(${imgFrame6MovingBackground});
+  background-image: url(${isWebPSupported() ? webpFrame6MovingBg : imgFrame6MovingBg});
 
   /* stylelint-disable property-no-vendor-prefix */
   background-size: 118.8rem 8.4rem;

@@ -1,4 +1,5 @@
 import imgLogo from '@assets/images/imgLogo.png';
+import webpLogo from '@assets/images/webpLogo.webp';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -8,7 +9,10 @@ const OnboardingHeader = () => {
   return (
     <StHeader>
       <Link to="/">
-        <img src={imgLogo} alt="logo-img" width={126} height={28} />
+        <picture>
+          <source srcSet={webpLogo} type="image/webp" />
+          <img src={imgLogo} alt="logo-img" width={126} height={28} />
+        </picture>
       </Link>
       <nav>
         <StNavItem>

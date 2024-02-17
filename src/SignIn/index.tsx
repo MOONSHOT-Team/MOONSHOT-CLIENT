@@ -18,7 +18,7 @@ const SignIn = () => {
   };
 
   const handleGoogleLoginButton = () => {
-    window.open(`${import.meta.env.VITE_BASE_URL}/v1/user/googleLogin`);
+    window.open(`${import.meta.env.VITE_BASE_URL}/v1/user/googleLogin`, '_self');
   };
 
   return (

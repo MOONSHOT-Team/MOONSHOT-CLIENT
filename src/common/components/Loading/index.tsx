@@ -23,7 +23,9 @@ const StLoadingContainer = styled.section<{ $isDrawer: boolean }>`
   justify-content: center;
   width: ${({ $isDrawer }) => ($isDrawer ? 'calc(100vw - 23.2rem)' : '100vw')};
   height: 100%;
+  margin-top: 50vh;
   margin-left: auto;
+  transform: translateY(-50%);
 `;
 
 const LoadingBox = css`

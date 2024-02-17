@@ -1,23 +1,24 @@
-import Error from '@components/Error';
-import MainLayout from '@components/Layout/MainLayout';
-import Loading from '@components/Loading';
-import { Suspense } from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-import AddOkr from './AddOkr';
-import AuthGoogle from './Auth/AuthGoogle';
-import AuthKakao from './Auth/AuthKakao';
-import Hyeonjin from './esterEgg/components/Hyeonjin';
-import History from './History';
-import MainDashBoard from './MainDashBoard';
-import My from './My';
-import Nickname from './Nickname';
 import Onboarding from './Onboarding';
 import OnboardingLayout from './Onboarding/components/layout/OnboardingLayout';
-import TeamMoonshot from './Onboarding/components/teamMoonshot/TeamMoonshot';
-import PreviewOkr from './PreviewOkr';
-import SignIn from './SignIn';
-import Social from './Social';
+
+const AddOkr = lazy(() => import('./AddOkr'));
+const AuthGoogle = lazy(() => import('./Auth/AuthGoogle'));
+const AuthKakao = lazy(() => import('./Auth/AuthKakao'));
+const Error = lazy(() => import('@components/Error'));
+const Hyeonjin = lazy(() => import('./esterEgg/components/Hyeonjin'));
+const History = lazy(() => import('./History'));
+const Loading = lazy(() => import('@components/Loading'));
+const MainDashBoard = lazy(() => import('./MainDashBoard'));
+const MainLayout = lazy(() => import('@components/Layout/MainLayout'));
+const My = lazy(() => import('./My'));
+const Nickname = lazy(() => import('./Nickname'));
+const TeamMoonshot = lazy(() => import('./Onboarding/components/teamMoonshot/TeamMoonshot'));
+const PreviewOkr = lazy(() => import('./PreviewOkr'));
+const SignIn = lazy(() => import('./SignIn'));
+const Social = lazy(() => import('./Social'));
 
 const router = createBrowserRouter([
   {
@@ -37,11 +38,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: (
-      <Suspense fallback={<Loading />}>
-        <MainLayout />
-      </Suspense>
-    ),
+    element: <MainLayout />,
     errorElement: <Error />,
     children: [
       {

@@ -1,5 +1,6 @@
 import instance from '@apis/instance';
 import imgWordmarkWhite from '@assets/images/imgWordmarkWhite.png';
+import webpWordmarkWhite from '@assets/images/webpWordmarkWhite.webp';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -32,7 +33,10 @@ const Nickname = () => {
   return (
     <section css={nicknameSection}>
       <h1 css={wordMark}>
-        <img src={imgWordmarkWhite} alt="work" width={257} height={68} />
+        <picture>
+          <source srcSet={webpWordmarkWhite} type="image/webp" />
+          <img src={imgWordmarkWhite} alt="work" width={257} height={68} />
+        </picture>
       </h1>
       <form css={formStyle} onSubmit={handleSubmit}>
         <StDescriptionText>문샷에서 사용할 닉네임을 설정해 주세요.</StDescriptionText>

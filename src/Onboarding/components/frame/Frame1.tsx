@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom';
 
 import imgFrame1Background from '../../assets/frame/imgFrame1Background.png';
 import imgFrame1MainDashboard from '../../assets/frame/imgFrame1MainDashboard.png';
-import imgFrame1MovingBackground from '../../assets/frame/imgFrame1MovingBackground.png';
+import imgFrame1MovingBg from '../../assets/frame/imgFrame1MovingBg.png';
 import imgFrame1ObjectiveItem from '../../assets/frame/imgFrame1ObjectiveItem.png';
 import imgFrame1SideSheetRight from '../../assets/frame/imgFrame1SideSheetRight.png';
+import webpFrame1MainDashboard from '../../assets/frame/webpFrame1MainDashboard.webp';
+import webpFrame1ObjectiveItem from '../../assets/frame/webpFrame1ObjectiveItem.webp';
+import webpFrame1SideSheetRight from '../../assets/frame/webpFrame1SideSheetRight.webp';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -39,38 +42,47 @@ const Frame1 = () => {
       </StCtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />
-        <StLeftLateImgPopUp
-          fromX={17.7}
-          fromY={0}
-          toX={17.7}
-          toY={-15.8}
-          delay={1}
-          src={imgFrame1ObjectiveItem}
-          alt="objective-img"
-          width={262}
-          height={235}
-        />
-        <StDashboardContainer>
-          <StImgDashboardPopUp
-            fromY={20}
-            toY={0}
-            src={imgFrame1MainDashboard}
-            alt="dashboard-img"
-            width={996}
-            height={560}
+        <picture>
+          <source srcSet={webpFrame1ObjectiveItem} type="image/webp" />
+          <StLeftLateImgPopUp
+            fromX={17.7}
+            fromY={0}
+            toX={17.7}
+            toY={-15.8}
+            delay={1}
+            src={imgFrame1ObjectiveItem}
+            alt="objective-img"
+            width={262}
+            height={235}
           />
+        </picture>
+        <StDashboardContainer>
+          <picture>
+            <source srcSet={webpFrame1MainDashboard} type="image/webp" />
+            <StImgDashboardPopUp
+              fromY={20}
+              toY={0}
+              src={imgFrame1MainDashboard}
+              alt="dashboard-img"
+              width={996}
+              height={560}
+            />
+          </picture>
         </StDashboardContainer>
-        <StRightLateImgPopUp
-          fromX={-18.7}
-          fromY={39}
-          toX={-18.7}
-          toY={19}
-          delay={1.5}
-          src={imgFrame1SideSheetRight}
-          alt="sidesheet-img"
-          width={272}
-          height={570}
-        />
+        <picture css={zIndex}>
+          <source srcSet={webpFrame1SideSheetRight} type="image/webp" />
+          <StRightLateImgPopUp
+            fromX={-18.7}
+            fromY={39}
+            toX={-18.7}
+            toY={19}
+            delay={1.5}
+            src={imgFrame1SideSheetRight}
+            alt="sidesheet-img"
+            width={272}
+            height={598}
+          />
+        </picture>
       </div>
     </section>
   );
@@ -84,6 +96,10 @@ const section = css`
   padding-top: 6.4rem;
 
   ${sectionStyle}
+`;
+
+const zIndex = css`
+  z-index: 3;
 `;
 
 const slideIn = keyframes`
@@ -100,7 +116,7 @@ const imgSlide = css`
   top: 27rem;
   width: 100vw;
   height: 92.5rem;
-  background-image: url(${imgFrame1MovingBackground});
+  background-image: url(${imgFrame1MovingBg});
 
   /* stylelint-disable property-no-vendor-prefix */
   background-size: 194rem 92.5rem;
@@ -269,6 +285,6 @@ const StLeftLateImgPopUp = styled(ImgPopUp)`
 `;
 
 const StRightLateImgPopUp = styled(ImgPopUp)`
-  z-index: 3;
+  border-radius: 8px;
   opacity: 0;
 `;

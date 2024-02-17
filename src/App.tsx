@@ -1,4 +1,6 @@
+import Loading from '@components/Loading';
 import { Global, ThemeProvider } from '@emotion/react';
+import { Suspense } from 'react';
 // import ReactGA from 'react-ga';
 import { RouterProvider } from 'react-router-dom';
 
@@ -13,7 +15,9 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={globalStyles} />
-      <RouterProvider router={router} />
+      <Suspense fallback={<Loading />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </ThemeProvider>
   );
 };

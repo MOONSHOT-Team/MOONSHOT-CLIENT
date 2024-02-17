@@ -1,7 +1,7 @@
 import Error from '@components/Error';
 import MainLayout from '@components/Layout/MainLayout';
 import Loading from '@components/Loading';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import Onboarding from './Onboarding';
@@ -23,11 +23,7 @@ const Social = lazy(() => import('./Social'));
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <Suspense fallback={<Loading />}>
-        <OnboardingLayout />
-      </Suspense>
-    ),
+    element: <OnboardingLayout />,
     errorElement: <Error />,
     children: [
       {
@@ -42,11 +38,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: (
-      <Suspense fallback={<Loading />}>
-        <MainLayout />
-      </Suspense>
-    ),
+    element: <MainLayout />,
     errorElement: <Error />,
     children: [
       {
@@ -110,11 +102,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/hyeonjin',
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Hyeonjin />
-      </Suspense>
-    ),
+    element: <Hyeonjin />,
   },
 ]);
 

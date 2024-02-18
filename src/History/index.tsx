@@ -91,7 +91,7 @@ const History = () => {
               <StEachYear>{year}년</StEachYear>
             </StListOrderContainer>
             <ul>
-              <li>
+              <li css={addGapBetweenObjective}>
                 {objList.map(
                   ({ objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
                     <HistoryList
@@ -134,6 +134,13 @@ const listMarginBottom = css`
   &:not(:last-child) {
     margin-bottom: 3.4rem;
   }
+`;
+
+const addGapBetweenObjective = css`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  justify-content: center;
 `;
 
 const StListOrderContainer = styled.div`

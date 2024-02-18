@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
 
 import { IcDropDown } from '../../assets/icons';
 import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
@@ -9,18 +9,29 @@ import HistoryListDetails from './HistoryListDetails';
 import KeyResultList from './KeyResultList';
 import TaskList from './TaskList';
 
-interface IHistoryItemProps {
+interface IShowKRType {
+  isShowKR: boolean;
+}
+
+interface IHistoryItemProps extends IShowKRType, ComponentProps<'div'> {
   category: string;
   objective: string;
   progress: number;
   period: string;
 }
 
-const HistoryItem = ({ category, objective, progress, period }: IHistoryItemProps) => {
+const HistoryItem = ({
+  category,
+  objective,
+  progress,
+  period,
+  isShowKR,
+  ...props
+}: IHistoryItemProps) => {
   return (
-    <StWrapper>
+    <StWrapper isShowKR={isShowKR} {...props}>
       <div css={historyItemContentLeft}>
-        <IcDropDown />
+        <StDropDownIcon isShowKR={isShowKR} />
         <StCategory>{category}</StCategory>
         <StObjective>{objective}</StObjective>
       </div>
@@ -46,7 +57,7 @@ const historyItemContentRight = css`
   width: 47.8rem;
 `;
 
-const StWrapper = styled.div`
+const StWrapper = styled.div<IShowKRType>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,7 +67,14 @@ const StWrapper = styled.div`
   padding: 0 2.4rem;
   cursor: pointer;
   background-color: ${({ theme }) => theme.colors.gray_500};
+  border: ${({ theme, isShowKR }) =>
+    isShowKR ? `1px solid ${theme.colors.gray_300}` : `1px solid ${theme.colors.gray_500}`};
   border-radius: 6px;
+`;
+
+const StDropDownIcon = styled(IcDropDown)<IShowKRType>`
+  transition: all 0.5s ease;
+  transform: ${({ isShowKR }) => (isShowKR ? 'rotate(-180deg)' : '')};
 `;
 
 const StCategory = styled.p`
@@ -94,9 +112,14 @@ const HistoryList = ({
   isLast,
   krList,
 }: IObjective) => {
+  const [isShowKR, setIsShowKR] = useState(false);
   const [isVisible, setIsVisible] = useState<number | null>(null);
   const handleObjectiveClick = (objId: number) => {
     setIsVisible((previousObjId) => (previousObjId === objId ? null : objId));
+  };
+
+  const handleShowKR = () => {
+    setIsShowKR((prev) => !prev);
   };
 
   return (
@@ -106,6 +129,8 @@ const HistoryList = ({
         objective="자기 개발하기"
         progress={50}
         period="2024. 02. 07 - 2024. 02. 20"
+        isShowKR={isShowKR}
+        onClick={handleShowKR}
       />
       <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer

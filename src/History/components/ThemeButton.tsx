@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { CheckIcon } from '../assets/icons';
+import { IcCheck } from '../assets/icons';
 
 interface IThemeBtnProps {
   name: string;
@@ -17,7 +17,7 @@ const ThemeButton = ({ name, onSelectTheme, isActive, isDisabled }: IThemeBtnPro
       disabled={isDisabled}
       isDisabled={isDisabled}
     >
-      {isActive && <CheckIcon />}
+      {isActive && <IcCheck />}
       {name}
     </StThemeBtn>
   );

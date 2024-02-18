@@ -67,6 +67,7 @@ const History = () => {
   const listOrderComponent = OKRHistoryData.data.data.groups.length !== 0 && (
     <ListOrder onFilterSelection={handleFilterSelection} />
   );
+
   return (
     <section css={historyUi}>
       <HistoryDrawer

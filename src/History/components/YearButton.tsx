@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { CheckIcon } from '../assets/icons';
+import { IcCheck } from '../assets/icons';
 
 interface IYearBtnProps {
   year: number;
@@ -17,7 +17,7 @@ const YearButton = ({ year, count, onSelectYear, isActive, isDisabled }: IYearBt
       isDisabled={isDisabled}
       disabled={isDisabled}
     >
-      {isActive && <CheckIcon />}
+      {isActive && <IcCheck />}
       {count === 0 ? `${year}(${0})` : `${year}(${count})`}
     </StYearBtn>
   );

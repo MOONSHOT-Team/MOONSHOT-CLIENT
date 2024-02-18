@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
-import { FilteringIcon } from '../../assets/icons';
+import { IcSmallDropDown } from '../../assets/icons';
 import { LIST_ORDER } from '../../constants/LIST_ORDER';
 
 interface IListOrderProps {
@@ -68,7 +68,7 @@ const StCurrentFilterBtn = styled.button`
   ${({ theme }) => theme.fonts.body_12_medium};
 `;
 
-const StFilteringIcon = styled(FilteringIcon)<{ isFilterDropdownOpen: boolean }>`
+const StFilteringIcon = styled(IcSmallDropDown)<{ isFilterDropdownOpen: boolean }>`
   transition: all 0.3s ease;
   transform: ${({ isFilterDropdownOpen }) => (isFilterDropdownOpen ? 'rotate(-180deg)' : '')};
 `;

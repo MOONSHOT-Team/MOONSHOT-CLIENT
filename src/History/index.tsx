@@ -23,7 +23,8 @@ const History = () => {
   const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
   const [fixedCategories, setFixedCategories] = useState<string[]>([]);
 
-  const { data: OKRHistoryData, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
+  const { data, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
+  const okrHistoryData = data?.data.data.groups;
 
   const handleThemeSelect = async (selectedTheme: string) => {
     setSelectedTheme(selectedTheme);
@@ -38,12 +39,12 @@ const History = () => {
   };
 
   useEffect(() => {
-    if (!isLoading && OKRHistoryData) {
-      setHistoryData(OKRHistoryData?.data.data);
-      setFixedYears(OKRHistoryData?.data.data.years || []);
-      setFixedCategories(OKRHistoryData?.data.data.categories || []);
+    if (!isLoading && data) {
+      setHistoryData(data?.data.data);
+      setFixedYears(data?.data.data.years || []);
+      setFixedCategories(data?.data.data.categories || []);
     }
-  }, [OKRHistoryData, isLoading]);
+  }, [data, isLoading]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,9 +63,9 @@ const History = () => {
     fetchData();
   }, [selectedTheme, selectedYear, selectedFilter]);
 
-  if (!OKRHistoryData) return <Loading />;
+  if (!data) return <Loading />;
 
-  const listOrderComponent = OKRHistoryData.data.data.groups.length !== 0 && (
+  const listOrderComponent = data.data.data.groups.length !== 0 && (
     <ListOrder onFilterSelection={handleFilterSelection} />
   );
 
@@ -82,30 +83,20 @@ const History = () => {
 
       <section css={DropDownSection}>
         {listOrderComponent}
-        {(selectedTheme || selectedYear || selectedFilter
+        {/* {(selectedTheme || selectedYear || selectedFilter
           ? historyData?.groups
-          : OKRHistoryData?.data?.data?.groups
-        )?.map(({ year, objList }: Group, idx: number) => (
+          : data?.data?.data?.groups
+        )?.map(({ year, objList }: Group, idx: number) => () */}
+        {okrHistoryData?.map(({ year, objList }: Group) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
             <StListOrderContainer>
               <StEachYear>{year}년</StEachYear>
             </StListOrderContainer>
             <ul>
               <li css={addGapBetweenObjective}>
-                {objList.map(
-                  ({ objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
-                    <HistoryList
-                      key={`${title}+${objId}`}
-                      objId={objId}
-                      title={title}
-                      objCategory={objCategory}
-                      progress={progress}
-                      objPeriod={objPeriod}
-                      krList={krList}
-                      isLast={idx === objList.length - 1}
-                    />
-                  ),
-                )}
+                {objList.map((item: IObjective) => (
+                  <HistoryList key={`${item.objId}-${item.title}`} {...item} />
+                ))}
               </li>
             </ul>
           </div>

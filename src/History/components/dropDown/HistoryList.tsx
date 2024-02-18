@@ -1,3 +1,4 @@
+import ProgressBar from '@components/ProgressBar';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ComponentProps, useState } from 'react';
@@ -13,43 +14,48 @@ interface IShowKRType {
   isShowKR: boolean;
 }
 
-interface IHistoryItemProps extends IShowKRType, ComponentProps<'div'> {
+interface IHistoryObjectiveItemProps extends IShowKRType, ComponentProps<'div'> {
   category: string;
   objective: string;
   progress: number;
   period: string;
 }
 
-const HistoryItem = ({
+const HistoryObjectiveItem = ({
   category,
   objective,
   progress,
   period,
   isShowKR,
   ...props
-}: IHistoryItemProps) => {
+}: IHistoryObjectiveItemProps) => {
+  const { children } = props;
+
   return (
-    <StWrapper isShowKR={isShowKR} {...props}>
-      <div css={historyItemContentLeft}>
-        <StDropDownIcon isShowKR={isShowKR} />
-        <StCategory>{category}</StCategory>
-        <StObjective>{objective}</StObjective>
-      </div>
-      <div css={historyItemContentRight}>
-        <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
-        <StPeriod>{period}</StPeriod>
-      </div>
-    </StWrapper>
+    <>
+      <StWrapper isShowKR={isShowKR} {...props}>
+        <div css={objectiveItemContentLeft}>
+          <StDropDownIcon isShowKR={isShowKR} />
+          <StCategory>{category}</StCategory>
+          <StObjective>{objective}</StObjective>
+        </div>
+        <div css={objectiveItemContentRight}>
+          <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
+          <StPeriod>{period}</StPeriod>
+        </div>
+      </StWrapper>
+      {children}
+    </>
   );
 };
 
-const historyItemContentLeft = css`
+const objectiveItemContentLeft = css`
   display: flex;
   gap: 1.6rem;
   align-items: center;
 `;
 
-const historyItemContentRight = css`
+const objectiveItemContentRight = css`
   display: flex;
   gap: 2.4rem;
   align-items: center;
@@ -103,6 +109,77 @@ const StPeriod = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
+interface IHistoryKeyResultItemProps {
+  index: number;
+  keyResult: string;
+  progress: number;
+}
+
+const HistoryKeyResultItem = ({ index, keyResult, progress }: IHistoryKeyResultItemProps) => {
+  return (
+    <StKeyResultWrapper>
+      <div css={keyResultItemContentLeft}>
+        <StKeyResultIndex>KR {index + 1}</StKeyResultIndex>
+        <StKeyResult>{keyResult}</StKeyResult>
+      </div>
+      <div css={keyResultItemContentRight}>
+        <div css={keyResultProgressbar}>
+          <ProgressBar currentProgress={progress} maximumProgress={100} />
+        </div>
+        <StKeyResultProgressNumber>{progress}% 달성</StKeyResultProgressNumber>
+      </div>
+    </StKeyResultWrapper>
+  );
+};
+
+const keyResultItemContentLeft = css`
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+`;
+
+const keyResultItemContentRight = css`
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  width: 27.6rem;
+  margin-right: 18.6rem;
+`;
+
+const keyResultProgressbar = css`
+  width: 20rem;
+`;
+
+const StKeyResultWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 105.8rem;
+  height: 5.2rem;
+  padding: 0 2rem;
+  background-color: ${({ theme }) => theme.colors.gray_550};
+  border-radius: 6px;
+`;
+
+const StKeyResultIndex = styled.p`
+  color: ${({ theme }) => theme.colors.gray_000};
+
+  ${({ theme }) => theme.fonts.btn_11_medium};
+`;
+
+const StKeyResult = styled.p`
+  color: ${({ theme }) => theme.colors.gray_000};
+
+  ${({ theme }) => theme.fonts.body_14_regular};
+`;
+
+const StKeyResultProgressNumber = styled.span`
+  color: ${({ theme }) => theme.colors.gray_300};
+
+  ${({ theme }) => theme.fonts.body_13_medium};
+`;
+
 const HistoryList = ({
   objId,
   title,
@@ -124,14 +201,25 @@ const HistoryList = ({
 
   return (
     <>
-      <HistoryItem
+      <HistoryObjectiveItem
         category="성장"
         objective="자기 개발하기"
         progress={50}
         period="2024. 02. 07 - 2024. 02. 20"
         isShowKR={isShowKR}
         onClick={handleShowKR}
-      />
+      >
+        <HistoryKeyResultItem
+          index={0}
+          keyResult="재접속 방문자 방문자 지속시간 상승 : 100%"
+          progress={50}
+        />
+        <HistoryKeyResultItem
+          index={0}
+          keyResult="재접속 방문자 방문자 지속시간 상승 : 100%"
+          progress={50}
+        />
+      </HistoryObjectiveItem>
       <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer
           visibility={isVisible === objId ? 'true' : 'false'}

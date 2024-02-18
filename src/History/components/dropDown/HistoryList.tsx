@@ -2,12 +2,88 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { DropDownIcon } from '../../assets/icons';
+import { IcDropDown } from '../../assets/icons';
 import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
 import HistoryProgressBar from '../HistoryProgressBar';
 import HistoryListDetails from './HistoryListDetails';
 import KeyResultList from './KeyResultList';
 import TaskList from './TaskList';
+
+interface IHistoryItemProps {
+  category: string;
+  objective: string;
+  progress: number;
+  period: string;
+}
+
+const HistoryItem = ({ category, objective, progress, period }: IHistoryItemProps) => {
+  return (
+    <StWrapper>
+      <div css={historyItemContentLeft}>
+        <IcDropDown />
+        <StCategory>{category}</StCategory>
+        <StObjective>{objective}</StObjective>
+      </div>
+      <div css={historyItemContentRight}>
+        <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
+        <StPeriod>{period}</StPeriod>
+      </div>
+    </StWrapper>
+  );
+};
+
+const historyItemContentLeft = css`
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+`;
+
+const historyItemContentRight = css`
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 47.8rem;
+`;
+
+const StWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 105.8rem;
+  height: 6rem;
+  padding: 0 2.4rem;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.gray_500};
+  border-radius: 6px;
+`;
+
+const StCategory = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.7rem;
+  padding: 0.8rem 1rem;
+  color: ${({ theme }) => theme.colors.gray_150};
+  background-color: ${({ theme }) => theme.colors.gray_650};
+  border: 1px solid ${({ theme }) => theme.colors.gray_400};
+  border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.btn_11_medium};
+`;
+
+const StObjective = styled.p`
+  color: ${({ theme }) => theme.colors.gray_000};
+
+  ${({ theme }) => theme.fonts.body_14_semibold};
+`;
+
+const StPeriod = styled.p`
+  color: ${({ theme }) => theme.colors.gray_200};
+
+  ${({ theme }) => theme.fonts.body_12_regular};
+`;
 
 const HistoryList = ({
   objId,
@@ -25,6 +101,12 @@ const HistoryList = ({
 
   return (
     <>
+      <HistoryItem
+        category="성장"
+        objective="자기 개발하기"
+        progress={50}
+        period="2024. 02. 07 - 2024. 02. 20"
+      />
       <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer
           visibility={isVisible === objId ? 'true' : 'false'}
@@ -103,7 +185,7 @@ const StObjectiveWrapper = styled.div`
   width: 52.8rem;
 `;
 
-const StToggleIcon = styled(DropDownIcon)<{ isVisible: boolean }>`
+const StToggleIcon = styled(IcDropDown)<{ isVisible: boolean }>`
   transition: all 0.5s ease;
   transform: ${({ isVisible }) => (isVisible ? 'rotate(-180deg)' : '')};
 `;

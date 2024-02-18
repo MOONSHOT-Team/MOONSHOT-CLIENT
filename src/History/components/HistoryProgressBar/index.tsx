@@ -31,7 +31,6 @@ const StProgressBarContainer = styled.div<{ isComplete: number }>`
   display: flex;
   flex-direction: row;
   gap: 1.6rem;
-  width: 29.8rem;
   color: ${({ theme, isComplete }) =>
     isComplete < 40
       ? theme.colors.sub_pink

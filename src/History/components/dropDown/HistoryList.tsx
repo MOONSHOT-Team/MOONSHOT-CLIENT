@@ -109,26 +109,34 @@ const StPeriod = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-interface IHistoryKeyResultItemProps {
+interface IHistoryKeyResultItemProps extends ComponentProps<'div'> {
   index: number;
   keyResult: string;
   progress: number;
 }
 
-const HistoryKeyResultItem = ({ index, keyResult, progress }: IHistoryKeyResultItemProps) => {
+const HistoryKeyResultItem = ({
+  index,
+  keyResult,
+  progress,
+  children,
+}: IHistoryKeyResultItemProps) => {
   return (
-    <StKeyResultWrapper>
-      <div css={keyResultItemContentLeft}>
-        <StKeyResultIndex>KR {index + 1}</StKeyResultIndex>
-        <StKeyResult>{keyResult}</StKeyResult>
-      </div>
-      <div css={keyResultItemContentRight}>
-        <div css={keyResultProgressbar}>
-          <ProgressBar currentProgress={progress} maximumProgress={100} />
+    <>
+      <StKeyResultWrapper>
+        <div css={keyResultItemContentLeft}>
+          <StKeyResultIndex>KR {index + 1}</StKeyResultIndex>
+          <StKeyResult>{keyResult}</StKeyResult>
         </div>
-        <StKeyResultProgressNumber>{progress}% 달성</StKeyResultProgressNumber>
-      </div>
-    </StKeyResultWrapper>
+        <div css={keyResultItemContentRight}>
+          <div css={keyResultProgressbar}>
+            <ProgressBar currentProgress={progress} maximumProgress={100} />
+          </div>
+          <StKeyResultProgressNumber>{progress}% 달성</StKeyResultProgressNumber>
+        </div>
+      </StKeyResultWrapper>
+      {children}
+    </>
   );
 };
 
@@ -180,6 +188,41 @@ const StKeyResultProgressNumber = styled.span`
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
 
+interface IHistoryTaskItemProps {
+  index: number;
+  task: string;
+}
+
+const HistoryTaskItem = ({ index, task }: IHistoryTaskItemProps) => {
+  return (
+    <StTaskWrapper>
+      <StTaskIndex>Task {index + 1}</StTaskIndex>
+      <StTask>{task}</StTask>
+    </StTaskWrapper>
+  );
+};
+
+const StTaskWrapper = styled.div`
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  width: 33.333%;
+  min-width: 34rem;
+  height: 4rem;
+  padding-left: 1.6rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  background-color: ${({ theme }) => theme.colors.gray_600};
+  border-radius: 6px;
+`;
+
+const StTaskIndex = styled.span`
+  ${({ theme }) => theme.fonts.btn_11_medium};
+`;
+
+const StTask = styled.span`
+  ${({ theme }) => theme.fonts.body_14_regular};
+`;
+
 const HistoryList = ({
   objId,
   title,
@@ -213,12 +256,16 @@ const HistoryList = ({
           index={0}
           keyResult="재접속 방문자 방문자 지속시간 상승 : 100%"
           progress={50}
-        />
+        >
+          <HistoryTaskItem index={0} task="새로운 웹사이트를 2월까지 오픈한다" />
+        </HistoryKeyResultItem>
         <HistoryKeyResultItem
           index={0}
           keyResult="재접속 방문자 방문자 지속시간 상승 : 100%"
           progress={50}
-        />
+        >
+          <HistoryTaskItem index={0} task="새로운 웹사이트를 2월까지 오픈한다" />
+        </HistoryKeyResultItem>
       </HistoryObjectiveItem>
       <StHistoryListWrapperUl $isLast={isLast}>
         <StObjectiveContainer

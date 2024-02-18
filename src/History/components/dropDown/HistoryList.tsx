@@ -135,7 +135,7 @@ const HistoryKeyResultItem = ({
           <StKeyResultProgressNumber>{progress}% 달성</StKeyResultProgressNumber>
         </div>
       </StKeyResultWrapper>
-      <div css={taskAlign}>{children}</div>
+      {children && <div css={taskAlign}>{children}</div>}
     </>
   );
 };
@@ -279,7 +279,7 @@ const HistoryList = () =>
             </HistoryKeyResultItem>
             <HistoryKeyResultItem
               index={0}
-              keyResult="재접속 방문자 방문자 지속시간 상승 : 100%"
+              keyResult="재접속 방문자 방문자 지속시간 상승 : 1030%"
               progress={50}
             />
             <HistoryKeyResultItem

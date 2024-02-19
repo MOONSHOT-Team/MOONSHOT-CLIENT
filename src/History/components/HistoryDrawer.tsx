@@ -7,13 +7,66 @@ import { IObjectiveDataProps } from '../type/okrTypes';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
 
+interface ICategoriesProps {
+  label: string;
+  categories: (string | number)[];
+}
+
+const Categories = ({ label, categories }: ICategoriesProps) => {
+  return (
+    <div css={categoriesWrapper}>
+      <CategoryTitle>{label}</CategoryTitle>
+      <div css={sortCategories}>
+        {categories.map((category) => (
+          <StCategoryButton key={category}>{category}</StCategoryButton>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const categoriesWrapper = css`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 18.8rem;
+  height: 17.4rem;
+`;
+
+const sortCategories = css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem 0.6rem;
+`;
+
+const CategoryTitle = styled.label`
+  color: ${({ theme }) => theme.colors.gray_000};
+
+  ${({ theme }) => theme.fonts.body_12_regular};
+`;
+
+const StCategoryButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: 2.7rem;
+  padding: 0.8rem 1rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  background-color: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.gray_350};
+  border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.btn_11_medium};
+`;
+
 const HistoryDrawer = ({
   categories,
   years,
-  onThemeSelect,
   fixedYears,
   fixedCategories,
-  onYearSelect,
+  onSelectTheme,
+  onSelectYear,
 }: IObjectiveDataProps) => {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
@@ -21,7 +74,7 @@ const HistoryDrawer = ({
   const handleSelectTheme = (selectedTheme: string) => {
     setSelectedTheme((prevTheme) => {
       const newTheme = prevTheme === selectedTheme ? null : selectedTheme;
-      onThemeSelect(newTheme as string);
+      onSelectTheme(newTheme);
       return newTheme;
     });
   };
@@ -29,7 +82,7 @@ const HistoryDrawer = ({
   const handleSelectYear = (selectedYear: number) => {
     setSelectedYear((prevYear) => {
       const newYear = prevYear === selectedYear ? null : selectedYear;
-      onYearSelect(newYear as number);
+      onSelectYear(newYear as number);
       return newYear;
     });
   };
@@ -38,6 +91,8 @@ const HistoryDrawer = ({
 
   return (
     <StHistoryAside>
+      <Categories label="테마" categories={HISTORY_THEME} />
+      <Categories label="테마" categories={HISTORY_THEME} />
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
@@ -93,11 +148,9 @@ const HistoryDrawer = ({
 export default HistoryDrawer;
 
 const StHistoryAside = styled.aside`
-  position: fixed;
-  top: 7.6rem;
-  left: 0;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 4rem;
   width: 23.2rem;
   height: 100%;

@@ -11,27 +11,80 @@ import ListOrder from './components/dropDown/ListOrder';
 import HistoryDrawer from './components/HistoryDrawer';
 import { Group, IObjective } from './type/okrTypes';
 
+export type filterOptionTypes = '최신순' | '오래된 순' | '달성률';
+
 const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
     null,
   );
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
   const [categories, setCategories] = useState<string[]>([]);
   const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
   const [fixedCategories, setFixedCategories] = useState<string[]>([]);
 
+  // 시작
+  const [okrHistoryData, setOkrHistoryData] = useState<Group[]>([]);
+  const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
+
   const { data, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
-  const okrHistoryData = data?.data.data.groups;
+
+  const handleFilterSelection = (selectedFilter: filterOptionTypes) => {
+    setSelectedFilter(selectedFilter);
+
+    const getFullDateFormat = (stringDate: string) => {
+      const [yearA, monthA, dayA] = stringDate.split(' - ')[0].split('. ');
+
+      return `20${yearA}-${monthA}-${dayA}`;
+    };
+
+    if (selectedFilter === '최신순') {
+      const newHistoryData = [...okrHistoryData].sort((a, b) => b.year - a.year);
+      newHistoryData.forEach(({ objList }) => {
+        return objList.sort((a, b) => {
+          const fullDateA = getFullDateFormat(a.objPeriod);
+          const fullDateB = getFullDateFormat(b.objPeriod);
+
+          return new Date(fullDateB).getTime() - new Date(fullDateA).getTime();
+        });
+      });
+
+      return setOkrHistoryData(newHistoryData);
+    }
+
+    if (selectedFilter === '오래된 순') {
+      const newHistoryData = [...okrHistoryData].sort((a, b) => a.year - b.year);
+      newHistoryData.forEach(({ objList }) => {
+        return objList.sort((a, b) => {
+          const fullDateA = getFullDateFormat(a.objPeriod);
+          const fullDateB = getFullDateFormat(b.objPeriod);
+
+          return new Date(fullDateA).getTime() - new Date(fullDateB).getTime();
+        });
+      });
+
+      return setOkrHistoryData(newHistoryData);
+    }
+
+    if (selectedFilter === '달성률') {
+      const newHistoryData = [...okrHistoryData].sort((a, b) => b.year - a.year);
+      newHistoryData.forEach(({ objList }) => {
+        return objList.sort((a, b) => b.progress - a.progress);
+      });
+
+      return setOkrHistoryData(newHistoryData);
+    }
+  };
+
+  useEffect(() => {
+    setOkrHistoryData(data?.data.data.groups);
+  }, [data]);
+
+  // 끝
 
   const handleThemeSelect = async (selectedTheme: string) => {
     setSelectedTheme(selectedTheme);
-  };
-
-  const handleFilterSelection = (selectedFilter: string) => {
-    setSelectedFilter(selectedFilter);
   };
 
   const handleYearSelect = async (selectedYear: number) => {
@@ -65,10 +118,6 @@ const History = () => {
 
   if (!data) return <Loading />;
 
-  const listOrderComponent = data.data.data.groups.length !== 0 && (
-    <ListOrder onFilterSelection={handleFilterSelection} />
-  );
-
   return (
     <section css={historyUi}>
       <HistoryDrawer
@@ -82,7 +131,12 @@ const History = () => {
       />
 
       <section css={DropDownSection}>
-        {listOrderComponent}
+        <select>
+          <option>최신순</option>
+          <option>오래된 순</option>
+          <option>달성률</option>
+        </select>
+        <ListOrder selectedFilter={selectedFilter} onFilterSelection={handleFilterSelection} />
         {/* {(selectedTheme || selectedYear || selectedFilter
           ? historyData?.groups
           : data?.data?.data?.groups

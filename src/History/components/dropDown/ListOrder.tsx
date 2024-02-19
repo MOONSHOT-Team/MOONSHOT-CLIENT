@@ -2,24 +2,24 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
+import { filterOptionTypes } from '../..';
 import { IcSmallDropDown } from '../../assets/icons';
 import { LIST_ORDER } from '../../constants/LIST_ORDER';
 
 interface IListOrderProps {
-  onFilterSelection: (filter: string) => void;
+  selectedFilter: filterOptionTypes;
+  onFilterSelection: (filter: filterOptionTypes) => void;
 }
 
-const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
+const ListOrder = ({ selectedFilter, onFilterSelection }: IListOrderProps) => {
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
-  const [currentFilter, setCurrentFilter] = useState('최신순');
-  const filterOptions = LIST_ORDER.find(({ label }) => label === currentFilter)?.options || [];
+  const filterOptions = LIST_ORDER.find(({ label }) => label === selectedFilter)?.options || [];
 
   const handleCurrentFilterClick = () => {
     setIsFilterDropdownOpen(!isFilterDropdownOpen);
   };
 
-  const handleFilterClick = (filter: string) => {
-    setCurrentFilter(filter);
+  const handleFilterClick = (filter: filterOptionTypes) => {
     setIsFilterDropdownOpen(false);
     onFilterSelection(filter);
   };
@@ -27,7 +27,7 @@ const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
   return (
     <div css={filterContainer}>
       <StCurrentFilterBtn onClick={handleCurrentFilterClick}>
-        <span>{currentFilter}</span>
+        <span>{selectedFilter}</span>
         <StFilteringIcon isFilterDropdownOpen={isFilterDropdownOpen} />
       </StCurrentFilterBtn>
 
@@ -38,7 +38,7 @@ const ListOrder = ({ onFilterSelection }: IListOrderProps) => {
               <StRemainFilterButton onClick={() => handleFilterClick(filterOption)}>
                 {filterOption}
               </StRemainFilterButton>
-              {index < filterOptions.length - 1 && <StFilterBox />}
+              {index !== filterOptions.length - 1 && <StHorizonLine />}
             </React.Fragment>
           ))}
         </StFilterWrapper>
@@ -96,7 +96,7 @@ const StRemainFilterButton = styled.button`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-const StFilterBox = styled.div`
+const StHorizonLine = styled.div`
   width: 6.5rem;
   height: 0.1rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray_500};

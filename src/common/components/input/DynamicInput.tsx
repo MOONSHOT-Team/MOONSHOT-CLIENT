@@ -39,7 +39,7 @@ const DynamicInput = ({
     <div css={dynamicInputContainerStyle}>
       <StDynamicInput
         type="text"
-        width={width}
+        $width={width}
         value={value}
         onChange={handleChangeValue}
         ref={inputRef}
@@ -59,8 +59,8 @@ const dynamicInputContainerStyle = css`
   flex-direction: column;
 `;
 
-const StDynamicInput = styled.input<{ width: number }>`
-  width: ${({ width }) => width / 10}rem;
+const StDynamicInput = styled.input<{ $width: number }>`
+  width: ${({ $width }) => $width / 10}rem;
   min-width: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
@@ -72,7 +72,8 @@ const StDynamicInput = styled.input<{ width: number }>`
 
   &:focus {
     height: 100%;
-    background-color: ${({ theme }) => theme.colors.gray_550};
+
+    /* background-color: ${({ theme }) => theme.colors.gray_550}; */
     border: none;
   }
 `;

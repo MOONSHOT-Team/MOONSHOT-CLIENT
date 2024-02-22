@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
+import axios from 'axios';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSWRConfig } from 'swr';
@@ -247,7 +248,11 @@ export const KR수정하기 = ({
       if (response?.data) {
         handleChangeState?.(2);
       }
-    } catch {
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        console.log(err.response?.data.message);
+        return;
+      }
       navigator('/error');
     }
     onCancel();

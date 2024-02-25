@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSWRConfig } from 'swr';
 
 import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
+import { StErrorMSG } from '../../../styles/mainDashBoardStyles';
 
 const CHECK_IN_PLACEHOLDER =
   '회고 내용을 입력하세요.\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요.';
@@ -159,6 +160,7 @@ export const 진척정도입력하기 = ({
               autoComplete="off"
               isMaxNum={isMaxNum}
             />
+            {isMaxNum && <StErrorMSG>최대 글자수를 초과했습니다</StErrorMSG>}
           </div>
         </span>
         <span css={enterInputBoxStyles}>
@@ -195,11 +197,13 @@ export const KR수정하기 = ({
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isMaxNum, setIsMaxNum] = useState(false);
+  const [isSame, setIsSame] = useState(false);
   const navigator = useNavigate();
 
   const { mutate } = useSWRConfig();
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsSame(false);
     if (e.target.value === '') {
       setTarget('');
       return;
@@ -207,7 +211,7 @@ export const KR수정하기 = ({
     if (e.target.value.length > MAX_NUM_COUNT + 1) {
       setIsMaxNum(true);
     }
-    if (e.target.value.length <= MAX_NUM_COUNT) {
+    if (e.target.value.length <= MAX_NUM_COUNT + 1) {
       setIsMaxNum(false);
     }
     const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUM_COUNT);
@@ -250,7 +254,8 @@ export const KR수정하기 = ({
       }
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        console.log(err.response?.data.message);
+        if (err.response?.data.message === 'Log 입력값은 이전 값과 동일할 수 없습니다.')
+          setIsSame(true);
         return;
       }
       navigator('/error');
@@ -265,14 +270,18 @@ export const KR수정하기 = ({
           <StLabel htmlFor="enterProgress">KR 수정</StLabel>
           <StEditNum>
             <span>{title}</span>
-            <StEditNumInput
-              id="enterProgress"
-              placeholder={target.toLocaleString()}
-              value={targetValue}
-              onChange={handleTargetChange}
-              autoComplete="off"
-              isMaxNum={isMaxNum}
-            />
+            <span css={{ position: 'relative' }}>
+              <StEditNumInput
+                id="enterProgress"
+                placeholder={target.toLocaleString()}
+                value={targetValue}
+                onChange={handleTargetChange}
+                autoComplete="off"
+                isMaxNum={isSame || isMaxNum}
+              />
+              {isSame && <StErrorMSG>기존 KR과 동일한 수치입니다</StErrorMSG>}
+              {isMaxNum && <StErrorMSG>최대 글자수를 초과했습니다</StErrorMSG>}
+            </span>
             <span>{metric}</span>
           </StEditNum>
         </span>
@@ -390,7 +399,7 @@ const StEditNum = styled.div`
 `;
 
 const StEditNumInput = styled.input<{ isMaxNum: boolean }>`
-  width: 9rem;
+  width: 12rem;
   padding: 1.1rem 1.2rem;
   color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;

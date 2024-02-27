@@ -38,14 +38,11 @@ export const PreviewKrNodes = ({
       <StKrBoxWrapper>
         <StraightLine />
         <StPreviewKrBox>
-          {/*수치 값 앞 문장*/}
-          {title && (
-            <DynamicInput
-              value={title}
-              handleChangeValue={handleChangeTitleValue}
-              maxLength={MAX_KR_TITLE}
-            />
-          )}
+          <DynamicInput
+            value={title}
+            handleChangeValue={handleChangeTitleValue}
+            maxLength={MAX_KR_TITLE}
+          />
 
           {/*수치 값*/}
           <StPreviewKrBoxValue>

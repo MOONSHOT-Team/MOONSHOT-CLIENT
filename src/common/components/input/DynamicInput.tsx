@@ -73,6 +73,8 @@ const StDynamicInput = styled.input<{ $width: number }>`
   &:focus {
     height: 100%;
 
+    /* 입력시 배경 색 바뀌는 것이 자연스럽지 않아 일단 보류 */
+
     /* background-color: ${({ theme }) => theme.colors.gray_550}; */
     border: none;
   }

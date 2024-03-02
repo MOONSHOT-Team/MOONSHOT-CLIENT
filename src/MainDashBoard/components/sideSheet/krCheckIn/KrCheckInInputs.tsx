@@ -14,6 +14,8 @@ const CHECK_IN_PLACEHOLDER =
 
 const MAX_NUM_COUNT = 6;
 const MAX_TEXT_COUNT = 100;
+const MAX_NUM_ERRMSG = '입력 최대 범위는 999,999 입니다';
+const DUP_NUM_ERRMSG = '기존 KR과 동일한 수치입니다';
 
 interface ICharacterCountProps {
   currentCnt: number;
@@ -160,7 +162,7 @@ export const 진척정도입력하기 = ({
               autoComplete="off"
               isMaxNum={isMaxNum}
             />
-            {isMaxNum && <StErrorMSG>최대 글자수를 초과했습니다</StErrorMSG>}
+            {isMaxNum && <StErrorMSG>{MAX_NUM_ERRMSG}</StErrorMSG>}
           </div>
         </span>
         <span css={enterInputBoxStyles}>
@@ -279,8 +281,8 @@ export const KR수정하기 = ({
                 autoComplete="off"
                 isMaxNum={isSame || isMaxNum}
               />
-              {isSame && <StErrorMSG>기존 KR과 동일한 수치입니다</StErrorMSG>}
-              {isMaxNum && <StErrorMSG>최대 글자수를 초과했습니다</StErrorMSG>}
+              {isSame && <StErrorMSG>{DUP_NUM_ERRMSG}</StErrorMSG>}
+              {isMaxNum && <StErrorMSG>{MAX_NUM_ERRMSG}</StErrorMSG>}
             </span>
             <span>{metric}</span>
           </StEditNum>

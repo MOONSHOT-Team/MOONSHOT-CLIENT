@@ -10,7 +10,7 @@ import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
 import { StErrorMSG } from '../../../styles/mainDashBoardStyles';
 
 const CHECK_IN_PLACEHOLDER =
-  '회고 내용을 입력하세요.\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요.';
+  '회고 내용을 입력하세요\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요';
 
 const MAX_NUM_COUNT = 6;
 const MAX_TEXT_COUNT = 100;

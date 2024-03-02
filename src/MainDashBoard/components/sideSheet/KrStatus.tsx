@@ -67,13 +67,9 @@ const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: nu
   };
   return (
     <>
-      <StContainer isDrop={isDrop}>
+      <StContainer type="button" isDrop={isDrop} onClick={handleIsDrop}>
         <KrStatusItem icon={krStatusIcon} label={krStatusLabel} />
-        {isDrop ? (
-          <IcDropUpThin onClick={handleIsDrop} />
-        ) : (
-          <IcDropDownThin onClick={handleIsDrop} />
-        )}
+        {isDrop ? <IcDropUpThin /> : <IcDropDownThin />}
       </StContainer>
       {isDrop && (
         <StStatusContainer>
@@ -90,7 +86,7 @@ const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: nu
 
 export default KrStatus;
 
-const StContainer = styled.div<{ isDrop: boolean }>`
+const StContainer = styled.button<{ isDrop: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;

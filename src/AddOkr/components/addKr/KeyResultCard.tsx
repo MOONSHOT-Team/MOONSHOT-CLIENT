@@ -42,11 +42,6 @@ const KeyResultCard = ({
   **/
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
-  //캘린더 선택한 값
-  // const [krPeriod, setKrPeriod] = useState([
-  //   krStartAt ? krStartAt : '',
-  //   krExpireAt ? krExpireAt : '',
-  // ]);
 
   useEffect(() => {
     // kr 선택 예외 처리) 날짜 기간을 입력 했으나, 앞에서 obj 기간을 수정한 경우 obj 기간으로 초기화
@@ -105,7 +100,6 @@ const KeyResultCard = ({
     formatString: [string, string],
   ) => {
     if (formatString[0] && formatString[1]) {
-      // setKrPeriod(formatString);
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
         startAt: formatString[0],

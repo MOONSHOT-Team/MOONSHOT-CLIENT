@@ -15,6 +15,8 @@ interface IObjPeriodProps extends IAddObjFlowProps {
   setSelectedPeriod: React.Dispatch<React.SetStateAction<string>>;
 }
 
+const DEFAULT_SELECT_PERIOD = '1';
+
 const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: IObjPeriodProps) => {
   const { objStartAt, objExpireAt } = objInfo;
 
@@ -25,10 +27,14 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
   ]);
 
   const handleClickPeriodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectedPeriod(e.currentTarget.id);
+    let currPeriod = e.currentTarget.id;
+    setSelectedPeriod(currPeriod);
 
-    if (e.currentTarget.id === 'null') return;
-    const calcDate = addMonth(TODAY, Number(e.currentTarget.id));
+    // 날짜 선택 버튼 클릭시, 기본 값이 1개월이 되도록 설정
+    if (e.currentTarget.id === 'SELECT_PERIOD') currPeriod = DEFAULT_SELECT_PERIOD;
+
+    // expireDate 범위에 따라 추가 (stateDate은 오늘, 오늘 기준 + month)
+    const calcDate = addMonth(TODAY, Number(currPeriod));
     const dotParsedDate = returnParsedDate(calcDate, '. ');
     setObjInfo({
       ...objInfo,

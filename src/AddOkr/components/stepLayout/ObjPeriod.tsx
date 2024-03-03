@@ -28,6 +28,10 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
 
   const handleClickPeriodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     let currPeriod = e.currentTarget.id;
+
+    // SELECT_PERIOD 버튼 클릭 후 -> 날짜 선택 시 이벤트 전파 되는 것을 막고자 같은 버튼 id면 early return
+    if (selectedPeriod === currPeriod) return;
+
     setSelectedPeriod(currPeriod);
 
     // 날짜 선택 버튼 클릭시, 기본 값이 1개월이 되도록 설정
@@ -46,6 +50,7 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
   ) => {
+    event?.stopPropagation;
     if (formatString[0] && formatString[1]) {
       setPeriod(formatString);
       setObjInfo({ ...objInfo, objStartAt: formatString[0], objExpireAt: formatString[1] });

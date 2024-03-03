@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import StepBtns from './components/commonUse/StepBtns';
-import AddGuideKr from './components/stepLayout/AddGuideKr';
+import AddGuideFirstKr from './components/stepLayout/AddGuideFirstKr';
+import AddGuideSecondKr from './components/stepLayout/AddGuideSecondKr';
 import AddKr from './components/stepLayout/AddKr';
 import ObjContent from './components/stepLayout/ObjContent';
 import ObjPeriod from './components/stepLayout/ObjPeriod';
@@ -90,37 +91,25 @@ const AddOkr = () => {
   // Step 2 ObjPeriod- 선택된 기간 버튼 관리 값
   const [selectedPeriod, setSelectedPeriod] = useState('');
 
-  // step 4 (guide) - 가이드에 따라 설정하기 플로우에서 두번째 kr 카드 보여지는지 여부 관리
-  const [isActiveSecondKrCard, setIsActiveSecondKrCard] = useState(false);
   // step 4 - kr 카드 선택 여부 관리
   const [clickedCard, setClickedCard] = useState<number[]>([0]);
 
   // 이전, 다음 버튼 관련 handler
   const handleClickPrevBtn = () => {
-    // 가이드에 따라 설정시 두 번째 kr 카드 -> 첫번째 kr 카드 다시 보여지도록 관리
-    if (step === 4 && selectedMethod === IS_GUIDE && isActiveSecondKrCard === true) {
-      setIsActiveSecondKrCard(false);
-      return;
-    }
-
     // step 1 -> 0으로 이동시 정보 초기화
     if (step === 1) {
       navigate('/dashboard', { state: { selectedMethod: selectedMethod } });
     }
 
+    // default function
     setStep((prev) => prev - 1);
   };
 
   const handleClickNextBtn = () => {
-    // 가이드에 따라 설정시 두 번째 kr 카드 보여지는지 관리
-    if (step === 4 && selectedMethod === IS_GUIDE && isActiveSecondKrCard === false) {
-      isActiveNext && setIsActiveSecondKrCard(true);
-      return;
-    }
-
+    // 가이드에 따라 설정하기 vs 직접 설정하기 구분 조건
     if (
       (step === 4 && selectedMethod !== IS_GUIDE) ||
-      (step === 4 && selectedMethod === IS_GUIDE && isActiveSecondKrCard === true)
+      (step === 5 && selectedMethod === IS_GUIDE)
     ) {
       navigate('/preview-okr', {
         state: {
@@ -130,17 +119,19 @@ const AddOkr = () => {
         },
       });
     }
+
+    // default function
     isActiveNext && setStep((prev) => prev + 1);
   };
 
-  // step 4 -  kr 카드 추가 버튼 핸들러
+  // step 4 ~ 5 -  kr 카드 추가 버튼 핸들러
   const handleClickPlusCard = (item: number) => {
     //순서 보장 조건 -> 앞에서부터 추가
     if (clickedCard.toString() === [0].toString() && item === 2) return;
     setClickedCard((prev) => [...prev, item]);
   };
 
-  // step 4- KR 카드 추가 취소 버튼 핸들러
+  // step 4 ~ 5 - KR 카드 추가 취소 버튼 핸들러
   const handleClickCloseBtn = (cardIdx: number) => {
     //순서 보장 조건 -> 앞에서부터 추가
     if (clickedCard.toString() === [0, 1, 2].toString() && cardIdx === 1) return;
@@ -169,21 +160,8 @@ const AddOkr = () => {
         objContent ? setIsActiveNext(true) : setIsActiveNext(false);
         break;
       case 4:
-        //가이드에 따라 설정 - 첫번째 kr 카드일 떄
-        if (selectedMethod === IS_GUIDE && isActiveSecondKrCard) {
-          krListInfo.filter((kr) => {
-            return clickedCard.includes(kr.idx);
-          }).length ===
-          krListInfo.filter((kr) => {
-            const { target, metric } = kr;
-            return target && metric;
-          }).length
-            ? setIsActiveNext(true)
-            : setIsActiveNext(false);
-        }
-
-        // 가이드에 따라 설정 - 두 번째 kr 카드일 때
-        if (selectedMethod === IS_GUIDE && !isActiveSecondKrCard) {
+        // 가이드에 따라 설정 - 첫 번째 kr 카드일 때
+        if (selectedMethod === IS_GUIDE) {
           krListInfo.filter((kr) => {
             return clickedCard.includes(kr.idx);
           }).length ===
@@ -207,6 +185,18 @@ const AddOkr = () => {
             ? setIsActiveNext(true)
             : setIsActiveNext(false);
         }
+        break;
+      case 5:
+        //가이드에 따라 설정 - 두번째 kr 카드일 떄
+        krListInfo.filter((kr) => {
+          return clickedCard.includes(kr.idx);
+        }).length ===
+        krListInfo.filter((kr) => {
+          const { target, metric } = kr;
+          return target && metric;
+        }).length
+          ? setIsActiveNext(true)
+          : setIsActiveNext(false);
         break;
     }
   };
@@ -249,16 +239,15 @@ const AddOkr = () => {
         return <ObjContent objInfo={objInfo} setObjInfo={setObjInfo} />;
 
       case 4:
-        // step 4 - KR 추가
+        // step 4 - KR 추가 (가이드에 따라 설정 첫번째 kr 카드 or 직접 설정하기)
         return selectedMethod === IS_GUIDE ? (
-          <AddGuideKr
+          <AddGuideFirstKr
             objInfo={objInfo}
             clickedCard={clickedCard}
             handleClickPlusCard={handleClickPlusCard}
             handleClickCloseBtn={handleClickCloseBtn}
             krListInfo={krListInfo}
             setKrListInfo={setKrListInfo}
-            isActiveSecondKrCard={isActiveSecondKrCard}
           />
         ) : (
           <AddKr
@@ -270,7 +259,18 @@ const AddOkr = () => {
             setKrListInfo={setKrListInfo}
           />
         );
-      //   break;
+      case 5:
+        //step 5 - 가이드에 따라 설정 두번째 Kr 카드(KR 추가)
+        return (
+          <AddGuideSecondKr
+            objInfo={objInfo}
+            clickedCard={clickedCard}
+            handleClickPlusCard={handleClickPlusCard}
+            handleClickCloseBtn={handleClickCloseBtn}
+            krListInfo={krListInfo}
+            setKrListInfo={setKrListInfo}
+          />
+        );
       default:
         return <Error />;
     }
@@ -285,7 +285,7 @@ const AddOkr = () => {
     <section css={AddOkrContainer}>
       {selectedMethod && <StSelectedMethodTxt>{selectedMethod}</StSelectedMethodTxt>}
       {renderStepLayout()}
-      {selectedMethod && step < 5 && (
+      {selectedMethod && step <= 5 && (
         <>
           <StepBtns
             isInit={step === 1}
@@ -295,15 +295,13 @@ const AddOkr = () => {
           />
           <StProgressBarBox $step={step} $selectedMethod={selectedMethod}>
             <ProgressBar
-              currentProgress={
-                selectedMethod === IS_GUIDE && isActiveSecondKrCard ? step + 1 : step
-              }
+              currentProgress={step}
               maximumProgress={selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP}
             />
             <div css={ProgressTxtBox}>
-              <StProgressTxt>{`${
-                selectedMethod === IS_GUIDE && isActiveSecondKrCard ? step + 1 : step
-              }/${selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP}`}</StProgressTxt>
+              <StProgressTxt>{`${step}/${
+                selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP
+              }`}</StProgressTxt>
             </div>
           </StProgressBarBox>
         </>
@@ -337,6 +335,7 @@ const marginTopState = (step: number, selectedMethod: string) => {
     case 3:
       return '7.3rem';
     case 4:
+    case 5:
       return '3.4rem';
   }
 };

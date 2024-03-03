@@ -67,7 +67,7 @@ const StKRPeriodContainer = styled.div`
   }
 
   .ant-picker-input > input {
-    width: 7rem;
+    width: 8rem;
     color: ${({ theme }) => theme.colors.gray_000};
     border: none;
     ${({ theme }) => theme.fonts.body_12_regular};

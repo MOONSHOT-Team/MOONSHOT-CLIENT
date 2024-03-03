@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
-import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
 import { MAX_KR_METRIC, MAX_KR_TARGET, MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
@@ -35,7 +34,8 @@ const KeyResultCard = ({
     target: false,
     metric: false,
   });
-  const { title, target, metric } = krListInfo[cardIdx];
+  const { title, target, metric, startAt: krStartAt, expireAt: krExpireAt } = krListInfo[cardIdx];
+  const { objStartAt, objExpireAt } = objInfo;
 
   /** 
   캘린더 관련 요소
@@ -43,7 +43,34 @@ const KeyResultCard = ({
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
   //캘린더 선택한 값
-  const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
+  // const [krPeriod, setKrPeriod] = useState([
+  //   krStartAt ? krStartAt : '',
+  //   krExpireAt ? krExpireAt : '',
+  // ]);
+
+  useEffect(() => {
+    // kr 선택 예외 처리) 날짜 기간을 입력 했으나, 앞에서 obj 기간을 수정한 경우 obj 기간으로 초기화
+    if (new Date(objStartAt) > new Date(krStartAt) || new Date(objExpireAt) < new Date(krExpireAt))
+      krListInfo[cardIdx] = {
+        ...krListInfo[cardIdx],
+        startAt: objStartAt,
+        expireAt: objExpireAt,
+      };
+    setKrListInfo([...krListInfo]);
+  }, []);
+
+  const handleClickKrPeriodBox = () => {
+    // 날짜 기간을 입력한 경우 이벤트 전파 방지
+    if (isShowCalender) return;
+
+    krListInfo[cardIdx] = {
+      ...krListInfo[cardIdx],
+      startAt: objStartAt,
+      expireAt: objExpireAt,
+    };
+    setKrListInfo([...krListInfo]);
+    setIsShowCalender(true);
+  };
 
   const handleChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
@@ -78,7 +105,7 @@ const KeyResultCard = ({
     formatString: [string, string],
   ) => {
     if (formatString[0] && formatString[1]) {
-      setKrPeriod(formatString);
+      // setKrPeriod(formatString);
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
         startAt: formatString[0],
@@ -144,11 +171,11 @@ const KeyResultCard = ({
       {/*달성 기간 입력 부분*/}
       <StKrInputDescWrapper>
         <StKrInputDescription>핵심 지표를 달성할 기간을 입력해주세요</StKrInputDescription>
-        <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
-          {isShowCalender ? (
+        <StKrPeriodBox onClick={handleClickKrPeriodBox}>
+          {isShowCalender || krStartAt || krExpireAt ? (
             <KeyResultPeriodInput
               handleClickSelectDate={handleClickSelectDate}
-              period={krPeriod}
+              krPeriod={[krStartAt, krExpireAt]}
               objInfo={objInfo}
             />
           ) : (
@@ -226,7 +253,7 @@ const StTargetMetricInput = styled.input<{ $isMax: boolean }>`
   }
 `;
 
-const StKrPeriodBox = styled.div<{ $isHoverStyle: boolean }>`
+const StKrPeriodBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,10 +262,13 @@ const StKrPeriodBox = styled.div<{ $isHoverStyle: boolean }>`
   padding: 0.6rem 0;
   color: ${({ theme }) => theme.colors.gray_400};
   text-align: center;
-  background-color: ${({ theme, $isHoverStyle }) =>
-    $isHoverStyle ? theme.colors.gray_550 : theme.colors.gray_600};
+  background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+  }
 `;

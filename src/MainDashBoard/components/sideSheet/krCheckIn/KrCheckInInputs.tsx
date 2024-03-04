@@ -271,7 +271,7 @@ export const KR수정하기 = ({
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgress">KR 수정</StLabel>
           <StEditNum>
-            <span>{title}</span>
+            <span css={{ maxWidth: '11rem' }}>{title}</span>
             <span css={{ position: 'relative' }}>
               <StEditNumInput
                 id="enterProgress"
@@ -394,7 +394,8 @@ const StCheckInTextArea = styled.textarea`
 
 const StEditNum = styled.div`
   display: flex;
-  gap: 0.8rem;
+
+  /* gap: 0.8rem; */
   align-items: center;
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_12_regular};
@@ -403,6 +404,7 @@ const StEditNum = styled.div`
 const StEditNumInput = styled.input<{ isMaxNum: boolean }>`
   width: 12rem;
   padding: 1.1rem 1.2rem;
+  margin: 0 0.8rem;
   color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;
   background-color: transparent;

@@ -1,7 +1,7 @@
 import ProgressBar from '@components/ProgressBar';
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
@@ -33,6 +33,7 @@ const SideSheet = ({
 }: ISideSheetProps) => {
   const { data: sideSheetData } = useSWR(`/v1/key-result/${keyResultId}`, getDashBoardData);
   const krDetailData = sideSheetData?.data;
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const [isCheckInView, setIsCheckInView] = useState(false);
   if (!sideSheetData) return;
@@ -42,8 +43,12 @@ const SideSheet = ({
     setIsCheckInView(!isCheckInView);
   };
 
+  const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current === e.target) onClose();
+  };
+
   return (
-    <StBackground>
+    <StBackground ref={modalRef} onClick={closeModal}>
       <StContainer $isOpen={isOpen}>
         <section css={krDetailUpperStyles}>
           <StKrDetailHeader>

@@ -59,7 +59,7 @@ const SideSheet = ({
             </span>
           </StKrDetailHeader>
           <StKrTitle>
-            {title} {target}
+            {title} {target.toLocaleString()}
             {metric}
           </StKrTitle>
           <div>

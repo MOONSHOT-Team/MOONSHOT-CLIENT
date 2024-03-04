@@ -198,13 +198,9 @@ const StKrCheckInBtn = styled.button`
   width: 29.8rem;
   height: 4.4rem;
   margin-bottom: 2rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ theme }) => theme.colors.gray_500};
+  color: ${({ theme }) => theme.colors.gray_600};
+  background-color: ${({ theme }) => theme.colors.sub_mint};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.btn_14_semibold};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_450};
-  }
 `;

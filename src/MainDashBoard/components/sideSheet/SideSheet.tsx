@@ -6,6 +6,7 @@ import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
 import { IcClose } from '../../assets/icons';
+import { handleProcessBarColor } from '../../utils/handleProcessBarColor';
 import CheckInLogs from './CheckInLogs';
 import KrCheckIn from './krCheckIn/KrCheckIn';
 import KRPeriodSelect from './KRPeriodSelect';
@@ -60,8 +61,8 @@ const SideSheet = ({
             <ProgressBar
               currentProgress={progressBar}
               progressBarColor={'#444444'}
-              progressValueColor={'#A6EEF6'}
-              textColor={'#A6EEF6'}
+              progressValueColor={handleProcessBarColor(progressBar)}
+              textColor={handleProcessBarColor(progressBar)}
               isCurrentProgress={true}
             />
           </div>

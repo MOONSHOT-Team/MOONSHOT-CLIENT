@@ -109,21 +109,21 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
       krList: [
         previewKrListInfo[0] && {
           ...previewKrListInfo[0],
-          target: Number(previewKrListInfo[0].target),
+          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
           startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[0].expireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[0].taskList,
         },
         previewKrListInfo[1] && {
           ...previewKrListInfo[1],
-          target: Number(previewKrListInfo[1].target),
+          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
           startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[1].expireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[1].taskList,
         },
         previewKrListInfo[2] && {
           ...previewKrListInfo[2],
-          target: Number(previewKrListInfo[2].target),
+          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
           startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[2].expireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[2].taskList,
@@ -140,6 +140,7 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
     }
   };
 
+  // o, kr 값이 빈 값일 때 저장하기 비활성화를 위한 검증 함수
   const validEmptyValue = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.target.value === '' ? setIsActiveSave(false) : setIsActiveSave(true);
   };

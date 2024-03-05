@@ -4,8 +4,9 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import { IS_GUIDE } from '../AddOkr/constants/ADD_OKR_METHOD_N_STEP';
 import { IFinalOkrListInfoTypes } from '../AddOkr/types/FinalKrListInfo';
 import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
 import { IObjInfoTypes } from '../AddOkr/types/ObjectInfoTypes';
@@ -24,10 +25,8 @@ interface IPreviewOkrProps {
   krListInfo: IKrListInfoTypes[];
 }
 
-const IS_GUIDE = '가이드에 따라 설정하기';
-
 const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOkrProps) => {
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
 
   // const { step, selectedMethod, objInfo, krListInfo } = location.state;
@@ -157,7 +156,7 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
   };
 
   useEffect(() => {
-    location.state && handleShowModal();
+    handleShowModal();
   }, []);
 
   return (

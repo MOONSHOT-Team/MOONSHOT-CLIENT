@@ -14,11 +14,8 @@ import ObjContent from './components/stepLayout/ObjContent';
 import ObjPeriod from './components/stepLayout/ObjPeriod';
 import ObjTitleCateg from './components/stepLayout/ObjTitleCateg';
 import { OBJ_START_AT } from './constants/ADD_OKR_DATES';
+import { IS_GUIDE, MAX_BASIC_STEP, MAX_GUIDE_STEP } from './constants/ADD_OKR_METHOD_N_STEP';
 import { IKrListInfoTypes } from './types/KrInfoTypes';
-
-const IS_GUIDE = '가이드에 따라 설정하기';
-const MAX_BASIC_STEP = 5;
-const MAX_GUIDE_STEP = 6;
 
 const AddOkr = () => {
   const location = useLocation();

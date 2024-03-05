@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { SELECT_METHOD_OPTIONS } from '../../constants/SELECT_METHOD_OPTIONS';
+import { SELECT_METHOD_OPTIONS } from '../../constants/ADD_OKR_METHOD_N_STEP';
 import SelectMethodBtn from '../selectMethod/SelectMethodBtn';
 
 interface ISelectMethodProps {

@@ -1,10 +1,17 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const IS_GUIDE = '가이드에 따라 설정하기';
+import {
+  IS_GUIDE,
+  MAX_BASIC_STEP,
+  MAX_GUIDE_STEP,
+} from '../../AddOkr/constants/ADD_OKR_METHOD_N_STEP';
 
 const PreviewModal = ({ selectedMethod }: { selectedMethod: string }) => {
-  const progressStep = selectedMethod === IS_GUIDE ? '6/6' : '5/5';
+  const progressStep =
+    selectedMethod === IS_GUIDE
+      ? `${MAX_GUIDE_STEP}/${MAX_GUIDE_STEP}`
+      : `${MAX_BASIC_STEP}/${MAX_BASIC_STEP}`;
 
   return (
     <>

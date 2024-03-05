@@ -1,3 +1,4 @@
+// ABOUT METHOD NAME
 export const SELECT_METHOD_OPTIONS = [
   {
     title: '가이드에 따라 설정하기',
@@ -10,3 +11,9 @@ export const SELECT_METHOD_OPTIONS = [
       'OKR 설정에 이미 익숙하거나,\n자신만의 방식으로 OKR을 설정하고 싶다면\n질문에 따라 자유롭게 목표와 성과 지표를 설정해 보세요\n\n\n(권장 소요시간 : 10분)',
   },
 ];
+
+export const IS_GUIDE = '가이드에 따라 설정하기';
+
+// ABOUT MAX STEP LENGTH
+export const MAX_BASIC_STEP = 5;
+export const MAX_GUIDE_STEP = 6;

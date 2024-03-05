@@ -3,11 +3,12 @@ import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { IFinalOkrListInfoTypes } from '../AddOkr/types/FinalKrListInfo';
 import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
+import { IObjInfoTypes } from '../AddOkr/types/ObjectInfoTypes';
 import { IPreviewTaskInfoTypes } from '../AddOkr/types/TaskInfoTypes';
 import { postOkrInfo } from './apis/postOkrFetcher';
 import PreviewModal from './components/PreviewModal';
@@ -16,13 +17,20 @@ import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes'
 import PreviewObjNode from './components/PreviewOkrTreeNodes/PreviewObjNode';
 import { PreviewTaskNodes } from './components/PreviewOkrTreeNodes/PreviewTaskNodes';
 
-const PreviewOkr = () => {
+interface IPreviewOkrProps {
+  selectedMethod: string;
+  setStep: Dispatch<SetStateAction<number>>;
+  objInfo: IObjInfoTypes;
+  krListInfo: IKrListInfoTypes[];
+}
+
+const IS_GUIDE = '가이드에 따라 설정하기';
+
+const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOkrProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { step, selectedMethod, objInfo, krListInfo } = location.state;
-
-  console.log(step);
+  // const { step, selectedMethod, objInfo, krListInfo } = location.state;
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -85,6 +93,10 @@ const PreviewOkr = () => {
     },
   ]);
 
+  const handleClickPrevBtn = () => {
+    setStep((prev) => prev - (selectedMethod === IS_GUIDE ? 1 : 2));
+  };
+
   const handleClickSaveOkrBtn = async () => {
     if (!isActiveSave) return;
 
@@ -98,21 +110,21 @@ const PreviewOkr = () => {
       krList: [
         previewKrListInfo[0] && {
           ...previewKrListInfo[0],
-          target: Number(previewKrListInfo[0].target.split(',').join('')),
+          target: Number(previewKrListInfo[0].target),
           startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[0].expireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[0].taskList,
         },
         previewKrListInfo[1] && {
           ...previewKrListInfo[1],
-          target: Number(previewKrListInfo[1].target.split(',').join('')),
+          target: Number(previewKrListInfo[1].target),
           startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[1].expireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[1].taskList,
         },
         previewKrListInfo[2] && {
           ...previewKrListInfo[2],
-          target: Number(previewKrListInfo[2].target.split(',').join('')),
+          target: Number(previewKrListInfo[2].target),
           startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
           expireAt: previewKrListInfo[2].expireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[2].taskList,
@@ -186,7 +198,9 @@ const PreviewOkr = () => {
         </div>
 
         <StBtnWrapper>
-          <StPrevBtn type="button">이전으로</StPrevBtn>
+          <StPrevBtn type="button" onClick={handleClickPrevBtn}>
+            이전으로
+          </StPrevBtn>
           <StSaveBtn type="button" onClick={handleClickSaveOkrBtn} $isActiveSave={isActiveSave}>
             저장하기
           </StSaveBtn>

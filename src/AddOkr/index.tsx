@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import PreviewOkr from '../PreviewOkr/PreviewOkr';
 import StepBtns from './components/commonUse/StepBtns';
 import AddGuideFirstKr from './components/stepLayout/AddGuideFirstKr';
 import AddGuideSecondKr from './components/stepLayout/AddGuideSecondKr';
@@ -107,18 +108,24 @@ const AddOkr = () => {
 
   const handleClickNextBtn = () => {
     // 가이드에 따라 설정하기 vs 직접 설정하기 구분 조건
-    if (
-      (step === 4 && selectedMethod !== IS_GUIDE) ||
-      (step === 5 && selectedMethod === IS_GUIDE)
-    ) {
-      navigate('/preview-okr', {
-        state: {
-          selectedMethod: selectedMethod,
-          step: step,
-          objInfo: objInfo,
-          krListInfo: krListInfo.filter((kr) => kr.title),
-        },
-      });
+    // if (
+    //   (step === 4 && selectedMethod !== IS_GUIDE) ||
+    //   (step === 5 && selectedMethod === IS_GUIDE)
+    // ) {
+    //   navigate('/preview-okr', {
+    //     state: {
+    //       selectedMethod: selectedMethod,
+    //       step: step,
+    //       objInfo: objInfo,
+    //       krListInfo: krListInfo.filter((kr) => kr.title),
+    //     },
+    //   });
+    // }
+
+    // 가이드에 따라 설정하기 vs 직접 설정하기 구분 조건 : 직접 설정하기일 때는 step 4 -> step 6로 preview okr로 이동
+    if (step === 4 && selectedMethod !== IS_GUIDE) {
+      setStep((prev) => prev + 2);
+      return;
     }
 
     // default function
@@ -188,6 +195,10 @@ const AddOkr = () => {
         }
         break;
       case 5:
+        if (selectedMethod !== IS_GUIDE) {
+          setStep((prev) => prev + 1);
+          return;
+        }
         //가이드에 따라 설정 - 두번째 kr 카드일 떄
         krListInfo.filter((kr) => {
           return clickedCard.includes(kr.idx);
@@ -270,6 +281,16 @@ const AddOkr = () => {
             handleClickCloseBtn={handleClickCloseBtn}
             krListInfo={krListInfo}
             setKrListInfo={setKrListInfo}
+          />
+        );
+      case 6:
+        //step 6 - preview Okr
+        return (
+          <PreviewOkr
+            selectedMethod={selectedMethod}
+            setStep={setStep}
+            objInfo={objInfo}
+            krListInfo={krListInfo.filter((kr) => kr.title)}
           />
         );
       default:

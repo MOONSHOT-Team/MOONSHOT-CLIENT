@@ -18,7 +18,7 @@ const History = () => {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-  const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
+  const [years, setYears] = useState<{ year: number; count: number }[] | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
   const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
   const [fixedCategories, setFixedCategories] = useState<string[]>([]);

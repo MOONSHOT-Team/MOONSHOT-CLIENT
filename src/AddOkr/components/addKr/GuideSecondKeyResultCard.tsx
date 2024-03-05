@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { MAX_KR_METRIC, MAX_KR_TARGET } from '../../constants/MAX_KR_LENGTH';
+import { MAX_KR_METRIC, MAX_KR_TARGET } from '../../constants/OKR_MAX_LENGTH';
 import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 

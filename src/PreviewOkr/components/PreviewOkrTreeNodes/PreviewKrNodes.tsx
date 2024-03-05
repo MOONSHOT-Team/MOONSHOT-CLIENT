@@ -9,7 +9,7 @@ import {
 } from '@styles/okrTree/CommonNodeStyle';
 import React from 'react';
 
-import { MAX_KR_TITLE } from '../../../AddOkr/constants/MAX_KR_LENGTH';
+import { MAX_KR_TITLE } from '../../../AddOkr/constants/OKR_MAX_LENGTH';
 import { IKrListInfoTypes } from '../../../AddOkr/types/KrInfoTypes';
 
 interface IPreviewKrNodesProps {

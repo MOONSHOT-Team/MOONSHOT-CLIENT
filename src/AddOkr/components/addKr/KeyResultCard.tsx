@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
-import { MAX_KR_METRIC, MAX_KR_TARGET, MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
+import { MAX_KR_METRIC, MAX_KR_TARGET, MAX_KR_TITLE } from '../../constants/OKR_MAX_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import { IObjInfoTypes } from '../../types/ObjectInfoTypes';

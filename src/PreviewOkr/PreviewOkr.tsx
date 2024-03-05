@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { IS_GUIDE } from '../AddOkr/constants/ADD_OKR_METHOD_N_STEP';
+import { MAX_KR_TITLE, MAX_OBJ_TITLE } from '../AddOkr/constants/OKR_MAX_LENGTH';
 import { IFinalOkrListInfoTypes } from '../AddOkr/types/FinalKrListInfo';
 import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
 import { IObjInfoTypes } from '../AddOkr/types/ObjectInfoTypes';
@@ -147,11 +148,18 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
 
   const handleChangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     validEmptyValue(e);
+
+    if (e.target.value.length > MAX_OBJ_TITLE)
+      e.target.value = e.target.value.slice(0, MAX_KR_TITLE);
     setPreviewObjValue(e.target.value);
   };
 
   const handleChangeKrTitleValue = (e: React.ChangeEvent<HTMLInputElement>, krIdx: number) => {
     validEmptyValue(e);
+
+    if (e.target.value.length > MAX_KR_TITLE)
+      e.target.value = e.target.value.slice(0, MAX_KR_TITLE);
+
     previewKrListInfo[krIdx].title = e.target.value;
     setPreviewKrListInfo([...previewKrListInfo]);
   };

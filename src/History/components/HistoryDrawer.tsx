@@ -10,7 +10,7 @@ import YearButton from './YearButton';
 const CURR_YEAR = new Date().getFullYear();
 
 const HistoryDrawer = ({
-  categories,
+  // categories,
   years,
   onThemeSelect,
   fixedYears,
@@ -42,16 +42,16 @@ const HistoryDrawer = ({
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
           {HISTORY_THEME?.map(({ category }) => {
-            const isDisabled = selectedYear
-              ? !fixedCategories?.includes(category) || !categories?.includes(category)
-              : !fixedCategories?.includes(category);
+            // const isDisabled = selectedYear
+            //   ? !fixedCategories?.includes(category) || !categories?.includes(category)
+            //   : !fixedCategories?.includes(category);
             return (
               <ThemeButton
                 key={category}
                 name={category}
                 onSelectTheme={() => handleSelectTheme(category)}
                 isActive={category === selectedTheme}
-                isDisabled={isDisabled}
+                isDisabled={!fixedCategories?.includes(category)}
               />
             );
           })}

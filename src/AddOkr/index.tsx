@@ -114,6 +114,7 @@ const AddOkr = () => {
       navigate('/preview-okr', {
         state: {
           selectedMethod: selectedMethod,
+          step: step,
           objInfo: objInfo,
           krListInfo: krListInfo.filter((kr) => kr.title),
         },

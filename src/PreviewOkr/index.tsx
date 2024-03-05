@@ -20,11 +20,16 @@ const PreviewOkr = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { step, selectedMethod, objInfo, krListInfo } = location.state;
+
+  console.log(step);
+
   const { modalRef, handleShowModal } = useModal();
 
-  const { selectedMethod, objInfo, krListInfo } = location.state;
+  // '저장하기' 버튼 활성화 비활성화 관리
+  const [isActiveSave, setIsActiveSave] = useState(true);
+  // o, kr, task 값 입력 관리
   const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
-
   const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
   const [previewTaskListInfo, setPreviewTaskListInfo] = useState<IPreviewTaskInfoTypes[]>([
     {
@@ -81,6 +86,8 @@ const PreviewOkr = () => {
   ]);
 
   const handleClickSaveOkrBtn = async () => {
+    if (!isActiveSave) return;
+
     const { objStartAt, objExpireAt } = objInfo;
 
     const finalOkrInfo: IFinalOkrListInfoTypes = {
@@ -122,8 +129,19 @@ const PreviewOkr = () => {
     }
   };
 
+  const validEmptyValue = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    e.target.value === '' ? setIsActiveSave(false) : setIsActiveSave(true);
+  };
+
   const handleChangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    validEmptyValue(e);
     setPreviewObjValue(e.target.value);
+  };
+
+  const handleChangeKrTitleValue = (e: React.ChangeEvent<HTMLInputElement>, krIdx: number) => {
+    validEmptyValue(e);
+    previewKrListInfo[krIdx].title = e.target.value;
+    setPreviewKrListInfo([...previewKrListInfo]);
   };
 
   useEffect(() => {
@@ -151,8 +169,8 @@ const PreviewOkr = () => {
             KrNodes={(krIdx) => (
               <PreviewKrNodes
                 krIdx={krIdx}
+                handleChangeKrTitleValue={handleChangeKrTitleValue}
                 previewKrListInfo={previewKrListInfo}
-                setPreviewKrListInfo={setPreviewKrListInfo}
               />
             )}
             TaskNodes={(isFirstChild, krIdx, taskIdx) => (
@@ -167,9 +185,12 @@ const PreviewOkr = () => {
           />
         </div>
 
-        <StSaveOkrBtn type="button" onClick={handleClickSaveOkrBtn}>
-          저장하기
-        </StSaveOkrBtn>
+        <StBtnWrapper>
+          <StPrevBtn type="button">이전으로</StPrevBtn>
+          <StSaveBtn type="button" onClick={handleClickSaveOkrBtn} $isActiveSave={isActiveSave}>
+            저장하기
+          </StSaveBtn>
+        </StBtnWrapper>
       </section>
     </>
   );
@@ -196,18 +217,31 @@ const okrTreeDiv = css`
   margin-bottom: 8rem;
 `;
 
-const StSaveOkrBtn = styled.button`
-  position: absolute;
+const StBtnWrapper = styled.div`
+  position: fixed;
   bottom: 0;
+  display: flex;
+  gap: 1.2rem;
+  width: fit-content;
+  margin-bottom: 4.6rem;
+`;
+
+const StPrevBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 17.8rem;
   height: 3.4rem;
-  margin-bottom: 4.6rem;
-  color: ${({ theme }) => theme.colors.gray_650};
-  background: ${({ theme }) => theme.colors.gray_100};
+  color: ${({ theme }) => theme.colors.gray_000};
+  background: ${({ theme }) => theme.colors.gray_550};
   border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.btn_14_semibold};
+`;
+
+const StSaveBtn = styled(StPrevBtn)<{ $isActiveSave: boolean }>`
+  color: ${({ theme, $isActiveSave }) => $isActiveSave && theme.colors.gray_650};
+  background-color: ${({ theme, $isActiveSave }) => $isActiveSave && theme.colors.gray_100};
 
   ${({ theme }) => theme.fonts.btn_14_semibold};
 `;

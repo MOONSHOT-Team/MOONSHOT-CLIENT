@@ -121,7 +121,7 @@ const AddOkr = () => {
 
     // 가이드에 따라 설정하기 vs 직접 설정하기 구분 조건 : 직접 설정하기일 때는 step 4 -> step 6로 preview okr로 이동
     if (step === 4 && selectedMethod !== IS_GUIDE) {
-      setStep((prev) => prev + 2);
+      isActiveNext && setStep((prev) => prev + 2);
       return;
     }
 
@@ -192,10 +192,6 @@ const AddOkr = () => {
         }
         break;
       case 5:
-        if (selectedMethod !== IS_GUIDE) {
-          setStep((prev) => prev + 1);
-          return;
-        }
         //가이드에 따라 설정 - 두번째 kr 카드일 떄
         krListInfo.filter((kr) => {
           return clickedCard.includes(kr.idx);

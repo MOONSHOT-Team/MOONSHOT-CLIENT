@@ -297,31 +297,36 @@ const AddOkr = () => {
   }, [step, objInfo, krListInfo, clickedCard]);
 
   return (
-    <section css={AddOkrContainer}>
-      {selectedMethod && <StSelectedMethodTxt>{selectedMethod}</StSelectedMethodTxt>}
-      {renderStepLayout()}
-      {selectedMethod && step <= 5 && (
-        <>
-          <StepBtns
-            isInit={step === 1}
-            isActiveNext={isActiveNext}
-            handleClickPrev={handleClickPrevBtn}
-            handleClickNext={handleClickNextBtn}
-          />
-          <StProgressBarBox $step={step} $selectedMethod={selectedMethod}>
-            <ProgressBar
-              currentProgress={step}
-              maximumProgress={selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP}
+    <>
+      {selectedMethod && step <= 5 ? (
+        <section css={AddOkrContainer}>
+          <StSelectedMethodTxt>{selectedMethod}</StSelectedMethodTxt>
+          {renderStepLayout()}
+          <>
+            <StepBtns
+              isInit={step === 1}
+              isActiveNext={isActiveNext}
+              handleClickPrev={handleClickPrevBtn}
+              handleClickNext={handleClickNextBtn}
             />
-            <div css={ProgressTxtBox}>
-              <StProgressTxt>{`${step}/${
-                selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP
-              }`}</StProgressTxt>
-            </div>
-          </StProgressBarBox>
-        </>
+            <StProgressBarBox $step={step} $selectedMethod={selectedMethod}>
+              <ProgressBar
+                currentProgress={step}
+                maximumProgress={selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP}
+              />
+              <div css={ProgressTxtBox}>
+                <StProgressTxt>{`${step}/${
+                  selectedMethod === IS_GUIDE ? MAX_GUIDE_STEP : MAX_BASIC_STEP
+                }`}</StProgressTxt>
+              </div>
+            </StProgressBarBox>
+          </>
+        </section>
+      ) : (
+        // step > 6, 즉 preview-okr에서는 페이지 정렬 다르게
+        renderStepLayout()
       )}
-    </section>
+    </>
   );
 };
 

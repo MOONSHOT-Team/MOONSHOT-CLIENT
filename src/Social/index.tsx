@@ -1,17 +1,24 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import SocialDrawer from './components/socialDrawer/SocialDrawer';
 import SocialOKRTree from './components/socialOkrTree/SocialOKRTree';
 import { MOCK_SOCIAL_DATA } from './constants/MOCK_SOCIAL_DATA';
 
 const Social = () => {
+  const navigate = useNavigate();
   const [currentIdx, setCurrentIdx] = useState(0);
 
   const handleCurrentIdx = (idx: number) => {
     setCurrentIdx(idx);
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem('ACCESS_TOKEN')) navigate('sign-in');
+  }, []);
+
   return (
     <section css={mainSocialStyle}>
       <SocialDrawer onHandleCurrentIdx={handleCurrentIdx} />

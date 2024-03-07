@@ -13,6 +13,7 @@ const PreviewObjNode = ({ objValue, handleChangeObjValue }: IPreviewObjNodeProps
         value={objValue}
         onChange={handleChangeObjValue}
         maxLength={30}
+        minRows={1}
         maxRows={3}
         cacheMeasurements
       />
@@ -29,6 +30,7 @@ const StPreviewObjTextArea = styled(TextareaAutosize)`
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
   word-break: keep-all;
+  overflow-wrap: break-word;
   resize: none;
   background: transparent;
   border: none;

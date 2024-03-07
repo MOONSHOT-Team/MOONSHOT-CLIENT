@@ -1,17 +1,23 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
+import axios from 'axios';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSWRConfig } from 'swr';
 
 import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
+import { StErrorMSG } from '../../../styles/mainDashBoardStyles';
 
 const CHECK_IN_PLACEHOLDER =
-  '회고 내용을 입력하세요.\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요.';
+  '회고 내용을 입력하세요\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요';
 
 const MAX_NUM_COUNT = 6;
+const MAX_NUM_OVER_COUNT = 7;
 const MAX_TEXT_COUNT = 100;
+const DUP_KRNUM_SERVERMSG = 'Log 입력값은 이전 값과 동일할 수 없습니다.';
+const MAX_NUM_ERRMSG = '입력 최대 범위는 999,999 입니다';
+const DUP_NUM_ERRMSG = '기존 KR과 동일한 수치입니다';
 
 interface ICharacterCountProps {
   currentCnt: number;
@@ -89,7 +95,7 @@ export const 진척정도입력하기 = ({
       return;
     }
 
-    if (e.target.value.length > MAX_NUM_COUNT + 1) {
+    if (e.target.value.length > MAX_NUM_OVER_COUNT) {
       setIsMaxNum(true);
     }
 
@@ -158,6 +164,7 @@ export const 진척정도입력하기 = ({
               autoComplete="off"
               isMaxNum={isMaxNum}
             />
+            {isMaxNum && <StErrorMSG>{MAX_NUM_ERRMSG}</StErrorMSG>}
           </div>
         </span>
         <span css={enterInputBoxStyles}>
@@ -194,11 +201,13 @@ export const KR수정하기 = ({
   const [logContentCount, setLogContentCount] = useState(0);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isMaxNum, setIsMaxNum] = useState(false);
+  const [isSame, setIsSame] = useState(false);
   const navigator = useNavigate();
 
   const { mutate } = useSWRConfig();
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsSame(false);
     if (e.target.value === '') {
       setTarget('');
       return;
@@ -206,7 +215,7 @@ export const KR수정하기 = ({
     if (e.target.value.length > MAX_NUM_COUNT + 1) {
       setIsMaxNum(true);
     }
-    if (e.target.value.length <= MAX_NUM_COUNT) {
+    if (e.target.value.length <= MAX_NUM_COUNT + 1) {
       setIsMaxNum(false);
     }
     const rawValue = e.target.value.replace(/,/g, '').slice(0, MAX_NUM_COUNT);
@@ -236,7 +245,7 @@ export const KR수정하기 = ({
   const submitCheckIn = async () => {
     const data = {
       keyResultId,
-      target: Number(targetValue),
+      target: parseInt(targetValue.replace(/,/g, '')),
       logContent,
     };
 
@@ -247,7 +256,11 @@ export const KR수정하기 = ({
       if (response?.data) {
         handleChangeState?.(2);
       }
-    } catch {
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data.message === DUP_KRNUM_SERVERMSG) setIsSame(true);
+        return;
+      }
       navigator('/error');
     }
     onCancel();
@@ -259,15 +272,19 @@ export const KR수정하기 = ({
         <span css={enterInputBoxStyles}>
           <StLabel htmlFor="enterProgress">KR 수정</StLabel>
           <StEditNum>
-            <span>{title}</span>
-            <StEditNumInput
-              id="enterProgress"
-              placeholder={target.toLocaleString()}
-              value={targetValue}
-              onChange={handleTargetChange}
-              autoComplete="off"
-              isMaxNum={isMaxNum}
-            />
+            <span css={{ maxWidth: '11rem' }}>{title}</span>
+            <span css={{ position: 'relative' }}>
+              <StEditNumInput
+                id="enterProgress"
+                placeholder={target.toLocaleString()}
+                value={targetValue}
+                onChange={handleTargetChange}
+                autoComplete="off"
+                isMaxNum={isSame || isMaxNum}
+              />
+              {isSame && <StErrorMSG>{DUP_NUM_ERRMSG}</StErrorMSG>}
+              {isMaxNum && <StErrorMSG>{MAX_NUM_ERRMSG}</StErrorMSG>}
+            </span>
             <span>{metric}</span>
           </StEditNum>
         </span>
@@ -378,15 +395,17 @@ const StCheckInTextArea = styled.textarea`
 
 const StEditNum = styled.div`
   display: flex;
-  gap: 0.8rem;
+
+  /* gap: 0.8rem; */
   align-items: center;
   color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
 const StEditNumInput = styled.input<{ isMaxNum: boolean }>`
-  width: 9rem;
+  width: 12rem;
   padding: 1.1rem 1.2rem;
+  margin: 0 0.8rem;
   color: ${({ theme, isMaxNum }) => (isMaxNum ? '#ff6969' : theme.colors.gray_000)};
   text-align: center;
   background-color: transparent;

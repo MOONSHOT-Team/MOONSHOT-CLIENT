@@ -13,7 +13,7 @@ import { IcDrag } from '../../assets/icons';
 interface IMainDashKrNodesProps {
   krIdx: number;
   krList: IKeyResultTypes;
-  onShowSideSheet: (keyResultId: number) => void;
+  onShowSideSheet: (keyResultId: number | undefined) => void;
 }
 
 export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrNodesProps) => {

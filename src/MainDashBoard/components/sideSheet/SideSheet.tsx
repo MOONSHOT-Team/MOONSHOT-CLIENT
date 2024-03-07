@@ -1,11 +1,12 @@
 import ProgressBar from '@components/ProgressBar';
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
 import { IcClose } from '../../assets/icons';
+import { handleProcessBarColor } from '../../utils/handleProcessBarColor';
 import CheckInLogs from './CheckInLogs';
 import KrCheckIn from './krCheckIn/KrCheckIn';
 import KRPeriodSelect from './KRPeriodSelect';
@@ -32,6 +33,7 @@ const SideSheet = ({
 }: ISideSheetProps) => {
   const { data: sideSheetData } = useSWR(`/v1/key-result/${keyResultId}`, getDashBoardData);
   const krDetailData = sideSheetData?.data;
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const [isCheckInView, setIsCheckInView] = useState(false);
   if (!sideSheetData) return;
@@ -41,8 +43,12 @@ const SideSheet = ({
     setIsCheckInView(!isCheckInView);
   };
 
+  const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current === e.target) onClose();
+  };
+
   return (
-    <StBackground>
+    <StBackground ref={modalRef} onClick={closeModal}>
       <StContainer $isOpen={isOpen}>
         <section css={krDetailUpperStyles}>
           <StKrDetailHeader>
@@ -53,15 +59,15 @@ const SideSheet = ({
             </span>
           </StKrDetailHeader>
           <StKrTitle>
-            {title} {target}
+            {title} {target.toLocaleString()}
             {metric}
           </StKrTitle>
           <div>
             <ProgressBar
               currentProgress={progressBar}
               progressBarColor={'#444444'}
-              progressValueColor={'#A6EEF6'}
-              textColor={'#A6EEF6'}
+              progressValueColor={handleProcessBarColor(progressBar)}
+              textColor={handleProcessBarColor(progressBar)}
               isCurrentProgress={true}
             />
           </div>
@@ -198,13 +204,9 @@ const StKrCheckInBtn = styled.button`
   width: 29.8rem;
   height: 4.4rem;
   margin-bottom: 2rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ theme }) => theme.colors.gray_500};
+  color: ${({ theme }) => theme.colors.gray_600};
+  background-color: ${({ theme }) => theme.colors.sub_mint};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.btn_14_semibold};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray_450};
-  }
 `;

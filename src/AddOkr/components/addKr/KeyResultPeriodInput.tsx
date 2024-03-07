@@ -12,13 +12,13 @@ interface IKeyResultPeriodInputProps {
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
   ) => void;
-  period: string[];
+  krPeriod: string[];
   objInfo: IObjInfoTypes;
 }
 
 const KeyResultPeriodInput = ({
   handleClickSelectDate,
-  period,
+  krPeriod,
   objInfo,
 }: IKeyResultPeriodInputProps) => {
   const { objStartAt, objExpireAt } = objInfo;
@@ -30,7 +30,7 @@ const KeyResultPeriodInput = ({
 
   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
     return (
-      current < dayjs(objStartAt.split('. ').join('')).endOf('day') ||
+      current < dayjs(objStartAt.split('. ').join('')) ||
       current > dayjs(objExpireAt.split('. ').join('')).startOf('day')
     );
   };
@@ -56,7 +56,7 @@ const KeyResultPeriodInput = ({
         <RangePicker
           variant="borderless"
           onChange={handleClickSelectDate}
-          value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
+          value={[dayjs(formatDate(krPeriod[0])), dayjs(formatDate(krPeriod[1]))]}
           defaultValue={[dayjs(), dayjs()]}
           format={'YYYY. MM. DD'}
           disabledDate={disabledDate}
@@ -79,7 +79,7 @@ const StKRPeriodContainer = styled.div`
   }
 
   .ant-picker-input > input {
-    width: 7rem;
+    width: 8rem;
     color: ${({ theme }) => theme.colors.gray_000};
     border: none;
     ${({ theme }) => theme.fonts.body_12_regular};

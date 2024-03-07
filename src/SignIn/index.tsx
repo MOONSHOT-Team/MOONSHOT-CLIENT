@@ -10,15 +10,16 @@ import imgViewcollections from './assets/images/imgViewcollections.png';
 const SignIn = () => {
   const Rest_api_key = import.meta.env.VITE_KAKAO_REST_API_KEY;
   const redirect_uri = import.meta.env.VITE_REDIRECT_URL;
+  const google_client_id = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
-
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}/kakao&response_type=code`;
+  const GoogleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${google_client_id}&redirect_uri=${redirect_uri}/google&response_type=code&scope=email profile`;
   const handleKakaoLoginButton = () => {
     window.location.href = kakaoURL;
   };
 
   const handleGoogleLoginButton = () => {
-    window.open(`${import.meta.env.VITE_BASE_URL}/v1/user/googleLogin`, '_self');
+    window.location.href = GoogleURL;
   };
 
   return (

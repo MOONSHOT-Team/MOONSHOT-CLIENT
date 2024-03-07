@@ -13,7 +13,9 @@ const CHECK_IN_PLACEHOLDER =
   '회고 내용을 입력하세요\n\n • 목표와 주요 결과에서 얼마나 진전을 이루었나요?\n • 이러한 목표를 선택한 것이 옳은 선택이었나요?\n • 실행 과정에 얼마나 만족하는지 알려주세요';
 
 const MAX_NUM_COUNT = 6;
+const MAX_NUM_OVER_COUNT = 7;
 const MAX_TEXT_COUNT = 100;
+const DUP_KRNUM_SERVERMSG = 'Log 입력값은 이전 값과 동일할 수 없습니다.';
 const MAX_NUM_ERRMSG = '입력 최대 범위는 999,999 입니다';
 const DUP_NUM_ERRMSG = '기존 KR과 동일한 수치입니다';
 
@@ -93,7 +95,7 @@ export const 진척정도입력하기 = ({
       return;
     }
 
-    if (e.target.value.length > MAX_NUM_COUNT + 1) {
+    if (e.target.value.length > MAX_NUM_OVER_COUNT) {
       setIsMaxNum(true);
     }
 
@@ -256,8 +258,7 @@ export const KR수정하기 = ({
       }
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        if (err.response?.data.message === 'Log 입력값은 이전 값과 동일할 수 없습니다.')
-          setIsSame(true);
+        if (err.response?.data.message === DUP_KRNUM_SERVERMSG) setIsSame(true);
         return;
       }
       navigator('/error');

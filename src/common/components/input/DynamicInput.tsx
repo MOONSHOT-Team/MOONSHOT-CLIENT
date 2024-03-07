@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface IDynamicInputProps {
-  value: string;
+  value?: string;
   handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   minWidth?: number;
   maxLength?: number;

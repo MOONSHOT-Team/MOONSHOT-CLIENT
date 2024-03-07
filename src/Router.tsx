@@ -16,7 +16,7 @@ const MainLayout = lazy(() => import('@components/Layout/MainLayout'));
 const My = lazy(() => import('./My'));
 const Nickname = lazy(() => import('./Nickname'));
 const TeamMoonshot = lazy(() => import('./Onboarding/components/teamMoonshot/TeamMoonshot'));
-const PreviewOkr = lazy(() => import('./PreviewOkr'));
+// const PreviewOkr = lazy(() => import('./PreviewOkr'));
 const SignIn = lazy(() => import('./SignIn'));
 const Social = lazy(() => import('./Social'));
 
@@ -60,10 +60,10 @@ const router = createBrowserRouter([
         path: 'social',
         element: <Social />,
       },
-      {
-        path: 'preview-okr',
-        element: <PreviewOkr />,
-      },
+      // {
+      //   path: 'preview-okr',
+      //   element: <PreviewOkr />,
+      // },
       {
         path: 'dashboard',
         element: <MainDashBoard />,

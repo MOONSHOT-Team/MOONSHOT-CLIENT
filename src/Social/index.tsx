@@ -17,7 +17,7 @@ const Social = () => {
 
   useEffect(() => {
     if (!localStorage.getItem('ACCESS_TOKEN')) navigate('sign-in');
-  });
+  }, []);
 
   return (
     <section css={mainSocialStyle}>

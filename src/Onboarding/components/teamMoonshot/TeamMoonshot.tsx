@@ -24,7 +24,7 @@ const TeamMoonshot = () => {
             <MainTitle>우리가 달로 향하는 방법</MainTitle>
             <SubTitle>일상의 혁신을 만들어가는 TEAM moonshot</SubTitle>
           </div>
-          <Profile src={imgMinjeong} crewName="MinJeon.K" crewRole="Team Leader" />
+          <Profile src={imgMinjeong} crewName="MinJeong.K" crewRole="Team Leader" />
           <Profile src={imgKyungmin} crewName="KyungMin.Y" crewRole="Product Manager" />
           <Profile src={imgJihyeon} crewName="JiHyeon.L" crewRole="Product Designer" />
           <Profile src={imgMihyeon} crewName="MiHyeon.J" crewRole="Product Designer" />

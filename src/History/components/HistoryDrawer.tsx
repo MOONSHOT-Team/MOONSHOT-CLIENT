@@ -7,8 +7,10 @@ import { IObjectiveDataProps } from '../type/okrTypes';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
 
+const CURR_YEAR = new Date().getFullYear();
+
 const HistoryDrawer = ({
-  categories,
+  // categories,
   years,
   onThemeSelect,
   fixedYears,
@@ -34,24 +36,22 @@ const HistoryDrawer = ({
     });
   };
 
-  const currentYear = new Date().getFullYear();
-
   return (
     <StHistoryAside>
       <article css={themeContainer}>
         <StDrawerContents>테마</StDrawerContents>
         <ul css={drawerWrapper}>
           {HISTORY_THEME?.map(({ category }) => {
-            const isDisabled = selectedYear
-              ? !fixedCategories?.includes(category) || !categories?.includes(category)
-              : !fixedCategories?.includes(category);
+            // const isDisabled = selectedYear
+            //   ? !fixedCategories?.includes(category) || !categories?.includes(category)
+            //   : !fixedCategories?.includes(category);
             return (
               <ThemeButton
                 key={category}
                 name={category}
                 onSelectTheme={() => handleSelectTheme(category)}
                 isActive={category === selectedTheme}
-                isDisabled={isDisabled || false}
+                isDisabled={!fixedCategories?.includes(category)}
               />
             );
           })}
@@ -61,18 +61,19 @@ const HistoryDrawer = ({
       <article css={yearContainer}>
         <StDrawerContents>연도</StDrawerContents>
         <ul css={drawerWrapper}>
-          {(!fixedYears || !fixedYears.some((item) => item.year === currentYear)) && (
+          {/* 올해 연도 태그 */}
+          {(!fixedYears || !fixedYears.some((item) => item.year === CURR_YEAR)) && (
             <YearButton
               key={0}
-              year={currentYear}
+              year={CURR_YEAR}
               count={0}
               onSelectYear={() => handleSelectYear(0)}
               isActive={false}
-              isDisabled={selectedTheme ? !years?.some((item) => item.year === currentYear) : false}
+              isDisabled={!years?.some((item) => item.year === CURR_YEAR)}
             />
           )}
           {fixedYears?.map(({ year, count }) => {
-            const isDisabled = selectedTheme ? !years?.some((item) => item.year === year) : false;
+            // const isDisabled = selectedTheme ? !years?.some((item) => item.year === year) : false;
             return (
               <YearButton
                 key={year}
@@ -80,7 +81,7 @@ const HistoryDrawer = ({
                 count={count}
                 onSelectYear={() => handleSelectYear(year)}
                 isActive={year === selectedYear}
-                isDisabled={isDisabled}
+                isDisabled={!years?.some((item) => item.year === year)}
               />
             );
           })}

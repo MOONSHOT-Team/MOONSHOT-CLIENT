@@ -10,24 +10,39 @@ interface ICategoriesProps {
   categories: string[];
   selectedCategory: string;
   onClick: (category: string) => void;
+  historyCategories?: string[];
 }
 
-const Categories = ({ label, categories, selectedCategory, onClick }: ICategoriesProps) => {
+const Categories = ({
+  label,
+  categories,
+  selectedCategory,
+  onClick,
+  historyCategories,
+}: ICategoriesProps) => {
   return (
     <div css={categoriesWrapper}>
       <CategoryTitle>{label}</CategoryTitle>
       <div css={sortCategories}>
-        {categories?.map((category) => (
-          <StCategoryButton
-            key={category}
-            onClick={() => {
-              onClick(category);
-            }}
-          >
-            {category === selectedCategory ? <IcCheck /> : null}
-            <span>{category}</span>
-          </StCategoryButton>
-        ))}
+        {categories?.map((category) => {
+          const isHavingCategoryData = historyCategories
+            ? historyCategories.includes(category)
+            : true;
+
+          return (
+            <StCategoryButton
+              key={category}
+              isHavingCategoryData={isHavingCategoryData}
+              disabled={!isHavingCategoryData}
+              onClick={() => {
+                onClick(category);
+              }}
+            >
+              {category === selectedCategory ? <IcCheck /> : null}
+              <span>{category}</span>
+            </StCategoryButton>
+          );
+        })}
       </div>
     </div>
   );
@@ -53,7 +68,11 @@ const CategoryTitle = styled.label`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-const StCategoryButton = styled.button`
+interface IStCategoryButtonProps {
+  isHavingCategoryData?: boolean;
+}
+
+const StCategoryButton = styled.button<IStCategoryButtonProps>`
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -61,15 +80,21 @@ const StCategoryButton = styled.button`
   width: fit-content;
   height: 2.7rem;
   padding: 0.8rem 1rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ theme }) => theme.colors.background};
-  border: 1px solid ${({ theme }) => theme.colors.gray_350};
+  color: ${({ theme, isHavingCategoryData }) =>
+    isHavingCategoryData ? theme.colors.gray_000 : theme.colors.gray_450};
+  cursor: ${({ isHavingCategoryData }) => (isHavingCategoryData ? 'pointer' : 'default')};
+  background-color: ${({ theme, isHavingCategoryData }) =>
+    isHavingCategoryData ? theme.colors.background : theme.colors.gray_550};
+  border: 1px solid
+    ${({ theme, isHavingCategoryData }) =>
+      isHavingCategoryData ? theme.colors.gray_350 : theme.colors.gray_450};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.btn_11_medium};
 `;
 
 const HistoryDrawer = ({
+  historyCategories,
   okrHistoryYearData,
   selectedTheme,
   selectedYear,
@@ -81,6 +106,7 @@ const HistoryDrawer = ({
       <Categories
         label="테마"
         categories={HISTORY_THEME}
+        historyCategories={historyCategories}
         selectedCategory={selectedTheme}
         onClick={onSelectTheme}
       />

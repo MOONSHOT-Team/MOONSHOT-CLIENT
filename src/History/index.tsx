@@ -28,10 +28,10 @@ const History = () => {
 
   if (isLoading) return <Loading />;
 
-  const historyOriginGroup = data?.data.data.groups;
-  const historyCategories = data?.data.data.categories;
-  let historyYears = data?.data.data.years;
-  let historyGroup = data?.data.data.groups;
+  const historyOriginGroup = data!.data.data.groups;
+  const historyCategories = data!.data.data.categories;
+  let historyYears = data!.data.data.years;
+  let historyGroup = data!.data.data.groups;
 
   const handleSelectTheme = (selectedNewTheme: string) => {
     if (selectedNewTheme === selectedTheme) return setSelectedTheme('');
@@ -146,7 +146,7 @@ const History = () => {
   return (
     <section css={historyUi}>
       <HistoryDrawer
-        okrHistoryCategoryData={historyCategories}
+        historyCategories={historyCategories}
         okrHistoryYearData={yearData}
         selectedTheme={selectedTheme}
         selectedYear={selectedYear}
@@ -154,7 +154,7 @@ const History = () => {
         onSelectYear={handleSelectYear}
       />
 
-      <section css={DropDownSection}>
+      <section css={dropDownSection}>
         <ListOrder selectedFilter={selectedFilter} onFilterSelection={handleFilterSelection} />
         {historyGroup?.map(({ year, objList }: Group) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
@@ -182,7 +182,7 @@ const historyUi = css`
   height: 100%;
 `;
 
-const DropDownSection = css`
+const dropDownSection = css`
   position: relative;
   width: 100%;
   padding: 3rem 3.6rem 3rem 4rem;

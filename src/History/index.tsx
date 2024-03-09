@@ -1,8 +1,7 @@
-import instance from '@apis/instance';
 import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
 
 import { getOKRHistory } from './apis/fetcher';
@@ -12,24 +11,43 @@ import HistoryDrawer from './components/HistoryDrawer';
 import { Group, IObjective } from './type/okrTypes';
 
 export type filterOptionTypes = '최신순' | '오래된 순' | '달성률';
+// export type selectedThemeTypes =
+//   | '성장'
+//   | '건강'
+//   | '생산성'
+//   | '라이프스타일'
+//   | '경제'
+//   | '셀프케어'
+//   | null;
 
 const History = () => {
-  const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
-    null,
-  );
-  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [years, setYears] = useState<{ year: number; count: number }[]>([{ year: 2024, count: 0 }]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [fixedYears, setFixedYears] = useState<{ year: number; count: number }[] | null>(null);
-  const [fixedCategories, setFixedCategories] = useState<string[]>([]);
-
-  // 시작
-  const [okrHistoryData, setOkrHistoryData] = useState<Group[]>([]);
-  const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
-
   const { data, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
+  const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
+  const [selectedTheme, setSelectedTheme] = useState('');
+  const [selectedYear, setSelectedYear] = useState('0');
 
+  if (isLoading) return <Loading />;
+
+  const historyOriginGroup = data?.data.data.groups;
+  const historyCategories = data?.data.data.categories;
+  let historyYears = data?.data.data.years;
+  let historyGroup = data?.data.data.groups;
+
+  const handleSelectTheme = (selectedNewTheme: string) => {
+    if (selectedNewTheme === selectedTheme) return setSelectedTheme('');
+
+    if (selectedYear !== '0') setSelectedYear('0');
+
+    setSelectedTheme(selectedNewTheme);
+  };
+
+  const handleSelectYear = (selectedNewYear: string) => {
+    if (selectedNewYear === selectedYear) return setSelectedYear('0');
+
+    setSelectedYear(selectedNewYear);
+  };
+
+  // 정렬 로직
   const handleFilterSelection = (selectedFilter: filterOptionTypes) => {
     setSelectedFilter(selectedFilter);
 
@@ -40,8 +58,8 @@ const History = () => {
     };
 
     if (selectedFilter === '최신순') {
-      const newHistoryData = [...okrHistoryData].sort((a, b) => b.year - a.year);
-      newHistoryData.forEach(({ objList }) => {
+      const newHistoryGroup = [...historyGroup].sort((a, b) => b.year - a.year);
+      newHistoryGroup.forEach(({ objList }: { objList: IObjective[] }) => {
         return objList.sort((a, b) => {
           const fullDateA = getFullDateFormat(a.objPeriod);
           const fullDateB = getFullDateFormat(b.objPeriod);
@@ -50,12 +68,12 @@ const History = () => {
         });
       });
 
-      return setOkrHistoryData(newHistoryData);
+      return (historyGroup = newHistoryGroup);
     }
 
     if (selectedFilter === '오래된 순') {
-      const newHistoryData = [...okrHistoryData].sort((a, b) => a.year - b.year);
-      newHistoryData.forEach(({ objList }) => {
+      const newHistoryGroup = [...historyGroup].sort((a, b) => a.year - b.year);
+      newHistoryGroup.forEach(({ objList }: { objList: IObjective[] }) => {
         return objList.sort((a, b) => {
           const fullDateA = getFullDateFormat(a.objPeriod);
           const fullDateB = getFullDateFormat(b.objPeriod);
@@ -64,84 +82,81 @@ const History = () => {
         });
       });
 
-      return setOkrHistoryData(newHistoryData);
+      return (historyGroup = newHistoryGroup);
     }
 
     if (selectedFilter === '달성률') {
-      const newHistoryData = [...okrHistoryData].sort((a, b) => b.year - a.year);
-      newHistoryData.forEach(({ objList }) => {
+      const newHistoryGroup = [...historyGroup].sort((a, b) => b.year - a.year);
+      newHistoryGroup.forEach(({ objList }: { objList: IObjective[] }) => {
         return objList.sort((a, b) => b.progress - a.progress);
       });
 
-      return setOkrHistoryData(newHistoryData);
+      return (historyGroup = newHistoryGroup);
     }
   };
 
-  useEffect(() => {
-    setOkrHistoryData(data?.data.data.groups);
-  }, [data]);
+  // 카테고리 선택 로직
+  if (selectedTheme === '' && selectedYear !== '0') {
+    const selectedHistoryGroupByYear = [...historyOriginGroup].filter(({ year }) =>
+      selectedYear.includes(year),
+    );
 
-  // 끝
+    historyGroup = selectedHistoryGroupByYear;
+  } else if (selectedTheme !== '') {
+    const newHistoryData = [...historyOriginGroup]
+      .map(({ year, objList }) => {
+        const filteredObjList = objList.filter(
+          ({ objCategory }: { objCategory: string }) => objCategory === selectedTheme,
+        );
 
-  const handleThemeSelect = async (selectedTheme: string) => {
-    setSelectedTheme(selectedTheme);
-  };
+        return { year, objList: filteredObjList };
+      })
+      .filter(({ objList }) => objList.length !== 0);
 
-  const handleYearSelect = async (selectedYear: number) => {
-    setSelectedYear(selectedYear);
-  };
+    historyGroup = newHistoryData;
 
-  useEffect(() => {
-    if (!isLoading && data) {
-      setHistoryData(data?.data.data);
-      setFixedYears(data?.data.data.years || []);
-      setFixedCategories(data?.data.data.categories || []);
-    }
-  }, [data, isLoading]);
+    historyYears = historyGroup.map(
+      ({ year, objList }: { year: string; objList: IObjective[] }) => ({
+        year,
+        count: objList.length,
+      }),
+    );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await instance.get('/v1/objective/history', {
-        params: {
-          year: selectedYear,
-          category: selectedTheme,
-          criteria: selectedFilter,
+    if (selectedYear !== '0') {
+      const selectedHistoryGroupByYear = [...historyOriginGroup].filter(({ year }) =>
+        selectedYear.includes(year),
+      );
+      const newHistoryData = selectedHistoryGroupByYear[0].objList.filter(
+        ({ objCategory }: { objCategory: string }) => objCategory === selectedTheme,
+      );
+
+      historyGroup = [
+        {
+          year: Number(selectedYear.slice(0, 4)),
+          objList: newHistoryData,
         },
-      });
-      if (response) setYears(response.data.data.years || []);
-      setCategories(response.data.data.categories);
-      setHistoryData(response.data.data);
-    };
+      ];
+    }
+  }
 
-    fetchData();
-  }, [selectedTheme, selectedYear, selectedFilter]);
-
-  if (!data) return <Loading />;
+  const yearData = historyYears?.map(
+    ({ year, count }: { year: string; count: number }) => `${year}(${count})`,
+  );
 
   return (
     <section css={historyUi}>
       <HistoryDrawer
-        groups={historyData ? historyData.groups : []}
-        categories={categories}
-        years={years}
-        fixedYears={fixedYears}
-        fixedCategories={fixedCategories}
-        onThemeSelect={handleThemeSelect}
-        onYearSelect={handleYearSelect}
+        okrHistoryCategoryData={historyCategories}
+        okrHistoryYearData={yearData}
+        selectedTheme={selectedTheme}
+        selectedYear={selectedYear}
+        onSelectTheme={handleSelectTheme}
+        onSelectYear={handleSelectYear}
       />
 
       <section css={DropDownSection}>
-        <select>
-          <option>최신순</option>
-          <option>오래된 순</option>
-          <option>달성률</option>
-        </select>
         <ListOrder selectedFilter={selectedFilter} onFilterSelection={handleFilterSelection} />
-        {/* {(selectedTheme || selectedYear || selectedFilter
-          ? historyData?.groups
-          : data?.data?.data?.groups
-        )?.map(({ year, objList }: Group, idx: number) => () */}
-        {okrHistoryData?.map(({ year, objList }: Group) => (
+        {historyGroup?.map(({ year, objList }: Group) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
             <StListOrderContainer>
               <StEachYear>{year}년</StEachYear>
@@ -171,7 +186,6 @@ const DropDownSection = css`
   position: relative;
   width: 100%;
   padding: 3rem 3.6rem 3rem 4rem;
-  margin-left: 23.2rem;
   overflow-y: auto;
 `;
 

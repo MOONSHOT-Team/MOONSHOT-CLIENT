@@ -1,24 +1,32 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 
+import { IcCheck } from '../assets/icons';
 import { HISTORY_THEME } from '../constants/HISTORY_THEME';
 import { IObjectiveDataProps } from '../type/okrTypes';
-import ThemeButton from './ThemeButton';
-import YearButton from './YearButton';
 
 interface ICategoriesProps {
   label: string;
-  categories: (string | number)[];
+  categories: string[];
+  selectedCategory: string;
+  onClick: (category: string) => void;
 }
 
-const Categories = ({ label, categories }: ICategoriesProps) => {
+const Categories = ({ label, categories, selectedCategory, onClick }: ICategoriesProps) => {
   return (
     <div css={categoriesWrapper}>
       <CategoryTitle>{label}</CategoryTitle>
       <div css={sortCategories}>
-        {categories.map((category) => (
-          <StCategoryButton key={category}>{category}</StCategoryButton>
+        {categories?.map((category) => (
+          <StCategoryButton
+            key={category}
+            onClick={() => {
+              onClick(category);
+            }}
+          >
+            {category === selectedCategory ? <IcCheck /> : null}
+            <span>{category}</span>
+          </StCategoryButton>
         ))}
       </div>
     </div>
@@ -47,6 +55,7 @@ const CategoryTitle = styled.label`
 
 const StCategoryButton = styled.button`
   display: flex;
+  gap: 0.4rem;
   align-items: center;
   justify-content: center;
   width: fit-content;
@@ -61,86 +70,26 @@ const StCategoryButton = styled.button`
 `;
 
 const HistoryDrawer = ({
-  categories,
-  years,
-  fixedYears,
-  fixedCategories,
+  okrHistoryYearData,
+  selectedTheme,
+  selectedYear,
   onSelectTheme,
   onSelectYear,
 }: IObjectiveDataProps) => {
-  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
-
-  const handleSelectTheme = (selectedTheme: string) => {
-    setSelectedTheme((prevTheme) => {
-      const newTheme = prevTheme === selectedTheme ? null : selectedTheme;
-      onSelectTheme(newTheme);
-      return newTheme;
-    });
-  };
-
-  const handleSelectYear = (selectedYear: number) => {
-    setSelectedYear((prevYear) => {
-      const newYear = prevYear === selectedYear ? null : selectedYear;
-      onSelectYear(newYear as number);
-      return newYear;
-    });
-  };
-
-  const currentYear = new Date().getFullYear();
-
   return (
     <StHistoryAside>
-      <Categories label="테마" categories={HISTORY_THEME} />
-      <Categories label="테마" categories={HISTORY_THEME} />
-      <article css={themeContainer}>
-        <StDrawerContents>테마</StDrawerContents>
-        <ul css={drawerWrapper}>
-          {HISTORY_THEME?.map(({ category }) => {
-            const isDisabled = selectedYear
-              ? !fixedCategories?.includes(category) || !categories?.includes(category)
-              : !fixedCategories?.includes(category);
-            return (
-              <ThemeButton
-                key={category}
-                name={category}
-                onSelectTheme={() => handleSelectTheme(category)}
-                isActive={category === selectedTheme}
-                isDisabled={isDisabled || false}
-              />
-            );
-          })}
-        </ul>
-      </article>
-
-      <article css={yearContainer}>
-        <StDrawerContents>연도</StDrawerContents>
-        <ul css={drawerWrapper}>
-          {(!fixedYears || !fixedYears.some((item) => item.year === currentYear)) && (
-            <YearButton
-              key={0}
-              year={currentYear}
-              count={0}
-              onSelectYear={() => handleSelectYear(0)}
-              isActive={false}
-              isDisabled={selectedTheme ? !years?.some((item) => item.year === currentYear) : false}
-            />
-          )}
-          {fixedYears?.map(({ year, count }) => {
-            const isDisabled = selectedTheme ? !years?.some((item) => item.year === year) : false;
-            return (
-              <YearButton
-                key={year}
-                year={year}
-                count={count}
-                onSelectYear={() => handleSelectYear(year)}
-                isActive={year === selectedYear}
-                isDisabled={isDisabled}
-              />
-            );
-          })}
-        </ul>
-      </article>
+      <Categories
+        label="테마"
+        categories={HISTORY_THEME}
+        selectedCategory={selectedTheme}
+        onClick={onSelectTheme}
+      />
+      <Categories
+        label="연도"
+        categories={okrHistoryYearData}
+        selectedCategory={selectedYear}
+        onClick={onSelectYear}
+      />
     </StHistoryAside>
   );
 };
@@ -156,28 +105,4 @@ const StHistoryAside = styled.aside`
   height: 100%;
   padding: 2.4rem 2.2rem;
   background-color: ${({ theme }) => theme.colors.gray_650};
-`;
-
-const themeContainer = css`
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  padding-bottom: 3.8rem;
-`;
-
-const StDrawerContents = styled.p`
-  color: ${({ theme }) => theme.colors.gray_000};
-  ${({ theme }) => theme.fonts.body_12_regular};
-`;
-
-const drawerWrapper = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem 0.6rem;
-`;
-
-const yearContainer = css`
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
 `;

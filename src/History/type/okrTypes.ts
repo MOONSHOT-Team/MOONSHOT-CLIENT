@@ -28,11 +28,10 @@ export interface Group {
 }
 
 export interface IObjectiveDataProps {
-  groups: Group[];
-  years: { year: number; count: number }[];
-  fixedYears: { year: number; count: number }[] | null;
-  categories: string[];
-  fixedCategories: string[];
-  onThemeSelect: (selectedTheme: string) => void;
-  onYearSelect: (selectedYear: number) => void;
+  okrHistoryCategoryData: string[];
+  okrHistoryYearData: string[];
+  selectedTheme: string;
+  selectedYear: string;
+  onSelectTheme: (selectedTheme: string) => void;
+  onSelectYear: (selectedYear: string) => void;
 }

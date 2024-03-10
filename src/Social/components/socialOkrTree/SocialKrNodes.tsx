@@ -16,9 +16,7 @@ export const SocialKrNodes = ({ krIdx, krList }: ISocialKrNodesProps) => {
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
       <StSocialKrBoxWrapper>
         <StraightLine />
-        <StSocialBox>
-          `${krTitle} : ${krTarget}${krMetric}`
-        </StSocialBox>
+        <StSocialBox>{`${krTitle} : ${krTarget}${krMetric}`}</StSocialBox>
       </StSocialKrBoxWrapper>
     </StNodesContainer>
   );

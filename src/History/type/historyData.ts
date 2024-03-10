@@ -5,6 +5,7 @@ export interface IObjective {
   objProgress: number;
   objPeriod: string;
   objIdx?: number;
+  isLast?: boolean;
   krList: IKeyResult[];
 }
 export interface IKeyResult {
@@ -28,9 +29,10 @@ export interface Group {
 
 export interface IObjectiveDataProps {
   groups: Group[];
-  years: {
-    [year: string]: number;
-  };
+  years: { year: number; count: number }[] | null;
+  fixedYears: { year: number; count: number }[] | null;
   categories: string[];
+  fixedCategories: string[];
   onThemeSelect: (selectedTheme: string) => void;
+  onYearSelect: (selectedYear: number) => void;
 }

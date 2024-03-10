@@ -9,7 +9,7 @@ import { getOKRHistory } from './apis/fetcher';
 import HistoryList from './components/dropDown/HistoryList';
 import ListOrder from './components/dropDown/ListOrder';
 import HistoryDrawer from './components/HistoryDrawer';
-import { Group, IObjective } from './type/okrTypes';
+import { Group, IObjective } from './type/historyData';
 
 const History = () => {
   const [historyData, setHistoryData] = useState<{ groups: Group[]; categories: string[] } | null>(
@@ -92,13 +92,20 @@ const History = () => {
             <ul>
               <li>
                 {objList.map(
-                  ({ objId, title, objCategory, progress, objPeriod, krList }: IObjective) => (
+                  ({
+                    objId,
+                    objTitle,
+                    objCategory,
+                    objProgress,
+                    objPeriod,
+                    krList,
+                  }: IObjective) => (
                     <HistoryList
-                      key={`${title}+${objId}`}
+                      key={`${objTitle}+${objId}`}
                       objId={objId}
-                      title={title}
+                      objTitle={objTitle}
                       objCategory={objCategory}
-                      progress={progress}
+                      objProgress={objProgress}
                       objPeriod={objPeriod}
                       krList={krList}
                       isLast={idx === objList.length - 1}

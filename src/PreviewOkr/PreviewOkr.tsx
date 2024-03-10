@@ -39,10 +39,10 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
   // o, kr, task 값 입력 관리
   const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
   const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
-  //TODO: 기본값 반복문 구조로 수정 필요
-  const [previewTaskListInfo, setPreviewTaskListInfo] = useState<IPreviewTaskInfoTypes[]>([
-    {
-      krIdx: 0,
+  //preview에서의 taskInfo 기본 값
+  const resetPreviewTaskList = [0, 1, 2].map((idx) => {
+    return {
+      krIdx: idx,
       taskList: [
         {
           taskTitle: '',
@@ -57,42 +57,10 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
           taskIdx: 2,
         },
       ],
-    },
-    {
-      krIdx: 1,
-      taskList: [
-        {
-          taskTitle: '',
-          taskIdx: 0,
-        },
-        {
-          taskTitle: '',
-          taskIdx: 1,
-        },
-        {
-          taskTitle: '',
-          taskIdx: 2,
-        },
-      ],
-    },
-    {
-      krIdx: 2,
-      taskList: [
-        {
-          taskTitle: '',
-          taskIdx: 0,
-        },
-        {
-          taskTitle: '',
-          taskIdx: 1,
-        },
-        {
-          taskTitle: '',
-          taskIdx: 2,
-        },
-      ],
-    },
-  ]);
+    };
+  });
+  const [previewTaskListInfo, setPreviewTaskListInfo] =
+    useState<IPreviewTaskInfoTypes[]>(resetPreviewTaskList);
 
   const handleClickPrevBtn = () => {
     setStep((prev) => prev - (selectedMethod === IS_GUIDE ? 1 : 2));
@@ -108,29 +76,17 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
       objTitle: previewObjValue,
       objStartAt: objStartAt.split('. ').join('-'),
       objExpireAt: objExpireAt.split('. ').join('-'),
-      krList: [
-        previewKrListInfo[0] && {
-          ...previewKrListInfo[0],
-          krTarget: Number(previewKrListInfo[0].krTarget.toString().split(',').join('')),
-          krStartAt: previewKrListInfo[0].krStartAt.split('. ').join('-'),
-          krExpireAt: previewKrListInfo[0].krExpireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[0].taskList,
-        },
-        previewKrListInfo[1] && {
-          ...previewKrListInfo[1],
-          krTarget: Number(previewKrListInfo[1].krTarget.toString().split(',').join('')),
-          krStartAt: previewKrListInfo[1].krStartAt.split('. ').join('-'),
-          krExpireAt: previewKrListInfo[1].krExpireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[1].taskList,
-        },
-        previewKrListInfo[2] && {
-          ...previewKrListInfo[2],
-          krTarget: Number(previewKrListInfo[2].krTarget.toString().split(',').join('')),
-          krStartAt: previewKrListInfo[2].krStartAt.split('. ').join('-'),
-          krExpireAt: previewKrListInfo[2].krExpireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[2].taskList,
-        },
-      ],
+      krList: [0, 1, 2].map((idx) => {
+        return (
+          previewKrListInfo[idx] && {
+            ...previewKrListInfo[idx],
+            krTarget: Number(previewKrListInfo[idx].krTarget.toString().split(',').join('')),
+            krStartAt: previewKrListInfo[idx].krStartAt.split('. ').join('-'),
+            krExpireAt: previewKrListInfo[idx].krExpireAt.split('. ').join('-'),
+            taskList: previewTaskListInfo[idx].taskList,
+          }
+        );
+      }),
     };
 
     try {

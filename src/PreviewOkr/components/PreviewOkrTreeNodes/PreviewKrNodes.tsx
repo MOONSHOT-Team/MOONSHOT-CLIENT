@@ -23,7 +23,6 @@ export const PreviewKrNodes = ({
   previewKrListInfo,
   handleChangeKrTitleValue,
 }: IPreviewKrNodesProps) => {
-  //TODO: 구조분해 할당해도 문제 없는지 확인 필요
   const { krTitle, krTarget, krMetric } = previewKrListInfo[krIdx];
 
   return (

@@ -21,7 +21,6 @@ const AddOkr = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  //TODO: 매핑으로 바꿨는데 문제 없는지 확인 필요
   const resetTaskInfo = [0, 1, 2].map((idx) => {
     return {
       taskTitle: '',

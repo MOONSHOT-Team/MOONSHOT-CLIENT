@@ -130,7 +130,7 @@ const KeyResultCard = ({
         <StKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StKrInputDescription>
         <StKrTitleInput
           type="text"
-          name={'title'}
+          name={'krTitle'}
           value={krTitle}
           onChange={(e) => handleChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
@@ -145,7 +145,7 @@ const KeyResultCard = ({
         <StTargetMetricInputBox>
           <StTargetMetricInput
             type="text"
-            name={'target'}
+            name={'krTarget'}
             value={krTarget}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
@@ -154,7 +154,7 @@ const KeyResultCard = ({
           />
           <StTargetMetricInput
             type="text"
-            name={'metric'}
+            name={'krMetric'}
             value={krMetric}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}

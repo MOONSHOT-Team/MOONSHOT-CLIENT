@@ -1,8 +1,8 @@
 export interface IObjective {
   objId: number;
-  title: string;
+  objTitle: string;
   objCategory: string;
-  progress: number;
+  objProgress: number;
   objPeriod: string;
   objIdx?: number;
   krList: IKeyResult[];

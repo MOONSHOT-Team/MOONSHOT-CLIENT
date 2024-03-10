@@ -27,7 +27,7 @@ export const SocialTaskNodes = ({ isFirstChild, taskIdx, taskList }: ISocialTask
         <NodeLines />
         <StSocialTaskBoxWrapper>
           <StraightLine />
-          <StSocialTaskBox>{task?.title}</StSocialTaskBox>
+          <StSocialTaskBox>{task?.taskTitle}</StSocialTaskBox>
         </StSocialTaskBoxWrapper>
       </StTaskNodeContainer>
     </StNodesContainer>

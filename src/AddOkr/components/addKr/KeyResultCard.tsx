@@ -34,7 +34,7 @@ const KeyResultCard = ({
     target: false,
     metric: false,
   });
-  const { title, target, metric, startAt: krStartAt, expireAt: krExpireAt } = krListInfo[cardIdx];
+  const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = krListInfo[cardIdx];
   const { objStartAt, objExpireAt } = objInfo;
 
   /** 
@@ -48,8 +48,8 @@ const KeyResultCard = ({
     if (new Date(objStartAt) > new Date(krStartAt) || new Date(objExpireAt) < new Date(krExpireAt))
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
-        startAt: objStartAt,
-        expireAt: objExpireAt,
+        krStartAt: objStartAt,
+        krExpireAt: objExpireAt,
       };
     setKrListInfo([...krListInfo]);
   }, []);
@@ -60,8 +60,8 @@ const KeyResultCard = ({
 
     krListInfo[cardIdx] = {
       ...krListInfo[cardIdx],
-      startAt: objStartAt,
-      expireAt: objExpireAt,
+      krStartAt: objStartAt,
+      krExpireAt: objExpireAt,
     };
     setKrListInfo([...krListInfo]);
     setIsShowCalender(true);
@@ -77,7 +77,9 @@ const KeyResultCard = ({
         }
         if (e.target.value.length <= maxLength) {
           setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          krListInfo[cardIdx].krTarget = parsedValue
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           setKrListInfo([...krListInfo]);
         }
         break;
@@ -102,8 +104,8 @@ const KeyResultCard = ({
     if (formatString[0] && formatString[1]) {
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
-        startAt: formatString[0],
-        expireAt: formatString[1],
+        krStartAt: formatString[0],
+        krExpireAt: formatString[1],
       };
       setKrListInfo([...krListInfo]);
     }
@@ -129,7 +131,7 @@ const KeyResultCard = ({
         <StKrTitleInput
           type="text"
           name={'title'}
-          value={title}
+          value={krTitle}
           onChange={(e) => handleChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
           $isMax={isValidMax.title}
@@ -144,7 +146,7 @@ const KeyResultCard = ({
           <StTargetMetricInput
             type="text"
             name={'target'}
-            value={target}
+            value={krTarget}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
@@ -153,7 +155,7 @@ const KeyResultCard = ({
           <StTargetMetricInput
             type="text"
             name={'metric'}
-            value={metric}
+            value={krMetric}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}

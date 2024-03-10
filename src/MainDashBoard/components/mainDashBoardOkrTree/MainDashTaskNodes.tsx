@@ -30,7 +30,7 @@ export const MainDashTaskNodes = ({ isFirstChild, taskIdx, taskList }: IMainTask
         <StMainDashTaskBoxWrapper>
           <StraightLine />
           <StyledIcDrag />
-          <StMainDashTaskBox>{task?.title}</StMainDashTaskBox>
+          <StMainDashTaskBox>{task?.taskTitle}</StMainDashTaskBox>
         </StMainDashTaskBoxWrapper>
       </StTaskNodeContainer>
     </StNodesContainer>

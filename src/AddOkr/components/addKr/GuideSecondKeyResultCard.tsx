@@ -20,7 +20,7 @@ const GuideSecondKeyResultCard = ({
   setKrListInfo,
   cardIdx,
 }: IGuideSecondKeyResultCardProps) => {
-  const { title, target, metric } = krListInfo[cardIdx];
+  const { krTitle, krTarget, krMetric } = krListInfo[cardIdx];
   const [isValidMax, setIsValidMax] = useState({
     target: false,
     metric: false,
@@ -35,7 +35,7 @@ const GuideSecondKeyResultCard = ({
 
     if (e.target.value.length <= maxLength) {
       setIsValidMax({ ...isValidMax, target: false });
-      krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      krListInfo[cardIdx].krTarget = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       setKrListInfo([...krListInfo]);
     }
   };
@@ -47,7 +47,7 @@ const GuideSecondKeyResultCard = ({
 
     if (e.target.value.length <= maxLength) {
       setIsValidMax({ ...isValidMax, metric: false });
-      krListInfo[cardIdx].metric = e.target.value;
+      krListInfo[cardIdx].krMetric = e.target.value;
       setKrListInfo([...krListInfo]);
     }
   };
@@ -56,21 +56,21 @@ const GuideSecondKeyResultCard = ({
     <StGuideSecondKeyResultCardWrapper>
       <StSecondKrTitleBox>
         <p>목표를 달성하기 위해 필요한 성과는 다음과 같아요.</p>
-        <StTargetKrTitle>{title}</StTargetKrTitle>
+        <StTargetKrTitle>{krTitle}</StTargetKrTitle>
       </StSecondKrTitleBox>
 
       <StSecondKrTargetMetricBox>
         <p>이 성과를 측정할 수 있는 수치값과 단위를 입력하세요.</p>
         <div css={TargetMetricInputBox}>
           <StTargetMetricInput
-            value={target}
+            value={krTarget}
             onChange={(e) => handleGuidTargetInput(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
             $isMax={isValidMax.target}
             autoComplete="off"
           />
           <StTargetMetricInput
-            value={metric}
+            value={krMetric}
             onChange={(e) => handleGuideMetricInput(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
             $isMax={isValidMax.metric}

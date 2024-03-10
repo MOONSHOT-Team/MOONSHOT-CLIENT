@@ -9,14 +9,16 @@ interface ISocialKrNodesProps {
 }
 
 export const SocialKrNodes = ({ krIdx, krList }: ISocialKrNodesProps) => {
-  const { keyResultTitle } = krList;
+  const { krTitle, krTarget, krMetric } = krList;
 
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
       <StSocialKrBoxWrapper>
         <StraightLine />
-        <StSocialBox>{keyResultTitle}</StSocialBox>
+        <StSocialBox>
+          `${krTitle} : ${krTarget}${krMetric}`
+        </StSocialBox>
       </StSocialKrBoxWrapper>
     </StNodesContainer>
   );

@@ -23,9 +23,8 @@ export const PreviewKrNodes = ({
   previewKrListInfo,
   handleChangeKrTitleValue,
 }: IPreviewKrNodesProps) => {
-  const title = previewKrListInfo[krIdx].title;
-  const target = previewKrListInfo[krIdx].target;
-  const metric = previewKrListInfo[krIdx].metric;
+  //TODO: 구조분해 할당해도 문제 없는지 확인 필요
+  const { krTitle, krTarget, krMetric } = previewKrListInfo[krIdx];
 
   return (
     <StNodesContainer>
@@ -34,7 +33,7 @@ export const PreviewKrNodes = ({
         <StraightLine />
         <StPreviewKrBox>
           <DynamicInput
-            value={title}
+            value={krTitle}
             handleChangeValue={(e) => handleChangeKrTitleValue(e, krIdx)}
             maxLength={MAX_KR_TITLE}
           />
@@ -43,8 +42,8 @@ export const PreviewKrNodes = ({
           <StPreviewKrBoxValue>
             <span>:</span>
             <span>
-              {target}
-              {metric}
+              {krTarget}
+              {krMetric}
             </span>
           </StPreviewKrBoxValue>
         </StPreviewKrBox>

@@ -18,7 +18,7 @@ interface IMainDashKrNodesProps {
 
 export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrNodesProps) => {
   if (!krList) return;
-  const { keyResultTitle, keyResultId } = krList;
+  const { krTitle, keyResultId } = krList;
 
   return (
     <StNodesContainer>
@@ -26,7 +26,7 @@ export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrN
       <StMainDashKrBoxWrapper onClick={() => onShowSideSheet(keyResultId)}>
         <StraightLine />
         <StyledIcDrag />
-        <StMainDashBox>{keyResultTitle}</StMainDashBox>
+        <StMainDashBox>{krTitle}</StMainDashBox>
       </StMainDashKrBoxWrapper>
     </StNodesContainer>
   );

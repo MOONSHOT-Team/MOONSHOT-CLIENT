@@ -27,10 +27,10 @@ const GuideFirstKeyResultCard = ({
   handleClickCloseBtn,
 }: IGuideFirstKeyResultCard) => {
   const { objStartAt, objExpireAt } = objInfo;
-  const { startAt: krStartAt, expireAt: krExpireAt } = krListInfo[cardIdx];
+  const { krTitle, krStartAt, krExpireAt } = krListInfo[cardIdx];
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(
-    krListInfo[cardIdx].startAt && krListInfo[cardIdx].expireAt ? true : false,
+    krListInfo[cardIdx].krStartAt && krListInfo[cardIdx].krExpireAt ? true : false,
   );
   const [isMaxTitle, setIsMaxTitle] = useState(false);
 
@@ -39,8 +39,8 @@ const GuideFirstKeyResultCard = ({
     if (new Date(objStartAt) > new Date(krStartAt) || new Date(objExpireAt) < new Date(krExpireAt))
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
-        startAt: objStartAt,
-        expireAt: objExpireAt,
+        krStartAt: objStartAt,
+        krExpireAt: objExpireAt,
       };
     setKrListInfo([...krListInfo]);
   }, []);
@@ -52,7 +52,7 @@ const GuideFirstKeyResultCard = ({
 
     if (e.target.value.length <= maxLength) {
       setIsMaxTitle(false);
-      krListInfo[cardIdx].title = e.target.value;
+      krListInfo[cardIdx].krTitle = e.target.value;
       setKrListInfo([...krListInfo]);
     }
   };
@@ -63,8 +63,8 @@ const GuideFirstKeyResultCard = ({
 
     krListInfo[cardIdx] = {
       ...krListInfo[cardIdx],
-      startAt: objStartAt,
-      expireAt: objExpireAt,
+      krStartAt: objStartAt,
+      krExpireAt: objExpireAt,
     };
     setKrListInfo([...krListInfo]);
     setIsShowCalender(true);
@@ -77,8 +77,8 @@ const GuideFirstKeyResultCard = ({
     if (formatString[0] && formatString[1]) {
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
-        startAt: formatString[0],
-        expireAt: formatString[1],
+        krStartAt: formatString[0],
+        krExpireAt: formatString[1],
       };
       setKrListInfo([...krListInfo]);
     }
@@ -100,7 +100,7 @@ const GuideFirstKeyResultCard = ({
       <StKrInputBox>
         <StKrInputDescription>목표를 달성하기 위해 필요한 성과는?</StKrInputDescription>
         <StKrSentenceInput
-          value={krListInfo[cardIdx].title}
+          value={krTitle}
           placeholder={KR_TITLE_PLACEHOLDER}
           onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
           $isMax={isMaxTitle}

@@ -11,7 +11,7 @@ interface IKrTaskContainerProps {
 }
 
 const KrTaskContainer = ({ krProp, KrNodes, TaskNodes }: IKrTaskContainerProps) => {
-  const { taskList, idx: krIdx } = krProp;
+  const { taskList, krIdx } = krProp;
   return (
     <StKrTaskContainer>
       {KrNodes(krIdx)}
@@ -19,9 +19,9 @@ const KrTaskContainer = ({ krProp, KrNodes, TaskNodes }: IKrTaskContainerProps) 
         <>
           <StraightLine />
           <StTaskNodesWrapper>
-            {taskList?.map(({ title, idx: taskIdx }) => {
+            {taskList?.map(({ taskTitle, taskIdx }) => {
               return (
-                <React.Fragment key={`${title}-${taskIdx}`}>
+                <React.Fragment key={`${taskTitle}-${taskIdx}`}>
                   {TaskNodes(taskIdx === 0, krIdx, taskIdx)}
                 </React.Fragment>
               );

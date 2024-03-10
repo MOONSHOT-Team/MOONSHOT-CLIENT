@@ -21,50 +21,25 @@ const AddOkr = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const resetTaskInfo = [
-    {
-      title: '',
-      idx: 0,
-    },
-    {
-      title: '',
-      idx: 1,
-    },
-    {
-      title: '',
-      idx: 2,
-    },
-  ];
+  //TODO: 매핑으로 바꿨는데 문제 없는지 확인 필요
+  const resetTaskInfo = [0, 1, 2].map((idx) => {
+    return {
+      taskTitle: '',
+      taskIdx: idx,
+    };
+  });
 
-  const resetKrListInfo = [
-    {
-      idx: 0,
-      title: '',
-      startAt: '',
-      expireAt: '',
-      target: '',
-      metric: '',
+  const resetKrListInfo = [0, 1, 2].map((idx) => {
+    return {
+      krIdx: idx,
+      krTitle: '',
+      krStartAt: '',
+      krExpireAt: '',
+      krTarget: '',
+      krMetric: '',
       taskList: resetTaskInfo,
-    },
-    {
-      idx: 1,
-      title: '',
-      startAt: '',
-      expireAt: '',
-      target: '',
-      metric: '',
-      taskList: resetTaskInfo,
-    },
-    {
-      idx: 2,
-      title: '',
-      startAt: '',
-      expireAt: '',
-      target: '',
-      metric: '',
-      taskList: resetTaskInfo,
-    },
-  ];
+    };
+  });
 
   const resetObjInfoState = {
     objTitle: '',
@@ -168,11 +143,11 @@ const AddOkr = () => {
         // 가이드에 따라 설정 - 첫 번째 kr 카드일 때
         if (selectedMethod === IS_GUIDE) {
           krListInfo.filter((kr) => {
-            return clickedCard.includes(kr.idx);
+            return clickedCard.includes(kr.krIdx);
           }).length ===
           krListInfo.filter((kr) => {
-            const { title, startAt, expireAt } = kr;
-            return title && startAt && expireAt;
+            const { krTitle, krStartAt, krExpireAt } = kr;
+            return krTitle && krStartAt && krExpireAt;
           }).length
             ? setIsActiveNext(true)
             : setIsActiveNext(false);
@@ -181,11 +156,11 @@ const AddOkr = () => {
         // 직접 설정하기 플로우일 때
         if (selectedMethod !== IS_GUIDE) {
           krListInfo.filter((kr) => {
-            return clickedCard.includes(kr.idx);
+            return clickedCard.includes(kr.krIdx);
           }).length ===
           krListInfo.filter((kr) => {
-            const { title, target, metric, startAt, expireAt } = kr;
-            return title && target && metric && startAt && expireAt;
+            const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = kr;
+            return krTitle && krTarget && krMetric && krStartAt && krExpireAt;
           }).length
             ? setIsActiveNext(true)
             : setIsActiveNext(false);
@@ -194,11 +169,11 @@ const AddOkr = () => {
       case 5:
         //가이드에 따라 설정 - 두번째 kr 카드일 떄
         krListInfo.filter((kr) => {
-          return clickedCard.includes(kr.idx);
+          return clickedCard.includes(kr.krIdx);
         }).length ===
         krListInfo.filter((kr) => {
-          const { target, metric } = kr;
-          return target && metric;
+          const { krTarget, krMetric } = kr;
+          return krTarget && krMetric;
         }).length
           ? setIsActiveNext(true)
           : setIsActiveNext(false);
@@ -283,7 +258,7 @@ const AddOkr = () => {
             selectedMethod={selectedMethod}
             setStep={setStep}
             objInfo={objInfo}
-            krListInfo={krListInfo.filter((kr) => kr.title)}
+            krListInfo={krListInfo.filter((kr) => kr.krTitle)}
           />
         );
       default:

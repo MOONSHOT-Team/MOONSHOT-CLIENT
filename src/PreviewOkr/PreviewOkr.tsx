@@ -39,21 +39,22 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
   // o, kr, task 값 입력 관리
   const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
   const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
+  //TODO: 기본값 반복문 구조로 수정 필요
   const [previewTaskListInfo, setPreviewTaskListInfo] = useState<IPreviewTaskInfoTypes[]>([
     {
       krIdx: 0,
       taskList: [
         {
-          title: '',
-          idx: 0,
+          taskTitle: '',
+          taskIdx: 0,
         },
         {
-          title: '',
-          idx: 1,
+          taskTitle: '',
+          taskIdx: 1,
         },
         {
-          title: '',
-          idx: 2,
+          taskTitle: '',
+          taskIdx: 2,
         },
       ],
     },
@@ -61,16 +62,16 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
       krIdx: 1,
       taskList: [
         {
-          title: '',
-          idx: 0,
+          taskTitle: '',
+          taskIdx: 0,
         },
         {
-          title: '',
-          idx: 1,
+          taskTitle: '',
+          taskIdx: 1,
         },
         {
-          title: '',
-          idx: 2,
+          taskTitle: '',
+          taskIdx: 2,
         },
       ],
     },
@@ -78,16 +79,16 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
       krIdx: 2,
       taskList: [
         {
-          title: '',
-          idx: 0,
+          taskTitle: '',
+          taskIdx: 0,
         },
         {
-          title: '',
-          idx: 1,
+          taskTitle: '',
+          taskIdx: 1,
         },
         {
-          title: '',
-          idx: 2,
+          taskTitle: '',
+          taskIdx: 2,
         },
       ],
     },
@@ -110,23 +111,23 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
       krList: [
         previewKrListInfo[0] && {
           ...previewKrListInfo[0],
-          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
-          startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[0].expireAt.split('. ').join('-'),
+          krTarget: Number(previewKrListInfo[0].krTarget.toString().split(',').join('')),
+          krStartAt: previewKrListInfo[0].krStartAt.split('. ').join('-'),
+          krExpireAt: previewKrListInfo[0].krExpireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[0].taskList,
         },
         previewKrListInfo[1] && {
           ...previewKrListInfo[1],
-          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
-          startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[1].expireAt.split('. ').join('-'),
+          krTarget: Number(previewKrListInfo[1].krTarget.toString().split(',').join('')),
+          krStartAt: previewKrListInfo[1].krStartAt.split('. ').join('-'),
+          krExpireAt: previewKrListInfo[1].krExpireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[1].taskList,
         },
         previewKrListInfo[2] && {
           ...previewKrListInfo[2],
-          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
-          startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[2].expireAt.split('. ').join('-'),
+          krTarget: Number(previewKrListInfo[2].krTarget.toString().split(',').join('')),
+          krStartAt: previewKrListInfo[2].krStartAt.split('. ').join('-'),
+          krExpireAt: previewKrListInfo[2].krExpireAt.split('. ').join('-'),
           taskList: previewTaskListInfo[2].taskList,
         },
       ],
@@ -160,7 +161,7 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
     if (e.target.value.length > MAX_KR_TITLE)
       e.target.value = e.target.value.slice(0, MAX_KR_TITLE);
 
-    previewKrListInfo[krIdx].title = e.target.value;
+    previewKrListInfo[krIdx].krTitle = e.target.value;
     setPreviewKrListInfo([...previewKrListInfo]);
   };
 

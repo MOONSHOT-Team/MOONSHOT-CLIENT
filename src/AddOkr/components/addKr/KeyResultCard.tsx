@@ -30,9 +30,9 @@ const KeyResultCard = ({
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
   const [isValidMax, setIsValidMax] = useState({
-    title: false,
-    target: false,
-    metric: false,
+    krTitle: false,
+    krTarget: false,
+    krMetric: false,
   });
   const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = krListInfo[cardIdx];
   const { objStartAt, objExpireAt } = objInfo;
@@ -71,7 +71,7 @@ const KeyResultCard = ({
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
 
     switch (e.target.name) {
-      case 'target':
+      case 'krTarget':
         if (e.target.value.length > maxLength) {
           setIsValidMax({ ...isValidMax, [e.target.name]: true });
         }
@@ -134,7 +134,7 @@ const KeyResultCard = ({
           value={krTitle}
           onChange={(e) => handleChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
-          $isMax={isValidMax.title}
+          $isMax={isValidMax.krTitle}
           autoComplete="off"
         />
       </StKrInputDescWrapper>
@@ -149,7 +149,7 @@ const KeyResultCard = ({
             value={krTarget}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
-            $isMax={isValidMax.target}
+            $isMax={isValidMax.krTarget}
             autoComplete="off"
           />
           <StTargetMetricInput
@@ -158,7 +158,7 @@ const KeyResultCard = ({
             value={krMetric}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
-            $isMax={isValidMax.metric}
+            $isMax={isValidMax.krMetric}
             autoComplete="off"
           />
         </StTargetMetricInputBox>

@@ -17,6 +17,7 @@ interface IDrawerProps {
   handleClickAddObjcBtn: () => void;
   onChangeCurrentGoalId: (id: number) => void;
   handleChangeState?: (state: number) => void;
+  handleClickDelObjBtn: () => void;
 }
 
 const MainDashBoardDrawer = ({
@@ -27,6 +28,7 @@ const MainDashBoardDrawer = ({
   objListSize,
   objId,
   showState,
+  handleClickDelObjBtn,
 }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(objId);
   const [goals, setGoals] = useState(objList);
@@ -88,6 +90,7 @@ const MainDashBoardDrawer = ({
                       setIsRightClick={setIsRightClick}
                       handleChangeState={handleChangeState}
                       showState={showState}
+                      handleClickDelObjBtn={handleClickDelObjBtn}
                     />
                   ))}
                 </ul>

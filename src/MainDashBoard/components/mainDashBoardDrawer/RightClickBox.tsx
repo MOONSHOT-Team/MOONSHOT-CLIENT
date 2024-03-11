@@ -5,15 +5,15 @@ import { IcComplete, IcTrash } from '../../assets/icons';
 
 interface IRightClickBoxProps {
   rightClickPoints: { x: number; y: number };
-  handleClickComplete: () => void;
-  handleClickDelete: (e: React.MouseEvent) => void;
+  handleClickComplete?: () => void;
+  handleClickDelete?: (e: React.MouseEvent) => void;
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
+  handleClickDelObjBtn: () => void;
 }
 
 const RightClickBox = ({
   rightClickPoints,
-  handleClickComplete,
-  handleClickDelete,
+  handleClickDelObjBtn,
   setIsRightClick,
 }: IRightClickBoxProps) => {
   useEffect(() => {
@@ -26,11 +26,11 @@ const RightClickBox = ({
 
   return (
     <StRightClickPopUpBox $rightClickPoints={rightClickPoints}>
-      <StRightClickPopIpLi onClick={handleClickComplete}>
+      <StRightClickPopIpLi onClick={() => console.log('완료')}>
         <IcComplete />
         <p>달성 완료</p>
       </StRightClickPopIpLi>
-      <StRightClickPopIpLi onClick={handleClickDelete}>
+      <StRightClickPopIpLi onClick={handleClickDelObjBtn}>
         <IcTrash />
         <p>목표 삭제</p>
       </StRightClickPopIpLi>

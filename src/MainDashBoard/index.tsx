@@ -262,21 +262,15 @@ const MainDashBoard = () => {
   }, [location.state]);
 
   useEffect(() => {
+    //targetModal 바뀌면 감지
+    if (targetModal === null) return;
+
     handleShowModal();
   }, [targetModal]);
 
   return (
     <>
       {renderMainState()}
-
-      {/* {treeData?.data?.tree && (
-        <DrawerModal
-          currentObjId={okrTreeData?.objId}
-          ref={modalRef}
-          handleChangeState={handleChangeState}
-          objExpireAt={okrTreeData.objExpireAt}
-        />
-      )} */}
       {renderTargetModal(targetModal)}
     </>
   );

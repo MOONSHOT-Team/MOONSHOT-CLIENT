@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { IRightClickStateTypes } from '../..';
 import { patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
-import useContextMenu from '../../hooks/useContextMenu';
 import { IObjListTypes } from '../../type/goalItemTypes';
 import { ItemTypes } from '../../type/itemType';
 import MainDashProgressBar from './MainDashProgressBar';
@@ -16,7 +15,6 @@ import RightClickBox from './RightClickBox';
 
 interface IGoalItemProps extends IObjListTypes {
   showState: string;
-  setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
   handleChangeState?: (state: number) => void;
   rightClickState: IRightClickStateTypes;
   setRightClickState: React.Dispatch<React.SetStateAction<IRightClickStateTypes>>;
@@ -36,7 +34,6 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   index = 0,
   onClickGoal,
   moveGoal,
-  setIsRightClick,
   handleChangeState,
   rightClickState,
   setRightClickState,
@@ -46,7 +43,6 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   const ref = useRef<HTMLLIElement>(null);
 
   const navigate = useNavigate();
-  const { rightClicked, setRightClicked } = useContextMenu();
 
   if (showState === 'ADD_SELECT_METHOD') {
     currentGoalId = -1;
@@ -55,10 +51,13 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   const handleRightClickGoal = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
     e.preventDefault();
 
-    setRightClicked(true);
+    //전체 overflow 방지
+    document.body.style.overflow = 'hidden';
+
     setRightClickState((prev) => {
       return {
         ...prev,
+        isRightClick: true,
         rightClickId: id,
         rightClickPoints: { x: e.pageX, y: e.pageY },
       };
@@ -124,9 +123,9 @@ const GoalItem: React.FC<IGoalItemProps> = ({
       isDragging={isDragging}
       onContextMenu={(e) => handleRightClickGoal(e, id)}
     >
-      {rightClicked && (
+      {rightClickState.isRightClick && (
         <RightClickBox
-          setIsRightClick={setIsRightClick}
+          setRightClickState={setRightClickState}
           rightClickPoints={rightClickState.rightClickPoints}
           handleClickDelObjBtn={handleClickDelObjBtn}
           handleClickCompleteObjBtn={handleClickCompleteObjBtn}

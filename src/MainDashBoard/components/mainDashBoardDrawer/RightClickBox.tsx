@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
 
+import { IRightClickStateTypes } from '../..';
 import { IcComplete, IcTrash } from '../../assets/icons';
 
 interface IRightClickBoxProps {
   rightClickPoints: { x: number | null; y: number | null };
   handleClickComplete?: () => void;
   handleClickDelete?: (e: React.MouseEvent) => void;
-  setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
+  setRightClickState: React.Dispatch<React.SetStateAction<IRightClickStateTypes>>;
   handleClickDelObjBtn: () => void;
   handleClickCompleteObjBtn: () => void;
 }
@@ -15,14 +16,21 @@ interface IRightClickBoxProps {
 const RightClickBox = ({
   rightClickPoints,
   handleClickDelObjBtn,
-  setIsRightClick,
+  setRightClickState,
   handleClickCompleteObjBtn,
 }: IRightClickBoxProps) => {
   useEffect(() => {
-    setIsRightClick(true);
-
+    const handleClick = () => {
+      setRightClickState((prev) => {
+        return {
+          ...prev,
+          isRightClick: false,
+        };
+      });
+    };
+    document.addEventListener('click', handleClick);
     return () => {
-      setIsRightClick(false);
+      document.removeEventListener('click', handleClick);
     };
   }, []);
 
@@ -30,14 +38,14 @@ const RightClickBox = ({
     <>
       {rightClickPoints && (
         <StRightClickPopUpBox $rightClickPoints={rightClickPoints}>
-          <StRightClickPopIpLi onClick={handleClickCompleteObjBtn}>
+          <StRightClickPopUpLi onClick={handleClickCompleteObjBtn}>
             <IcComplete />
             <p>달성 완료</p>
-          </StRightClickPopIpLi>
-          <StRightClickPopIpLi onClick={handleClickDelObjBtn}>
+          </StRightClickPopUpLi>
+          <StRightClickPopUpLi onClick={handleClickDelObjBtn}>
             <IcTrash />
             <p>목표 삭제</p>
-          </StRightClickPopIpLi>
+          </StRightClickPopUpLi>
         </StRightClickPopUpBox>
       )}
     </>
@@ -66,9 +74,10 @@ const StRightClickPopUpBox = styled.ul<{
   ${({ theme }) => theme.fonts.body_12_medium};
 `;
 
-const StRightClickPopIpLi = styled.li`
+const StRightClickPopUpLi = styled.li`
   display: flex;
   gap: 1.2rem;
+  align-items: center;
   width: 100%;
   padding: 0.6rem 0.8rem;
   border-radius: 2px;

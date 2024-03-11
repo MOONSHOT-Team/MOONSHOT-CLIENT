@@ -40,7 +40,7 @@ const MainDashBoardDrawer = ({
 }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(objId);
   const [goals, setGoals] = useState(objList);
-  const [isRightClick, setIsRightClick] = useState(false);
+  // const [isRightClick, setIsRightClick] = useState(false);
 
   const handleClickGoal = (id: number) => {
     setCurrentGoalId(id);
@@ -84,7 +84,7 @@ const MainDashBoardDrawer = ({
       {objList ? (
         <>
           <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
-            <StScrollContainer $isRightClick={isRightClick}>
+            <StScrollContainer $isRightClick={rightClickState.isRightClick}>
               <DndProvider backend={HTML5Backend}>
                 <ul css={ulStyles}>
                   {goals?.map((objListItem, index) => (
@@ -95,7 +95,6 @@ const MainDashBoardDrawer = ({
                       onClickGoal={handleClickGoal}
                       index={index}
                       moveGoal={moveGoal}
-                      setIsRightClick={setIsRightClick}
                       handleChangeState={handleChangeState}
                       showState={showState}
                       rightClickState={rightClickState}

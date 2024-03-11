@@ -21,6 +21,7 @@ import { MAINDASHBOARD_MODAL_CASE } from './constants/MAINDASHBOARD_MODAL_CASE';
 const DASHBOARD_SHOW_STATE = ['OKR_TREE', 'ADD_SELECT_METHOD', 'CONGRATE'];
 
 export interface IRightClickStateTypes {
+  isRightClick: boolean;
   rightClickId?: number | null;
   rightClickPoints: {
     x: number | null;
@@ -47,6 +48,7 @@ const MainDashBoard = () => {
 
   //우클릭 관련 state
   const [rightClickState, setRightClickState] = useState<IRightClickStateTypes>({
+    isRightClick: false,
     rightClickId: null,
     rightClickPoints: {
       x: null,

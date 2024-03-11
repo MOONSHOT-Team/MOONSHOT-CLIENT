@@ -113,10 +113,10 @@ const MainDashBoard = () => {
   };
 
   const handleComfirmDelObj = async () => {
+    setTargetModal(null);
     try {
       await deleteObj(`/v1/objective/${rightClickState.rightClickId}`);
       await mutate('/v1/objective');
-      setTargetModal(null);
     } catch {
       navigate('/error');
     }
@@ -232,6 +232,9 @@ const MainDashBoard = () => {
           <DeleteObjConfirmModal
             modalRef={modalRef}
             modalConfirmHandler={{
+              handleClickCancel: () => {
+                setTargetModal(null);
+              },
               handleClickConfirm: handleComfirmDelObj,
             }}
           />
@@ -241,6 +244,9 @@ const MainDashBoard = () => {
           <CompleteObjConfirmModal
             modalRef={modalRef}
             modalConfirmHandler={{
+              handleClickCancel: () => {
+                setTargetModal(null);
+              },
               handleClickConfirm: handleComfirmCompleteObj,
             }}
           />

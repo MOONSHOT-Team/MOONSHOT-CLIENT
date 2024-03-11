@@ -19,10 +19,13 @@ const CompleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IObjConfirmM
         modalRef={modalRef}
         title={TITLE}
         description={DESCRIPTION}
-        cancelState={{ text: CANCEL_TXT }}
+        cancelState={{
+          text: CANCEL_TXT,
+          onClick: modalConfirmHandler.handleClickCancel && modalConfirmHandler.handleClickCancel,
+        }}
         confirmState={{
           text: CONFIRM_TXT,
-          onClick: modalConfirmHandler.handleClickConfirm,
+          onClick: modalConfirmHandler.handleClickConfirm && modalConfirmHandler.handleClickConfirm,
         }}
       />
     </Modal>

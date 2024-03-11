@@ -36,7 +36,7 @@ const ConfirmModalTemplate = ({
         <StConfirmModalTitle>{title}</StConfirmModalTitle>
         <StConfirmModalDescription>{description}</StConfirmModalDescription>
       </div>
-      <div css={ConfrimBtnContainer}>
+      <div css={ConfirmBtnContainer}>
         <StCancelBtn type="button" onClick={handleClickCancel}>
           {cancelState.text}
         </StCancelBtn>
@@ -82,7 +82,7 @@ const ConfirmTextContainer = css`
 `;
 
 //버튼 영역 스타일
-const ConfrimBtnContainer = css`
+const ConfirmBtnContainer = css`
   display: flex;
   gap: 1.2rem;
 `;

@@ -16,7 +16,7 @@ const KrContainer = ({ keyResultList, KrNodes, TaskNodes }: IKrContainerProps) =
     <StKrContainer>
       {keyResultList.map((kr) => {
         return (
-          <StKrWrapper key={`$ya{kr.keyResultTitle}-${kr.idx}`}>
+          <StKrWrapper key={`$ya{kr.keyResultTitle}-${kr.krIdx}`}>
             <NodeLines />
             <KrTaskContainer krProp={kr} KrNodes={KrNodes} TaskNodes={TaskNodes} />
           </StKrWrapper>

@@ -1,7 +1,7 @@
 export interface ITaskTypes {
-  title: string;
-  id?: number;
-  idx: number;
+  taskTitle: string;
+  taskId?: number;
+  taskIdx: number;
 }
 
 export interface ITaskNodesTypes {

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { HISTORY_THEME } from '../constants/HISTORY_THEME';
-import { IObjectiveDataProps } from '../type/okrTypes';
+import { IObjectiveDataProps } from '../type/historyData';
 import ThemeButton from './ThemeButton';
 import YearButton from './YearButton';
 

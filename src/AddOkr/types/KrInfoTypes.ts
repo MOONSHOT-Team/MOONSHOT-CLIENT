@@ -2,13 +2,12 @@ import { IObjInfoTypes } from './ObjectInfoTypes';
 import { ITaskInfoTypes } from './TaskInfoTypes';
 
 export interface IKrListInfoTypes {
-  KeyResultTitle?: string;
-  title?: string;
-  startAt: string;
-  expireAt: string;
-  idx: number;
-  target: string | number;
-  metric: string;
+  krTitle?: string;
+  krStartAt: string;
+  krExpireAt: string;
+  krIdx: number;
+  krTarget: string | number;
+  krMetric: string;
   taskList: ITaskInfoTypes[];
 }
 

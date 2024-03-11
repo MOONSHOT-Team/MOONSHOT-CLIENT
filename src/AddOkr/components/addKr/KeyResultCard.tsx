@@ -30,11 +30,11 @@ const KeyResultCard = ({
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
   const [isValidMax, setIsValidMax] = useState({
-    title: false,
-    target: false,
-    metric: false,
+    krTitle: false,
+    krTarget: false,
+    krMetric: false,
   });
-  const { title, target, metric, startAt: krStartAt, expireAt: krExpireAt } = krListInfo[cardIdx];
+  const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = krListInfo[cardIdx];
   const { objStartAt, objExpireAt } = objInfo;
 
   /** 
@@ -48,8 +48,8 @@ const KeyResultCard = ({
     if (new Date(objStartAt) > new Date(krStartAt) || new Date(objExpireAt) < new Date(krExpireAt))
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
-        startAt: objStartAt,
-        expireAt: objExpireAt,
+        krStartAt: objStartAt,
+        krExpireAt: objExpireAt,
       };
     setKrListInfo([...krListInfo]);
   }, []);
@@ -60,8 +60,8 @@ const KeyResultCard = ({
 
     krListInfo[cardIdx] = {
       ...krListInfo[cardIdx],
-      startAt: objStartAt,
-      expireAt: objExpireAt,
+      krStartAt: objStartAt,
+      krExpireAt: objExpireAt,
     };
     setKrListInfo([...krListInfo]);
     setIsShowCalender(true);
@@ -71,13 +71,15 @@ const KeyResultCard = ({
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
 
     switch (e.target.name) {
-      case 'target':
+      case 'krTarget':
         if (e.target.value.length > maxLength) {
           setIsValidMax({ ...isValidMax, [e.target.name]: true });
         }
         if (e.target.value.length <= maxLength) {
           setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          krListInfo[cardIdx].krTarget = parsedValue
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           setKrListInfo([...krListInfo]);
         }
         break;
@@ -102,8 +104,8 @@ const KeyResultCard = ({
     if (formatString[0] && formatString[1]) {
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
-        startAt: formatString[0],
-        expireAt: formatString[1],
+        krStartAt: formatString[0],
+        krExpireAt: formatString[1],
       };
       setKrListInfo([...krListInfo]);
     }
@@ -128,11 +130,11 @@ const KeyResultCard = ({
         <StKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StKrInputDescription>
         <StKrTitleInput
           type="text"
-          name={'title'}
-          value={title}
+          name={'krTitle'}
+          value={krTitle}
           onChange={(e) => handleChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
-          $isMax={isValidMax.title}
+          $isMax={isValidMax.krTitle}
           autoComplete="off"
         />
       </StKrInputDescWrapper>
@@ -143,20 +145,20 @@ const KeyResultCard = ({
         <StTargetMetricInputBox>
           <StTargetMetricInput
             type="text"
-            name={'target'}
-            value={target}
+            name={'krTarget'}
+            value={krTarget}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
-            $isMax={isValidMax.target}
+            $isMax={isValidMax.krTarget}
             autoComplete="off"
           />
           <StTargetMetricInput
             type="text"
-            name={'metric'}
-            value={metric}
+            name={'krMetric'}
+            value={krMetric}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
-            $isMax={isValidMax.metric}
+            $isMax={isValidMax.krMetric}
             autoComplete="off"
           />
         </StTargetMetricInputBox>

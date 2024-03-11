@@ -30,19 +30,20 @@ export const PreviewTaskNodes = ({
 }: IPreviewTaskNodesProps) => {
   const [isClickedPlusBtn, setIsClickedPlusBtn] = useState(false);
 
-  const title = previewTaskListInfo[krIdx].taskList[taskIdx].title;
+  const taskTitle = previewTaskListInfo[krIdx].taskList[taskIdx].taskTitle;
 
   const handleChangeTaskValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > MAX_TASK_TITLE)
       e.target.value = e.target.value.slice(0, MAX_TASK_TITLE);
 
-    previewTaskListInfo[krIdx].taskList[taskIdx].title = e.target.value;
+    previewTaskListInfo[krIdx].taskList[taskIdx].taskTitle = e.target.value;
     setPreviewTaskListInfo([...previewTaskListInfo]);
   };
 
   const handleClickPlusBtn = () => {
-    previewTaskListInfo[krIdx].taskList.filter((task) => task.idx < taskIdx && task.title === '')
-      .length === 0 && setIsClickedPlusBtn(true);
+    previewTaskListInfo[krIdx].taskList.filter(
+      (task) => task.taskIdx < taskIdx && task.taskTitle === '',
+    ).length === 0 && setIsClickedPlusBtn(true);
   };
 
   return (
@@ -55,7 +56,7 @@ export const PreviewTaskNodes = ({
           {isClickedPlusBtn ? (
             <StPreviewTaskBox $idx={taskIdx}>
               <DynamicInput
-                value={title}
+                value={taskTitle}
                 handleChangeValue={handleChangeTaskValue}
                 isAutoFocus={true}
                 maxLength={MAX_TASK_TITLE}

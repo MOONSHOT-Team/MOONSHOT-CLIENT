@@ -39,59 +39,28 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
   // o, kr, task 값 입력 관리
   const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
   const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
-  const [previewTaskListInfo, setPreviewTaskListInfo] = useState<IPreviewTaskInfoTypes[]>([
-    {
-      krIdx: 0,
+  //preview에서의 taskInfo 기본 값
+  const resetPreviewTaskList = [0, 1, 2].map((idx) => {
+    return {
+      krIdx: idx,
       taskList: [
         {
-          title: '',
-          idx: 0,
+          taskTitle: '',
+          taskIdx: 0,
         },
         {
-          title: '',
-          idx: 1,
+          taskTitle: '',
+          taskIdx: 1,
         },
         {
-          title: '',
-          idx: 2,
+          taskTitle: '',
+          taskIdx: 2,
         },
       ],
-    },
-    {
-      krIdx: 1,
-      taskList: [
-        {
-          title: '',
-          idx: 0,
-        },
-        {
-          title: '',
-          idx: 1,
-        },
-        {
-          title: '',
-          idx: 2,
-        },
-      ],
-    },
-    {
-      krIdx: 2,
-      taskList: [
-        {
-          title: '',
-          idx: 0,
-        },
-        {
-          title: '',
-          idx: 1,
-        },
-        {
-          title: '',
-          idx: 2,
-        },
-      ],
-    },
-  ]);
+    };
+  });
+  const [previewTaskListInfo, setPreviewTaskListInfo] =
+    useState<IPreviewTaskInfoTypes[]>(resetPreviewTaskList);
 
   const handleClickPrevBtn = () => {
     setStep((prev) => prev - (selectedMethod === IS_GUIDE ? 1 : 2));
@@ -107,29 +76,17 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
       objTitle: previewObjValue,
       objStartAt: objStartAt.split('. ').join('-'),
       objExpireAt: objExpireAt.split('. ').join('-'),
-      krList: [
-        previewKrListInfo[0] && {
-          ...previewKrListInfo[0],
-          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
-          startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[0].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[0].taskList,
-        },
-        previewKrListInfo[1] && {
-          ...previewKrListInfo[1],
-          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
-          startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[1].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[1].taskList,
-        },
-        previewKrListInfo[2] && {
-          ...previewKrListInfo[2],
-          target: Number(previewKrListInfo[0].target.toString().split(',').join('')),
-          startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[2].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[2].taskList,
-        },
-      ],
+      krList: [0, 1, 2].map((idx) => {
+        return (
+          previewKrListInfo[idx] && {
+            ...previewKrListInfo[idx],
+            krTarget: Number(previewKrListInfo[idx].krTarget.toString().split(',').join('')),
+            krStartAt: previewKrListInfo[idx].krStartAt.split('. ').join('-'),
+            krExpireAt: previewKrListInfo[idx].krExpireAt.split('. ').join('-'),
+            taskList: previewTaskListInfo[idx].taskList,
+          }
+        );
+      }),
     };
 
     try {
@@ -160,7 +117,7 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
     if (e.target.value.length > MAX_KR_TITLE)
       e.target.value = e.target.value.slice(0, MAX_KR_TITLE);
 
-    previewKrListInfo[krIdx].title = e.target.value;
+    previewKrListInfo[krIdx].krTitle = e.target.value;
     setPreviewKrListInfo([...previewKrListInfo]);
   };
 

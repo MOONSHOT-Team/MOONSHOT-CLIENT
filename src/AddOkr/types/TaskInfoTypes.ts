@@ -1,6 +1,6 @@
 export interface ITaskInfoTypes {
-  title: string;
-  idx: number;
+  taskTitle: string;
+  taskIdx: number;
 }
 
 export interface IPreviewTaskInfoTypes {

@@ -45,6 +45,7 @@ const MainDashBoard = () => {
   // step 0 - SELECT METHOD 관련 State
   const [selectedMethod, setSelectedMethod] = useState('');
 
+  //우클릭 관련 state
   const [rightClickState, setRightClickState] = useState<IRightClickStateTypes>({
     rightClickId: null,
     rightClickPoints: {
@@ -61,7 +62,7 @@ const MainDashBoard = () => {
   const goalListTreeData = treeData?.data.objList;
 
   if (treeData?.tree?.objIsExpired) {
-    setTargetModal(MAINDASHBOARD_MODAL_CASE.PERIOD);
+    setTargetModal(MAINDASHBOARD_MODAL_CASE.OBJ.PERIOD);
   }
 
   /** 
@@ -89,29 +90,17 @@ const MainDashBoard = () => {
     setCurrentGoalId(id);
   };
 
+  //우클릭의 삭제 버튼 클릭 시의 핸들러
   const handleClickDelObjBtn = () => {
-    setTargetModal(MAINDASHBOARD_MODAL_CASE.DEL);
-    console.log(rightClickState?.rightClickId);
+    setTargetModal(MAINDASHBOARD_MODAL_CASE.OBJ.DEL);
   };
 
+  //우클릭의 완료 버튼 클릭 시의 핸들러
   const handleClickCompleteObjBtn = () => {
-    setTargetModal(MAINDASHBOARD_MODAL_CASE.COMPLETE);
-    console.log(rightClickState?.rightClickId);
+    setTargetModal(MAINDASHBOARD_MODAL_CASE.OBJ.COMPLETE);
   };
 
-  // const handleConfirmDelObj = () => {
-  //   console.log(rightClickState.rightClickedId);
-  // };
-
-  const handleComfirmCompleteObj = async () => {
-    await instance.patch('/v1/objective', {
-      objectiveId: rightClickState.rightClickId,
-      isClosed: true,
-    });
-    //목표 완료 -> 대시보드
-    navigate('/history');
-  };
-
+  //목표 삭제 모달 -> 삭제 버튼 클릭 시의 핸들러
   const handleComfirmDelObj = async () => {
     setTargetModal(null);
     try {
@@ -120,6 +109,16 @@ const MainDashBoard = () => {
     } catch {
       navigate('/error');
     }
+  };
+
+  //목표 완료 모달 -> 완료 버튼 클릭 시의 핸들러
+  const handleComfirmCompleteObj = async () => {
+    await instance.patch('/v1/objective', {
+      objectiveId: rightClickState.rightClickId,
+      isClosed: true,
+    });
+    //목표 완료 -> 대시보드
+    navigate('/history');
   };
 
   /** SideSheet 관련 핸들러 함수 **/
@@ -216,7 +215,8 @@ const MainDashBoard = () => {
 
   const renderTargetModal = (targetModal: string | null) => {
     switch (targetModal) {
-      case MAINDASHBOARD_MODAL_CASE.PERIOD:
+      // 목표 기간 연장 모달
+      case MAINDASHBOARD_MODAL_CASE.OBJ.PERIOD:
         return (
           treeData?.data?.tree && (
             <DrawerModal
@@ -227,7 +227,8 @@ const MainDashBoard = () => {
             />
           )
         );
-      case MAINDASHBOARD_MODAL_CASE.DEL:
+      // 목표 삭제 모달
+      case MAINDASHBOARD_MODAL_CASE.OBJ.DEL:
         return (
           <DeleteObjConfirmModal
             modalRef={modalRef}
@@ -239,7 +240,8 @@ const MainDashBoard = () => {
             }}
           />
         );
-      case MAINDASHBOARD_MODAL_CASE.COMPLETE:
+      //목표 완료 모달
+      case MAINDASHBOARD_MODAL_CASE.OBJ.COMPLETE:
         return (
           <CompleteObjConfirmModal
             modalRef={modalRef}

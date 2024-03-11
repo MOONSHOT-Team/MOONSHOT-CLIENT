@@ -1,5 +1,7 @@
 export const MAINDASHBOARD_MODAL_CASE = {
-  DEL: 'DEL_OBJ',
-  COMPLETE: 'COMPELTE_OBJ',
-  PERIOD: 'PERIOD_OBJ',
+  OBJ: {
+    DEL: 'DEL_OBJ',
+    COMPLETE: 'COMPELTE_OBJ',
+    PERIOD: 'PERIOD_OBJ',
+  },
 };

@@ -1,6 +1,7 @@
 import Modal from '@components/Modal';
 import ConfirmModalTemplate from '@components/Modal/template/ConfirmModalTemplate';
-import { MutableRefObject } from 'react';
+
+import { IObjConfirmModalProps } from '../../type/objConfirmModalTypes';
 
 const COMPLETE_OBJ_STR = {
   TITLE: '목표 완료하기',
@@ -11,18 +12,18 @@ const COMPLETE_OBJ_STR = {
 
 const { TITLE, DESCRIPTION, CANCEL_TXT, CONFIRM_TXT } = COMPLETE_OBJ_STR;
 
-const CompleteObjConfirmModal = ({
-  modalRef,
-}: {
-  modalRef: MutableRefObject<HTMLDialogElement | null>;
-}) => {
+const CompleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IObjConfirmModalProps) => {
   return (
     <Modal ref={modalRef}>
       <ConfirmModalTemplate
+        modalRef={modalRef}
         title={TITLE}
         description={DESCRIPTION}
-        cancelState={{ text: CANCEL_TXT, handleClickCancel: () => console.log('취소') }}
-        confirmState={{ text: CONFIRM_TXT, handleClickConfirm: () => console.log('확인') }}
+        cancelState={{ text: CANCEL_TXT }}
+        confirmState={{
+          text: CONFIRM_TXT,
+          onClick: modalConfirmHandler.handleClickConfirm,
+        }}
       />
     </Modal>
   );

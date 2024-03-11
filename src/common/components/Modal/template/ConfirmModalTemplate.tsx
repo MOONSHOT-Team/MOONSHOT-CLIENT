@@ -1,19 +1,35 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { MutableRefObject } from 'react';
 
 interface IConfirmModalTemplateProps {
+  modalRef: MutableRefObject<HTMLDialogElement | null>;
   title: string;
   description: string;
-  cancelState: { text: string; handleClickCancel: () => void };
-  confirmState: { text: string; handleClickConfirm: () => void };
+  cancelState: { text: string; onClick?: () => void };
+  confirmState: { text: string; onClick?: () => void };
 }
 
 const ConfirmModalTemplate = ({
+  modalRef,
   title,
   description,
   cancelState,
   confirmState,
 }: IConfirmModalTemplateProps) => {
+  // cancel function
+  const handleClickCancel = () => {
+    cancelState.onClick && cancelState.onClick();
+
+    modalRef.current?.close();
+  };
+
+  // confirm function
+  const handleClickConfirm = () => {
+    confirmState.onClick && confirmState.onClick();
+    modalRef.current?.close();
+  };
+
   return (
     <StConfirmModalTemplateWrapper>
       <div css={ConfirmTextContainer}>
@@ -21,11 +37,11 @@ const ConfirmModalTemplate = ({
         <StConfirmModalDescription>{description}</StConfirmModalDescription>
       </div>
       <div css={ConfrimBtnContainer}>
-        <form method="dialog">
-          <StCancelBtn onClick={cancelState.handleClickCancel}>{cancelState.text}</StCancelBtn>
-        </form>
+        <StCancelBtn type="button" onClick={handleClickCancel}>
+          {cancelState.text}
+        </StCancelBtn>
 
-        <StConfirmBtn onClick={confirmState.handleClickConfirm}>{confirmState.text}</StConfirmBtn>
+        <StConfirmBtn onClick={handleClickConfirm}>{confirmState.text}</StConfirmBtn>
       </div>
     </StConfirmModalTemplateWrapper>
   );

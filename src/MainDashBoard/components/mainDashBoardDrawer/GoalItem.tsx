@@ -53,13 +53,6 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     currentGoalId = -1;
   }
 
-  // const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
-  //   e.preventDefault();
-  //   setRightClickState((prev) => {
-  //     return { ...prev, rightClickId: id, rightClickPoints: { x: e.pageX, y: e.pageY } };
-  //   });
-  // };
-
   const handleRightClickGoal = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
     e.preventDefault();
 

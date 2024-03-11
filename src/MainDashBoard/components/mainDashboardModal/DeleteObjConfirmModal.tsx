@@ -1,6 +1,7 @@
 import Modal from '@components/Modal';
 import ConfirmModalTemplate from '@components/Modal/template/ConfirmModalTemplate';
-import { MutableRefObject } from 'react';
+
+import { IObjConfirmModalProps } from '../../type/objConfirmModalTypes';
 
 const DEL_OBJ_STR = {
   TITLE: '목표 삭제하기',
@@ -11,18 +12,18 @@ const DEL_OBJ_STR = {
 
 const { TITLE, DESCRIPTION, CANCEL_TXT, CONFIRM_TXT } = DEL_OBJ_STR;
 
-const DeleteObjConfirmModal = ({
-  modalRef,
-}: {
-  modalRef: MutableRefObject<HTMLDialogElement | null>;
-}) => {
+const DeleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IObjConfirmModalProps) => {
   return (
     <Modal ref={modalRef}>
       <ConfirmModalTemplate
+        modalRef={modalRef}
         title={TITLE}
         description={DESCRIPTION}
-        cancelState={{ text: CANCEL_TXT, handleClickCancel: () => console.log('취소') }}
-        confirmState={{ text: CONFIRM_TXT, handleClickConfirm: () => console.log('확인') }}
+        cancelState={{ text: CANCEL_TXT }}
+        confirmState={{
+          text: CONFIRM_TXT,
+          onClick: modalConfirmHandler.handleClickConfirm,
+        }}
       />
     </Modal>
   );

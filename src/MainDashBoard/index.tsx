@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
+import instance from '@apis/instance';
 import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import useModal from '@hooks/useModal';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 
 import SelectMethod from '../AddOkr/components/stepLayout/SelectMethod';
-import { getDashBoardData } from './apis/fetcher';
+import { deleteObj, getDashBoardData } from './apis/fetcher';
 import CelebrateMotion from './components/celebrateMotion/CelebrateMotion';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import CompleteObjConfirmModal from './components/mainDashboardModal/CompleteObjConfirmModal';
@@ -32,6 +33,7 @@ const MainDashBoard = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { mutate } = useSWRConfig();
 
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [currentGoalId, setCurrentGoalId] = useState<number>();
@@ -87,10 +89,6 @@ const MainDashBoard = () => {
     setCurrentGoalId(id);
   };
 
-  // const handleRightClickGoal = (id: number) => {
-  //   setRightClickedObjId(id);
-  // };
-
   const handleClickDelObjBtn = () => {
     setTargetModal(MAINDASHBOARD_MODAL_CASE.DEL);
     console.log(rightClickState?.rightClickId);
@@ -105,7 +103,24 @@ const MainDashBoard = () => {
   //   console.log(rightClickState.rightClickedId);
   // };
 
-  // const handleConfirmCompleteObj = () => {};
+  const handleComfirmCompleteObj = async () => {
+    await instance.patch('/v1/objective', {
+      objectiveId: rightClickState.rightClickId,
+      isClosed: true,
+    });
+    //목표 완료 -> 대시보드
+    navigate('/history');
+  };
+
+  const handleComfirmDelObj = async () => {
+    try {
+      await deleteObj(`/v1/objective/${rightClickState.rightClickId}`);
+      await mutate('/v1/objective');
+      setTargetModal(null);
+    } catch {
+      navigate('/error');
+    }
+  };
 
   /** SideSheet 관련 핸들러 함수 **/
   const handleShowSideSheet = (id: number | undefined) => {
@@ -213,9 +228,23 @@ const MainDashBoard = () => {
           )
         );
       case MAINDASHBOARD_MODAL_CASE.DEL:
-        return <DeleteObjConfirmModal modalRef={modalRef} />;
+        return (
+          <DeleteObjConfirmModal
+            modalRef={modalRef}
+            modalConfirmHandler={{
+              handleClickConfirm: handleComfirmDelObj,
+            }}
+          />
+        );
       case MAINDASHBOARD_MODAL_CASE.COMPLETE:
-        return <CompleteObjConfirmModal modalRef={modalRef} />;
+        return (
+          <CompleteObjConfirmModal
+            modalRef={modalRef}
+            modalConfirmHandler={{
+              handleClickConfirm: handleComfirmCompleteObj,
+            }}
+          />
+        );
     }
   };
 

@@ -161,9 +161,9 @@ const St목표리스트개수 = styled.p`
 
 const StScrollContainer = styled.div<{ $isRightClick: boolean }>`
   flex: 1;
-  padding: ${({ $isRightClick }) =>
-    $isRightClick ? '0 2.3rem 2.2rem 2.2rem' : '0 1rem 2.2rem 2.2rem'};
+  padding: 0 2.2rem 1.2rem;
   overflow-y: ${({ $isRightClick }) => ($isRightClick ? 'hidden' : 'scroll')};
+  background-color: ${({ theme }) => theme.colors.gray_600};
 `;
 
 const ulStyles = css`

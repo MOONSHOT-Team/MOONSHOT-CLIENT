@@ -96,6 +96,10 @@ const StCommonBtnStyle = styled.button`
   color: ${({ theme }) => theme.colors.gray_000};
   border-radius: 6px;
 
+  &:focus {
+    outline: none;
+  }
+
   ${({ theme }) => theme.fonts.btn_14_semibold};
 `;
 

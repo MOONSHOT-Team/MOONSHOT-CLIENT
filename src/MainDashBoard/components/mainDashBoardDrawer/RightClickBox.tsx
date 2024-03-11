@@ -68,6 +68,7 @@ const StRightClickPopUpBox = styled.ul<{
   height: 8rem;
   padding: 0.8rem;
   color: ${({ theme }) => theme.colors.gray_000};
+  cursor: default;
   background-color: ${({ theme }) => theme.colors.gray_700};
   border-radius: 6px;
 
@@ -85,6 +86,7 @@ const StRightClickPopUpLi = styled.li`
   ${({ theme }) => theme.fonts.body_12_medium};
 
   &:hover {
+    cursor: pointer;
     background-color: ${({ theme }) => theme.colors.transparent_white};
   }
 `;

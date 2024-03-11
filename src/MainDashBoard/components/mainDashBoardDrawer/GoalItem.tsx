@@ -66,41 +66,6 @@ const GoalItem: React.FC<IGoalItemProps> = ({
     });
   };
 
-  // useEffect(() => {
-  //   if (rightClickState.rightClickId === id)
-  //     setRightClickState((prev) => {
-  //       return { ...prev, isShowRightClick: true };
-  //     });
-  // }, [rightClickState.rightClickId]);
-
-  // useEffect(() => {
-  //   if (rightClickState === undefined) return;
-  //   rightClickState.rightClickId === id &&
-  //     setRightClickState((prev) => {
-  //       return { ...prev, isRightClick: true };
-  //     });
-  //   console.log(rightClickState);
-  // }, [rightClickState?.rightClickId]);
-
-  // const handleClickComplete = async () => {
-  //   await instance.patch('/v1/objective', {
-  //     objectiveId: rightClickedGoalId,
-  //     isClosed: true,
-  //   });
-  //   //목표 완료 -> 대시보드
-  //   navigate('/history');
-  // };
-
-  // const handleClickDelete = async (e: React.MouseEvent) => {
-  //   e.stopPropagation();
-  //   try {
-  //     await deleteObj(`/v1/objective/${rightClickedGoalId}`);
-  //     await mutate('/v1/objective');
-  //   } catch {
-  //     navigate('/error');
-  //   }
-  // };
-
   const handleOnClick = () => {
     onClickGoal?.(id);
     handleChangeState?.(0);

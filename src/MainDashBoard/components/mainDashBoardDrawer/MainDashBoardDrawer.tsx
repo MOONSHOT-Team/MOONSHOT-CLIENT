@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+import { IRightClickStateTypes } from '../..';
 import { IcUnion } from '../../assets/icons';
 import { IObjListTypes } from '../../type/goalItemTypes';
 import GoalItem from './GoalItem';
@@ -17,7 +18,11 @@ interface IDrawerProps {
   handleClickAddObjcBtn: () => void;
   onChangeCurrentGoalId: (id: number) => void;
   handleChangeState?: (state: number) => void;
+
+  rightClickState: IRightClickStateTypes;
+  setRightClickState: React.Dispatch<React.SetStateAction<IRightClickStateTypes>>;
   handleClickDelObjBtn: () => void;
+  handleClickCompleteObjBtn: () => void;
 }
 
 const MainDashBoardDrawer = ({
@@ -28,7 +33,10 @@ const MainDashBoardDrawer = ({
   objListSize,
   objId,
   showState,
+  rightClickState,
+  setRightClickState,
   handleClickDelObjBtn,
+  handleClickCompleteObjBtn,
 }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(objId);
   const [goals, setGoals] = useState(objList);
@@ -90,7 +98,10 @@ const MainDashBoardDrawer = ({
                       setIsRightClick={setIsRightClick}
                       handleChangeState={handleChangeState}
                       showState={showState}
+                      rightClickState={rightClickState}
+                      setRightClickState={setRightClickState}
                       handleClickDelObjBtn={handleClickDelObjBtn}
+                      handleClickCompleteObjBtn={handleClickCompleteObjBtn}
                     />
                   ))}
                 </ul>

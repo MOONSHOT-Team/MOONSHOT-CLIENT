@@ -10,6 +10,7 @@ import SelectMethod from '../AddOkr/components/stepLayout/SelectMethod';
 import { getDashBoardData } from './apis/fetcher';
 import CelebrateMotion from './components/celebrateMotion/CelebrateMotion';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
+import CompleteObjConfirmModal from './components/mainDashboardModal/CompleteObjConfirmModal';
 import DeleteObjConfirmModal from './components/mainDashboardModal/DeleteObjConfirmModal';
 import DrawerModal from './components/mainDashboardModal/DrawerModal';
 import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
@@ -17,6 +18,14 @@ import SideSheet from './components/sideSheet/SideSheet';
 import { MAINDASHBOARD_MODAL_CASE } from './constants/MAINDASHBOARD_MODAL_CASE';
 
 const DASHBOARD_SHOW_STATE = ['OKR_TREE', 'ADD_SELECT_METHOD', 'CONGRATE'];
+
+export interface IRightClickStateTypes {
+  rightClickId?: number | null;
+  rightClickPoints: {
+    x: number | null;
+    y: number | null;
+  };
+}
 
 const MainDashBoard = () => {
   const { modalRef, handleShowModal } = useModal();
@@ -29,10 +38,18 @@ const MainDashBoard = () => {
   const [currentKrId, setCurrentKrId] = useState<number>(0);
 
   const [showState, setShowState] = useState(DASHBOARD_SHOW_STATE[0]);
-  const [targetModal, setTargetModal] = useState<string | undefined>();
+  const [targetModal, setTargetModal] = useState<string | null>(null);
 
   // step 0 - SELECT METHOD 관련 State
   const [selectedMethod, setSelectedMethod] = useState('');
+
+  const [rightClickState, setRightClickState] = useState<IRightClickStateTypes>({
+    rightClickId: null,
+    rightClickPoints: {
+      x: null,
+      y: null,
+    },
+  });
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
@@ -70,9 +87,25 @@ const MainDashBoard = () => {
     setCurrentGoalId(id);
   };
 
+  // const handleRightClickGoal = (id: number) => {
+  //   setRightClickedObjId(id);
+  // };
+
   const handleClickDelObjBtn = () => {
     setTargetModal(MAINDASHBOARD_MODAL_CASE.DEL);
+    console.log(rightClickState?.rightClickId);
   };
+
+  const handleClickCompleteObjBtn = () => {
+    setTargetModal(MAINDASHBOARD_MODAL_CASE.COMPLETE);
+    console.log(rightClickState?.rightClickId);
+  };
+
+  // const handleConfirmDelObj = () => {
+  //   console.log(rightClickState.rightClickedId);
+  // };
+
+  // const handleConfirmCompleteObj = () => {};
 
   /** SideSheet 관련 핸들러 함수 **/
   const handleShowSideSheet = (id: number | undefined) => {
@@ -104,7 +137,10 @@ const MainDashBoard = () => {
                 objListSize={okrTreeData?.objListSize}
                 objId={okrTreeData?.objId}
                 showState={showState}
+                rightClickState={rightClickState}
+                setRightClickState={setRightClickState}
                 handleClickDelObjBtn={handleClickDelObjBtn}
+                handleClickCompleteObjBtn={handleClickCompleteObjBtn}
               />
               <MainDashboardOKRTree
                 onShowSideSheet={handleShowSideSheet}
@@ -135,7 +171,10 @@ const MainDashBoard = () => {
               objListSize={okrTreeData?.objListSize}
               objId={okrTreeData?.objId}
               showState={showState}
+              rightClickState={rightClickState}
+              setRightClickState={setRightClickState}
               handleClickDelObjBtn={handleClickDelObjBtn}
+              handleClickCompleteObjBtn={handleClickCompleteObjBtn}
             />
             <SelectMethod
               selectedMethod={selectedMethod}
@@ -160,7 +199,7 @@ const MainDashBoard = () => {
     }
   };
 
-  const renderTargetModal = (targetModal: string | undefined) => {
+  const renderTargetModal = (targetModal: string | null) => {
     switch (targetModal) {
       case MAINDASHBOARD_MODAL_CASE.PERIOD:
         return (
@@ -175,8 +214,11 @@ const MainDashBoard = () => {
         );
       case MAINDASHBOARD_MODAL_CASE.DEL:
         return <DeleteObjConfirmModal modalRef={modalRef} />;
+      case MAINDASHBOARD_MODAL_CASE.COMPLETE:
+        return <CompleteObjConfirmModal modalRef={modalRef} />;
     }
   };
+
   useEffect(() => {
     // add-okr에서 '처음으로'로 돌아오면 방식 선택 화면 뜨도록
     location.state ? setShowState(DASHBOARD_SHOW_STATE[1]) : setShowState(DASHBOARD_SHOW_STATE[0]);

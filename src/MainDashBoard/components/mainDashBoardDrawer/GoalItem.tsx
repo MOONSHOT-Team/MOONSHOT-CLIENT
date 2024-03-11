@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { getCategoryColor } from '@utils/getCategoryColor';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
 
+import { IRightClickStateTypes } from '../..';
 import { patchSwapGoalIndex } from '../../apis/fetcher';
 import { IcDropDown, IcDropUp, IcEllipse } from '../../assets/icons';
 import useContextMenu from '../../hooks/useContextMenu';
@@ -17,7 +18,10 @@ interface IGoalItemProps extends IObjListTypes {
   showState: string;
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
   handleChangeState?: (state: number) => void;
+  rightClickState: IRightClickStateTypes;
+  setRightClickState: React.Dispatch<React.SetStateAction<IRightClickStateTypes>>;
   handleClickDelObjBtn: () => void;
+  handleClickCompleteObjBtn: () => void;
 }
 
 const GoalItem: React.FC<IGoalItemProps> = ({
@@ -34,26 +38,56 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   moveGoal,
   setIsRightClick,
   handleChangeState,
+  rightClickState,
+  setRightClickState,
   handleClickDelObjBtn,
+  handleClickCompleteObjBtn,
 }) => {
   const ref = useRef<HTMLLIElement>(null);
 
-  const [, setRightClickedGoalId] = useState<number>();
-
   // const { mutate } = useSWRConfig();
   const navigate = useNavigate();
-  const { rightClicked, setRightClicked, rightClickPoints, setRightClickPoints } = useContextMenu();
+  const { rightClicked, setRightClicked } = useContextMenu();
 
   if (showState === 'ADD_SELECT_METHOD') {
     currentGoalId = -1;
   }
 
-  const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
+  // const handleRightClickItem = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
+  //   e.preventDefault();
+  //   setRightClickState((prev) => {
+  //     return { ...prev, rightClickId: id, rightClickPoints: { x: e.pageX, y: e.pageY } };
+  //   });
+  // };
+
+  const handleRightClickGoal = (e: React.MouseEvent<HTMLLIElement>, id: number) => {
     e.preventDefault();
+
     setRightClicked(true);
-    setRightClickedGoalId(id);
-    setRightClickPoints({ x: e.pageX, y: e.pageY });
+    setRightClickState((prev) => {
+      return {
+        ...prev,
+        rightClickId: id,
+        rightClickPoints: { x: e.pageX, y: e.pageY },
+      };
+    });
   };
+
+  // useEffect(() => {
+  //   if (rightClickState.rightClickId === id)
+  //     setRightClickState((prev) => {
+  //       return { ...prev, isShowRightClick: true };
+  //     });
+  // }, [rightClickState.rightClickId]);
+
+  // useEffect(() => {
+  //   if (rightClickState === undefined) return;
+  //   rightClickState.rightClickId === id &&
+  //     setRightClickState((prev) => {
+  //       return { ...prev, isRightClick: true };
+  //     });
+  //   console.log(rightClickState);
+  // }, [rightClickState?.rightClickId]);
 
   // const handleClickComplete = async () => {
   //   await instance.patch('/v1/objective', {
@@ -131,13 +165,14 @@ const GoalItem: React.FC<IGoalItemProps> = ({
       onClick={handleOnClick}
       ref={ref}
       isDragging={isDragging}
-      onContextMenu={(e) => handleRightClickItem(e, id)}
+      onContextMenu={(e) => handleRightClickGoal(e, id)}
     >
       {rightClicked && (
         <RightClickBox
           setIsRightClick={setIsRightClick}
-          rightClickPoints={rightClickPoints}
+          rightClickPoints={rightClickState.rightClickPoints}
           handleClickDelObjBtn={handleClickDelObjBtn}
+          handleClickCompleteObjBtn={handleClickCompleteObjBtn}
         />
       )}
       <StGoalItemContainer>

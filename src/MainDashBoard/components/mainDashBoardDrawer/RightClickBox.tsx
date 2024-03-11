@@ -4,17 +4,19 @@ import { useEffect } from 'react';
 import { IcComplete, IcTrash } from '../../assets/icons';
 
 interface IRightClickBoxProps {
-  rightClickPoints: { x: number; y: number };
+  rightClickPoints: { x: number | null; y: number | null };
   handleClickComplete?: () => void;
   handleClickDelete?: (e: React.MouseEvent) => void;
   setIsRightClick: React.Dispatch<React.SetStateAction<boolean>>;
   handleClickDelObjBtn: () => void;
+  handleClickCompleteObjBtn: () => void;
 }
 
 const RightClickBox = ({
   rightClickPoints,
   handleClickDelObjBtn,
   setIsRightClick,
+  handleClickCompleteObjBtn,
 }: IRightClickBoxProps) => {
   useEffect(() => {
     setIsRightClick(true);
@@ -25,22 +27,28 @@ const RightClickBox = ({
   }, []);
 
   return (
-    <StRightClickPopUpBox $rightClickPoints={rightClickPoints}>
-      <StRightClickPopIpLi onClick={() => console.log('완료')}>
-        <IcComplete />
-        <p>달성 완료</p>
-      </StRightClickPopIpLi>
-      <StRightClickPopIpLi onClick={handleClickDelObjBtn}>
-        <IcTrash />
-        <p>목표 삭제</p>
-      </StRightClickPopIpLi>
-    </StRightClickPopUpBox>
+    <>
+      {rightClickPoints && (
+        <StRightClickPopUpBox $rightClickPoints={rightClickPoints}>
+          <StRightClickPopIpLi onClick={handleClickCompleteObjBtn}>
+            <IcComplete />
+            <p>달성 완료</p>
+          </StRightClickPopIpLi>
+          <StRightClickPopIpLi onClick={handleClickDelObjBtn}>
+            <IcTrash />
+            <p>목표 삭제</p>
+          </StRightClickPopIpLi>
+        </StRightClickPopUpBox>
+      )}
+    </>
   );
 };
 
 export default RightClickBox;
 
-const StRightClickPopUpBox = styled.ul<{ $rightClickPoints: { x: number; y: number } }>`
+const StRightClickPopUpBox = styled.ul<{
+  $rightClickPoints: { x: number | null; y: number | null };
+}>`
   position: fixed;
   top: ${({ $rightClickPoints }) => $rightClickPoints.y}px;
   left: ${({ $rightClickPoints }) => $rightClickPoints.x}px;

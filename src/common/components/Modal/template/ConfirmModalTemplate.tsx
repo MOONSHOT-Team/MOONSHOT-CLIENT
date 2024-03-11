@@ -4,19 +4,15 @@ import styled from '@emotion/styled';
 interface IConfirmModalTemplateProps {
   title: string;
   description: string;
-  cancelStr: string;
-  confirmStr: string;
-  handleClickCancel: () => void;
-  handleClickConfirm: () => void;
+  cancelState: { text: string; handleClickCancel: () => void };
+  confirmState: { text: string; handleClickConfirm: () => void };
 }
 
 const ConfirmModalTemplate = ({
   title,
   description,
-  cancelStr,
-  confirmStr,
-  handleClickCancel,
-  handleClickConfirm,
+  cancelState,
+  confirmState,
 }: IConfirmModalTemplateProps) => {
   return (
     <StConfirmModalTemplateWrapper>
@@ -25,8 +21,11 @@ const ConfirmModalTemplate = ({
         <StConfirmModalDescription>{description}</StConfirmModalDescription>
       </div>
       <div css={ConfrimBtnContainer}>
-        <StCancelBtn onClick={handleClickCancel}>{cancelStr}</StCancelBtn>
-        <StConfirmBtn onClick={handleClickConfirm}>{confirmStr}</StConfirmBtn>
+        <form method="dialog">
+          <StCancelBtn onClick={cancelState.handleClickCancel}>{cancelState.text}</StCancelBtn>
+        </form>
+
+        <StConfirmBtn onClick={confirmState.handleClickConfirm}>{confirmState.text}</StConfirmBtn>
       </div>
     </StConfirmModalTemplateWrapper>
   );

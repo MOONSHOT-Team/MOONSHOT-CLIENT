@@ -13,7 +13,9 @@ import { createPortal } from 'react-dom';
  */
 const Modal = forwardRef<HTMLDialogElement, PropsWithChildren>(({ children }, ref) => {
   return createPortal(
-    <StModalDialog ref={ref}>{children}</StModalDialog>,
+    <StModalDialog ref={ref} tabIndex={0}>
+      {children}
+    </StModalDialog>,
     document.getElementById('modal')!,
   );
 });

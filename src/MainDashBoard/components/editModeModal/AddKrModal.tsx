@@ -38,8 +38,12 @@ const AddKrModal = ({ modalRef }: IAddKrModalProps) => {
         </div>
 
         <div css={AddKrModalBtnContainer}>
-          <StAddKrCancelBtn>취소하기</StAddKrCancelBtn>
-          <StAddKrConfirmAddBtn $isActiveAdd={true}>추가하기</StAddKrConfirmAddBtn>
+          <StAddKrCancelBtn type="button" onClick={() => modalRef.current?.close()}>
+            취소하기
+          </StAddKrCancelBtn>
+          <StAddKrConfirmAddBtn type="button" $isActiveAdd={true}>
+            추가하기
+          </StAddKrConfirmAddBtn>
         </div>
       </StAddKrModalWrapper>
     </Modal>

@@ -45,7 +45,6 @@ const GoalItem: React.FC<IGoalItemProps> = ({
 }) => {
   const ref = useRef<HTMLLIElement>(null);
 
-  // const { mutate } = useSWRConfig();
   const navigate = useNavigate();
   const { rightClicked, setRightClicked } = useContextMenu();
 

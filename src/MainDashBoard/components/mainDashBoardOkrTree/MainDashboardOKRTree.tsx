@@ -1,7 +1,7 @@
 import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { imgNoneOkr } from '../../assets/images';
 import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
@@ -19,12 +19,16 @@ interface IMainDashboardOKRTreeProps {
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
   const [state, setState] = useState(OKRTREEVIEWS[0]);
 
+  useEffect(() => {
+    setState(OKRTREEVIEWS[0]);
+  }, [currentOkrData]);
+
   const renderOKRTree = () => {
     switch (state) {
       case OKRTREEVIEWS[0]:
         return (
           <article css={okrTreeContainer}>
-            <EditBtn setState={setState} />
+            <EditBtn state={state} setState={setState} />
             <div css={okrTree}>
               <OkrTreeTemplate
                 ObjNode={() => (
@@ -50,7 +54,12 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
           </article>
         );
       case OKRTREEVIEWS[1]:
-        return <>edit뷰</>;
+        return (
+          <article css={okrTreeContainer}>
+            <EditBtn state={state} setState={setState} />
+            <div css={okrTree}>edit</div>
+          </article>
+        );
     }
   };
 

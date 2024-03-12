@@ -3,7 +3,13 @@ import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
 
-const EditBtn = ({ setState }: { setState: Dispatch<SetStateAction<string>> }) => {
+const EditBtn = ({
+  state,
+  setState,
+}: {
+  state: string;
+  setState: Dispatch<SetStateAction<string>>;
+}) => {
   const handleRadio = (e: ChangeEvent<HTMLInputElement>) => {
     setState(e.target.value);
   };
@@ -18,6 +24,7 @@ const EditBtn = ({ setState }: { setState: Dispatch<SetStateAction<string>> }) =
           value={OKRTREEVIEWS[0]}
           defaultChecked
           onChange={handleRadio}
+          checked={state == OKRTREEVIEWS[0]}
         />
         <StRadioSpanLeft>View</StRadioSpanLeft>
       </StRadioLabel>
@@ -28,6 +35,7 @@ const EditBtn = ({ setState }: { setState: Dispatch<SetStateAction<string>> }) =
           name="isEdit"
           value={OKRTREEVIEWS[1]}
           onChange={handleRadio}
+          checked={state == OKRTREEVIEWS[1]}
         />
         <StRadioSpanRight>Edit</StRadioSpanRight>
       </StRadioLabel>
@@ -59,6 +67,7 @@ const StRadioSpan = styled.span`
   height: 2.4rem;
   color: ${({ theme }) => theme.colors.gray_500};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
+  ${({ theme }) => theme.fonts.body_12_medium};
 
   ${StRadio}:checked + & {
     color: ${({ theme }) => theme.colors.main_purple};

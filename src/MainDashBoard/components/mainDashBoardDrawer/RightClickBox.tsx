@@ -63,7 +63,7 @@ const StRightClickPopUpBox = styled.ul<{
   z-index: 50;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.4rem;
   width: 15.8rem;
   height: 8rem;
   padding: 0.8rem;

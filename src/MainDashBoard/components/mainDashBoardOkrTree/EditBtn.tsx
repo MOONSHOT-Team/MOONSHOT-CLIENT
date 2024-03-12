@@ -1,14 +1,34 @@
 import styled from '@emotion/styled';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-const EditBtn = () => {
+import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
+
+const EditBtn = ({ setState }: { setState: Dispatch<SetStateAction<string>> }) => {
+  const handleRadio = (e: ChangeEvent<HTMLInputElement>) => {
+    setState(e.target.value);
+  };
+
   return (
     <StContainer>
       <StRadioLabel htmlFor="view">
-        <StRadio id="view" type="radio" name="isEdit" value="View" />
+        <StRadio
+          id="view"
+          type="radio"
+          name="isEdit"
+          value={OKRTREEVIEWS[0]}
+          defaultChecked
+          onChange={handleRadio}
+        />
         <StRadioSpanLeft>View</StRadioSpanLeft>
       </StRadioLabel>
       <StRadioLabel htmlFor="edit">
-        <StRadio id="edit" type="radio" name="isEdit" value="Edit" />
+        <StRadio
+          id="edit"
+          type="radio"
+          name="isEdit"
+          value={OKRTREEVIEWS[1]}
+          onChange={handleRadio}
+        />
         <StRadioSpanRight>Edit</StRadioSpanRight>
       </StRadioLabel>
     </StContainer>

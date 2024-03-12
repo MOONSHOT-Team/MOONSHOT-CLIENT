@@ -1,3 +1,4 @@
+import IcAdd from './icAdd.svg?react';
 import IcClose from './icClose.svg?react';
 import IcComplete from './icComplete.svg?react';
 import IcDoneState from './icDoneState.svg?react';
@@ -14,6 +15,7 @@ import IcUnion from './icUnion.svg?react';
 import IcWaitState from './icWaitState.svg?react';
 
 export {
+  IcAdd,
   IcClose,
   IcComplete,
   IcDoneState,

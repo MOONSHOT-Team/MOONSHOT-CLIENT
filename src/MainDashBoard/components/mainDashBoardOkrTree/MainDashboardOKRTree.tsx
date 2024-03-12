@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { imgNoneOkr } from '../../assets/images';
 import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
 import { IMainData } from '../../type/mainDashboardDataType';
+import { EditKrNodes } from '../editOkrTree/EditKrNodes';
+import EditObjectNode from '../editOkrTree/EditObjectNode';
 import EditBtn from './EditBtn';
 import { MainDashKrNodes } from './MainDashKrNodes';
 import MainDashObjectNode from './MainDashObjectNode';
@@ -57,7 +59,28 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
         return (
           <article css={okrTreeContainer}>
             <EditBtn state={state} setState={setState} />
-            <div css={okrTree}>edit</div>
+            <div css={okrTree}>
+              <OkrTreeTemplate
+                ObjNode={() => (
+                  <EditObjectNode objValue={currentOkrData?.objTitle} objStroke="#7165CA" />
+                )}
+                keyResultList={currentOkrData?.krList}
+                KrNodes={(krIdx) => (
+                  <EditKrNodes
+                    krIdx={krIdx}
+                    krList={currentOkrData.krList[krIdx]}
+                    onShowSideSheet={onShowSideSheet}
+                  />
+                )}
+                TaskNodes={(isFirstChild, krIdx, taskIdx) => (
+                  <MainDashTaskNodes
+                    isFirstChild={isFirstChild}
+                    taskIdx={taskIdx}
+                    taskList={currentOkrData.krList[krIdx]?.taskList}
+                  />
+                )}
+              />
+            </div>
           </article>
         );
     }

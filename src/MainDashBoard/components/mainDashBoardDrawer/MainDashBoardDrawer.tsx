@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+import { IRightClickStateTypes } from '../..';
 import { IcUnion } from '../../assets/icons';
 import { IObjListTypes } from '../../type/goalItemTypes';
 import GoalItem from './GoalItem';
@@ -17,6 +18,11 @@ interface IDrawerProps {
   handleClickAddObjcBtn: () => void;
   onChangeCurrentGoalId: (id: number) => void;
   handleChangeState?: (state: number) => void;
+
+  rightClickState: IRightClickStateTypes;
+  setRightClickState: React.Dispatch<React.SetStateAction<IRightClickStateTypes>>;
+  handleClickDelObjBtn: () => void;
+  handleClickCompleteObjBtn: () => void;
 }
 
 const MainDashBoardDrawer = ({
@@ -27,10 +33,14 @@ const MainDashBoardDrawer = ({
   objListSize,
   objId,
   showState,
+  rightClickState,
+  setRightClickState,
+  handleClickDelObjBtn,
+  handleClickCompleteObjBtn,
 }: IDrawerProps) => {
   const [currentGoalId, setCurrentGoalId] = useState(objId);
   const [goals, setGoals] = useState(objList);
-  const [isRightClick, setIsRightClick] = useState(false);
+  // const [isRightClick, setIsRightClick] = useState(false);
 
   const handleClickGoal = (id: number) => {
     setCurrentGoalId(id);
@@ -74,7 +84,7 @@ const MainDashBoardDrawer = ({
       {objList ? (
         <>
           <div css={{ height: 'calc(100% - 10rem)', display: 'flex', flexDirection: 'column' }}>
-            <StScrollContainer $isRightClick={isRightClick}>
+            <StScrollContainer $isRightClick={rightClickState.isRightClick}>
               <DndProvider backend={HTML5Backend}>
                 <ul css={ulStyles}>
                   {goals?.map((objListItem, index) => (
@@ -85,9 +95,12 @@ const MainDashBoardDrawer = ({
                       onClickGoal={handleClickGoal}
                       index={index}
                       moveGoal={moveGoal}
-                      setIsRightClick={setIsRightClick}
                       handleChangeState={handleChangeState}
                       showState={showState}
+                      rightClickState={rightClickState}
+                      setRightClickState={setRightClickState}
+                      handleClickDelObjBtn={handleClickDelObjBtn}
+                      handleClickCompleteObjBtn={handleClickCompleteObjBtn}
                     />
                   ))}
                 </ul>
@@ -148,9 +161,9 @@ const St목표리스트개수 = styled.p`
 
 const StScrollContainer = styled.div<{ $isRightClick: boolean }>`
   flex: 1;
-  padding: ${({ $isRightClick }) =>
-    $isRightClick ? '0 2.3rem 2.2rem 2.2rem' : '0 1rem 2.2rem 2.2rem'};
+  padding: 0 2.2rem 1.2rem;
   overflow-y: ${({ $isRightClick }) => ($isRightClick ? 'hidden' : 'scroll')};
+  background-color: ${({ theme }) => theme.colors.gray_600};
 `;
 
 const ulStyles = css`

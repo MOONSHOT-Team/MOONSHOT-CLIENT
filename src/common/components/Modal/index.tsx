@@ -37,9 +37,8 @@ const StModalDialog = styled.dialog`
   position: fixed;
   top: 50vh;
   left: 50%;
-  width: 47.6rem;
-  height: 47.6rem;
-  color: ${({ theme }) => theme.colors.gray_000};
+  width: fit-content;
+  height: fit-content;
   background: ${({ theme }) => theme.colors.gray_550};
   border: none;
   border-radius: 10px;

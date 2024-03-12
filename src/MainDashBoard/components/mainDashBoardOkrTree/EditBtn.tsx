@@ -22,7 +22,6 @@ const EditBtn = ({
           type="radio"
           name="isEdit"
           value={OKRTREEVIEWS[0]}
-          defaultChecked
           onChange={handleRadio}
           checked={state == OKRTREEVIEWS[0]}
         />

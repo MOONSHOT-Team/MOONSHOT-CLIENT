@@ -7,19 +7,32 @@ import {
   StNodesContainer,
 } from '@styles/okrTree/CommonNodeStyle';
 import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
+import { useEffect, useState } from 'react';
 
 import { IcAdd, IcDrag } from '../../assets/icons';
 
-interface IMainDashKrNodesProps {
+interface IMainEditKrNodesProps {
   krIdx: number;
   krList: IKeyResultTypes;
-  handleAddTask?: (krId: number) => void;
+  krId: number | undefined;
+  handleAddTask: (krId: number | undefined) => void;
 }
 
-export const EditKrNodes = ({ krIdx, krList }: IMainDashKrNodesProps) => {
+export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrNodesProps) => {
+  const [isntFull, setIsntFull] = useState(false);
+  useEffect(() => {
+    if (krList.taskList.length >= 3) {
+      setIsntFull(false);
+      return;
+    }
+    if (krList.taskList.length < 3) {
+      setIsntFull(true);
+      return;
+    }
+  }, [krList]);
+
   if (!krList) return;
   const { krTitle } = krList;
-  console.log(krList);
 
   return (
     <StNodesContainer>
@@ -29,7 +42,7 @@ export const EditKrNodes = ({ krIdx, krList }: IMainDashKrNodesProps) => {
         <StyledIcDrag />
         <StMainDashBox>{krTitle}</StMainDashBox>
         <StraightLine />
-        <StIcAdd />
+        {isntFull && <StIcAdd onClick={() => handleAddTask(krId)} />}
       </StMainDashKrBoxWrapper>
     </StNodesContainer>
   );

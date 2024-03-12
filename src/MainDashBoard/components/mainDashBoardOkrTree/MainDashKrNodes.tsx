@@ -27,7 +27,7 @@ export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrN
         <StraightLine />
         <StyledIcDrag />
         <StMainDashBox>{krTitle}</StMainDashBox>
-        <StraightLine />
+        {krList.taskList.length !== 0 && <StraightLine />}
       </StMainDashKrBoxWrapper>
     </StNodesContainer>
   );

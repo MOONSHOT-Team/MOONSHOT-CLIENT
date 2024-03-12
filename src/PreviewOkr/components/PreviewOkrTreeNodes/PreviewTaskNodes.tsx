@@ -73,7 +73,7 @@ export const PreviewTaskNodes = ({
   );
 };
 
-const StPreviewTaskBox = styled(StTaskBox)<{ $idx: number }>`
+export const StPreviewTaskBox = styled(StTaskBox)<{ $idx: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,7 +82,7 @@ const StPreviewTaskBox = styled(StTaskBox)<{ $idx: number }>`
   padding: 0.6rem 1.6rem;
 `;
 
-const StPreviewPlusBtn = styled.button`
+export const StPreviewPlusBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;

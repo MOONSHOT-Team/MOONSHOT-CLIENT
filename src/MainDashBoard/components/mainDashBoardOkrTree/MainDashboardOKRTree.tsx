@@ -8,6 +8,7 @@ import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
 import { IMainData } from '../../type/mainDashboardDataType';
 import { EditKrNodes } from '../editOkrTree/EditKrNodes';
 import EditObjectNode from '../editOkrTree/EditObjectNode';
+import { EditTaskNodes } from '../editOkrTree/EditTaskNodes';
 import EditBtn from './EditBtn';
 import { MainDashKrNodes } from './MainDashKrNodes';
 import MainDashObjectNode from './MainDashObjectNode';
@@ -20,10 +21,31 @@ interface IMainDashboardOKRTreeProps {
 
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
   const [state, setState] = useState(OKRTREEVIEWS[0]);
+  const [editKrList, setEditKrList] = useState(currentOkrData?.krList);
+  const [editKrId, setEditKrId] = useState<number>();
 
   useEffect(() => {
     setState(OKRTREEVIEWS[0]);
+    setEditKrList(currentOkrData?.krList);
   }, [currentOkrData]);
+
+  const handleAddTask = (krId: number | undefined) => {
+    if (!krId) return;
+    const thisKrIdx = editKrList.findIndex((obj) => obj.krId === krId);
+    const thisTaskList = editKrList[thisKrIdx].taskList;
+    const newTask = { taskIdx: thisTaskList.length, taskTitle: '' };
+    const updatedEditKrList = editKrList.map((kr) => {
+      if (kr.krId === krId) {
+        return {
+          ...kr,
+          taskList: [...kr.taskList, newTask], // 해당 객체의 taskList에 newTask를 추가
+        };
+      }
+      return kr;
+    });
+    setEditKrList(updatedEditKrList);
+    setEditKrId(krId);
+  };
 
   const renderOKRTree = () => {
     switch (state) {
@@ -55,6 +77,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
             </div>
           </article>
         );
+      //edit
       case OKRTREEVIEWS[1]:
         return (
           <article css={okrTreeContainer}>
@@ -64,19 +87,22 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                 ObjNode={() => (
                   <EditObjectNode objValue={currentOkrData?.objTitle} objStroke="#7165CA" />
                 )}
-                keyResultList={currentOkrData?.krList}
+                keyResultList={editKrList}
                 KrNodes={(krIdx) => (
                   <EditKrNodes
                     krIdx={krIdx}
-                    krList={currentOkrData.krList[krIdx]}
-                    onShowSideSheet={onShowSideSheet}
+                    krList={editKrList[krIdx]}
+                    handleAddTask={handleAddTask}
+                    krId={editKrList[krIdx].krId}
                   />
                 )}
                 TaskNodes={(isFirstChild, krIdx, taskIdx) => (
-                  <MainDashTaskNodes
+                  <EditTaskNodes
                     isFirstChild={isFirstChild}
                     taskIdx={taskIdx}
-                    taskList={currentOkrData.krList[krIdx]?.taskList}
+                    taskList={editKrList[krIdx]?.taskList}
+                    editKrId={editKrId}
+                    objId={currentOkrData?.objId}
                   />
                 )}
               />

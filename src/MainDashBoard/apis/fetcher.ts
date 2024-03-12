@@ -1,5 +1,6 @@
 import instance from '@apis/instance';
 
+import { IPostAddTaskType } from '../type/addTaskType';
 import { IPatchGoalIdxReqType } from '../type/goalItemTypes';
 import { IPatchCheckInReqType } from '../type/mainReqTypes';
 import { IPostLogResType } from '../type/mainResTypes';
@@ -39,4 +40,11 @@ export const deleteObj = async (url: string) => {
   const response = await instance.delete(url);
 
   return response.data;
+};
+
+// task 추가 api
+export const postAddTask = async (url: string, reqData: IPostAddTaskType) => {
+  const response = await instance.post(url, reqData);
+
+  return response;
 };

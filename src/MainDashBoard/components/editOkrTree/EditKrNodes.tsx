@@ -8,26 +8,28 @@ import {
 } from '@styles/okrTree/CommonNodeStyle';
 import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 
-import { IcDrag } from '../../assets/icons';
+import { IcAdd, IcDrag } from '../../assets/icons';
 
 interface IMainDashKrNodesProps {
   krIdx: number;
   krList: IKeyResultTypes;
-  onShowSideSheet: (krId: number | undefined) => void;
+  handleAddTask?: (krId: number) => void;
 }
 
-export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrNodesProps) => {
+export const EditKrNodes = ({ krIdx, krList }: IMainDashKrNodesProps) => {
   if (!krList) return;
-  const { krTitle, krId } = krList;
+  const { krTitle } = krList;
+  console.log(krList);
 
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
-      <StMainDashKrBoxWrapper onClick={() => onShowSideSheet(krId)}>
+      <StMainDashKrBoxWrapper>
         <StraightLine />
         <StyledIcDrag />
         <StMainDashBox>{krTitle}</StMainDashBox>
         <StraightLine />
+        <StIcAdd />
       </StMainDashKrBoxWrapper>
     </StNodesContainer>
   );
@@ -45,4 +47,10 @@ const StyledIcDrag = styled(IcDrag)`
 const StMainDashBox = styled(StKrBox)`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.body_13_medium};
+`;
+
+const StIcAdd = styled(IcAdd)`
+  position: absolute;
+  right: -10px;
+  z-index: 1;
 `;

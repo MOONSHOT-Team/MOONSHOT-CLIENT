@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import {
@@ -15,7 +14,7 @@ const PreviewModal = ({ selectedMethod }: { selectedMethod: string }) => {
 
   return (
     <>
-      <div css={modalForm}>
+      <StPreviewModalWrapper>
         <StAddOkrOptionText>{selectedMethod}</StAddOkrOptionText>
         <StMainTextContainer>
           <p>목표 저장 전 내용을 수정하고</p>
@@ -31,21 +30,25 @@ const PreviewModal = ({ selectedMethod }: { selectedMethod: string }) => {
         <StProgressBox>
           <StProgressRightText>{progressStep}</StProgressRightText>
         </StProgressBox>
-      </div>
+      </StPreviewModalWrapper>
     </>
   );
 };
 
 export default PreviewModal;
 
-const modalForm = css`
+const StPreviewModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 47.6rem;
+  height: 47.6rem;
   padding: 0 7rem 0 6.9rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  background: ${({ theme }) => theme.colors.gray_550};
+  border: none;
+  border-radius: 10px;
 `;
 
 const StAddOkrOptionText = styled.p`

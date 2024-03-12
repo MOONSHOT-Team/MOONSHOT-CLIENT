@@ -10,7 +10,7 @@ import ListOrder from './components/dropDown/ListOrder';
 import HistoryDrawer from './components/HistoryDrawer';
 import { Group, IObjective } from './type/okrTypes';
 
-export type filterOptionTypes = '최신순' | '오래된 순' | '달성률';
+export type filterOptionTypes = '최신순' | '오래된 순' | '달성률 순';
 // export type selectedThemeTypes =
 //   | '성장'
 //   | '건강'
@@ -21,123 +21,41 @@ export type filterOptionTypes = '최신순' | '오래된 순' | '달성률';
 //   | null;
 
 const History = () => {
-  const { data, isLoading } = useSWR('/v1/objective/history', getOKRHistory);
   const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
-  const [selectedTheme, setSelectedTheme] = useState('');
-  const [selectedYear, setSelectedYear] = useState('0');
+  const [selectedTheme, setSelectedTheme] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(null);
+  const isSelectedYear = selectedYear ? Number(selectedYear.slice(0, 4)) : null;
+
+  const { data, isLoading } = useSWR(
+    ['/v1/objective/history', isSelectedYear, selectedTheme, selectedFilter],
+    ([url, isSelectedYear, selectedTheme, selectedFilter]) =>
+      getOKRHistory(url, isSelectedYear, selectedTheme, selectedFilter),
+  );
 
   if (isLoading) return <Loading />;
 
-  const historyOriginGroup = data!.data.data.groups;
-  const historyCategories = data!.data.data.categories;
-  let historyYears = data!.data.data.years;
-  let historyGroup = data!.data.data.groups;
+  const historyCategories = data?.data.data.categories;
+  const historyYears = data?.data.data.years;
+  const historyGroup = data?.data.data.groups;
 
   const handleSelectTheme = (selectedNewTheme: string) => {
-    if (selectedNewTheme === selectedTheme) return setSelectedTheme('');
+    if (selectedNewTheme === selectedTheme) return setSelectedTheme(null);
 
-    if (selectedYear !== '0') setSelectedYear('0');
+    if (selectedYear !== '0') setSelectedYear(null);
 
     setSelectedTheme(selectedNewTheme);
   };
 
   const handleSelectYear = (selectedNewYear: string) => {
-    if (selectedNewYear === selectedYear) return setSelectedYear('0');
+    if (selectedNewYear === selectedYear) return setSelectedYear(null);
 
     setSelectedYear(selectedNewYear);
   };
 
-  // 정렬 로직
-  const handleFilterSelection = (selectedFilter: filterOptionTypes) => {
+  const handleSelectFilter = (selectedFilter: filterOptionTypes) => {
     setSelectedFilter(selectedFilter);
-
-    const getFullDateFormat = (stringDate: string) => {
-      const [yearA, monthA, dayA] = stringDate.split(' - ')[0].split('. ');
-
-      return `20${yearA}-${monthA}-${dayA}`;
-    };
-
-    if (selectedFilter === '최신순') {
-      const newHistoryGroup = [...historyGroup].sort((a, b) => b.year - a.year);
-      newHistoryGroup.forEach(({ objList }: { objList: IObjective[] }) => {
-        return objList.sort((a, b) => {
-          const fullDateA = getFullDateFormat(a.objPeriod);
-          const fullDateB = getFullDateFormat(b.objPeriod);
-
-          return new Date(fullDateB).getTime() - new Date(fullDateA).getTime();
-        });
-      });
-
-      return (historyGroup = newHistoryGroup);
-    }
-
-    if (selectedFilter === '오래된 순') {
-      const newHistoryGroup = [...historyGroup].sort((a, b) => a.year - b.year);
-      newHistoryGroup.forEach(({ objList }: { objList: IObjective[] }) => {
-        return objList.sort((a, b) => {
-          const fullDateA = getFullDateFormat(a.objPeriod);
-          const fullDateB = getFullDateFormat(b.objPeriod);
-
-          return new Date(fullDateA).getTime() - new Date(fullDateB).getTime();
-        });
-      });
-
-      return (historyGroup = newHistoryGroup);
-    }
-
-    if (selectedFilter === '달성률') {
-      const newHistoryGroup = [...historyGroup].sort((a, b) => b.year - a.year);
-      newHistoryGroup.forEach(({ objList }: { objList: IObjective[] }) => {
-        return objList.sort((a, b) => b.progress - a.progress);
-      });
-
-      return (historyGroup = newHistoryGroup);
-    }
+    console.log(selectedFilter);
   };
-
-  // 카테고리 선택 로직
-  if (selectedTheme === '' && selectedYear !== '0') {
-    const selectedHistoryGroupByYear = [...historyOriginGroup].filter(({ year }) =>
-      selectedYear.includes(year),
-    );
-
-    historyGroup = selectedHistoryGroupByYear;
-  } else if (selectedTheme !== '') {
-    const newHistoryData = [...historyOriginGroup]
-      .map(({ year, objList }) => {
-        const filteredObjList = objList.filter(
-          ({ objCategory }: { objCategory: string }) => objCategory === selectedTheme,
-        );
-
-        return { year, objList: filteredObjList };
-      })
-      .filter(({ objList }) => objList.length !== 0);
-
-    historyGroup = newHistoryData;
-
-    historyYears = historyGroup.map(
-      ({ year, objList }: { year: string; objList: IObjective[] }) => ({
-        year,
-        count: objList.length,
-      }),
-    );
-
-    if (selectedYear !== '0') {
-      const selectedHistoryGroupByYear = [...historyOriginGroup].filter(({ year }) =>
-        selectedYear.includes(year),
-      );
-      const newHistoryData = selectedHistoryGroupByYear[0].objList.filter(
-        ({ objCategory }: { objCategory: string }) => objCategory === selectedTheme,
-      );
-
-      historyGroup = [
-        {
-          year: Number(selectedYear.slice(0, 4)),
-          objList: newHistoryData,
-        },
-      ];
-    }
-  }
 
   const yearData = historyYears?.map(
     ({ year, count }: { year: string; count: number }) => `${year}(${count})`,
@@ -155,7 +73,7 @@ const History = () => {
       />
 
       <section css={dropDownSection}>
-        <ListOrder selectedFilter={selectedFilter} onFilterSelection={handleFilterSelection} />
+        <ListOrder selectedFilter={selectedFilter} onFilterSelection={handleSelectFilter} />
         {historyGroup?.map(({ year, objList }: Group) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
             <StListOrderContainer>
@@ -164,7 +82,7 @@ const History = () => {
             <ul>
               <li css={addGapBetweenObjective}>
                 {objList.map((item: IObjective) => (
-                  <HistoryList key={`${item.objId}-${item.title}`} {...item} />
+                  <HistoryList key={`${item.objId}-${item.objTitle}`} {...item} />
                 ))}
               </li>
             </ul>

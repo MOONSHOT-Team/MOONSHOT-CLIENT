@@ -26,7 +26,7 @@ const Categories = ({
       <div css={sortCategories}>
         {categories?.map((category) => {
           const isHavingCategoryData = historyCategories
-            ? historyCategories.includes(category)
+            ? historyCategories.includes(String(category))
             : true;
 
           return (
@@ -35,7 +35,7 @@ const Categories = ({
               isHavingCategoryData={isHavingCategoryData}
               disabled={!isHavingCategoryData}
               onClick={() => {
-                onClick(category);
+                onClick(String(category));
               }}
             >
               {category === selectedCategory ? <IcCheck /> : null}

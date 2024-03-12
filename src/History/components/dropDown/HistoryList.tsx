@@ -226,7 +226,7 @@ const StTask = styled.span`
   ${({ theme }) => theme.fonts.body_14_regular};
 `;
 
-const HistoryList = ({ krList, objCategory, objPeriod, progress, title }: IObjective) => {
+const HistoryList = ({ krList, objCategory, objPeriod, objProgress, objTitle }: IObjective) => {
   const [isShowKR, setIsShowKR] = useState(false);
 
   const handleShowKR = () => {
@@ -237,8 +237,8 @@ const HistoryList = ({ krList, objCategory, objPeriod, progress, title }: IObjec
     <>
       <HistoryObjectiveItem
         category={objCategory}
-        objective={title}
-        progress={progress}
+        objective={objTitle}
+        progress={objProgress}
         period={objPeriod}
         isShowKR={isShowKR}
         onClick={handleShowKR}

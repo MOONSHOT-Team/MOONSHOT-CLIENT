@@ -174,7 +174,7 @@ const DrawerModal = forwardRef<HTMLDialogElement, IDrawerModalProps>((props, ref
 
   return (
     <Modal ref={modalRef}>
-      <div css={modalForm}>
+      <StDrawerModalContainer>
         <StMainTextContainer>
           <p>해당 목표의 달성 기간이 종료되었습니다</p>
           <p>더 도전하기 위해 기간을 연장할까요?</p>
@@ -238,7 +238,7 @@ const DrawerModal = forwardRef<HTMLDialogElement, IDrawerModalProps>((props, ref
           {isValidInput !== '' && <StErrorText>{isValidInput}</StErrorText>}
         </StDateContainer>
         <div css={buttonStyle}>{!activeExtend ? renderExtendButton() : renderSaveButton()}</div>
-      </div>
+      </StDrawerModalContainer>
     </Modal>
   );
 });
@@ -247,14 +247,18 @@ DrawerModal.displayName = 'DrawerModal';
 
 export default DrawerModal;
 
-const modalForm = css`
+const StDrawerModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 47.6rem;
+  height: 47.6rem;
   padding: 0 5.4rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  background: ${({ theme }) => theme.colors.gray_550};
+  border: none;
+  border-radius: 10px;
 `;
 
 const buttonStyle = css`

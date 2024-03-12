@@ -1,6 +1,6 @@
 import { MutableRefObject } from 'react';
 
-export interface IObjConfirmModalProps {
+export interface IConfirmModalProps {
   modalRef: MutableRefObject<HTMLDialogElement | null>;
   modalConfirmHandler: {
     handleClickCancel?: () => void;

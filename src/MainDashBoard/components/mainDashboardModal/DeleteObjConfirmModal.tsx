@@ -1,7 +1,6 @@
 import Modal from '@components/Modal';
 import ConfirmModalTemplate from '@components/Modal/template/ConfirmModalTemplate';
-
-import { IObjConfirmModalProps } from '../../type/objConfirmModalTypes';
+import { IConfirmModalProps } from '@type/modal/confirmModalTypes';
 
 const DEL_OBJ_STR = {
   TITLE: '목표 삭제하기',
@@ -12,7 +11,7 @@ const DEL_OBJ_STR = {
 
 const { TITLE, DESCRIPTION, CANCEL_TXT, CONFIRM_TXT } = DEL_OBJ_STR;
 
-const DeleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IObjConfirmModalProps) => {
+const DeleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IConfirmModalProps) => {
   return (
     <Modal ref={modalRef}>
       <ConfirmModalTemplate

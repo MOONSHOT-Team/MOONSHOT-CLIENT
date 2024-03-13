@@ -9,7 +9,7 @@ import {
 import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 import { useEffect, useState } from 'react';
 
-import { IcAdd, IcDrag } from '../../assets/icons';
+import { IcAdd, IcDrag, IcTrashPurple } from '../../assets/icons';
 
 interface IMainEditKrNodesProps {
   krIdx: number;
@@ -37,18 +37,26 @@ export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrN
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
-      <StMainDashKrBoxWrapper>
+      <StEditKrKrBoxWrapper>
         <StraightLine />
         <StyledIcDrag />
-        <StMainDashBox>{krTitle}</StMainDashBox>
+        <StEditKrBox>
+          <p>{krTitle}</p>
+          <IcTrashPurple
+            onClick={() => {
+              //kr삭제 api연동
+              console.log(krId);
+            }}
+          />
+        </StEditKrBox>
         <StraightLine />
         {isntFull && <StIcAdd onClick={() => handleAddTask(krId)} />}
-      </StMainDashKrBoxWrapper>
+      </StEditKrKrBoxWrapper>
     </StNodesContainer>
   );
 };
 
-const StMainDashKrBoxWrapper = styled(StKrBoxWrapper)`
+const StEditKrKrBoxWrapper = styled(StKrBoxWrapper)`
   display: flex;
   align-items: center;
 `;
@@ -57,9 +65,17 @@ const StyledIcDrag = styled(IcDrag)`
   margin: 0 0.5rem 0 0.6rem;
 `;
 
-const StMainDashBox = styled(StKrBox)`
-  color: ${({ theme }) => theme.colors.gray_000};
+const StEditKrBox = styled(StKrBox)`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.gray_350};
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_600};
+    outline: 1px solid ${({ theme }) => theme.colors.gray_500};
+  }
 `;
 
 const StIcAdd = styled(IcAdd)`

@@ -3,7 +3,9 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
+import { getDashBoardData } from '../../apis/fetcher';
 import { imgNoneOkr } from '../../assets/images';
 import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
 import { IMainData } from '../../type/mainDashboardDataType';
@@ -24,11 +26,19 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const [state, setState] = useState(OKRTREEVIEWS[0]);
   const [editKrId, setEditKrId] = useState<number | undefined>();
   const [editKrList, setEditKrList] = useState<IKeyResultTypes[]>(currentOkrData?.krList);
+  const url = currentOkrData.objId
+    ? `/v1/objective?objectiveId=${currentOkrData.objId}`
+    : '/v1/objective';
+  const { data } = useSWR(url, getDashBoardData);
 
   useEffect(() => {
     setState(OKRTREEVIEWS[0]);
     setEditKrList(currentOkrData?.krList);
   }, [currentOkrData]);
+
+  useEffect(() => {
+    setEditKrList(data?.data.tree.krList);
+  }, [data]);
 
   const handleAddTask = (krId: number | undefined) => {
     if (!krId) return;

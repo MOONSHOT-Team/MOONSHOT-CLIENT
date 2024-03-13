@@ -21,7 +21,7 @@ import {
   StPreviewTaskBox,
 } from '../../../PreviewOkr/components/PreviewOkrTreeNodes/PreviewTaskNodes';
 import { getDashBoardData, postAddTask } from '../../apis/fetcher';
-import { IcDrag } from '../../assets/icons';
+import { IcDrag, IcTrashPurple } from '../../assets/icons';
 
 interface IEditTaskProps {
   isFirstChild?: boolean;
@@ -83,7 +83,15 @@ export const EditTaskNodes = ({
           <StyledIcDrag />
 
           {task?.taskTitle !== '' ? (
-            <StMainDashTaskBox>{task?.taskTitle}</StMainDashTaskBox>
+            <StMainDashTaskBox>
+              <p>{task?.taskTitle}</p>
+              <IcTrashPurple
+                onClick={() => {
+                  //task삭제 api
+                  console.log(task.taskId);
+                }}
+              />
+            </StMainDashTaskBox>
           ) : (
             <>
               {isClickedPlusBtn ? (
@@ -119,9 +127,12 @@ const StMainDashTaskBoxWrapper = styled(StTaskBoxWrapper)`
 `;
 
 const StMainDashTaskBox = styled(StTaskBox)`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
   width: fit-content;
   padding: 0.6rem 1.6rem;
-  color: ${({ theme }) => theme.colors.gray_000};
+  color: ${({ theme }) => theme.colors.gray_350};
   background-color: ${({ theme }) => theme.colors.background};
 
   ${({ theme }) => theme.fonts.body_12_medium};

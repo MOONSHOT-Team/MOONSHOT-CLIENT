@@ -11,6 +11,7 @@ import IcEllipse from './icEllipse.svg?react';
 import IcHoldState from './icHoldState.svg?react';
 import IcOnGoingState from './icOnGoingState.svg?react';
 import IcTrash from './icTrash.svg?react';
+import IcTrashPurple from './icTrashPurple.svg?react';
 import IcUnion from './icUnion.svg?react';
 import IcWaitState from './icWaitState.svg?react';
 
@@ -28,6 +29,7 @@ export {
   IcHoldState,
   IcOnGoingState,
   IcTrash,
+  IcTrashPurple,
   IcUnion,
   IcWaitState,
 };

@@ -19,7 +19,11 @@ const EditObjectNode = ({ objValue, objStroke }: IMainBoardObjNodeProps) => {
           <StMainDashObjP>{objValue}</StMainDashObjP>
         </StObjectiveBox>
         <StraightLine />
-        <StIcAdd />
+        <StIcAdd
+          onClick={() => {
+            //kr추가 모달띄우는 버튼
+          }}
+        />
       </StObjBoxWrapper>
     </StNodesContainer>
   );

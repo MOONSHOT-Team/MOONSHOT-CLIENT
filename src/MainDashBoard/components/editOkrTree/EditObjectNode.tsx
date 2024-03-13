@@ -6,11 +6,28 @@ import {
 } from '@components/okrTree/nodes/CommonObjNode';
 import styled from '@emotion/styled';
 import { StNodesContainer } from '@styles/okrTree/CommonNodeStyle';
+import { useEffect, useState } from 'react';
 
 import { IcAdd } from '../../assets/icons';
 import { IMainBoardObjNodeProps, StMainDashObjP } from '../mainDashBoardOkrTree/MainDashObjectNode';
 
-const EditObjectNode = ({ objValue, objStroke }: IMainBoardObjNodeProps) => {
+interface IEditObjectNode extends IMainBoardObjNodeProps {
+  objId: number;
+  krListLen: number;
+}
+
+const EditObjectNode = ({ objValue, objStroke, objId, krListLen }: IEditObjectNode) => {
+  const [isntFull, setIsntFull] = useState(false);
+  useEffect(() => {
+    if (krListLen >= 3) {
+      setIsntFull(false);
+      return;
+    }
+    if (krListLen < 3) {
+      setIsntFull(true);
+      return;
+    }
+  }, [krListLen]);
   return (
     <StNodesContainer>
       <StObjLabel>O</StObjLabel>
@@ -19,11 +36,14 @@ const EditObjectNode = ({ objValue, objStroke }: IMainBoardObjNodeProps) => {
           <StMainDashObjP>{objValue}</StMainDashObjP>
         </StObjectiveBox>
         <StraightLine />
-        <StIcAdd
-          onClick={() => {
-            //kr추가 모달띄우는 버튼
-          }}
-        />
+        {isntFull && (
+          <StIcAdd
+            onClick={() => {
+              //kr추가 모달띄우는 버튼
+              console.log(objId);
+            }}
+          />
+        )}
       </StObjBoxWrapper>
     </StNodesContainer>
   );

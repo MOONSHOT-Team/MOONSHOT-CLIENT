@@ -26,8 +26,8 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const [state, setState] = useState(OKRTREEVIEWS[0]);
   const [editKrId, setEditKrId] = useState<number | undefined>();
   const [editKrList, setEditKrList] = useState<IKeyResultTypes[]>(currentOkrData?.krList);
-  const url = currentOkrData.objId
-    ? `/v1/objective?objectiveId=${currentOkrData.objId}`
+  const url = currentOkrData?.objId
+    ? `/v1/objective?objectiveId=${currentOkrData?.objId}`
     : '/v1/objective';
   const { data } = useSWR(url, getDashBoardData);
 

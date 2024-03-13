@@ -7,6 +7,7 @@ interface IAddKrModalProps {
   modalRef: React.MutableRefObject<HTMLDialogElement | null>;
 }
 
+//TODO: 공통 컴포넌트 사용으로, 핸들러 완성 후 뷰 다시 확인하기
 const AddKrModal = ({ modalRef }: IAddKrModalProps) => {
   // const [isValidMax] = useState({
   //   krTitle: false,

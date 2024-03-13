@@ -130,7 +130,8 @@ const MainDashBoard = () => {
   const okrTreeData = treeData?.data.tree;
   const goalListTreeData = treeData?.data.objList;
 
-  const handleShowSideSheet = (id: number) => {
+  const handleShowSideSheet = (id: number | undefined) => {
+    if (!id) return;
     setCurrentKrId(id);
     setShowSideSheet(true);
   };
@@ -139,7 +140,8 @@ const MainDashBoard = () => {
     setShowSideSheet(false);
   };
 
-  const handleCurrentGoalId = (id: number) => {
+  const handleCurrentGoalId = (id: number | number) => {
+    if (!id) return;
     setCurrentGoalId(id);
   };
 

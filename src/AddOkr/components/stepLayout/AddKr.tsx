@@ -17,6 +17,7 @@ const AddKr = ({
   setKrListInfo,
 }: IAddKrFlowProps) => {
   const { objTitle } = objInfo;
+
   const renderKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
     return (
@@ -84,6 +85,7 @@ const StAddOkrTitle = styled.h1`
   color: ${({ theme }) => theme.colors.gray_000};
   ${({ theme }) => theme.fonts.title_20_semibold};
 
+  text-align: center;
   white-space: pre-line;
 `;
 

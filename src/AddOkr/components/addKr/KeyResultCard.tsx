@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { IcClose } from '../../assets/icons';
-import { CALE_END_DATE, CALE_START_DATE } from '../../constants/ADD_OKR_DATES';
-import { MAX_KR_METRIC, MAX_KR_TARGET, MAX_KR_TITLE } from '../../constants/MAX_KR_LENGTH';
+import { MAX_KR_METRIC, MAX_KR_TARGET, MAX_KR_TITLE } from '../../constants/OKR_MAX_LENGTH';
 import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import { IObjInfoTypes } from '../../types/ObjectInfoTypes';
@@ -31,31 +30,56 @@ const KeyResultCard = ({
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
   const [isValidMax, setIsValidMax] = useState({
-    title: false,
-    target: false,
-    metric: false,
+    krTitle: false,
+    krTarget: false,
+    krMetric: false,
   });
-  const { title, target, metric } = krListInfo[cardIdx];
+  const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = krListInfo[cardIdx];
+  const { objStartAt, objExpireAt } = objInfo;
 
   /** 
   캘린더 관련 요소
   **/
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(false);
-  //캘린더 선택한 값
-  const [krPeriod, setKrPeriod] = useState([CALE_START_DATE, CALE_END_DATE]);
+
+  useEffect(() => {
+    // kr 선택 예외 처리) 날짜 기간을 입력 했으나, 앞에서 obj 기간을 수정한 경우 obj 기간으로 초기화
+    if (new Date(objStartAt) > new Date(krStartAt) || new Date(objExpireAt) < new Date(krExpireAt))
+      krListInfo[cardIdx] = {
+        ...krListInfo[cardIdx],
+        krStartAt: objStartAt,
+        krExpireAt: objExpireAt,
+      };
+    setKrListInfo([...krListInfo]);
+  }, []);
+
+  const handleClickKrPeriodBox = () => {
+    // 날짜 기간을 입력한 경우 이벤트 전파 방지
+    if (isShowCalender) return;
+
+    krListInfo[cardIdx] = {
+      ...krListInfo[cardIdx],
+      krStartAt: objStartAt,
+      krExpireAt: objExpireAt,
+    };
+    setKrListInfo([...krListInfo]);
+    setIsShowCalender(true);
+  };
 
   const handleChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
     const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
 
     switch (e.target.name) {
-      case 'target':
+      case 'krTarget':
         if (e.target.value.length > maxLength) {
           setIsValidMax({ ...isValidMax, [e.target.name]: true });
         }
         if (e.target.value.length <= maxLength) {
           setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          krListInfo[cardIdx].krTarget = parsedValue
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           setKrListInfo([...krListInfo]);
         }
         break;
@@ -78,11 +102,10 @@ const KeyResultCard = ({
     formatString: [string, string],
   ) => {
     if (formatString[0] && formatString[1]) {
-      setKrPeriod(formatString);
       krListInfo[cardIdx] = {
         ...krListInfo[cardIdx],
-        startAt: formatString[0],
-        expireAt: formatString[1],
+        krStartAt: formatString[0],
+        krExpireAt: formatString[1],
       };
       setKrListInfo([...krListInfo]);
     }
@@ -107,11 +130,11 @@ const KeyResultCard = ({
         <StKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StKrInputDescription>
         <StKrTitleInput
           type="text"
-          name={'title'}
-          value={title}
+          name={'krTitle'}
+          value={krTitle}
           onChange={(e) => handleChangeBasicKr(e, MAX_KR_TITLE)}
           placeholder={HINT_SENTENCE}
-          $isMax={isValidMax.title}
+          $isMax={isValidMax.krTitle}
           autoComplete="off"
         />
       </StKrInputDescWrapper>
@@ -122,20 +145,20 @@ const KeyResultCard = ({
         <StTargetMetricInputBox>
           <StTargetMetricInput
             type="text"
-            name={'target'}
-            value={target}
+            name={'krTarget'}
+            value={krTarget}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_TARGET)}
             placeholder={HINT_TARGET}
-            $isMax={isValidMax.target}
+            $isMax={isValidMax.krTarget}
             autoComplete="off"
           />
           <StTargetMetricInput
             type="text"
-            name={'metric'}
-            value={metric}
+            name={'krMetric'}
+            value={krMetric}
             onChange={(e) => handleChangeBasicKr(e, MAX_KR_METRIC)}
             placeholder={HINT_METRIC}
-            $isMax={isValidMax.metric}
+            $isMax={isValidMax.krMetric}
             autoComplete="off"
           />
         </StTargetMetricInputBox>
@@ -144,11 +167,11 @@ const KeyResultCard = ({
       {/*달성 기간 입력 부분*/}
       <StKrInputDescWrapper>
         <StKrInputDescription>핵심 지표를 달성할 기간을 입력해주세요</StKrInputDescription>
-        <StKrPeriodBox onClick={() => setIsShowCalender(true)} $isHoverStyle={isShowCalender}>
-          {isShowCalender ? (
+        <StKrPeriodBox onClick={handleClickKrPeriodBox}>
+          {isShowCalender || krStartAt || krExpireAt ? (
             <KeyResultPeriodInput
               handleClickSelectDate={handleClickSelectDate}
-              period={krPeriod}
+              krPeriod={[krStartAt, krExpireAt]}
               objInfo={objInfo}
             />
           ) : (
@@ -226,7 +249,7 @@ const StTargetMetricInput = styled.input<{ $isMax: boolean }>`
   }
 `;
 
-const StKrPeriodBox = styled.div<{ $isHoverStyle: boolean }>`
+const StKrPeriodBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,10 +258,13 @@ const StKrPeriodBox = styled.div<{ $isHoverStyle: boolean }>`
   padding: 0.6rem 0;
   color: ${({ theme }) => theme.colors.gray_400};
   text-align: center;
-  background-color: ${({ theme, $isHoverStyle }) =>
-    $isHoverStyle ? theme.colors.gray_550 : theme.colors.gray_600};
+  background-color: ${({ theme }) => theme.colors.gray_600};
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.body_13_medium};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray_550};
+  }
 `;

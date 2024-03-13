@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 
 import { DropDownIcon } from '../../assets/icons';
-import { IKeyResult, IObjective, ITask } from '../../type/okrTypes';
+import { IKeyResult, IObjective, ITask } from '../../type/historyData';
 import HistoryProgressBar from '../HistoryProgressBar';
 import HistoryListDetails from './HistoryListDetails';
 import KeyResultList from './KeyResultList';
@@ -11,9 +11,9 @@ import TaskList from './TaskList';
 
 const HistoryList = ({
   objId,
-  title,
+  objTitle,
   objCategory,
-  progress,
+  objProgress,
   objPeriod,
   isLast,
   krList,
@@ -33,10 +33,10 @@ const HistoryList = ({
           <StObjectiveWrapper>
             <StToggleIcon isVisible={isVisible === objId} />
             <StObjectiveCategory>{objCategory}</StObjectiveCategory>
-            <StObjectTitle>{title}</StObjectTitle>
+            <StObjectTitle>{objTitle}</StObjectTitle>
           </StObjectiveWrapper>
           <div css={progressInfo}>
-            <HistoryProgressBar currentProgress={progress} maximumProgress={100} />
+            <HistoryProgressBar currentProgress={objProgress} maximumProgress={100} />
             <StObjectivePeriod>{objPeriod}</StObjectivePeriod>
           </div>
         </StObjectiveContainer>

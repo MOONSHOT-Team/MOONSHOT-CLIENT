@@ -9,28 +9,21 @@ import {
 } from '@styles/okrTree/CommonNodeStyle';
 import React from 'react';
 
-import { MAX_KR_TITLE } from '../../../AddOkr/constants/MAX_KR_LENGTH';
+import { MAX_KR_TITLE } from '../../../AddOkr/constants/OKR_MAX_LENGTH';
 import { IKrListInfoTypes } from '../../../AddOkr/types/KrInfoTypes';
 
 interface IPreviewKrNodesProps {
   krIdx: number;
+  handleChangeKrTitleValue: (e: React.ChangeEvent<HTMLInputElement>, krIdx: number) => void;
   previewKrListInfo: IKrListInfoTypes[];
-  setPreviewKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
 }
 
 export const PreviewKrNodes = ({
   krIdx,
   previewKrListInfo,
-  setPreviewKrListInfo,
+  handleChangeKrTitleValue,
 }: IPreviewKrNodesProps) => {
-  const title = previewKrListInfo[krIdx].title;
-  const target = previewKrListInfo[krIdx].target;
-  const metric = previewKrListInfo[krIdx].metric;
-
-  const handleChangeTitleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    previewKrListInfo[krIdx].title = e.target.value;
-    setPreviewKrListInfo([...previewKrListInfo]);
-  };
+  const { krTitle, krTarget, krMetric } = previewKrListInfo[krIdx];
 
   return (
     <StNodesContainer>
@@ -39,8 +32,8 @@ export const PreviewKrNodes = ({
         <StraightLine />
         <StPreviewKrBox>
           <DynamicInput
-            value={title}
-            handleChangeValue={handleChangeTitleValue}
+            value={krTitle}
+            handleChangeValue={(e) => handleChangeKrTitleValue(e, krIdx)}
             maxLength={MAX_KR_TITLE}
           />
 
@@ -48,8 +41,8 @@ export const PreviewKrNodes = ({
           <StPreviewKrBoxValue>
             <span>:</span>
             <span>
-              {target}
-              {metric}
+              {krTarget}
+              {krMetric}
             </span>
           </StPreviewKrBoxValue>
         </StPreviewKrBox>

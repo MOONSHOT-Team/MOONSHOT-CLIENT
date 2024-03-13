@@ -10,7 +10,7 @@ import { MainDashTaskNodes } from './MainDashTaskNodes';
 
 interface IMainDashboardOKRTreeProps {
   currentOkrData: IMainData;
-  onShowSideSheet: (keyResultId: number) => void;
+  onShowSideSheet: (krId: number | undefined) => void;
 }
 
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {

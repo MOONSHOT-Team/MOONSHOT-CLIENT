@@ -12,6 +12,7 @@ import {
 import { ITaskNodesTypes } from '@type/okrTree/TasksTypes';
 import { useState } from 'react';
 
+import { MAX_TASK_TITLE } from '../../../AddOkr/constants/OKR_MAX_LENGTH';
 import { IPreviewTaskInfoTypes } from '../../../AddOkr/types/TaskInfoTypes';
 import { IcPlusSmall } from '../../assets/icons';
 
@@ -19,8 +20,6 @@ interface IPreviewTaskNodesProps extends ITaskNodesTypes {
   previewTaskListInfo: IPreviewTaskInfoTypes[];
   setPreviewTaskListInfo: React.Dispatch<React.SetStateAction<IPreviewTaskInfoTypes[]>>;
 }
-
-const MAX_TASK_LENGTH = 30;
 
 export const PreviewTaskNodes = ({
   isFirstChild,
@@ -31,16 +30,20 @@ export const PreviewTaskNodes = ({
 }: IPreviewTaskNodesProps) => {
   const [isClickedPlusBtn, setIsClickedPlusBtn] = useState(false);
 
-  const title = previewTaskListInfo[krIdx].taskList[taskIdx].title;
+  const taskTitle = previewTaskListInfo[krIdx].taskList[taskIdx].taskTitle;
 
   const handleChangeTaskValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    previewTaskListInfo[krIdx].taskList[taskIdx].title = e.target.value;
+    if (e.target.value.length > MAX_TASK_TITLE)
+      e.target.value = e.target.value.slice(0, MAX_TASK_TITLE);
+
+    previewTaskListInfo[krIdx].taskList[taskIdx].taskTitle = e.target.value;
     setPreviewTaskListInfo([...previewTaskListInfo]);
   };
 
   const handleClickPlusBtn = () => {
-    previewTaskListInfo[krIdx].taskList.filter((task) => task.idx < taskIdx && task.title === '')
-      .length === 0 && setIsClickedPlusBtn(true);
+    previewTaskListInfo[krIdx].taskList.filter(
+      (task) => task.taskIdx < taskIdx && task.taskTitle === '',
+    ).length === 0 && setIsClickedPlusBtn(true);
   };
 
   return (
@@ -53,10 +56,10 @@ export const PreviewTaskNodes = ({
           {isClickedPlusBtn ? (
             <StPreviewTaskBox $idx={taskIdx}>
               <DynamicInput
-                value={title}
+                value={taskTitle}
                 handleChangeValue={handleChangeTaskValue}
                 isAutoFocus={true}
-                maxLength={MAX_TASK_LENGTH}
+                maxLength={MAX_TASK_TITLE}
               />
             </StPreviewTaskBox>
           ) : (

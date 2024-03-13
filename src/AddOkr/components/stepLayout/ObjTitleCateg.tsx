@@ -5,14 +5,13 @@ import { useState } from 'react';
 
 import { GUIDE_OBJ_TITLE_PLACEHOLDER } from '../../constants/GUIDE_OBJ_TITLE_PLACEHOLDER';
 import { OBJ_CATEG_LIST } from '../../constants/OBJ_CATEG_LIST';
+import { MAX_OBJ_TITLE } from '../../constants/OKR_MAX_LENGTH';
 import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 import ObjCategTag from '../objTitleCateg/ObjCategTag';
 
 interface IObjTitleCategProps extends IAddObjFlowProps {
   isGuide: boolean;
 }
-//object title input/textarea 최대 글자수
-const MAX_OBJ_INPUT_CNT = 30;
 
 // 가이드에 따라 설정하기 기본 placeholder
 const GUIDE_DEFAULT_PLACEHOLDER = '목표를 입력하세요';
@@ -38,7 +37,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
   ) => {
     if (e.target.value === '') setCurrObjCount(0);
 
-    const objInputCnt = limitMaxLength(e, MAX_OBJ_INPUT_CNT);
+    const objInputCnt = limitMaxLength(e, MAX_OBJ_TITLE);
 
     if (objInputCnt) setCurrObjCount(objInputCnt);
     setObjInfo({ ...objInfo, objTitle: e.target.value });
@@ -98,7 +97,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
             autoComplete="off"
           />
           <StObjTextAreaCntTxt>
-            {currObjCount}/{MAX_OBJ_INPUT_CNT}
+            {currObjCount}/{MAX_OBJ_TITLE}
           </StObjTextAreaCntTxt>
         </div>
       ) : (
@@ -112,7 +111,7 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
             autoComplete="off"
           />
           <StObjInputCntTxt>
-            {currObjCount} / {MAX_OBJ_INPUT_CNT}
+            {currObjCount} / {MAX_OBJ_TITLE}
           </StObjInputCntTxt>
         </div>
       )}

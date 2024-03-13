@@ -5,6 +5,6 @@ export interface IFinalOkrListInfoTypes {
   objCategory: string;
   objContent: string;
   objStartAt: string;
-  objExpireAte: string;
+  objExpireAt: string;
   krList: IKrListInfoTypes[];
 }

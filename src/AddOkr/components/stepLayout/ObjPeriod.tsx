@@ -15,6 +15,8 @@ interface IObjPeriodProps extends IAddObjFlowProps {
   setSelectedPeriod: React.Dispatch<React.SetStateAction<string>>;
 }
 
+const DEFAULT_SELECT_PERIOD = '1';
+
 const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: IObjPeriodProps) => {
   const { objStartAt, objExpireAt } = objInfo;
 
@@ -25,10 +27,18 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
   ]);
 
   const handleClickPeriodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectedPeriod(e.currentTarget.id);
+    let currPeriod = e.currentTarget.id;
 
-    if (e.currentTarget.id === 'null') return;
-    const calcDate = addMonth(TODAY, Number(e.currentTarget.id));
+    // SELECT_PERIOD 버튼 클릭 후 -> 날짜 선택 시 이벤트 전파 되는 것을 막고자 같은 버튼 id면 early return
+    if (selectedPeriod === currPeriod) return;
+
+    setSelectedPeriod(currPeriod);
+
+    // 날짜 선택 버튼 클릭시, 기본 값이 1개월이 되도록 설정
+    if (e.currentTarget.id === 'SELECT_PERIOD') currPeriod = DEFAULT_SELECT_PERIOD;
+
+    // expireDate 범위에 따라 추가 (stateDate은 오늘, 오늘 기준 + month)
+    const calcDate = addMonth(TODAY, Number(currPeriod));
     const dotParsedDate = returnParsedDate(calcDate, '. ');
     setObjInfo({
       ...objInfo,
@@ -40,6 +50,7 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
   ) => {
+    event?.stopPropagation;
     if (formatString[0] && formatString[1]) {
       setPeriod(formatString);
       setObjInfo({ ...objInfo, objStartAt: formatString[0], objExpireAt: formatString[1] });

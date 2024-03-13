@@ -32,6 +32,10 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const { data } = useSWR(url, getDashBoardData);
 
   useEffect(() => {
+    setEditKrList(data?.data.tree.krList);
+  }, [state]);
+
+  useEffect(() => {
     setState(OKRTREEVIEWS[0]);
     setEditKrList(currentOkrData?.krList);
   }, [currentOkrData]);
@@ -44,6 +48,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
     if (!krId) return;
     const thisKrIdx = editKrList.findIndex((obj) => obj.krId === krId);
     const thisTaskList = editKrList[thisKrIdx].taskList;
+    if (thisTaskList.length > data?.data.tree.krList[thisKrIdx].taskList.length) return;
     const newTask = { taskIdx: thisTaskList.length, taskTitle: '' };
     const updatedEditKrList = editKrList.map((kr) => {
       if (kr.krId === krId) {

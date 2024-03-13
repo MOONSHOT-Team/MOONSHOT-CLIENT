@@ -32,10 +32,6 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const { data } = useSWR(url, getDashBoardData);
 
   useEffect(() => {
-    setEditKrList(data?.data.tree.krList);
-  }, [state]);
-
-  useEffect(() => {
     setState(OKRTREEVIEWS[0]);
     setEditKrList(currentOkrData?.krList);
   }, [currentOkrData]);
@@ -78,7 +74,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                 KrNodes={(krIdx) => (
                   <MainDashKrNodes
                     krIdx={krIdx}
-                    krList={currentOkrData.krList[krIdx]}
+                    krList={currentOkrData?.krList[krIdx]}
                     onShowSideSheet={onShowSideSheet}
                   />
                 )}
@@ -86,7 +82,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                   <MainDashTaskNodes
                     isFirstChild={isFirstChild}
                     taskIdx={taskIdx}
-                    taskList={currentOkrData.krList[krIdx]?.taskList}
+                    taskList={currentOkrData?.krList[krIdx]?.taskList}
                   />
                 )}
               />

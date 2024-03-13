@@ -22,9 +22,9 @@ export type filterOptionTypes = '최신순' | '오래된 순' | '달성률 순';
 
 const History = () => {
   const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
-  const [selectedTheme, setSelectedTheme] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(null);
-  const isSelectedYear = selectedYear ? Number(selectedYear.slice(0, 4)) : null;
+  const [selectedTheme, setSelectedTheme] = useState<string | undefined>(undefined);
+  const [selectedYear, setSelectedYear] = useState<string | undefined>(undefined);
+  const isSelectedYear = selectedYear ? Number(selectedYear.slice(0, 4)) : undefined;
 
   const { data, isLoading } = useSWR(
     ['/v1/objective/history', isSelectedYear, selectedTheme, selectedFilter],
@@ -39,15 +39,15 @@ const History = () => {
   const historyGroup = data?.data.data.groups;
 
   const handleSelectTheme = (selectedNewTheme: string) => {
-    if (selectedNewTheme === selectedTheme) return setSelectedTheme(null);
+    if (selectedNewTheme === selectedTheme) return setSelectedTheme(undefined);
 
-    if (selectedYear !== '0') setSelectedYear(null);
+    if (selectedYear !== '0') setSelectedYear(undefined);
 
     setSelectedTheme(selectedNewTheme);
   };
 
   const handleSelectYear = (selectedNewYear: string) => {
-    if (selectedNewYear === selectedYear) return setSelectedYear(null);
+    if (selectedNewYear === selectedYear) return setSelectedYear(undefined);
 
     setSelectedYear(selectedNewYear);
   };

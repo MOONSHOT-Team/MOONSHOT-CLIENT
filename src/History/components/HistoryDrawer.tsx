@@ -8,7 +8,7 @@ import { IObjectiveDataProps } from '../type/okrTypes';
 interface ICategoriesProps {
   label: string;
   categories: string[];
-  selectedCategory: string;
+  selectedCategory: string | undefined;
   onClick: (category: string) => void;
   historyCategories?: string[];
 }

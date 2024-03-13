@@ -46,5 +46,5 @@ export const deleteObj = async (url: string) => {
 export const postAddTask = async (url: string, reqData: IPostAddTaskType) => {
   const response = await instance.post(url, reqData);
 
-  return response;
+  return response.data;
 };

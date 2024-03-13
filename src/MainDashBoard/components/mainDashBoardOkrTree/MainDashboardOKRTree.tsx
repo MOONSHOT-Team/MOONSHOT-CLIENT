@@ -1,6 +1,7 @@
 import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 import { useEffect, useState } from 'react';
 
 import { imgNoneOkr } from '../../assets/images';
@@ -21,8 +22,8 @@ interface IMainDashboardOKRTreeProps {
 
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
   const [state, setState] = useState(OKRTREEVIEWS[0]);
-  const [editKrList, setEditKrList] = useState(currentOkrData?.krList);
-  const [editKrId, setEditKrId] = useState<number>();
+  const [editKrId, setEditKrId] = useState<number | undefined>();
+  const [editKrList, setEditKrList] = useState<IKeyResultTypes[]>(currentOkrData?.krList);
 
   useEffect(() => {
     setState(OKRTREEVIEWS[0]);

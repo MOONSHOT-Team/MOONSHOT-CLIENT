@@ -27,7 +27,7 @@ interface IEditTaskProps {
   isFirstChild?: boolean;
   taskIdx: number;
   taskList: ITaskTypes[];
-  editKrId?: number | number;
+  editKrId: number | undefined;
   objId: number;
 }
 
@@ -38,10 +38,12 @@ export const EditTaskNodes = ({
   editKrId,
   objId,
 }: IEditTaskProps) => {
-  const { mutate } = useSWR(`v1/objective?objectiveId=${objId}`, getDashBoardData);
+  const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
+  const { mutate } = useSWR(url, getDashBoardData);
   const [isClickedPlusBtn, setIsClickedPlusBtn] = useState(false);
   const [taskValue, setTaskValue] = useState('');
   const navigate = useNavigate();
+
   if (!taskList) return;
   const task = taskList[taskIdx];
 
@@ -52,11 +54,9 @@ export const EditTaskNodes = ({
     setTaskValue(e.target.value);
   };
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
-      e.stopPropagation();
-      console.log('엔터!');
       postData();
-      return;
     }
   };
 
@@ -67,7 +67,7 @@ export const EditTaskNodes = ({
         title: taskValue,
         idx: taskIdx,
       });
-      mutate(`v1/objective?objectiveId=${objId}`);
+      await mutate();
     } catch {
       navigate('error');
     }

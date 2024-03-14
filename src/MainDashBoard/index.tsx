@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 
 import SelectMethod from '../AddOkr/components/stepLayout/SelectMethod';
-import { deleteObj, getDashBoardData } from './apis/fetcher';
+import { deletOkrInstance, getDashBoardData } from './apis/fetcher';
 import CelebrateMotion from './components/celebrateMotion/CelebrateMotion';
 import MainDashBoardDrawer from './components/mainDashBoardDrawer/MainDashBoardDrawer';
 import CompleteObjConfirmModal from './components/mainDashboardModal/CompleteObjConfirmModal';
@@ -104,7 +104,7 @@ const MainDashBoard = () => {
   const handleComfirmDelObj = async () => {
     setTargetModal(null);
     try {
-      await deleteObj(`/v1/objective/${rightClickState.rightClickId}`);
+      await deletOkrInstance(`/v1/objective/${rightClickState.rightClickId}`);
       mutate();
     } catch {
       navigate('/error');

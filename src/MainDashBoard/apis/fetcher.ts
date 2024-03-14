@@ -34,14 +34,6 @@ export const postCheckIn = async (
   return response.data;
 };
 
-// o 삭제 api
-
-export const deleteObj = async (url: string) => {
-  const response = await instance.delete(url);
-
-  return response.data;
-};
-
 // task 추가 api
 export const postAddTask = async (url: string, reqData: IPostAddTaskType) => {
   const response = await instance.post(url, reqData);
@@ -49,15 +41,8 @@ export const postAddTask = async (url: string, reqData: IPostAddTaskType) => {
   return response.data;
 };
 
-//kr 삭제 api
-export const deleteKr = async (url: string) => {
-  const response = await instance.delete(url);
-
-  return response.data;
-};
-
-// task 삭제 api
-export const deleteTask = async (url: string) => {
+//objective, kr, task 삭제 시에 사용하는 instance
+export const deletOkrInstance = async (url: string) => {
   const response = await instance.delete(url);
 
   return response.data;

@@ -21,7 +21,7 @@ import {
   StPreviewPlusBtn,
   StPreviewTaskBox,
 } from '../../../PreviewOkr/components/PreviewOkrTreeNodes/PreviewTaskNodes';
-import { deleteTask, getDashBoardData, postAddTask } from '../../apis/fetcher';
+import { deletOkrInstance, getDashBoardData, postAddTask } from '../../apis/fetcher';
 import { IcDrag, IcTrashPurple } from '../../assets/icons';
 import DeleteTaskModal from '../editModeModal/DeleteTaskModal';
 
@@ -84,9 +84,10 @@ export const EditTaskNodes = ({
     }
   };
 
+  // kr 삭제 확인 모달의 삭제 버튼 클릭시의 핸들러
   const handleConfirmDelTask = async () => {
     try {
-      await deleteTask(`/v1/task/${task.taskId}`);
+      await deletOkrInstance(`/v1/task/${task.taskId}`);
     } catch {
       navigate('/error');
     }

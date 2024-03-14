@@ -11,7 +11,7 @@ import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { deleteKr } from '../../apis/fetcher';
+import { deletOkrInstance } from '../../apis/fetcher';
 import { IcAdd, IcDrag, IcTrashPurple } from '../../assets/icons';
 import DeleteKrModal from '../editModeModal/DeleteKrModal';
 
@@ -31,7 +31,7 @@ export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrN
   //kr 삭제하는 handler (kr 삭제 모달의 삭제 버튼 클릭시 동작)
   const handleConfirmDelKr = async () => {
     try {
-      const res = await deleteKr(`/v1/key-result/${krId}`);
+      const res = await deletOkrInstance(`/v1/key-result/${krId}`);
       if (!res) return;
     } catch {
       navigate('/error');

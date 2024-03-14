@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import useModal from '@hooks/useModal';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useSWR, { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 
 import SelectMethod from '../AddOkr/components/stepLayout/SelectMethod';
 import { deleteObj, getDashBoardData } from './apis/fetcher';
@@ -34,7 +34,6 @@ const MainDashBoard = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { mutate } = useSWRConfig();
 
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [currentGoalId, setCurrentGoalId] = useState<number>();
@@ -58,8 +57,7 @@ const MainDashBoard = () => {
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
-  const { data: treeData, isLoading } = useSWR(url, getDashBoardData);
-
+  const { data: treeData, isLoading, mutate } = useSWR(url, getDashBoardData);
   const okrTreeData = treeData?.data.tree;
   const goalListTreeData = treeData?.data.objList;
 
@@ -107,7 +105,7 @@ const MainDashBoard = () => {
     setTargetModal(null);
     try {
       await deleteObj(`/v1/objective/${rightClickState.rightClickId}`);
-      await mutate('/v1/objective');
+      mutate();
     } catch {
       navigate('/error');
     }

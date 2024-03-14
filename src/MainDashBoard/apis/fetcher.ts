@@ -48,3 +48,10 @@ export const postAddTask = async (url: string, reqData: IPostAddTaskType) => {
 
   return response.data;
 };
+
+//kr 삭제 api
+export const deleteKr = async (url: string) => {
+  const response = await instance.delete(url);
+
+  return response.data;
+};

@@ -1,5 +1,6 @@
 import StraightLine from '@components/okrTree/lines/StraightLine';
 import styled from '@emotion/styled';
+import useModal from '@hooks/useModal';
 import {
   StKrBox,
   StKrBoxWrapper,
@@ -8,8 +9,11 @@ import {
 } from '@styles/okrTree/CommonNodeStyle';
 import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { deleteKr } from '../../apis/fetcher';
 import { IcAdd, IcDrag, IcTrashPurple } from '../../assets/icons';
+import DeleteKrModal from '../editModeModal/DeleteKrModal';
 
 interface IMainEditKrNodesProps {
   krIdx: number;
@@ -19,7 +23,21 @@ interface IMainEditKrNodesProps {
 }
 
 export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrNodesProps) => {
+  const navigate = useNavigate();
+  const { modalRef, handleShowModal } = useModal();
+
   const [isntFull, setIsntFull] = useState(false);
+
+  //kr 삭제하는 handler (kr 삭제 모달의 삭제 버튼 클릭시 동작)
+  const handleConfirmDelKr = async () => {
+    try {
+      const res = await deleteKr(`/v1/key-result/${krId}`);
+      if (!res) return;
+    } catch {
+      navigate('/error');
+    }
+  };
+
   useEffect(() => {
     if (krList.taskList.length >= 3) {
       setIsntFull(false);
@@ -35,24 +53,33 @@ export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrN
   const { krTitle } = krList;
 
   return (
-    <StNodesContainer>
-      <StKrLabel>KR {krIdx + 1}</StKrLabel>
-      <StEditKrKrBoxWrapper>
-        <StraightLine />
-        <StyledIcDrag />
-        <StEditKrBox>
-          <p>{krTitle}</p>
-          <IcTrashPurple
-            onClick={() => {
-              //kr삭제 api연동
-              console.log(krId);
-            }}
-          />
-        </StEditKrBox>
-        <StraightLine />
-        {isntFull && <StIcAdd onClick={() => handleAddTask(krId)} />}
-      </StEditKrKrBoxWrapper>
-    </StNodesContainer>
+    <>
+      <DeleteKrModal
+        modalRef={modalRef}
+        modalConfirmHandler={{
+          handleClickConfirm: handleConfirmDelKr,
+        }}
+      />
+
+      <StNodesContainer>
+        <StKrLabel>KR {krIdx + 1}</StKrLabel>
+        <StEditKrKrBoxWrapper>
+          <StraightLine />
+          <StyledIcDrag />
+          <StEditKrBox>
+            <p>{krTitle}</p>
+            <IcTrashPurple
+              onClick={() => {
+                //kr삭제 api연동
+                handleShowModal();
+              }}
+            />
+          </StEditKrBox>
+          <StraightLine />
+          {isntFull && <StIcAdd onClick={() => handleAddTask(krId)} />}
+        </StEditKrKrBoxWrapper>
+      </StNodesContainer>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import DynamicInput from '@components/input/DynamicInput';
 import NodeLines from '@components/okrTree/lines/NodeLines';
 import StraightLine from '@components/okrTree/lines/StraightLine';
 import styled from '@emotion/styled';
+import useModal from '@hooks/useModal';
 import {
   StNodesContainer,
   StTaskBox,
@@ -20,8 +21,9 @@ import {
   StPreviewPlusBtn,
   StPreviewTaskBox,
 } from '../../../PreviewOkr/components/PreviewOkrTreeNodes/PreviewTaskNodes';
-import { getDashBoardData, postAddTask } from '../../apis/fetcher';
+import { deleteTask, getDashBoardData, postAddTask } from '../../apis/fetcher';
 import { IcDrag, IcTrashPurple } from '../../assets/icons';
+import DeleteTaskModal from '../editModeModal/DeleteTaskModal';
 
 interface IEditTaskProps {
   isFirstChild?: boolean;
@@ -42,11 +44,15 @@ export const EditTaskNodes = ({
   state,
   setState,
 }: IEditTaskProps) => {
+  const navigate = useNavigate();
+
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
   const { mutate } = useSWR(url, getDashBoardData);
+
+  const { modalRef, handleShowModal } = useModal();
+
   const [isClickedPlusBtn, setIsClickedPlusBtn] = useState(false);
   const [taskValue, setTaskValue] = useState('');
-  const navigate = useNavigate();
 
   if (!taskList) return;
   const task = taskList[taskIdx];
@@ -78,47 +84,62 @@ export const EditTaskNodes = ({
     }
   };
 
-  return (
-    <StNodesContainer>
-      {isFirstChild && <StMainTaskLabel>Tasks</StMainTaskLabel>}
-      <StTaskNodeContainer>
-        <NodeLines />
-        <StMainDashTaskBoxWrapper>
-          <StraightLine />
-          <StyledIcDrag />
+  const handleConfirmDelTask = async () => {
+    try {
+      await deleteTask(`/v1/task/${task.taskId}`);
+    } catch {
+      navigate('/error');
+    }
+  };
 
-          {task?.taskTitle !== '' ? (
-            <StMainDashTaskBox>
-              <p>{task?.taskTitle}</p>
-              <IcTrashPurple
-                onClick={() => {
-                  //task삭제 api
-                  console.log(task.taskId);
-                }}
-              />
-            </StMainDashTaskBox>
-          ) : (
-            <>
-              {isClickedPlusBtn ? (
-                <StPreviewTaskBox $idx={taskIdx}>
-                  <DynamicInput
-                    value={taskValue}
-                    handleChangeValue={handleChangeTaskValue}
-                    isAutoFocus={true}
-                    maxLength={MAX_TASK_TITLE}
-                    onKeyDown={handleKeyPress}
-                  />
-                </StPreviewTaskBox>
-              ) : (
-                <StPreviewPlusBtn type="button" onClick={handleClickPlusBtn}>
-                  <IcPlusSmall />
-                </StPreviewPlusBtn>
-              )}
-            </>
-          )}
-        </StMainDashTaskBoxWrapper>
-      </StTaskNodeContainer>
-    </StNodesContainer>
+  return (
+    <>
+      <DeleteTaskModal
+        modalRef={modalRef}
+        modalConfirmHandler={{ handleClickConfirm: handleConfirmDelTask }}
+      />
+
+      <StNodesContainer>
+        {isFirstChild && <StMainTaskLabel>Tasks</StMainTaskLabel>}
+        <StTaskNodeContainer>
+          <NodeLines />
+          <StMainDashTaskBoxWrapper>
+            <StraightLine />
+            <StyledIcDrag />
+
+            {task?.taskTitle !== '' ? (
+              <StMainDashTaskBox>
+                <p>{task?.taskTitle}</p>
+                <IcTrashPurple
+                  onClick={() => {
+                    //task 삭제 모달 나타남
+                    handleShowModal();
+                  }}
+                />
+              </StMainDashTaskBox>
+            ) : (
+              <>
+                {isClickedPlusBtn ? (
+                  <StPreviewTaskBox $idx={taskIdx}>
+                    <DynamicInput
+                      value={taskValue}
+                      handleChangeValue={handleChangeTaskValue}
+                      isAutoFocus={true}
+                      maxLength={MAX_TASK_TITLE}
+                      onKeyDown={handleKeyPress}
+                    />
+                  </StPreviewTaskBox>
+                ) : (
+                  <StPreviewPlusBtn type="button" onClick={handleClickPlusBtn}>
+                    <IcPlusSmall />
+                  </StPreviewPlusBtn>
+                )}
+              </>
+            )}
+          </StMainDashTaskBoxWrapper>
+        </StTaskNodeContainer>
+      </StNodesContainer>
+    </>
   );
 };
 

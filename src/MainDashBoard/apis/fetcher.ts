@@ -55,3 +55,10 @@ export const deleteKr = async (url: string) => {
 
   return response.data;
 };
+
+// task 삭제 api
+export const deleteTask = async (url: string) => {
+  const response = await instance.delete(url);
+
+  return response.data;
+};

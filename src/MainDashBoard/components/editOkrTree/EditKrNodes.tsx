@@ -28,7 +28,7 @@ export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrN
 
   const [isntFull, setIsntFull] = useState(false);
 
-  //kr 삭제하는 handler (kr 삭제 모달의 삭제 버튼 클릭시 동작)
+  //kr 삭제하는 handler (kr 삭제 확인 모달의 삭제 버튼 클릭시 동작)
   const handleConfirmDelKr = async () => {
     try {
       const res = await deletOkrInstance(`/v1/key-result/${krId}`);

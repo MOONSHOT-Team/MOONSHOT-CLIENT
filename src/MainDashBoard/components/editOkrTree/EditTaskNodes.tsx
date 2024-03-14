@@ -84,7 +84,7 @@ export const EditTaskNodes = ({
     }
   };
 
-  // kr 삭제 확인 모달의 삭제 버튼 클릭시의 핸들러
+  //task 삭제하는 handler (task 삭제 확인 모달의 삭제 버튼 클릭시 동작)
   const handleConfirmDelTask = async () => {
     try {
       await deletOkrInstance(`/v1/task/${task.taskId}`);

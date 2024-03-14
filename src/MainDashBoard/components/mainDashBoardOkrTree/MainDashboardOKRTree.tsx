@@ -120,6 +120,8 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                     taskList={editKrList[krIdx]?.taskList}
                     editKrId={editKrId}
                     objId={currentOkrData?.objId}
+                    state={state}
+                    setState={setState}
                   />
                 )}
               />

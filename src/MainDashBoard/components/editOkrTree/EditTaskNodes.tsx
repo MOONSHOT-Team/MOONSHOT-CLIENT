@@ -10,7 +10,7 @@ import {
   StTaskNodeContainer,
 } from '@styles/okrTree/CommonNodeStyle';
 import { ITaskTypes } from '@type/okrTree/TasksTypes';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 
@@ -29,6 +29,8 @@ interface IEditTaskProps {
   taskList: ITaskTypes[];
   editKrId: number | undefined;
   objId: number;
+  state: string;
+  setState: Dispatch<SetStateAction<string>>;
 }
 
 export const EditTaskNodes = ({
@@ -37,6 +39,8 @@ export const EditTaskNodes = ({
   taskList,
   editKrId,
   objId,
+  state,
+  setState,
 }: IEditTaskProps) => {
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
   const { mutate } = useSWR(url, getDashBoardData);
@@ -67,7 +71,8 @@ export const EditTaskNodes = ({
         title: taskValue,
         idx: taskIdx,
       });
-      await mutate();
+      mutate();
+      setState(state);
     } catch {
       navigate('error');
     }

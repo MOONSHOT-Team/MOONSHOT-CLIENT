@@ -54,6 +54,7 @@ export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrN
 
   return (
     <>
+      {/* kr 삭제 모달 */}
       <DeleteKrModal
         modalRef={modalRef}
         modalConfirmHandler={{
@@ -70,7 +71,7 @@ export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrN
             <p>{krTitle}</p>
             <IcTrashPurple
               onClick={() => {
-                //kr삭제 api연동
+                //kr 삭제 모달 나타남
                 handleShowModal();
               }}
             />

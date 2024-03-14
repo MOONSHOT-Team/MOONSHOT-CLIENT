@@ -1,7 +1,6 @@
 import Modal from '@components/Modal';
 import ConfirmModalTemplate from '@components/Modal/template/ConfirmModalTemplate';
-
-import { IObjConfirmModalProps } from '../../type/objConfirmModalTypes';
+import { IConfirmModalProps } from '@type/modal/confirmModalTypes';
 
 const COMPLETE_OBJ_STR = {
   TITLE: '목표 완료하기',
@@ -12,7 +11,7 @@ const COMPLETE_OBJ_STR = {
 
 const { TITLE, DESCRIPTION, CANCEL_TXT, CONFIRM_TXT } = COMPLETE_OBJ_STR;
 
-const CompleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IObjConfirmModalProps) => {
+const CompleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IConfirmModalProps) => {
   return (
     <Modal ref={modalRef}>
       <ConfirmModalTemplate

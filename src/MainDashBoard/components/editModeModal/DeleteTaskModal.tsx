@@ -2,16 +2,16 @@ import Modal from '@components/Modal';
 import ConfirmModalTemplate from '@components/Modal/template/ConfirmModalTemplate';
 import { IConfirmModalProps } from '@type/modal/confirmModalTypes';
 
-const DEL_OBJ_STR = {
-  TITLE: '목표 삭제하기',
-  DESCRIPTION: '정말 목표를 삭제하시겠습니까?\n삭제된 목표는 되돌릴 수 없습니다',
+const DEL_KR_STR = {
+  TITLE: 'Task 삭제하기',
+  DESCRIPTION: '해당 Task를 삭제하시겠습니까?\n삭제된 내용은 복구 불가능합니다',
   CANCEL_TXT: '취소',
   CONFIRM_TXT: '삭제',
 };
 
-const { TITLE, DESCRIPTION, CANCEL_TXT, CONFIRM_TXT } = DEL_OBJ_STR;
+const { TITLE, DESCRIPTION, CANCEL_TXT, CONFIRM_TXT } = DEL_KR_STR;
 
-const DeleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IConfirmModalProps) => {
+const DeleteTaskModal = ({ modalRef, modalConfirmHandler }: IConfirmModalProps) => {
   return (
     <Modal ref={modalRef}>
       <ConfirmModalTemplate
@@ -31,4 +31,4 @@ const DeleteObjConfirmModal = ({ modalRef, modalConfirmHandler }: IConfirmModalP
   );
 };
 
-export default DeleteObjConfirmModal;
+export default DeleteTaskModal;

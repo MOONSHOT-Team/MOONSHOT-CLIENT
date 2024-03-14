@@ -13,7 +13,9 @@ interface IKeyResultPeriodInputProps {
     formatString: [string, string],
   ) => void;
   krPeriod: string[];
-  objInfo: IObjInfoTypes;
+  objInfo:
+    | IObjInfoTypes
+    | { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
 }
 
 const KeyResultPeriodInput = ({

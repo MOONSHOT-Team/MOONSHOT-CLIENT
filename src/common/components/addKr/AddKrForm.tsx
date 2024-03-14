@@ -9,19 +9,30 @@ import {
   MAX_KR_TARGET,
   MAX_KR_TITLE,
 } from '../../../AddOkr/constants/OKR_MAX_LENGTH';
-import { IKrListInfoTypes } from '../../../AddOkr/types/KrInfoTypes';
 import { IObjInfoTypes } from '../../../AddOkr/types/ObjectInfoTypes';
+import { ITaskInfoTypes } from '../../../AddOkr/types/TaskInfoTypes';
 
 const { INPUT_TITLE, INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
 const { HINT_TITLE, HINT_TARGET, HINT_METRIC } = KR_INPUT_DATA.HINT_PLACHOLDER;
 
+interface IAddKrInfoTypes {
+  krTitle?: string;
+  krStartAt: string;
+  krExpireAt: string;
+  krIdx: number;
+  krTarget: string | number;
+  krMetric: string;
+  taskList?: ITaskInfoTypes[];
+}
 interface IAddKrFormProps {
   style: {
     gap: string;
     inputStyle: { longWidth: string; shortWidth: string; height: string; shortGap: string };
   };
-  krInfo: IKrListInfoTypes;
-  objInfo: IObjInfoTypes;
+  krInfo: IAddKrInfoTypes;
+  objInfo:
+    | IObjInfoTypes
+    | { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
   inputHandler: {
     isValidMax: { krTitle: boolean; krTarget: boolean; krMetric: boolean };
     handleChangeKrValues: (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => void;
@@ -170,7 +181,7 @@ const StKrPeriodBox = styled.div<{
   padding: 0.6rem 0;
   color: ${({ theme }) => theme.colors.gray_400};
   text-align: center;
-  background-color: ${({ theme }) => theme.colors.gray_600};
+  background-color: transparent;
   border: 1px solid ${({ theme }) => theme.colors.gray_500};
   border-radius: 6px;
 

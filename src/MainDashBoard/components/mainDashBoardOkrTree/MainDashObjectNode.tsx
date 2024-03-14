@@ -1,7 +1,7 @@
 import { CommonObjNode } from '@components/okrTree/nodes/CommonObjNode';
 import styled from '@emotion/styled';
 export interface IMainBoardObjNodeProps {
-  objValue: string;
+  objValue?: string;
   objStroke: string;
 }
 

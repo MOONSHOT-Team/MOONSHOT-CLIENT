@@ -98,9 +98,13 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
               <OkrTreeTemplate
                 ObjNode={() => (
                   <EditObjectNode
-                    objValue={currentOkrData?.objTitle}
                     objStroke="#7165CA"
-                    objId={currentOkrData?.objId}
+                    objInfo={{
+                      objId: currentOkrData?.objId,
+                      objStartAt: currentOkrData?.objStartAt,
+                      objExpireAt: currentOkrData?.objExpireAt,
+                      objTitle: currentOkrData?.objTitle,
+                    }}
                     krListLen={currentOkrData?.krList.length}
                   />
                 )}

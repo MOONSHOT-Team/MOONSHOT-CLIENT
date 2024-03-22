@@ -1,9 +1,9 @@
 export interface IAddKrType {
   objectiveId: number;
-  title: string;
-  startAt: string;
-  expireAt: string;
-  idx: number;
-  target: number;
-  metric: string;
+  krTitle: string;
+  krStartAt: string;
+  krExpireAt: string;
+  krIdx: number;
+  krTarget: number;
+  krMetric: string;
 }

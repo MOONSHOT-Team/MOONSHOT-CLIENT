@@ -102,12 +102,12 @@ const AddKrModal = ({ modalRef, objInfo, krIdx }: IAddKrModalProps) => {
   const handleClickConfirmAddBtn = async () => {
     const reqData = {
       objectiveId: objId,
-      title: newKrInfo.krTitle,
-      startAt: newKrInfo.krStartAt.split('. ').join('-'),
-      expireAt: newKrInfo.krExpireAt.split('. ').join('-'),
-      idx: krIdx,
-      target: Number(newKrInfo.krTarget.toString().split(',').join('')),
-      metric: newKrInfo.krMetric,
+      krTitle: newKrInfo.krTitle,
+      krStartAt: newKrInfo.krStartAt.split('. ').join('-'),
+      krExpireAt: newKrInfo.krExpireAt.split('. ').join('-'),
+      krIdx: krIdx,
+      krTarget: Number(newKrInfo.krTarget.toString().split(',').join('')),
+      krMetric: newKrInfo.krMetric,
     };
 
     try {

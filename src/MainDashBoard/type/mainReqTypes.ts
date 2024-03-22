@@ -1,10 +1,10 @@
 export interface IPatchCheckInReqType {
   keyResultId: number;
-  title?: string;
-  startAt?: string;
-  expireAt?: string;
-  target?: number;
-  state?: string;
+  krTitle?: string;
+  krStartAt?: string;
+  krExpireAt?: string;
+  krTarget?: number;
+  krState?: string;
   logContent?: string;
   data?: {
     objId: number;

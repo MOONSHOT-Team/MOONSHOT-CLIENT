@@ -50,7 +50,7 @@ const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: nu
     setKrStatusLabel(currentStatusLabel);
     const data = {
       keyResultId: keyResultId,
-      state: currentStatusLabel,
+      krState: currentStatusLabel,
     };
 
     try {

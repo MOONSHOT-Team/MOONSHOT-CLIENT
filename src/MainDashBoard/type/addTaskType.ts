@@ -1,5 +1,5 @@
 export interface IPostAddTaskType {
   keyResultId: number | undefined;
-  title: string;
-  idx: number;
+  taskTitle: string;
+  taskIdx: number;
 }

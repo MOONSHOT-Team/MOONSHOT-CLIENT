@@ -74,8 +74,8 @@ export const EditTaskNodes = ({
     try {
       await postAddTask('/v1/task', {
         keyResultId: editKrId,
-        title: taskValue,
-        idx: taskIdx,
+        taskTitle: taskValue,
+        taskIdx: taskIdx,
       });
       mutate();
       setState(state);

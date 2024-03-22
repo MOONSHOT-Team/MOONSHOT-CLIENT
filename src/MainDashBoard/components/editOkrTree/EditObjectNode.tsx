@@ -7,8 +7,10 @@ import {
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
 import { StNodesContainer } from '@styles/okrTree/CommonNodeStyle';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import useSWR from 'swr';
 
+import { getDashBoardData } from '../../apis/fetcher';
 import { IcAdd } from '../../assets/icons';
 import AddKrModal from '../editModeModal/AddKrModal';
 import { IMainBoardObjNodeProps, StMainDashObjP } from '../mainDashBoardOkrTree/MainDashObjectNode';
@@ -16,15 +18,24 @@ import { IMainBoardObjNodeProps, StMainDashObjP } from '../mainDashBoardOkrTree/
 interface IEditObjectNode extends IMainBoardObjNodeProps {
   objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
   krListLen: number;
+  state: string;
+  setState: Dispatch<SetStateAction<string>>;
 }
 
-const EditObjectNode = ({ objStroke, objInfo, krListLen }: IEditObjectNode) => {
-  const { objTitle } = objInfo;
-  // const navigate = useNavigate();
+const EditObjectNode = ({ objStroke, objInfo, krListLen, state, setState }: IEditObjectNode) => {
+  const { objTitle, objId } = objInfo;
+
+  const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
+  const { mutate } = useSWR(url, getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 
   const [isntFull, setIsntFull] = useState(false);
+
+  const mutateFcn = () => {
+    mutate();
+    setState(state);
+  };
 
   useEffect(() => {
     if (krListLen >= 3) {
@@ -39,7 +50,7 @@ const EditObjectNode = ({ objStroke, objInfo, krListLen }: IEditObjectNode) => {
 
   return (
     <>
-      <AddKrModal modalRef={modalRef} objInfo={objInfo} krIdx={krListLen} />
+      <AddKrModal modalRef={modalRef} objInfo={objInfo} krIdx={krListLen} mutateFcn={mutateFcn} />
       <StNodesContainer>
         <StObjLabel>O</StObjLabel>
         <StObjBoxWrapper>

@@ -88,6 +88,8 @@ export const EditTaskNodes = ({
   const handleConfirmDelTask = async () => {
     try {
       await deletOkrInstance(`/v1/task/${task.taskId}`);
+      mutate();
+      setState(state);
     } catch {
       navigate('/error');
     }

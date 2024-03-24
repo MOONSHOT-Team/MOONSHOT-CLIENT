@@ -1,5 +1,7 @@
 import instance from '@apis/instance';
 
+import { IAddKrType } from '../type/addKrType';
+import { IPostAddTaskType } from '../type/addTaskType';
 import { IPatchGoalIdxReqType } from '../type/goalItemTypes';
 import { IPatchCheckInReqType } from '../type/mainReqTypes';
 import { IPostLogResType } from '../type/mainResTypes';
@@ -33,10 +35,22 @@ export const postCheckIn = async (
   return response.data;
 };
 
-// o 삭제 api
+// task 추가 api
+export const postAddTask = async (url: string, reqData: IPostAddTaskType) => {
+  const response = await instance.post(url, reqData);
 
-export const deleteObj = async (url: string) => {
+  return response.data;
+};
+
+//objective, kr, task 삭제 시에 사용하는 instance
+export const deletOkrInstance = async (url: string) => {
   const response = await instance.delete(url);
+
+  return response.data;
+};
+
+export const postAddKr = async (url: string, reqData: IAddKrType) => {
+  const response = await instance.post(url, reqData);
 
   return response.data;
 };

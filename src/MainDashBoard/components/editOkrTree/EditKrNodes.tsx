@@ -8,10 +8,11 @@ import {
   StNodesContainer,
 } from '@styles/okrTree/CommonNodeStyle';
 import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useSWR from 'swr';
 
-import { deletOkrInstance } from '../../apis/fetcher';
+import { deletOkrInstance, getDashBoardData } from '../../apis/fetcher';
 import { IcAdd, IcDrag, IcTrashPurple } from '../../assets/icons';
 import DeleteKrModal from '../editModeModal/DeleteKrModal';
 
@@ -20,10 +21,25 @@ interface IMainEditKrNodesProps {
   krList: IKeyResultTypes;
   krId: number | undefined;
   handleAddTask: (krId: number | undefined) => void;
+  objId: number;
+  state: string;
+  setState: Dispatch<SetStateAction<string>>;
 }
 
-export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrNodesProps) => {
+export const EditKrNodes = ({
+  krIdx,
+  krList,
+  krId,
+  handleAddTask,
+  objId,
+  state,
+  setState,
+}: IMainEditKrNodesProps) => {
   const navigate = useNavigate();
+
+  const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
+  const { mutate } = useSWR(url, getDashBoardData);
+
   const { modalRef, handleShowModal } = useModal();
 
   const [isntFull, setIsntFull] = useState(false);
@@ -31,8 +47,9 @@ export const EditKrNodes = ({ krIdx, krList, krId, handleAddTask }: IMainEditKrN
   //kr 삭제하는 handler (kr 삭제 확인 모달의 삭제 버튼 클릭시 동작)
   const handleConfirmDelKr = async () => {
     try {
-      const res = await deletOkrInstance(`/v1/key-result/${krId}`);
-      if (!res) return;
+      await deletOkrInstance(`/v1/key-result/${krId}`);
+      mutate();
+      setState(state);
     } catch {
       navigate('/error');
     }

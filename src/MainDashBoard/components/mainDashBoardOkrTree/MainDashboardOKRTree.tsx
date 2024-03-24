@@ -106,6 +106,8 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                       objTitle: currentOkrData?.objTitle,
                     }}
                     krListLen={currentOkrData?.krList.length}
+                    state={state}
+                    setState={setState}
                   />
                 )}
                 keyResultList={editKrList}
@@ -115,6 +117,9 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                     krList={editKrList[krIdx]}
                     handleAddTask={handleAddTask}
                     krId={editKrList[krIdx].krId}
+                    objId={currentOkrData?.objId}
+                    state={state}
+                    setState={setState}
                   />
                 )}
                 TaskNodes={(isFirstChild, krIdx, taskIdx) => (

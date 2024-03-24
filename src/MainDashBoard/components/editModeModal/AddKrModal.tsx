@@ -12,6 +12,7 @@ interface IAddKrModalProps {
   modalRef: React.MutableRefObject<HTMLDialogElement | null>;
   objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
   krIdx: number;
+  mutateFcn: () => void;
 }
 const KrModalFormStyle = {
   gap: '3.2rem',
@@ -25,7 +26,7 @@ const KrModalFormStyle = {
 };
 
 //TODO: 공통 컴포넌트 사용으로, 핸들러 완성 후 뷰 다시 확인하기
-const AddKrModal = ({ modalRef, objInfo, krIdx }: IAddKrModalProps) => {
+const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) => {
   const navigate = useNavigate();
   const { objStartAt, objExpireAt, objId } = objInfo;
 
@@ -102,16 +103,17 @@ const AddKrModal = ({ modalRef, objInfo, krIdx }: IAddKrModalProps) => {
   const handleClickConfirmAddBtn = async () => {
     const reqData = {
       objectiveId: objId,
-      title: newKrInfo.krTitle,
-      startAt: newKrInfo.krStartAt.split('. ').join('-'),
-      expireAt: newKrInfo.krExpireAt.split('. ').join('-'),
-      idx: krIdx,
-      target: Number(newKrInfo.krTarget.toString().split(',').join('')),
-      metric: newKrInfo.krMetric,
+      krTitle: newKrInfo.krTitle,
+      krStartAt: newKrInfo.krStartAt.split('. ').join('-'),
+      krExpireAt: newKrInfo.krExpireAt.split('. ').join('-'),
+      krIdx: krIdx,
+      krTarget: Number(newKrInfo.krTarget.toString().split(',').join('')),
+      krMetric: newKrInfo.krMetric,
     };
 
     try {
       await postAddKr('/v1/key-result', reqData);
+      mutateFcn();
     } catch {
       navigate('/error');
     }

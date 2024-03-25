@@ -17,6 +17,7 @@ export const SocialKrNodes = ({ krIdx, krList }: ISocialKrNodesProps) => {
       <StSocialKrBoxWrapper>
         <StraightLine />
         <StSocialBox>{`${krTitle} : ${krTarget}${krMetric}`}</StSocialBox>
+        {krList.taskList.length !== 0 && <StraightLine />}
       </StSocialKrBoxWrapper>
     </StNodesContainer>
   );

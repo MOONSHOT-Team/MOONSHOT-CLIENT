@@ -245,7 +245,7 @@ export const KR수정하기 = ({
   const submitCheckIn = async () => {
     const data = {
       keyResultId,
-      target: parseInt(targetValue.replace(/,/g, '')),
+      krTarget: parseInt(targetValue.replace(/,/g, '')),
       logContent,
     };
 

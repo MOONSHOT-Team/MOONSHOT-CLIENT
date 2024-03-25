@@ -26,6 +26,7 @@ interface IPreviewOkrProps {
   krListInfo: IKrListInfoTypes[];
 }
 
+//TODO: PreviewOkr이 AddOkr에 병합 되었으므로, 폴더 구조 변동 필요
 const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOkrProps) => {
   // const location = useLocation();
   const navigate = useNavigate();

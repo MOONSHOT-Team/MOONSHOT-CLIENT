@@ -46,6 +46,7 @@ export const PreviewKrNodes = ({
             </span>
           </StPreviewKrBoxValue>
         </StPreviewKrBox>
+        <StraightLine />
       </StKrBoxWrapper>
     </StNodesContainer>
   );

@@ -10,4 +10,6 @@ export interface IMainData {
   objListSize: number;
   krList: IKeyResultTypes[];
   objList: IObjListTypes[];
+  objStartAt: string;
+  objExpireAt: string;
 }

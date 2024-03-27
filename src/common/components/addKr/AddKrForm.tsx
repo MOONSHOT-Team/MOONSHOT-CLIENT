@@ -71,7 +71,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
             $inputStyle={inputStyle}
             autoComplete="off"
           />
-          <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>
+          {isValidMax.krTitle && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
         </div>
       </div>
 
@@ -92,7 +92,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
               $inputStyle={inputStyle}
               autoComplete="off"
             />
-            <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>
+            {isValidMax.krMetric && <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>}
           </div>
 
           <div css={AddKrInputMsgWrapper}>
@@ -106,7 +106,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
               $inputStyle={inputStyle}
               autoComplete="off"
             />
-            <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>
+            {isValidMax.krTarget && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
           </div>
         </StTargetMetricInputContainer>
       </div>
@@ -148,12 +148,14 @@ const AddKrInputContainer = css`
 `;
 
 const AddKrInputMsgWrapper = css`
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
 `;
 
 const StAddKrErrMsg = styled.p`
+  position: absolute;
+  bottom: -1.9rem;
   color: ${({ theme }) => theme.colors.sub_lightred};
 
   ${({ theme }) => theme.fonts.caption_10_medium};

@@ -15,7 +15,7 @@ interface IAddKrModalProps {
   mutateFcn: () => void;
 }
 const KrModalFormStyle = {
-  gap: '1.3rem',
+  gap: '3.2rem',
   /* stylelint-disable */
   inputStyle: {
     longWidth: '40rem',

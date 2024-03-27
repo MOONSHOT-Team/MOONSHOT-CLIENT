@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { Dayjs } from 'dayjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { postAddKr } from '../../apis/fetcher';
@@ -39,6 +39,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     [INPUT_TARGET]: false,
     [INPUT_METRIC]: false,
   });
+
   const [newKrInfo, setNewKrInfo] = useState({
     krTitle: '',
     krStartAt: '',
@@ -47,7 +48,10 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     krTarget: '',
     krMetric: '',
   });
+
   const [isShowCalender, setIsShowCalender] = useState(false);
+
+  const [isActiveSave, setIsActiveSave] = useState(false);
 
   const handleChangeKrValues = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
     const { newValue, targetInputName } = validMaxKrInputVal(
@@ -99,6 +103,8 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
   };
 
   const handleClickConfirmAddBtn = async () => {
+    if (!isActiveSave) return;
+
     const reqData = {
       objectiveId: objId,
       krTitle: newKrInfo.krTitle,
@@ -119,6 +125,21 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
 
     modalRef.current?.close();
   };
+
+  // '추가하기' 버튼 클릭 이전 필수 값, 제한 길이 검증 로직
+  useEffect(() => {
+    const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = newKrInfo;
+    krTitle &&
+    krTarget &&
+    krMetric &&
+    krStartAt &&
+    krExpireAt &&
+    !isValidMax[INPUT_TITLE] &&
+    !isValidMax[INPUT_TARGET] &&
+    !isValidMax[INPUT_METRIC]
+      ? setIsActiveSave(true)
+      : setIsActiveSave(false);
+  }, [newKrInfo, isValidMax]);
 
   return (
     <Modal ref={modalRef}>
@@ -142,7 +163,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
           </StAddKrCancelBtn>
           <StAddKrConfirmAddBtn
             type="button"
-            $isActiveAdd={true}
+            $isActiveSave={isActiveSave}
             onClick={handleClickConfirmAddBtn}
           >
             추가하기
@@ -201,7 +222,7 @@ const StAddKrCancelBtn = styled(StAddKrModalBtnStyle)`
   background-color: ${({ theme }) => theme.colors.gray_450};
 `;
 
-const StAddKrConfirmAddBtn = styled(StAddKrModalBtnStyle)<{ $isActiveAdd: boolean }>`
-  background-color: ${({ theme, $isActiveAdd }) =>
-    $isActiveAdd ? theme.colors.main_darkpurple : theme.colors.gray_450};
+const StAddKrConfirmAddBtn = styled(StAddKrModalBtnStyle)<{ $isActiveSave: boolean }>`
+  background-color: ${({ theme, $isActiveSave }) =>
+    $isActiveSave ? theme.colors.main_darkpurple : theme.colors.gray_450};
 `;

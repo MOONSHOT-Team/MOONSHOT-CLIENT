@@ -23,7 +23,7 @@ interface IMainDashboardOKRTreeProps {
 }
 
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
-  const [state, setState] = useState(OKRTREEVIEWS[0]);
+  const [state, setState] = useState(OKRTREEVIEWS['VIEWOKRTREE']);
   const [editKrId, setEditKrId] = useState<number | undefined>();
   const [editKrList, setEditKrList] = useState<IKeyResultTypes[]>(currentOkrData?.krList);
   const url = currentOkrData?.objId
@@ -32,7 +32,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const { data } = useSWR(url, getDashBoardData);
 
   useEffect(() => {
-    setState(OKRTREEVIEWS[0]);
+    setState(OKRTREEVIEWS['VIEWOKRTREE']);
     setEditKrList(currentOkrData?.krList);
   }, [currentOkrData]);
 
@@ -61,7 +61,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
 
   const renderOKRTree = () => {
     switch (state) {
-      case OKRTREEVIEWS[0]:
+      case OKRTREEVIEWS['VIEWOKRTREE']:
         return (
           <article css={okrTreeContainer}>
             <EditBtn state={state} setState={setState} />
@@ -90,7 +90,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
           </article>
         );
       //edit
-      case OKRTREEVIEWS[1]:
+      case OKRTREEVIEWS['EDITOKRTREE']:
         return (
           <article css={okrTreeContainer}>
             <EditBtn state={state} setState={setState} />

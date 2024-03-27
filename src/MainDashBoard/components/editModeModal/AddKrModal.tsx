@@ -76,7 +76,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     }
   };
 
-  const handleClickCancelBtn = () => {
+  const resetKrData = () => {
     setNewKrInfo({
       krTitle: '',
       krStartAt: '',
@@ -91,7 +91,10 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
       krMetric: false,
     });
     setIsShowCalender(false);
+  };
 
+  const handleClickCancelBtn = () => {
+    resetKrData();
     modalRef.current?.close();
   };
 
@@ -108,6 +111,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
 
     try {
       await postAddKr('/v1/key-result', reqData);
+      resetKrData();
       mutateFcn();
     } catch {
       navigate('/error');

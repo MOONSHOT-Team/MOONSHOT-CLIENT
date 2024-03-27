@@ -29,7 +29,6 @@ interface IAddKrModalProps {
   mutateFcn: () => void;
 }
 
-//TODO: 공통 컴포넌트 사용으로, 핸들러 완성 후 뷰 다시 확인하기
 const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) => {
   const navigate = useNavigate();
   const { objStartAt, objExpireAt, objId } = objInfo;
@@ -55,29 +54,18 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     let newValue;
 
     switch (targetInputName) {
-      // TODO : maxLength를 자리수로 고려 했을 떄 처리 방법. 일단 의논이 필요 해 주석처리
-      // case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
-      //   if (parsedValue.length === maxLength + 1) {
-      //     setIsValidMax({ ...isValidMax, [targetInputName]: true });
-      //   }
-
-      //   if (isValidMax[targetInputName]) {
-      //     parsedValue = parsedValue.slice(0, maxLength);
-      //     setIsValidMax({ ...isValidMax, [targetInputName]: false });
-      //   }
-
-      //   newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      //   break;
-
       case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
-        if (Number(parsedValue) > maxLength) {
+        if (parsedValue.length === maxLength + 1) {
           setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }
 
         if (isValidMax[targetInputName]) {
-          parsedValue = maxLength.toString();
+          parsedValue = parsedValue.slice(0, maxLength);
           setIsValidMax({ ...isValidMax, [targetInputName]: false });
         }
+
+        newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        break;
 
         newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         break;
@@ -156,7 +144,6 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     modalRef.current?.close();
   };
 
-  //TODO: add-okr의 kr 카드와 공통 컴포넌트로 만들어 추상화 하기
   return (
     <Modal ref={modalRef}>
       <StAddKrModalWrapper>

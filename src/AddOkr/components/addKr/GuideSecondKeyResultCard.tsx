@@ -38,27 +38,13 @@ const GuideSecondKeyResultCard = ({
     let newValue;
 
     switch (targetInputName) {
-      // TODO : maxLength를 자리수로 고려 했을 떄 처리 방법. 일단 의논이 필요 해 주석처리
-      // case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
-      //   if (parsedValue.length === maxLength + 1) {
-      //     setIsValidMax({ ...isValidMax, [targetInputName]: true });
-      //   }
-
-      //   if (isValidMax[targetInputName]) {
-      //     parsedValue = parsedValue.slice(0, maxLength);
-      //     setIsValidMax({ ...isValidMax, [targetInputName]: false });
-      //   }
-
-      //   newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      //   break;
-
       case INPUT_TARGET:
-        if (Number(parsedValue) > maxLength) {
+        if (parsedValue.length === maxLength + 1) {
           setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }
 
         if (isValidMax[targetInputName]) {
-          parsedValue = maxLength.toString();
+          parsedValue = parsedValue.slice(0, maxLength);
           setIsValidMax({ ...isValidMax, [targetInputName]: false });
         }
 
@@ -66,6 +52,7 @@ const GuideSecondKeyResultCard = ({
         break;
 
       default:
+        //INPUT_METRIC의 경우
         if (e.target.value.length > maxLength) {
           setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }

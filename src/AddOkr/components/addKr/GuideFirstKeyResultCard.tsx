@@ -48,15 +48,17 @@ const GuideFirstKeyResultCard = ({
   }, []);
 
   const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    if (e.target.value.length > maxLength) {
+    if (e.target.value.length === maxLength + 1) {
       setIsMaxTitle(true);
     }
 
-    if (e.target.value.length <= maxLength) {
+    if (isMaxTitle) {
+      e.target.value = e.target.value.slice(0, maxLength);
       setIsMaxTitle(false);
-      krListInfo[cardIdx].krTitle = e.target.value;
-      setKrListInfo([...krListInfo]);
     }
+
+    krListInfo[cardIdx].krTitle = e.target.value;
+    setKrListInfo([...krListInfo]);
   };
 
   const handleClickKrPeriodBox = () => {
@@ -109,7 +111,7 @@ const GuideFirstKeyResultCard = ({
             $isMax={isMaxTitle}
             autoComplete="off"
           />
-          <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>
+          {isMaxTitle && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
         </div>
       </StKrInputBox>
 

@@ -1,4 +1,5 @@
 import { KR_NUM_ERR_MSG, KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
+import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
@@ -14,8 +15,8 @@ interface IGuideSecondKeyResultCardProps {
   cardIdx: number;
 }
 
-const HINT_TARGET = 'ex) 10';
-const HINT_METRIC = 'ex) 회';
+const { HINT_TARGET, HINT_METRIC } = KR_INPUT_DATA.HINT_PLACHOLDER;
+const { INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
 
 const GuideSecondKeyResultCard = ({
   krListInfo,
@@ -23,35 +24,64 @@ const GuideSecondKeyResultCard = ({
   cardIdx,
 }: IGuideSecondKeyResultCardProps) => {
   const { krTitle, krTarget, krMetric } = krListInfo[cardIdx];
-  const [isValidMax, setIsValidMax] = useState({
-    target: false,
-    metric: false,
+  const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
+    [INPUT_TARGET]: false,
+    [INPUT_METRIC]: false,
   });
 
-  const handleGuidTargetInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+  const handleGuidTargetMetricInput = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    maxLength: number,
+  ) => {
+    const targetInputName = e.target.name;
+    let parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+    let newValue;
 
-    if (e.target.value.length > maxLength) {
-      setIsValidMax({ ...isValidMax, target: true });
+    switch (targetInputName) {
+      // TODO : maxLength를 자리수로 고려 했을 떄 처리 방법. 일단 의논이 필요 해 주석처리
+      // case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
+      //   if (parsedValue.length === maxLength + 1) {
+      //     setIsValidMax({ ...isValidMax, [targetInputName]: true });
+      //   }
+
+      //   if (isValidMax[targetInputName]) {
+      //     parsedValue = parsedValue.slice(0, maxLength);
+      //     setIsValidMax({ ...isValidMax, [targetInputName]: false });
+      //   }
+
+      //   newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      //   break;
+
+      case INPUT_TARGET:
+        if (Number(parsedValue) > maxLength) {
+          setIsValidMax({ ...isValidMax, [targetInputName]: true });
+        }
+
+        if (isValidMax[targetInputName]) {
+          parsedValue = maxLength.toString();
+          setIsValidMax({ ...isValidMax, [targetInputName]: false });
+        }
+
+        newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        break;
+
+      default:
+        if (e.target.value.length > maxLength) {
+          setIsValidMax({ ...isValidMax, [targetInputName]: true });
+        }
+
+        if (isValidMax[targetInputName] === true) {
+          e.target.value = e.target.value.slice(0, maxLength);
+          setIsValidMax({ ...isValidMax, [targetInputName]: false });
+        }
+
+        newValue = e.target.value;
+
+        break;
     }
 
-    if (e.target.value.length <= maxLength) {
-      setIsValidMax({ ...isValidMax, target: false });
-      krListInfo[cardIdx].krTarget = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      setKrListInfo([...krListInfo]);
-    }
-  };
-
-  const handleGuideMetricInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    if (e.target.value.length > maxLength) {
-      setIsValidMax({ ...isValidMax, metric: true });
-    }
-
-    if (e.target.value.length <= maxLength) {
-      setIsValidMax({ ...isValidMax, metric: false });
-      krListInfo[cardIdx].krMetric = e.target.value;
-      setKrListInfo([...krListInfo]);
-    }
+    krListInfo[cardIdx] = { ...krListInfo[cardIdx], [targetInputName]: newValue };
+    setKrListInfo([...krListInfo]);
   };
 
   return (
@@ -67,23 +97,25 @@ const GuideSecondKeyResultCard = ({
           <div css={AddKrInputMsgWrapper}>
             <StTargetMetricInput
               value={krTarget}
-              onChange={(e) => handleGuidTargetInput(e, MAX_KR_TARGET)}
+              name={INPUT_TARGET}
+              onChange={(e) => handleGuidTargetMetricInput(e, MAX_KR_TARGET)}
               placeholder={HINT_TARGET}
-              $isMax={isValidMax.target}
+              $isMax={isValidMax[INPUT_TARGET]}
               autoComplete="off"
             />
-            <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>
+            {isValidMax.krTarget && <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>}
           </div>
 
           <div css={AddKrInputMsgWrapper}>
             <StTargetMetricInput
+              name={INPUT_METRIC}
               value={krMetric}
-              onChange={(e) => handleGuideMetricInput(e, MAX_KR_METRIC)}
+              onChange={(e) => handleGuidTargetMetricInput(e, MAX_KR_METRIC)}
               placeholder={HINT_METRIC}
-              $isMax={isValidMax.metric}
+              $isMax={isValidMax[INPUT_METRIC]}
               autoComplete="off"
             />
-            <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>
+            {isValidMax.krMetric && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
           </div>
         </div>
       </StSecondKrTargetMetricBox>

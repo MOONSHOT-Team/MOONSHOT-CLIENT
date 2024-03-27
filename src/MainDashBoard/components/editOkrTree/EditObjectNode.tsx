@@ -12,8 +12,9 @@ import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
 import { IcAdd } from '../../assets/icons';
+import { StMainDashObjP } from '../../styles/mainDashOKRTreeStyles';
 import AddKrModal from '../editModeModal/AddKrModal';
-import { IMainBoardObjNodeProps, StMainDashObjP } from '../mainDashBoardOkrTree/MainDashObjectNode';
+import { IMainBoardObjNodeProps } from '../mainDashBoardOkrTree/MainDashObjectNode';
 
 interface IEditObjectNode extends IMainBoardObjNodeProps {
   objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
@@ -38,14 +39,7 @@ const EditObjectNode = ({ objStroke, objInfo, krListLen, state, setState }: IEdi
   };
 
   useEffect(() => {
-    if (krListLen >= 3) {
-      setIsntFull(false);
-      return;
-    }
-    if (krListLen < 3) {
-      setIsntFull(true);
-      return;
-    }
+    krListLen < 3 ? setIsntFull(true) : setIsntFull(false);
   }, [krListLen]);
 
   return (

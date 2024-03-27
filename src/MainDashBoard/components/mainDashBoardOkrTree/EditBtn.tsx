@@ -21,9 +21,9 @@ const EditBtn = ({
           id="view"
           type="radio"
           name="isEdit"
-          value={OKRTREEVIEWS[0]}
+          value={OKRTREEVIEWS['VIEWOKRTREE']}
           onChange={handleRadio}
-          checked={state == OKRTREEVIEWS[0]}
+          checked={state == OKRTREEVIEWS['VIEWOKRTREE']}
         />
         <StRadioSpanLeft>View</StRadioSpanLeft>
       </StRadioLabel>
@@ -32,9 +32,9 @@ const EditBtn = ({
           id="edit"
           type="radio"
           name="isEdit"
-          value={OKRTREEVIEWS[1]}
+          value={OKRTREEVIEWS['EDITOKRTREE']}
           onChange={handleRadio}
-          checked={state == OKRTREEVIEWS[1]}
+          checked={state == OKRTREEVIEWS['EDITOKRTREE']}
         />
         <StRadioSpanRight>Edit</StRadioSpanRight>
       </StRadioLabel>

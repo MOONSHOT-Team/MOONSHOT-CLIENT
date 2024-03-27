@@ -47,7 +47,6 @@ const DynamicInput = ({
         ref={inputRef}
         maxLength={maxLength}
         onKeyDown={(e) => {
-          e.stopPropagation();
           onKeyDown?.(e);
         }}
       />

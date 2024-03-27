@@ -1,5 +1,6 @@
 import AddKrForm from '@components/addKr/AddKrForm';
 import Modal from '@components/Modal';
+import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
@@ -30,7 +31,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
   const navigate = useNavigate();
   const { objStartAt, objExpireAt, objId } = objInfo;
 
-  const [isValidMax, setIsValidMax] = useState({
+  const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
     krTitle: false,
     krTarget: false,
     krMetric: false,
@@ -46,30 +47,54 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
   const [isShowCalender, setIsShowCalender] = useState(false);
 
   const handleChangeKrValues = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    switch (e.target.name) {
-      case 'krTarget':
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
+    const targetInputName = e.target.name;
+    let parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+    let newValue;
+
+    switch (targetInputName) {
+      // TODO : maxLength를 자리수로 고려 했을 떄 처리 방법. 일단 의논이 필요 해 주석처리
+      // case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
+      //   if (parsedValue.length === maxLength + 1) {
+      //     setIsValidMax({ ...isValidMax, [targetInputName]: true });
+      //   }
+
+      //   if (isValidMax[targetInputName]) {
+      //     parsedValue = parsedValue.slice(0, maxLength);
+      //     setIsValidMax({ ...isValidMax, [targetInputName]: false });
+      //   }
+
+      //   newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      //   break;
+
+      case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
+        if (Number(parsedValue) > maxLength) {
+          setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          setNewKrInfo({
-            ...newKrInfo,
-            krTarget: parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-          });
+
+        if (isValidMax[targetInputName]) {
+          parsedValue = maxLength.toString();
+          setIsValidMax({ ...isValidMax, [targetInputName]: false });
         }
+
+        newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         break;
+
       default:
         if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
+          setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          setNewKrInfo({ ...newKrInfo, [e.target.name]: e.target.value });
+
+        if (isValidMax[targetInputName] === true) {
+          e.target.value = e.target.value.slice(0, maxLength);
+          setIsValidMax({ ...isValidMax, [targetInputName]: false });
         }
+
+        newValue = e.target.value;
+
         break;
     }
+
+    setNewKrInfo({ ...newKrInfo, [targetInputName]: newValue });
   };
 
   const handleClickKrPeriodBox = () => {
@@ -91,12 +116,19 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
   const handleClickCancelBtn = () => {
     setNewKrInfo({
       krTitle: '',
-      krStartAt: objStartAt,
-      krExpireAt: objExpireAt,
+      krStartAt: '',
+      krExpireAt: '',
       krIdx: krIdx,
       krTarget: '',
       krMetric: '',
     });
+    setIsValidMax({
+      krTitle: false,
+      krTarget: false,
+      krMetric: false,
+    });
+    setIsShowCalender(false);
+
     modalRef.current?.close();
   };
 

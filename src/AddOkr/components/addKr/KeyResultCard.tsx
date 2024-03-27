@@ -35,7 +35,7 @@ const KeyResultCard = ({
   cardIdx,
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
-  const [isValidMax, setIsValidMax] = useState({
+  const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
     krTitle: false,
     krTarget: false,
     krMetric: false,
@@ -74,33 +74,55 @@ const KeyResultCard = ({
   };
 
   const handleChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+    const targetInputName = e.target.name;
+    let parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+    let newValue;
 
-    switch (e.target.name) {
+    switch (targetInputName) {
+      // TODO : maxLength를 자리수로 고려 했을 떄 처리 방법. 일단 의논이 필요 해 주석처리
+      // case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
+      //   if (parsedValue.length === maxLength + 1) {
+      //     setIsValidMax({ ...isValidMax, [targetInputName]: true });
+      //   }
+
+      //   if (isValidMax[targetInputName]) {
+      //     parsedValue = parsedValue.slice(0, maxLength);
+      //     setIsValidMax({ ...isValidMax, [targetInputName]: false });
+      //   }
+
+      //   newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      //   break;
+
       case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
+        if (Number(parsedValue) > maxLength) {
+          setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          krListInfo[cardIdx].krTarget = parsedValue
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          setKrListInfo([...krListInfo]);
+
+        if (isValidMax[targetInputName]) {
+          parsedValue = maxLength.toString();
+          setIsValidMax({ ...isValidMax, [targetInputName]: false });
         }
+
+        newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         break;
+
       default:
         if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
+          setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
 
-          krListInfo[cardIdx] = { ...krListInfo[cardIdx], [e.target.name]: e.target.value };
-          setKrListInfo([...krListInfo]);
+        if (isValidMax[targetInputName] === true) {
+          e.target.value = e.target.value.slice(0, maxLength);
+          setIsValidMax({ ...isValidMax, [targetInputName]: false });
         }
+
+        newValue = e.target.value;
+
         break;
     }
+
+    krListInfo[cardIdx] = { ...krListInfo[cardIdx], [targetInputName]: newValue };
+    setKrListInfo([...krListInfo]);
   };
 
   const handleClickSelectDate = (

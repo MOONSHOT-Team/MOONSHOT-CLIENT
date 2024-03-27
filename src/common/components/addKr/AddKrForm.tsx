@@ -35,7 +35,7 @@ interface IAddKrFormProps {
     | IObjInfoTypes
     | { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
   inputHandler: {
-    isValidMax: { krTitle: boolean; krTarget: boolean; krMetric: boolean };
+    isValidMax: { [key: string]: boolean };
     handleChangeKrValues: (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => void;
   };
   calenderHandler: {
@@ -92,7 +92,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
               $inputStyle={inputStyle}
               autoComplete="off"
             />
-            {isValidMax.krMetric && <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>}
+            {isValidMax.krTarget && <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>}
           </div>
 
           <div css={AddKrInputMsgWrapper}>
@@ -106,7 +106,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
               $inputStyle={inputStyle}
               autoComplete="off"
             />
-            {isValidMax.krTarget && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
+            {isValidMax.krMetric && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
           </div>
         </StTargetMetricInputContainer>
       </div>

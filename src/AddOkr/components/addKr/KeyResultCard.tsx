@@ -1,6 +1,7 @@
 import AddKrForm from '@components/addKr/AddKrForm';
 import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import styled from '@emotion/styled';
+import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 
@@ -76,39 +77,12 @@ const KeyResultCard = ({
   };
 
   const handleChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    const targetInputName = e.target.name;
-    let parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    let newValue;
-
-    switch (targetInputName) {
-      case INPUT_TARGET:
-        if (parsedValue.length === maxLength + 1) {
-          setIsValidMax({ ...isValidMax, [targetInputName]: true });
-        }
-
-        if (isValidMax[targetInputName]) {
-          parsedValue = parsedValue.slice(0, maxLength);
-          setIsValidMax({ ...isValidMax, [targetInputName]: false });
-        }
-
-        newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        break;
-
-      default:
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [targetInputName]: true });
-        }
-
-        if (isValidMax[targetInputName] === true) {
-          e.target.value = e.target.value.slice(0, maxLength);
-          setIsValidMax({ ...isValidMax, [targetInputName]: false });
-        }
-
-        newValue = e.target.value;
-
-        break;
-    }
-
+    const { newValue, targetInputName } = validMaxKrInputVal(
+      e,
+      maxLength,
+      isValidMax,
+      setIsValidMax,
+    );
     krListInfo[cardIdx] = { ...krListInfo[cardIdx], [targetInputName]: newValue };
     setKrListInfo([...krListInfo]);
   };

@@ -3,6 +3,7 @@ import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
+import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { useState } from 'react';
 
 import { MAX_KR_METRIC, MAX_KR_TARGET } from '../../constants/OKR_MAX_LENGTH';
@@ -33,39 +34,12 @@ const GuideSecondKeyResultCard = ({
     e: React.ChangeEvent<HTMLInputElement>,
     maxLength: number,
   ) => {
-    const targetInputName = e.target.name;
-    let parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    let newValue;
-
-    switch (targetInputName) {
-      case INPUT_TARGET:
-        if (parsedValue.length === maxLength + 1) {
-          setIsValidMax({ ...isValidMax, [targetInputName]: true });
-        }
-
-        if (isValidMax[targetInputName]) {
-          parsedValue = parsedValue.slice(0, maxLength);
-          setIsValidMax({ ...isValidMax, [targetInputName]: false });
-        }
-
-        newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        break;
-
-      default:
-        //INPUT_METRIC의 경우
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [targetInputName]: true });
-        }
-
-        if (isValidMax[targetInputName] === true) {
-          e.target.value = e.target.value.slice(0, maxLength);
-          setIsValidMax({ ...isValidMax, [targetInputName]: false });
-        }
-
-        newValue = e.target.value;
-
-        break;
-    }
+    const { newValue, targetInputName } = validMaxKrInputVal(
+      e,
+      maxLength,
+      isValidMax,
+      setIsValidMax,
+    );
 
     krListInfo[cardIdx] = { ...krListInfo[cardIdx], [targetInputName]: newValue };
     setKrListInfo([...krListInfo]);

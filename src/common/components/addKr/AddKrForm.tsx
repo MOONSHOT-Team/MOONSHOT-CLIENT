@@ -68,7 +68,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
             placeholder={HINT_TITLE}
             value={krTitle}
             onChange={(e) => handleChangeKrValues(e, MAX_KR_TITLE)}
-            $isMax={isValidMax.krTitle}
+            $isMax={isValidMax[INPUT_TITLE]}
             $inputStyle={inputStyle}
             autoComplete="off"
           />
@@ -89,7 +89,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
               placeholder={HINT_TARGET}
               value={krTarget}
               onChange={(e) => handleChangeKrValues(e, MAX_KR_TARGET)}
-              $isMax={isValidMax.krTarget}
+              $isMax={isValidMax[INPUT_TARGET]}
               $inputStyle={inputStyle}
               autoComplete="off"
             />
@@ -103,7 +103,7 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
               placeholder={HINT_METRIC}
               value={krMetric}
               onChange={(e) => handleChangeKrValues(e, MAX_KR_METRIC)}
-              $isMax={isValidMax.krMetric}
+              $isMax={isValidMax[INPUT_METRIC]}
               $inputStyle={inputStyle}
               autoComplete="off"
             />

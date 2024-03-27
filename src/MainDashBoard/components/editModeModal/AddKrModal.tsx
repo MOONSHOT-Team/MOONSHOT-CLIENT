@@ -9,12 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { postAddKr } from '../../apis/fetcher';
 
-interface IAddKrModalProps {
-  modalRef: React.MutableRefObject<HTMLDialogElement | null>;
-  objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
-  krIdx: number;
-  mutateFcn: () => void;
-}
+const { INPUT_TITLE, INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
+
 const KrModalFormStyle = {
   gap: '3.2rem',
   /* stylelint-disable */
@@ -26,15 +22,22 @@ const KrModalFormStyle = {
   },
 };
 
+interface IAddKrModalProps {
+  modalRef: React.MutableRefObject<HTMLDialogElement | null>;
+  objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
+  krIdx: number;
+  mutateFcn: () => void;
+}
+
 //TODO: 공통 컴포넌트 사용으로, 핸들러 완성 후 뷰 다시 확인하기
 const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) => {
   const navigate = useNavigate();
   const { objStartAt, objExpireAt, objId } = objInfo;
 
   const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
-    krTitle: false,
-    krTarget: false,
-    krMetric: false,
+    [INPUT_TITLE]: false,
+    [INPUT_TARGET]: false,
+    [INPUT_METRIC]: false,
   });
   const [newKrInfo, setNewKrInfo] = useState({
     krTitle: '',

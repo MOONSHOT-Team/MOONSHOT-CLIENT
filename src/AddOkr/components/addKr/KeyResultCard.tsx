@@ -9,6 +9,8 @@ import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardSt
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import { IObjInfoTypes } from '../../types/ObjectInfoTypes';
 
+const { INPUT_TITLE, INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
+
 const KrCardStyle = {
   gap: '3.2rem',
   /* stylelint-disable */
@@ -36,9 +38,9 @@ const KeyResultCard = ({
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
   const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
-    krTitle: false,
-    krTarget: false,
-    krMetric: false,
+    [INPUT_TITLE]: false,
+    [INPUT_TARGET]: false,
+    [INPUT_METRIC]: false,
   });
   const { krStartAt, krExpireAt } = krListInfo[cardIdx];
   const { objStartAt, objExpireAt } = objInfo;

@@ -38,14 +38,7 @@ const EditObjectNode = ({ objStroke, objInfo, krListLen, state, setState }: IEdi
   };
 
   useEffect(() => {
-    if (krListLen >= 3) {
-      setIsntFull(false);
-      return;
-    }
-    if (krListLen < 3) {
-      setIsntFull(true);
-      return;
-    }
+    krListLen < 3 ? setIsntFull(true) : setIsntFull(false);
   }, [krListLen]);
 
   return (

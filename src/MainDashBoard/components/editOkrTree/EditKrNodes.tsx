@@ -107,7 +107,7 @@ const StEditKrKrBoxWrapper = styled(StKrBoxWrapper)`
 `;
 
 const StyledIcDrag = styled(IcDrag)`
-  margin: 0 0.5rem 0 0.6rem;
+  margin: 0 0.5rem 0.6rem;
 `;
 
 const StEditKrBox = styled(StKrBox)`

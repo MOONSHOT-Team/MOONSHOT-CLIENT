@@ -10,7 +10,7 @@ import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import { IObjInfoTypes } from '../../types/ObjectInfoTypes';
 
 const KrCardStyle = {
-  gap: '3rem',
+  gap: '1.1rem',
   /* stylelint-disable */
   inputStyle: {
     longWidth: '29.9rem',

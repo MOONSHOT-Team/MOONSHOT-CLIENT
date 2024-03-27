@@ -2,6 +2,7 @@ import { KR_NUM_ERR_MSG, KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
 import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
 import { Dayjs } from 'dayjs';
 
 import KeyResultPeriodInput from '../../../AddOkr/components/addKr/KeyResultPeriodInput';
@@ -145,20 +146,6 @@ const AddKrInputContainer = css`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
-
-const AddKrInputMsgWrapper = css`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-`;
-
-const StAddKrErrMsg = styled.p`
-  position: absolute;
-  bottom: -1.9rem;
-  color: ${({ theme }) => theme.colors.sub_lightred};
-
-  ${({ theme }) => theme.fonts.caption_10_medium};
 `;
 
 const StAddKrInputDescription = styled.p`

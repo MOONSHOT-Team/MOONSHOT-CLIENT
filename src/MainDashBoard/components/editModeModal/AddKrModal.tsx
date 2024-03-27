@@ -54,7 +54,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     let newValue;
 
     switch (targetInputName) {
-      case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
+      case INPUT_TARGET:
         if (parsedValue.length === maxLength + 1) {
           setIsValidMax({ ...isValidMax, [targetInputName]: true });
         }
@@ -63,9 +63,6 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
           parsedValue = parsedValue.slice(0, maxLength);
           setIsValidMax({ ...isValidMax, [targetInputName]: false });
         }
-
-        newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        break;
 
         newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         break;

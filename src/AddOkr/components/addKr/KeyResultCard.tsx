@@ -1,6 +1,7 @@
 import AddKrForm from '@components/addKr/AddKrForm';
 import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import styled from '@emotion/styled';
+import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 
@@ -9,8 +10,10 @@ import { CloseIconStyle, EmptyKeyResultCard } from '../../styles/KeyResultCardSt
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 import { IObjInfoTypes } from '../../types/ObjectInfoTypes';
 
+const { INPUT_TITLE, INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
+
 const KrCardStyle = {
-  gap: '3rem',
+  gap: '3.2rem',
   /* stylelint-disable */
   inputStyle: {
     longWidth: '29.9rem',
@@ -35,10 +38,10 @@ const KeyResultCard = ({
   cardIdx,
   handleClickCloseBtn,
 }: IKeyResultCardProps) => {
-  const [isValidMax, setIsValidMax] = useState({
-    krTitle: false,
-    krTarget: false,
-    krMetric: false,
+  const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
+    [INPUT_TITLE]: false,
+    [INPUT_TARGET]: false,
+    [INPUT_METRIC]: false,
   });
   const { krStartAt, krExpireAt } = krListInfo[cardIdx];
   const { objStartAt, objExpireAt } = objInfo;
@@ -74,33 +77,14 @@ const KeyResultCard = ({
   };
 
   const handleChangeBasicKr = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-
-    switch (e.target.name) {
-      case KR_INPUT_DATA.INPUT_NAME.INPUT_TARGET:
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
-        }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          krListInfo[cardIdx].krTarget = parsedValue
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          setKrListInfo([...krListInfo]);
-        }
-        break;
-      default:
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
-        }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
-
-          krListInfo[cardIdx] = { ...krListInfo[cardIdx], [e.target.name]: e.target.value };
-          setKrListInfo([...krListInfo]);
-        }
-        break;
-    }
+    const { newValue, targetInputName } = validMaxKrInputVal(
+      e,
+      maxLength,
+      isValidMax,
+      setIsValidMax,
+    );
+    krListInfo[cardIdx] = { ...krListInfo[cardIdx], [targetInputName]: newValue };
+    setKrListInfo([...krListInfo]);
   };
 
   const handleClickSelectDate = (

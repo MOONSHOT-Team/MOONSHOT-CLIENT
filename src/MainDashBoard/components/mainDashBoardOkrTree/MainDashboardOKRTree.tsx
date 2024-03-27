@@ -37,7 +37,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   }, [currentOkrData]);
 
   useEffect(() => {
-    setEditKrList(data?.data.tree.krList);
+    setEditKrList(data?.data?.tree?.krList);
   }, [data]);
 
   const handleAddTask = (krId: number | undefined) => {

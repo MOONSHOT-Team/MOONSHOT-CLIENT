@@ -1,6 +1,8 @@
+import { KR_NUM_ERR_MSG, KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
 import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
 import { Dayjs } from 'dayjs';
 
 import KeyResultPeriodInput from '../../../AddOkr/components/addKr/KeyResultPeriodInput';
@@ -34,7 +36,7 @@ interface IAddKrFormProps {
     | IObjInfoTypes
     | { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
   inputHandler: {
-    isValidMax: { krTitle: boolean; krTarget: boolean; krMetric: boolean };
+    isValidMax: { [key: string]: boolean };
     handleChangeKrValues: (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => void;
   };
   calenderHandler: {
@@ -59,16 +61,19 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
       {/* 핵심 지표 문장 입력 부분 */}
       <div css={AddKrInputContainer}>
         <StAddKrInputDescription>핵심 지표를 문장으로 정리해볼까요?</StAddKrInputDescription>
-        <StKrTitleInput
-          type="text"
-          name={INPUT_TITLE}
-          placeholder={HINT_TITLE}
-          value={krTitle}
-          onChange={(e) => handleChangeKrValues(e, MAX_KR_TITLE)}
-          $isMax={isValidMax.krTitle}
-          $inputStyle={inputStyle}
-          autoComplete="off"
-        />
+        <div css={AddKrInputMsgWrapper}>
+          <StKrTitleInput
+            type="text"
+            name={INPUT_TITLE}
+            placeholder={HINT_TITLE}
+            value={krTitle}
+            onChange={(e) => handleChangeKrValues(e, MAX_KR_TITLE)}
+            $isMax={isValidMax[INPUT_TITLE]}
+            $inputStyle={inputStyle}
+            autoComplete="off"
+          />
+          {isValidMax.krTitle && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
+        </div>
       </div>
 
       {/*수치값 단위 입력 부분*/}
@@ -77,26 +82,33 @@ const AddKrForm = ({ style, krInfo, objInfo, inputHandler, calenderHandler }: IA
           핵심 지표를 측정할 수치값과 단위를 입력해주세요
         </StAddKrInputDescription>
         <StTargetMetricInputContainer $ContainerGap={inputStyle.shortGap}>
-          <StTaretMetricInput
-            type="text"
-            name={INPUT_TARGET}
-            placeholder={HINT_TARGET}
-            value={krTarget}
-            onChange={(e) => handleChangeKrValues(e, MAX_KR_TARGET)}
-            $isMax={isValidMax.krTarget}
-            $inputStyle={inputStyle}
-            autoComplete="off"
-          />
-          <StTaretMetricInput
-            type="text"
-            name={INPUT_METRIC}
-            placeholder={HINT_METRIC}
-            value={krMetric}
-            onChange={(e) => handleChangeKrValues(e, MAX_KR_METRIC)}
-            $isMax={isValidMax.krMetric}
-            $inputStyle={inputStyle}
-            autoComplete="off"
-          />
+          <div css={AddKrInputMsgWrapper}>
+            <StTaretMetricInput
+              type="text"
+              name={INPUT_TARGET}
+              placeholder={HINT_TARGET}
+              value={krTarget}
+              onChange={(e) => handleChangeKrValues(e, MAX_KR_TARGET)}
+              $isMax={isValidMax[INPUT_TARGET]}
+              $inputStyle={inputStyle}
+              autoComplete="off"
+            />
+            {isValidMax.krTarget && <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>}
+          </div>
+
+          <div css={AddKrInputMsgWrapper}>
+            <StTaretMetricInput
+              type="text"
+              name={INPUT_METRIC}
+              placeholder={HINT_METRIC}
+              value={krMetric}
+              onChange={(e) => handleChangeKrValues(e, MAX_KR_METRIC)}
+              $isMax={isValidMax[INPUT_METRIC]}
+              $inputStyle={inputStyle}
+              autoComplete="off"
+            />
+            {isValidMax.krMetric && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
+          </div>
         </StTargetMetricInputContainer>
       </div>
       <div css={AddKrInputContainer}>

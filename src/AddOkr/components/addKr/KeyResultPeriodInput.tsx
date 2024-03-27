@@ -56,6 +56,9 @@ const KeyResultPeriodInput = ({
         }}
       >
         <RangePicker
+          getPopupContainer={(triggerNode: HTMLElement) => {
+            return triggerNode.parentNode?.parentNode as HTMLElement;
+          }}
           variant="borderless"
           onChange={handleClickSelectDate}
           value={[dayjs(formatDate(krPeriod[0])), dayjs(formatDate(krPeriod[1]))]}

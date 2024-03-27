@@ -1,4 +1,6 @@
+import { KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
 import styled from '@emotion/styled';
+import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
 import { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 
@@ -99,13 +101,16 @@ const GuideFirstKeyResultCard = ({
 
       <StKrInputBox>
         <StKrInputDescription>목표를 달성하기 위해 필요한 성과는?</StKrInputDescription>
-        <StKrSentenceInput
-          value={krTitle}
-          placeholder={KR_TITLE_PLACEHOLDER}
-          onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
-          $isMax={isMaxTitle}
-          autoComplete="off"
-        />
+        <div css={AddKrInputMsgWrapper}>
+          <StKrSentenceInput
+            value={krTitle}
+            placeholder={KR_TITLE_PLACEHOLDER}
+            onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
+            $isMax={isMaxTitle}
+            autoComplete="off"
+          />
+          <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>
+        </div>
       </StKrInputBox>
 
       <StKrInputBox>

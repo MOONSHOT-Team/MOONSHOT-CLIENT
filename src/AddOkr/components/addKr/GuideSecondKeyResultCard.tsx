@@ -1,5 +1,7 @@
+import { KR_NUM_ERR_MSG, KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
 import { useState } from 'react';
 
 import { MAX_KR_METRIC, MAX_KR_TARGET } from '../../constants/OKR_MAX_LENGTH';
@@ -62,20 +64,27 @@ const GuideSecondKeyResultCard = ({
       <StSecondKrTargetMetricBox>
         <p>이 성과를 측정할 수 있는 수치값과 단위를 입력하세요.</p>
         <div css={TargetMetricInputBox}>
-          <StTargetMetricInput
-            value={krTarget}
-            onChange={(e) => handleGuidTargetInput(e, MAX_KR_TARGET)}
-            placeholder={HINT_TARGET}
-            $isMax={isValidMax.target}
-            autoComplete="off"
-          />
-          <StTargetMetricInput
-            value={krMetric}
-            onChange={(e) => handleGuideMetricInput(e, MAX_KR_METRIC)}
-            placeholder={HINT_METRIC}
-            $isMax={isValidMax.metric}
-            autoComplete="off"
-          />
+          <div css={AddKrInputMsgWrapper}>
+            <StTargetMetricInput
+              value={krTarget}
+              onChange={(e) => handleGuidTargetInput(e, MAX_KR_TARGET)}
+              placeholder={HINT_TARGET}
+              $isMax={isValidMax.target}
+              autoComplete="off"
+            />
+            <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>
+          </div>
+
+          <div css={AddKrInputMsgWrapper}>
+            <StTargetMetricInput
+              value={krMetric}
+              onChange={(e) => handleGuideMetricInput(e, MAX_KR_METRIC)}
+              placeholder={HINT_METRIC}
+              $isMax={isValidMax.metric}
+              autoComplete="off"
+            />
+            <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>
+          </div>
         </div>
       </StSecondKrTargetMetricBox>
     </StGuideSecondKeyResultCardWrapper>

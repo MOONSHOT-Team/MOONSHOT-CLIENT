@@ -1,19 +1,17 @@
 import AddKrForm from '@components/addKr/AddKrForm';
 import Modal from '@components/Modal';
+import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { Dayjs } from 'dayjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { postAddKr } from '../../apis/fetcher';
 
-interface IAddKrModalProps {
-  modalRef: React.MutableRefObject<HTMLDialogElement | null>;
-  objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
-  krIdx: number;
-  mutateFcn: () => void;
-}
+const { INPUT_TITLE, INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
+
 const KrModalFormStyle = {
   gap: '3.2rem',
   /* stylelint-disable */
@@ -25,16 +23,23 @@ const KrModalFormStyle = {
   },
 };
 
-//TODO: 공통 컴포넌트 사용으로, 핸들러 완성 후 뷰 다시 확인하기
+interface IAddKrModalProps {
+  modalRef: React.MutableRefObject<HTMLDialogElement | null>;
+  objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
+  krIdx: number;
+  mutateFcn: () => void;
+}
+
 const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) => {
   const navigate = useNavigate();
   const { objStartAt, objExpireAt, objId } = objInfo;
 
-  const [isValidMax, setIsValidMax] = useState({
-    krTitle: false,
-    krTarget: false,
-    krMetric: false,
+  const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
+    [INPUT_TITLE]: false,
+    [INPUT_TARGET]: false,
+    [INPUT_METRIC]: false,
   });
+
   const [newKrInfo, setNewKrInfo] = useState({
     krTitle: '',
     krStartAt: '',
@@ -43,33 +48,20 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     krTarget: '',
     krMetric: '',
   });
+
   const [isShowCalender, setIsShowCalender] = useState(false);
 
+  const [isActiveSave, setIsActiveSave] = useState(false);
+
   const handleChangeKrValues = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
-    switch (e.target.name) {
-      case 'krTarget':
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
-        }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          setNewKrInfo({
-            ...newKrInfo,
-            krTarget: parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-          });
-        }
-        break;
-      default:
-        if (e.target.value.length > maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: true });
-        }
-        if (e.target.value.length <= maxLength) {
-          setIsValidMax({ ...isValidMax, [e.target.name]: false });
-          setNewKrInfo({ ...newKrInfo, [e.target.name]: e.target.value });
-        }
-        break;
-    }
+    const { newValue, targetInputName } = validMaxKrInputVal(
+      e,
+      maxLength,
+      isValidMax,
+      setIsValidMax,
+    );
+
+    setNewKrInfo({ ...newKrInfo, [targetInputName]: newValue });
   };
 
   const handleClickKrPeriodBox = () => {
@@ -88,19 +80,31 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     }
   };
 
-  const handleClickCancelBtn = () => {
+  const resetKrData = () => {
     setNewKrInfo({
       krTitle: '',
-      krStartAt: objStartAt,
-      krExpireAt: objExpireAt,
+      krStartAt: '',
+      krExpireAt: '',
       krIdx: krIdx,
       krTarget: '',
       krMetric: '',
     });
+    setIsValidMax({
+      krTitle: false,
+      krTarget: false,
+      krMetric: false,
+    });
+    setIsShowCalender(false);
+  };
+
+  const handleClickCancelBtn = () => {
+    resetKrData();
     modalRef.current?.close();
   };
 
   const handleClickConfirmAddBtn = async () => {
+    if (!isActiveSave) return;
+
     const reqData = {
       objectiveId: objId,
       krTitle: newKrInfo.krTitle,
@@ -113,6 +117,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
 
     try {
       await postAddKr('/v1/key-result', reqData);
+      resetKrData();
       mutateFcn();
     } catch {
       navigate('/error');
@@ -121,7 +126,21 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     modalRef.current?.close();
   };
 
-  //TODO: add-okr의 kr 카드와 공통 컴포넌트로 만들어 추상화 하기
+  // '추가하기' 버튼 클릭 이전 필수 값, 제한 길이 검증 로직
+  useEffect(() => {
+    const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = newKrInfo;
+    krTitle &&
+    krTarget &&
+    krMetric &&
+    krStartAt &&
+    krExpireAt &&
+    !isValidMax[INPUT_TITLE] &&
+    !isValidMax[INPUT_TARGET] &&
+    !isValidMax[INPUT_METRIC]
+      ? setIsActiveSave(true)
+      : setIsActiveSave(false);
+  }, [newKrInfo, isValidMax]);
+
   return (
     <Modal ref={modalRef}>
       <StAddKrModalWrapper>
@@ -144,7 +163,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
           </StAddKrCancelBtn>
           <StAddKrConfirmAddBtn
             type="button"
-            $isActiveAdd={true}
+            $isActiveSave={isActiveSave}
             onClick={handleClickConfirmAddBtn}
           >
             추가하기
@@ -203,7 +222,7 @@ const StAddKrCancelBtn = styled(StAddKrModalBtnStyle)`
   background-color: ${({ theme }) => theme.colors.gray_450};
 `;
 
-const StAddKrConfirmAddBtn = styled(StAddKrModalBtnStyle)<{ $isActiveAdd: boolean }>`
-  background-color: ${({ theme, $isActiveAdd }) =>
-    $isActiveAdd ? theme.colors.main_darkpurple : theme.colors.gray_450};
+const StAddKrConfirmAddBtn = styled(StAddKrModalBtnStyle)<{ $isActiveSave: boolean }>`
+  background-color: ${({ theme, $isActiveSave }) =>
+    $isActiveSave ? theme.colors.main_darkpurple : theme.colors.gray_450};
 `;

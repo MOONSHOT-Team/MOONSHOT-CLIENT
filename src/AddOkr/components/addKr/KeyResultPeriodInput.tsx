@@ -56,6 +56,10 @@ const KeyResultPeriodInput = ({
         }}
       >
         <RangePicker
+          getPopupContainer={(triggerNode: HTMLElement) => {
+            //datepickker가 항상 상위로 나올수 있도록, 날짜를 선택하는 input과 dom 트리 상 위치를 똑같이 함
+            return triggerNode.parentNode?.parentNode as HTMLElement;
+          }}
           variant="borderless"
           onChange={handleClickSelectDate}
           value={[dayjs(formatDate(krPeriod[0])), dayjs(formatDate(krPeriod[1]))]}

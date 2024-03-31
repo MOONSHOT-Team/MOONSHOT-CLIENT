@@ -1,4 +1,6 @@
+import { KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
 import styled from '@emotion/styled';
+import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
 import { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 
@@ -46,15 +48,17 @@ const GuideFirstKeyResultCard = ({
   }, []);
 
   const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    if (e.target.value.length > maxLength) {
+    if (e.target.value.length === maxLength + 1) {
       setIsMaxTitle(true);
     }
 
-    if (e.target.value.length <= maxLength) {
+    if (isMaxTitle) {
+      e.target.value = e.target.value.slice(0, maxLength);
       setIsMaxTitle(false);
-      krListInfo[cardIdx].krTitle = e.target.value;
-      setKrListInfo([...krListInfo]);
     }
+
+    krListInfo[cardIdx].krTitle = e.target.value;
+    setKrListInfo([...krListInfo]);
   };
 
   const handleClickKrPeriodBox = () => {
@@ -99,13 +103,16 @@ const GuideFirstKeyResultCard = ({
 
       <StKrInputBox>
         <StKrInputDescription>목표를 달성하기 위해 필요한 성과는?</StKrInputDescription>
-        <StKrSentenceInput
-          value={krTitle}
-          placeholder={KR_TITLE_PLACEHOLDER}
-          onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
-          $isMax={isMaxTitle}
-          autoComplete="off"
-        />
+        <div css={AddKrInputMsgWrapper}>
+          <StKrSentenceInput
+            value={krTitle}
+            placeholder={KR_TITLE_PLACEHOLDER}
+            onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
+            $isMax={isMaxTitle}
+            autoComplete="off"
+          />
+          {isMaxTitle && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
+        </div>
       </StKrInputBox>
 
       <StKrInputBox>

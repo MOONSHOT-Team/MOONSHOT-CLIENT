@@ -182,7 +182,6 @@ const StAddKrModalWrapper = styled.div`
   gap: 3.6rem;
   align-items: center;
 
-  /* justify-content: center; */
   width: 47.6rem;
   height: 47.6rem;
   padding: 3.4rem 3.8rem 3.6rem;

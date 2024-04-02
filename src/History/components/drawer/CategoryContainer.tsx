@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { IcCheck } from '../assets/icons';
-import { selectedThemeTypes } from '../type/historyData';
+import { IcCheck } from '../../assets/icons';
+import { selectedThemeTypes } from '../../type/historyData';
 
 interface ICategoriesProps {
   label: string;

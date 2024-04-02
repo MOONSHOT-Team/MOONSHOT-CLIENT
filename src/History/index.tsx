@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { getOKRHistory } from './apis/fetcher';
-import Filters from './components/Filters';
-import HistoryDrawer from './components/HistoryDrawer';
-import HistoryList from './components/HistoryList';
+import HistoryDrawer from './components/drawer/HistoryDrawer';
+import Filters from './components/dropdown/Filters';
+import HistoryList from './components/historyData/HistoryList';
 import {
   filterOptionTypes,
   GroupTypes,

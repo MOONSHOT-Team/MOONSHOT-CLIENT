@@ -1,4 +1,4 @@
-import { filterOptionTypes } from '..';
+import { filterOptionTypes } from '../type/historyData';
 
 interface filtersTypes {
   label: filterOptionTypes;

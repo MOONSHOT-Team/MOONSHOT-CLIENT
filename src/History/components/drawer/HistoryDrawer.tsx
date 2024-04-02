@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-import { HISTORY_THEME } from '../constants/HISTORY_THEME';
-import { selectedThemeTypes } from '../type/historyData';
+import { HISTORY_THEME } from '../../constants/HISTORY_THEME';
+import { selectedThemeTypes } from '../../type/historyData';
 import CategoryContainer from './CategoryContainer';
 
 interface IHistoryDrawerProps {

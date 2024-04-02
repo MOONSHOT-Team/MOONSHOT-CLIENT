@@ -1,4 +1,5 @@
 export type filterOptionTypes = '최신순' | '오래된 순' | '달성률 순';
+
 export type selectedThemeTypes =
   | '성장'
   | '건강'

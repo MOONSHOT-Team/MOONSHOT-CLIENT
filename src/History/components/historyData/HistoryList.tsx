@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useState } from 'react';
 
-import { ObjectiveTypes } from '../type/historyData';
+import { ObjectiveTypes } from '../../type/historyData';
 import { HistoryKeyResult, HistoryObjective, HistoryTask } from './ItemWrappers';
 
 const HistoryList = ({ krList, objCategory, objPeriod, objProgress, objTitle }: ObjectiveTypes) => {

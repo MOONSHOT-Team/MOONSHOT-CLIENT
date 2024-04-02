@@ -2,9 +2,9 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { IcSmallDropDown } from '../assets/icons';
-import { FILTERS } from '../constants/LIST_ORDER';
-import { filterOptionTypes } from '../type/historyData';
+import { IcSmallDropDown } from '../../assets/icons';
+import { FILTERS } from '../../constants/LIST_ORDER';
+import { filterOptionTypes } from '../../type/historyData';
 
 interface IFiltersProps {
   selectedFilter: filterOptionTypes;

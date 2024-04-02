@@ -1,4 +1,4 @@
-import { selectedThemeTypes } from '..';
+import { selectedThemeTypes } from '../type/historyData';
 
 export const HISTORY_THEME: selectedThemeTypes[] = [
   '성장',

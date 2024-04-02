@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ComponentProps } from 'react';
 
-import { IcDropDown } from '../assets/icons';
+import { IcDropDown } from '../../assets/icons';
 import HistoryProgressBar from './HistoryProgressBar';
 
 /** History Objective Types */

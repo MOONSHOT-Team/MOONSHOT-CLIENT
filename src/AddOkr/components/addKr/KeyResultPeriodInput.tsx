@@ -12,13 +12,15 @@ interface IKeyResultPeriodInputProps {
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
   ) => void;
-  period: string[];
-  objInfo: IObjInfoTypes;
+  krPeriod: string[];
+  objInfo:
+    | IObjInfoTypes
+    | { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
 }
 
 const KeyResultPeriodInput = ({
   handleClickSelectDate,
-  period,
+  krPeriod,
   objInfo,
 }: IKeyResultPeriodInputProps) => {
   const { objStartAt, objExpireAt } = objInfo;
@@ -30,7 +32,7 @@ const KeyResultPeriodInput = ({
 
   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
     return (
-      current < dayjs(objStartAt.split('. ').join('')).endOf('day') ||
+      current < dayjs(objStartAt.split('. ').join('')) ||
       current > dayjs(objExpireAt.split('. ').join('')).startOf('day')
     );
   };
@@ -54,9 +56,13 @@ const KeyResultPeriodInput = ({
         }}
       >
         <RangePicker
+          getPopupContainer={(triggerNode: HTMLElement) => {
+            //datepickker가 항상 상위로 나올수 있도록, 날짜를 선택하는 input과 dom 트리 상 위치를 똑같이 함
+            return triggerNode.parentNode?.parentNode as HTMLElement;
+          }}
           variant="borderless"
           onChange={handleClickSelectDate}
-          value={[dayjs(formatDate(period[0])), dayjs(formatDate(period[1]))]}
+          value={[dayjs(formatDate(krPeriod[0])), dayjs(formatDate(krPeriod[1]))]}
           defaultValue={[dayjs(), dayjs()]}
           format={'YYYY. MM. DD'}
           disabledDate={disabledDate}
@@ -79,7 +85,7 @@ const StKRPeriodContainer = styled.div`
   }
 
   .ant-picker-input > input {
-    width: 7rem;
+    width: 8rem;
     color: ${({ theme }) => theme.colors.gray_000};
     border: none;
     ${({ theme }) => theme.fonts.body_12_regular};

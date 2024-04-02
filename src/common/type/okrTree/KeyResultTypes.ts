@@ -1,14 +1,5 @@
-import { ITaskTypes } from './TasksTypes';
+import { IKrListInfoTypes } from '../../../AddOkr/types/KrInfoTypes';
 
-export interface IKeyResultTypes {
-  keyResultTitle: string;
-  keyResultId: number;
-  startAt?: string;
-  expireAt?: string;
-  idx: number;
-  target?: number;
-  metric?: string;
-  descriptionBefore?: string;
-  descriptionAfter?: string;
-  taskList?: ITaskTypes[];
+export interface IKeyResultTypes extends IKrListInfoTypes {
+  krId?: number;
 }

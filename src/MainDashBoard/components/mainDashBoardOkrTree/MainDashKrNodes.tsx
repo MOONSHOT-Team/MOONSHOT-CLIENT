@@ -13,20 +13,21 @@ import { IcDrag } from '../../assets/icons';
 interface IMainDashKrNodesProps {
   krIdx: number;
   krList: IKeyResultTypes;
-  onShowSideSheet: (keyResultId: number) => void;
+  onShowSideSheet: (krId: number | undefined) => void;
 }
 
 export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrNodesProps) => {
   if (!krList) return;
-  const { keyResultTitle, keyResultId } = krList;
+  const { krTitle, krId } = krList;
 
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
-      <StMainDashKrBoxWrapper onClick={() => onShowSideSheet(keyResultId)}>
+      <StMainDashKrBoxWrapper onClick={() => onShowSideSheet(krId)}>
         <StraightLine />
         <StyledIcDrag />
-        <StMainDashBox>{keyResultTitle}</StMainDashBox>
+        <StMainDashBox>{krTitle}</StMainDashBox>
+        {krList.taskList.length !== 0 && <StraightLine />}
       </StMainDashKrBoxWrapper>
     </StNodesContainer>
   );

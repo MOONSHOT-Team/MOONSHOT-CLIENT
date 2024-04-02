@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
 import { useState } from 'react';
 
+import { MAX_OBJ_CONTENT } from '../../constants/OKR_MAX_LENGTH';
 import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 
-const MAX_OBJ_TEXTAREA_CNT = 100; //목표 다짐 제한 글자수
 // 기본 placeholder
 const OBJ_CONTENT_PLACEHOLDER =
   'ex) 앞으로 한 달간 다양한 마케팅을 통해 더 많은 고객을 유치하고 매출을 늘리고 싶기 때문이다.';
@@ -18,7 +18,7 @@ const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
   const handleContentTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value === '') setCurrContentCnt(0);
 
-    const contentTextareaCnt = limitMaxLength(e, MAX_OBJ_TEXTAREA_CNT);
+    const contentTextareaCnt = limitMaxLength(e, MAX_OBJ_CONTENT);
 
     if (contentTextareaCnt) setCurrContentCnt(contentTextareaCnt);
     setObjInfo({ ...objInfo, objContent: e.target.value });
@@ -37,7 +37,7 @@ const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
           autoComplete="off"
         />
         <StContentTextAreaCntTxt>
-          {currContentCnt}/{MAX_OBJ_TEXTAREA_CNT}
+          {currContentCnt}/{MAX_OBJ_CONTENT}
         </StContentTextAreaCntTxt>
       </div>
     </section>
@@ -74,6 +74,8 @@ const StObjContentTextArea = styled.textarea`
   height: 19.2rem;
   padding: 1.2rem 1.6rem;
   color: ${({ theme }) => theme.colors.gray_000};
+  word-break: keep-all;
+  overflow-wrap: break-word;
   resize: none;
   background-color: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.gray_450};

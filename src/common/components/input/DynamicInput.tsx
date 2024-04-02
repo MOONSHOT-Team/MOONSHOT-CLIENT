@@ -3,11 +3,12 @@ import styled from '@emotion/styled';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface IDynamicInputProps {
-  value: string;
+  value?: string;
   handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   minWidth?: number;
   maxLength?: number;
   isAutoFocus?: boolean;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const DynamicInput = ({
@@ -16,6 +17,7 @@ const DynamicInput = ({
   minWidth,
   maxLength,
   isAutoFocus = false,
+  onKeyDown,
 }: IDynamicInputProps) => {
   const [width, setWidth] = useState(minWidth ? minWidth : 10);
 
@@ -39,11 +41,15 @@ const DynamicInput = ({
     <div css={dynamicInputContainerStyle}>
       <StDynamicInput
         type="text"
-        width={width}
+        $width={width}
         value={value}
         onChange={handleChangeValue}
         ref={inputRef}
         maxLength={maxLength}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+          onKeyDown?.(e);
+        }}
       />
       <StInputMirror ref={mirrorRef} aria-hidden>
         {value}
@@ -59,8 +65,8 @@ const dynamicInputContainerStyle = css`
   flex-direction: column;
 `;
 
-const StDynamicInput = styled.input<{ width: number }>`
-  width: ${({ width }) => width / 10}rem;
+const StDynamicInput = styled.input<{ $width: number }>`
+  width: ${({ $width }) => $width / 10}rem;
   min-width: 1rem;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
@@ -72,7 +78,10 @@ const StDynamicInput = styled.input<{ width: number }>`
 
   &:focus {
     height: 100%;
-    background-color: ${({ theme }) => theme.colors.gray_550};
+
+    /* 입력시 배경 색 바뀌는 것이 자연스럽지 않아 일단 보류 */
+
+    /* background-color: ${({ theme }) => theme.colors.gray_550}; */
     border: none;
   }
 `;

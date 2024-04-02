@@ -3,11 +3,14 @@ import OkrTreeTemplate from '@components/okrTree/template/OkrTreeTemplate';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import useModal from '@hooks/useModal';
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { IS_GUIDE } from '../AddOkr/constants/ADD_OKR_METHOD_N_STEP';
+import { MAX_KR_TITLE, MAX_OBJ_TITLE } from '../AddOkr/constants/OKR_MAX_LENGTH';
 import { IFinalOkrListInfoTypes } from '../AddOkr/types/FinalKrListInfo';
 import { IKrListInfoTypes } from '../AddOkr/types/KrInfoTypes';
+import { IObjInfoTypes } from '../AddOkr/types/ObjectInfoTypes';
 import { IPreviewTaskInfoTypes } from '../AddOkr/types/TaskInfoTypes';
 import { postOkrInfo } from './apis/postOkrFetcher';
 import PreviewModal from './components/PreviewModal';
@@ -16,71 +19,57 @@ import { PreviewKrNodes } from './components/PreviewOkrTreeNodes/PreviewKrNodes'
 import PreviewObjNode from './components/PreviewOkrTreeNodes/PreviewObjNode';
 import { PreviewTaskNodes } from './components/PreviewOkrTreeNodes/PreviewTaskNodes';
 
-const PreviewOkr = () => {
-  const location = useLocation();
+interface IPreviewOkrProps {
+  selectedMethod: string;
+  setStep: Dispatch<SetStateAction<number>>;
+  objInfo: IObjInfoTypes;
+  krListInfo: IKrListInfoTypes[];
+}
+
+//TODO: PreviewOkr이 AddOkr에 병합 되었으므로, 폴더 구조 변동 필요
+const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOkrProps) => {
+  // const location = useLocation();
   const navigate = useNavigate();
+
+  // const { step, selectedMethod, objInfo, krListInfo } = location.state;
 
   const { modalRef, handleShowModal } = useModal();
 
-  const { selectedMethod, objInfo, krListInfo } = location.state;
+  // '저장하기' 버튼 활성화 비활성화 관리
+  const [isActiveSave, setIsActiveSave] = useState(true);
+  // o, kr, task 값 입력 관리
   const [previewObjValue, setPreviewObjValue] = useState(objInfo.objTitle);
-
   const [previewKrListInfo, setPreviewKrListInfo] = useState<IKrListInfoTypes[]>(krListInfo);
-  const [previewTaskListInfo, setPreviewTaskListInfo] = useState<IPreviewTaskInfoTypes[]>([
-    {
-      krIdx: 0,
+  //preview에서의 taskInfo 기본 값
+  const resetPreviewTaskList = [0, 1, 2].map((idx) => {
+    return {
+      krIdx: idx,
       taskList: [
         {
-          title: '',
-          idx: 0,
+          taskTitle: '',
+          taskIdx: 0,
         },
         {
-          title: '',
-          idx: 1,
+          taskTitle: '',
+          taskIdx: 1,
         },
         {
-          title: '',
-          idx: 2,
+          taskTitle: '',
+          taskIdx: 2,
         },
       ],
-    },
-    {
-      krIdx: 1,
-      taskList: [
-        {
-          title: '',
-          idx: 0,
-        },
-        {
-          title: '',
-          idx: 1,
-        },
-        {
-          title: '',
-          idx: 2,
-        },
-      ],
-    },
-    {
-      krIdx: 2,
-      taskList: [
-        {
-          title: '',
-          idx: 0,
-        },
-        {
-          title: '',
-          idx: 1,
-        },
-        {
-          title: '',
-          idx: 2,
-        },
-      ],
-    },
-  ]);
+    };
+  });
+  const [previewTaskListInfo, setPreviewTaskListInfo] =
+    useState<IPreviewTaskInfoTypes[]>(resetPreviewTaskList);
+
+  const handleClickPrevBtn = () => {
+    setStep((prev) => prev - (selectedMethod === IS_GUIDE ? 1 : 2));
+  };
 
   const handleClickSaveOkrBtn = async () => {
+    if (!isActiveSave) return;
+
     const { objStartAt, objExpireAt } = objInfo;
 
     const finalOkrInfo: IFinalOkrListInfoTypes = {
@@ -88,29 +77,17 @@ const PreviewOkr = () => {
       objTitle: previewObjValue,
       objStartAt: objStartAt.split('. ').join('-'),
       objExpireAt: objExpireAt.split('. ').join('-'),
-      krList: [
-        previewKrListInfo[0] && {
-          ...previewKrListInfo[0],
-          target: Number(previewKrListInfo[0].target.split(',').join('')),
-          startAt: previewKrListInfo[0].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[0].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[0].taskList,
-        },
-        previewKrListInfo[1] && {
-          ...previewKrListInfo[1],
-          target: Number(previewKrListInfo[1].target.split(',').join('')),
-          startAt: previewKrListInfo[1].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[1].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[1].taskList,
-        },
-        previewKrListInfo[2] && {
-          ...previewKrListInfo[2],
-          target: Number(previewKrListInfo[2].target.split(',').join('')),
-          startAt: previewKrListInfo[2].startAt.split('. ').join('-'),
-          expireAt: previewKrListInfo[2].expireAt.split('. ').join('-'),
-          taskList: previewTaskListInfo[2].taskList,
-        },
-      ],
+      krList: [0, 1, 2].map((idx) => {
+        return (
+          previewKrListInfo[idx] && {
+            ...previewKrListInfo[idx],
+            krTarget: Number(previewKrListInfo[idx].krTarget.toString().split(',').join('')),
+            krStartAt: previewKrListInfo[idx].krStartAt.split('. ').join('-'),
+            krExpireAt: previewKrListInfo[idx].krExpireAt.split('. ').join('-'),
+            taskList: previewTaskListInfo[idx].taskList,
+          }
+        );
+      }),
     };
 
     try {
@@ -122,12 +99,31 @@ const PreviewOkr = () => {
     }
   };
 
+  // o, kr 값이 빈 값일 때 저장하기 비활성화를 위한 검증 함수
+  const validEmptyValue = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    e.target.value === '' ? setIsActiveSave(false) : setIsActiveSave(true);
+  };
+
   const handleChangeObjTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    validEmptyValue(e);
+
+    if (e.target.value.length > MAX_OBJ_TITLE)
+      e.target.value = e.target.value.slice(0, MAX_KR_TITLE);
     setPreviewObjValue(e.target.value);
   };
 
+  const handleChangeKrTitleValue = (e: React.ChangeEvent<HTMLInputElement>, krIdx: number) => {
+    validEmptyValue(e);
+
+    if (e.target.value.length > MAX_KR_TITLE)
+      e.target.value = e.target.value.slice(0, MAX_KR_TITLE);
+
+    previewKrListInfo[krIdx].krTitle = e.target.value;
+    setPreviewKrListInfo([...previewKrListInfo]);
+  };
+
   useEffect(() => {
-    location.state && handleShowModal();
+    handleShowModal();
   }, []);
 
   return (
@@ -151,8 +147,8 @@ const PreviewOkr = () => {
             KrNodes={(krIdx) => (
               <PreviewKrNodes
                 krIdx={krIdx}
+                handleChangeKrTitleValue={handleChangeKrTitleValue}
                 previewKrListInfo={previewKrListInfo}
-                setPreviewKrListInfo={setPreviewKrListInfo}
               />
             )}
             TaskNodes={(isFirstChild, krIdx, taskIdx) => (
@@ -167,9 +163,14 @@ const PreviewOkr = () => {
           />
         </div>
 
-        <StSaveOkrBtn type="button" onClick={handleClickSaveOkrBtn}>
-          저장하기
-        </StSaveOkrBtn>
+        <StBtnWrapper>
+          <StPrevBtn type="button" onClick={handleClickPrevBtn}>
+            이전으로
+          </StPrevBtn>
+          <StSaveBtn type="button" onClick={handleClickSaveOkrBtn} $isActiveSave={isActiveSave}>
+            저장하기
+          </StSaveBtn>
+        </StBtnWrapper>
       </section>
     </>
   );
@@ -196,18 +197,31 @@ const okrTreeDiv = css`
   margin-bottom: 8rem;
 `;
 
-const StSaveOkrBtn = styled.button`
-  position: absolute;
+const StBtnWrapper = styled.div`
+  position: fixed;
   bottom: 0;
+  display: flex;
+  gap: 1.2rem;
+  width: fit-content;
+  margin-bottom: 4.6rem;
+`;
+
+const StPrevBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 17.8rem;
   height: 3.4rem;
-  margin-bottom: 4.6rem;
-  color: ${({ theme }) => theme.colors.gray_650};
-  background: ${({ theme }) => theme.colors.gray_100};
+  color: ${({ theme }) => theme.colors.gray_000};
+  background: ${({ theme }) => theme.colors.gray_550};
   border-radius: 6px;
+
+  ${({ theme }) => theme.fonts.btn_14_semibold};
+`;
+
+const StSaveBtn = styled(StPrevBtn)<{ $isActiveSave: boolean }>`
+  color: ${({ theme, $isActiveSave }) => $isActiveSave && theme.colors.gray_650};
+  background-color: ${({ theme, $isActiveSave }) => $isActiveSave && theme.colors.gray_100};
 
   ${({ theme }) => theme.fonts.btn_14_semibold};
 `;

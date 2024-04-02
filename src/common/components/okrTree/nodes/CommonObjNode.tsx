@@ -41,7 +41,7 @@ export const StObjBoxWrapper = styled.div`
   justify-content: center;
 `;
 
-const StObjectiveBox = styled.div<{
+export const StObjectiveBox = styled.div<{
   $objStroke: undefined | string;
   $hoverStyle: undefined | boolean;
 }>`

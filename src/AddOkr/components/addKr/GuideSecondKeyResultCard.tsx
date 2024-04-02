@@ -1,8 +1,12 @@
+import { KR_NUM_ERR_MSG, KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
+import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
+import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { useState } from 'react';
 
-import { MAX_KR_METRIC, MAX_KR_TARGET } from '../../constants/MAX_KR_LENGTH';
+import { MAX_KR_METRIC, MAX_KR_TARGET } from '../../constants/OKR_MAX_LENGTH';
 import { EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IKrListInfoTypes } from '../../types/KrInfoTypes';
 
@@ -12,70 +16,68 @@ interface IGuideSecondKeyResultCardProps {
   cardIdx: number;
 }
 
-const HINT_TARGET = 'ex) 10';
-const HINT_METRIC = 'ex) 회';
+const { HINT_TARGET, HINT_METRIC } = KR_INPUT_DATA.HINT_PLACHOLDER;
+const { INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
 
 const GuideSecondKeyResultCard = ({
   krListInfo,
   setKrListInfo,
   cardIdx,
 }: IGuideSecondKeyResultCardProps) => {
-  const { title, target, metric } = krListInfo[cardIdx];
-  const [isValidMax, setIsValidMax] = useState({
-    target: false,
-    metric: false,
+  const { krTitle, krTarget, krMetric } = krListInfo[cardIdx];
+  const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
+    [INPUT_TARGET]: false,
+    [INPUT_METRIC]: false,
   });
 
-  const handleGuidTargetInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    const parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+  const handleGuidTargetMetricInput = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    maxLength: number,
+  ) => {
+    const { newValue, targetInputName } = validMaxKrInputVal(
+      e,
+      maxLength,
+      isValidMax,
+      setIsValidMax,
+    );
 
-    if (e.target.value.length > maxLength) {
-      setIsValidMax({ ...isValidMax, target: true });
-    }
-
-    if (e.target.value.length <= maxLength) {
-      setIsValidMax({ ...isValidMax, target: false });
-      krListInfo[cardIdx].target = parsedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      setKrListInfo([...krListInfo]);
-    }
-  };
-
-  const handleGuideMetricInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    if (e.target.value.length > maxLength) {
-      setIsValidMax({ ...isValidMax, metric: true });
-    }
-
-    if (e.target.value.length <= maxLength) {
-      setIsValidMax({ ...isValidMax, metric: false });
-      krListInfo[cardIdx].metric = e.target.value;
-      setKrListInfo([...krListInfo]);
-    }
+    krListInfo[cardIdx] = { ...krListInfo[cardIdx], [targetInputName]: newValue };
+    setKrListInfo([...krListInfo]);
   };
 
   return (
     <StGuideSecondKeyResultCardWrapper>
       <StSecondKrTitleBox>
         <p>목표를 달성하기 위해 필요한 성과는 다음과 같아요.</p>
-        <StTargetKrTitle>{title}</StTargetKrTitle>
+        <StTargetKrTitle>{krTitle}</StTargetKrTitle>
       </StSecondKrTitleBox>
 
       <StSecondKrTargetMetricBox>
         <p>이 성과를 측정할 수 있는 수치값과 단위를 입력하세요.</p>
         <div css={TargetMetricInputBox}>
-          <StTargetMetricInput
-            value={target}
-            onChange={(e) => handleGuidTargetInput(e, MAX_KR_TARGET)}
-            placeholder={HINT_TARGET}
-            $isMax={isValidMax.target}
-            autoComplete="off"
-          />
-          <StTargetMetricInput
-            value={metric}
-            onChange={(e) => handleGuideMetricInput(e, MAX_KR_METRIC)}
-            placeholder={HINT_METRIC}
-            $isMax={isValidMax.metric}
-            autoComplete="off"
-          />
+          <div css={AddKrInputMsgWrapper}>
+            <StTargetMetricInput
+              value={krTarget}
+              name={INPUT_TARGET}
+              onChange={(e) => handleGuidTargetMetricInput(e, MAX_KR_TARGET)}
+              placeholder={HINT_TARGET}
+              $isMax={isValidMax[INPUT_TARGET]}
+              autoComplete="off"
+            />
+            {isValidMax.krTarget && <StAddKrErrMsg>{KR_NUM_ERR_MSG}</StAddKrErrMsg>}
+          </div>
+
+          <div css={AddKrInputMsgWrapper}>
+            <StTargetMetricInput
+              name={INPUT_METRIC}
+              value={krMetric}
+              onChange={(e) => handleGuidTargetMetricInput(e, MAX_KR_METRIC)}
+              placeholder={HINT_METRIC}
+              $isMax={isValidMax[INPUT_METRIC]}
+              autoComplete="off"
+            />
+            {isValidMax.krMetric && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
+          </div>
         </div>
       </StSecondKrTargetMetricBox>
     </StGuideSecondKeyResultCardWrapper>

@@ -33,8 +33,8 @@ const KRPeriodSelect = ({
     formatString[0] && formatString[1] ? setPeriod(formatString) : {};
     const data = {
       keyResultId: keyResultId,
-      startAt: formatDate(formatString[0]),
-      expireAt: formatDate(formatString[1]),
+      krStartAt: formatDate(formatString[0]),
+      krExpireAt: formatDate(formatString[1]),
     };
     try {
       await patchCheckIn('/v1/key-result', data);

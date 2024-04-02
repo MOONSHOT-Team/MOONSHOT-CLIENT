@@ -68,7 +68,7 @@ const fonts = {
   body_14_semibold: FONT({
     size: 1.4,
     weight: 600,
-    lineHeight: 3.2,
+    lineHeight: 2.0,
   }),
   body_14_medium: FONT({
     size: 1.4,

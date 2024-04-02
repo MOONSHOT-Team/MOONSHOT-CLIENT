@@ -1,4 +1,3 @@
-import StraightLine from '@components/okrTree/lines/StraightLine';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IKeyResultTypes } from '@type/okrTree/KeyResultTypes';
@@ -11,17 +10,16 @@ interface IKrTaskContainerProps {
 }
 
 const KrTaskContainer = ({ krProp, KrNodes, TaskNodes }: IKrTaskContainerProps) => {
-  const { taskList, idx: krIdx } = krProp;
+  const { taskList, krIdx } = krProp;
   return (
     <StKrTaskContainer>
       {KrNodes(krIdx)}
       {taskList?.length !== 0 && (
         <>
-          <StraightLine />
           <StTaskNodesWrapper>
-            {taskList?.map(({ title, idx: taskIdx }) => {
+            {taskList?.map(({ taskTitle, taskIdx }) => {
               return (
-                <React.Fragment key={`${title}-${taskIdx}`}>
+                <React.Fragment key={`${taskTitle}-${taskIdx}`}>
                   {TaskNodes(taskIdx === 0, krIdx, taskIdx)}
                 </React.Fragment>
               );

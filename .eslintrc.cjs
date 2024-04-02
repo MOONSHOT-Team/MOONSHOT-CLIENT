@@ -46,7 +46,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-    'react/no-unknown-property': ['error', { ignore: ['css'] }],
+    'react/no-unknown-property': ['error', { ignore: ['css'], argsIgnorePattern: '^_' }],
   },
   settings: {
     'import/parsers': {

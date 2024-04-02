@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
+import { OKR_TREE_VIEWS } from '../../constants/OKR_TREE_VIEWS';
 
 const EditBtn = ({
   state,
@@ -21,9 +21,9 @@ const EditBtn = ({
           id="view"
           type="radio"
           name="isEdit"
-          value={OKRTREEVIEWS['VIEWOKRTREE']}
+          value={OKR_TREE_VIEWS['VIEWOKRTREE']}
           onChange={handleRadio}
-          checked={state == OKRTREEVIEWS['VIEWOKRTREE']}
+          checked={state == OKR_TREE_VIEWS['VIEWOKRTREE']}
         />
         <StRadioSpanLeft>View</StRadioSpanLeft>
       </StRadioLabel>
@@ -32,9 +32,9 @@ const EditBtn = ({
           id="edit"
           type="radio"
           name="isEdit"
-          value={OKRTREEVIEWS['EDITOKRTREE']}
+          value={OKR_TREE_VIEWS['EDITOKRTREE']}
           onChange={handleRadio}
-          checked={state == OKRTREEVIEWS['EDITOKRTREE']}
+          checked={state == OKR_TREE_VIEWS['EDITOKRTREE']}
         />
         <StRadioSpanRight>Edit</StRadioSpanRight>
       </StRadioLabel>

@@ -7,7 +7,7 @@ import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
 import { imgNoneOkr } from '../../assets/images';
-import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
+import { OKR_TREE_VIEWS } from '../../constants/OKR_TREE_VIEWS';
 import { IMainData } from '../../type/mainDashboardDataType';
 import { EditKrNodes } from '../editOkrTree/EditKrNodes';
 import EditObjectNode from '../editOkrTree/EditObjectNode';
@@ -23,7 +23,7 @@ interface IMainDashboardOKRTreeProps {
 }
 
 const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
-  const [state, setState] = useState(OKRTREEVIEWS['VIEWOKRTREE']);
+  const [state, setState] = useState(OKR_TREE_VIEWS['VIEWOKRTREE']);
   const [editKrId, setEditKrId] = useState<number | undefined>();
   const [editKrList, setEditKrList] = useState<IKeyResultTypes[]>(currentOkrData?.krList);
   const url = currentOkrData?.objId
@@ -32,7 +32,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const { data } = useSWR(url, getDashBoardData);
 
   useEffect(() => {
-    setState(OKRTREEVIEWS['VIEWOKRTREE']);
+    setState(OKR_TREE_VIEWS['VIEWOKRTREE']);
     setEditKrList(currentOkrData?.krList);
   }, [currentOkrData]);
 
@@ -61,7 +61,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
 
   const renderOKRTree = () => {
     switch (state) {
-      case OKRTREEVIEWS['VIEWOKRTREE']:
+      case OKR_TREE_VIEWS['VIEWOKRTREE']:
         return (
           <article css={okrTreeContainer}>
             <EditBtn state={state} setState={setState} />
@@ -90,7 +90,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
           </article>
         );
       //edit
-      case OKRTREEVIEWS['EDITOKRTREE']:
+      case OKR_TREE_VIEWS['EDITOKRTREE']:
         return (
           <article css={okrTreeContainer}>
             <EditBtn state={state} setState={setState} />

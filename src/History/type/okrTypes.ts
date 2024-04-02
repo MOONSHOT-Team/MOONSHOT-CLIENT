@@ -29,9 +29,6 @@ export interface Group {
 
 export interface IObjectiveDataProps {
   historyCategories: string[];
-  okrHistoryYearData: string[];
   selectedTheme: string | undefined;
-  selectedYear: string | undefined;
   onSelectTheme: (selectedTheme: string) => void;
-  onSelectYear: (selectedYear: string) => void;
 }

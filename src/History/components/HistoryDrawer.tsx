@@ -95,11 +95,8 @@ const StCategoryButton = styled.button<IStCategoryButtonProps>`
 
 const HistoryDrawer = ({
   historyCategories,
-  okrHistoryYearData,
   selectedTheme,
-  selectedYear,
   onSelectTheme,
-  onSelectYear,
 }: IObjectiveDataProps) => {
   return (
     <StHistoryAside>
@@ -109,12 +106,6 @@ const HistoryDrawer = ({
         historyCategories={historyCategories}
         selectedCategory={selectedTheme}
         onClick={onSelectTheme}
-      />
-      <Categories
-        label="연도"
-        categories={okrHistoryYearData}
-        selectedCategory={selectedYear}
-        onClick={onSelectYear}
       />
     </StHistoryAside>
   );

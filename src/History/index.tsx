@@ -1,7 +1,7 @@
 import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { getOKRHistory } from './apis/fetcher';
@@ -23,53 +23,37 @@ export type filterOptionTypes = '최신순' | '오래된 순' | '달성률 순';
 const History = () => {
   const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
   const [selectedTheme, setSelectedTheme] = useState<string | undefined>(undefined);
-  const [selectedYear, setSelectedYear] = useState<string | undefined>(undefined);
-  const isSelectedYear = selectedYear ? Number(selectedYear.slice(0, 4)) : undefined;
+  const [historyAllCategories, setHistoryAllCategories] = useState<string[]>([]);
 
   const { data, isLoading } = useSWR(
-    ['/v1/objective/history', isSelectedYear, selectedTheme, selectedFilter],
-    ([url, isSelectedYear, selectedTheme, selectedFilter]) =>
-      getOKRHistory(url, isSelectedYear, selectedTheme, selectedFilter),
+    ['/v1/objective/history', selectedTheme, selectedFilter],
+    ([url, selectedTheme, selectedFilter]) => getOKRHistory(url, selectedTheme, selectedFilter),
   );
+
+  useEffect(() => {
+    if ((historyAllCategories && historyAllCategories.length === 0) || selectedTheme == undefined)
+      setHistoryAllCategories(data?.data.data.categories);
+  }, [data, selectedTheme, historyAllCategories]);
 
   if (isLoading) return <Loading />;
 
-  const historyCategories = data?.data.data.categories;
-  const historyYears = data?.data.data.years;
   const historyGroup = data?.data.data.groups;
-
   const handleSelectTheme = (selectedNewTheme: string) => {
     if (selectedNewTheme === selectedTheme) return setSelectedTheme(undefined);
-
-    if (selectedYear !== '0') setSelectedYear(undefined);
 
     setSelectedTheme(selectedNewTheme);
   };
 
-  const handleSelectYear = (selectedNewYear: string) => {
-    if (selectedNewYear === selectedYear) return setSelectedYear(undefined);
-
-    setSelectedYear(selectedNewYear);
-  };
-
   const handleSelectFilter = (selectedFilter: filterOptionTypes) => {
     setSelectedFilter(selectedFilter);
-    console.log(selectedFilter);
   };
-
-  const yearData = historyYears?.map(
-    ({ year, count }: { year: string; count: number }) => `${year}(${count})`,
-  );
 
   return (
     <section css={historyUi}>
       <HistoryDrawer
-        historyCategories={historyCategories}
-        okrHistoryYearData={yearData}
+        historyCategories={historyAllCategories}
         selectedTheme={selectedTheme}
-        selectedYear={selectedYear}
         onSelectTheme={handleSelectTheme}
-        onSelectYear={handleSelectYear}
       />
 
       <section css={dropDownSection}>

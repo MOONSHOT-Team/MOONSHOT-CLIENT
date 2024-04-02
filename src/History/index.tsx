@@ -5,37 +5,25 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { getOKRHistory } from './apis/fetcher';
-import HistoryList from './components/dropDown/HistoryList';
-import ListOrder from './components/dropDown/ListOrder';
+import Filters from './components/Filters';
 import HistoryDrawer from './components/HistoryDrawer';
-import { Group, IObjective } from './type/okrTypes';
-
-export type filterOptionTypes = '최신순' | '오래된 순' | '달성률 순';
-export type selectedThemeTypes =
-  | '성장'
-  | '건강'
-  | '생산성'
-  | '라이프스타일'
-  | '경제'
-  | '셀프케어'
-  | undefined;
+import HistoryList from './components/HistoryList';
+import {
+  filterOptionTypes,
+  GroupTypes,
+  ObjectiveTypes,
+  selectedThemeTypes,
+} from './type/historyData';
 
 const History = () => {
   const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
   const [selectedTheme, setSelectedTheme] = useState<selectedThemeTypes>(undefined);
-  const [historyAllCategories, setHistoryAllCategories] = useState<string[]>([]);
+  const [historyCategories, setHistoryAllCategories] = useState<selectedThemeTypes[]>([]);
 
   const { data, isLoading } = useSWR(
     ['/v1/objective/history', selectedTheme, selectedFilter],
     ([url, selectedTheme, selectedFilter]) => getOKRHistory(url, selectedTheme, selectedFilter),
   );
-
-  useEffect(() => {
-    if ((historyAllCategories && historyAllCategories.length === 0) || selectedTheme == undefined)
-      setHistoryAllCategories(data?.data.data.categories);
-  }, [data, selectedTheme, historyAllCategories]);
-
-  if (isLoading) return <Loading />;
 
   const historyGroup = data?.data.data.groups;
   const handleSelectTheme = (selectedNewTheme: selectedThemeTypes) => {
@@ -48,27 +36,31 @@ const History = () => {
     setSelectedFilter(selectedFilter);
   };
 
+  useEffect(() => {
+    if (data && historyCategories.length === 0) setHistoryAllCategories(data.data.data.categories);
+  }, [data, historyCategories]);
+
+  if (isLoading) return <Loading />;
+
   return (
     <section css={historyUi}>
       <HistoryDrawer
-        historyCategories={historyAllCategories}
+        historyCategories={historyCategories}
         selectedTheme={selectedTheme}
         onSelectTheme={handleSelectTheme}
       />
       <section css={dropDownSection}>
-        <ListOrder selectedFilter={selectedFilter} onFilterSelection={handleSelectFilter} />
-        {historyGroup?.map(({ year, objList }: Group) => (
+        <Filters selectedFilter={selectedFilter} onFilterSelection={handleSelectFilter} />
+        {historyGroup?.map(({ year, objList }: GroupTypes) => (
           <div key={`${year}*${year}`} css={listMarginBottom}>
-            <StListOrderContainer>
-              <StEachYear>{year}년</StEachYear>
-            </StListOrderContainer>
-            <ul>
+            <StYear>{year}년</StYear>
+            <ol>
               <li css={addGapBetweenObjective}>
-                {objList.map((item: IObjective) => (
+                {objList.map((item: ObjectiveTypes) => (
                   <HistoryList key={`${item.objId}-${item.objTitle}`} {...item} />
                 ))}
               </li>
-            </ul>
+            </ol>
           </div>
         ))}
       </section>
@@ -86,6 +78,7 @@ const historyUi = css`
 const dropDownSection = css`
   position: relative;
   width: 100%;
+  min-width: 105.8rem;
   padding: 3rem 3.6rem 3rem 4rem;
   overflow-y: auto;
 `;
@@ -103,19 +96,14 @@ const addGapBetweenObjective = css`
   justify-content: center;
 `;
 
-const StListOrderContainer = styled.div`
+const StYear = styled.p`
   display: flex;
   align-items: end;
   justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   min-width: 105.8rem;
   padding-bottom: 1.2rem;
-`;
-
-const StEachYear = styled.p`
-  display: flex;
-  justify-content: flex-start;
-  height: 3.2rem;
   margin-bottom: 1.2rem;
   color: ${({ theme }) => theme.colors.gray_000} ${({ theme }) => theme.fonts.title_20_semibold};
 `;

@@ -1,31 +1,44 @@
 import ProgressBar from '@components/ProgressBar';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { ComponentProps, useState } from 'react';
+import { ComponentProps } from 'react';
 
-import { IcDropDown } from '../../assets/icons';
-import { IObjective } from '../../type/okrTypes';
-import HistoryProgressBar from '../HistoryProgressBar';
+import { IcDropDown } from '../assets/icons';
+import HistoryProgressBar from './HistoryProgressBar';
 
+/** History Objective Types */
 interface IShowKRType {
   isShowKR: boolean;
 }
 
-interface IHistoryObjectiveItemProps extends IShowKRType, ComponentProps<'div'> {
+interface IHistoryObjectiveProps extends IShowKRType, ComponentProps<'div'> {
   category: string;
   objective: string;
   progress: number;
   period: string;
 }
 
-const HistoryObjectiveItem = ({
+/** History KR Types */
+interface IHistoryKeyResultProps extends ComponentProps<'div'> {
+  index: number;
+  keyResult: string;
+  progress: number;
+}
+
+/** History Task Types */
+interface IHistoryTaskProps {
+  index: number;
+  task: string;
+}
+
+export const HistoryObjective = ({
   category,
   objective,
   progress,
   period,
   isShowKR,
   ...props
-}: IHistoryObjectiveItemProps) => {
+}: IHistoryObjectiveProps) => {
   const { children } = props;
 
   return (
@@ -46,6 +59,41 @@ const HistoryObjectiveItem = ({
   );
 };
 
+export const HistoryKeyResult = ({
+  index,
+  keyResult,
+  progress,
+  children,
+}: IHistoryKeyResultProps) => {
+  return (
+    <>
+      <StKeyResultWrapper>
+        <div css={keyResultItemContentLeft}>
+          <StKeyResultIndex>KR {index + 1}</StKeyResultIndex>
+          <StKeyResult>{keyResult}</StKeyResult>
+        </div>
+        <div css={keyResultItemContentRight}>
+          <div css={keyResultProgressbar}>
+            <ProgressBar currentProgress={progress} maximumProgress={100} />
+          </div>
+          <StKeyResultProgressNumber>{progress}% 달성</StKeyResultProgressNumber>
+        </div>
+      </StKeyResultWrapper>
+      {children && <div css={taskAlign}>{children}</div>}
+    </>
+  );
+};
+
+export const HistoryTask = ({ index, task }: IHistoryTaskProps) => {
+  return (
+    <StTaskWrapper>
+      <StTaskIndex>Task {index + 1}</StTaskIndex>
+      <StTask>{task}</StTask>
+    </StTaskWrapper>
+  );
+};
+
+/** History Objective CSS */
 const objectiveItemContentLeft = css`
   display: flex;
   gap: 1.6rem;
@@ -106,37 +154,7 @@ const StPeriod = styled.p`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-interface IHistoryKeyResultItemProps extends ComponentProps<'div'> {
-  index: number;
-  keyResult: string;
-  progress: number;
-}
-
-const HistoryKeyResultItem = ({
-  index,
-  keyResult,
-  progress,
-  children,
-}: IHistoryKeyResultItemProps) => {
-  return (
-    <>
-      <StKeyResultWrapper>
-        <div css={keyResultItemContentLeft}>
-          <StKeyResultIndex>KR {index + 1}</StKeyResultIndex>
-          <StKeyResult>{keyResult}</StKeyResult>
-        </div>
-        <div css={keyResultItemContentRight}>
-          <div css={keyResultProgressbar}>
-            <ProgressBar currentProgress={progress} maximumProgress={100} />
-          </div>
-          <StKeyResultProgressNumber>{progress}% 달성</StKeyResultProgressNumber>
-        </div>
-      </StKeyResultWrapper>
-      {children && <div css={taskAlign}>{children}</div>}
-    </>
-  );
-};
-
+/** History KR CSS */
 const keyResultItemContentLeft = css`
   display: flex;
   gap: 2.4rem;
@@ -191,20 +209,7 @@ const StKeyResultProgressNumber = styled.span`
   ${({ theme }) => theme.fonts.body_13_medium};
 `;
 
-interface IHistoryTaskItemProps {
-  index: number;
-  task: string;
-}
-
-const HistoryTaskItem = ({ index, task }: IHistoryTaskItemProps) => {
-  return (
-    <StTaskWrapper>
-      <StTaskIndex>Task {index + 1}</StTaskIndex>
-      <StTask>{task}</StTask>
-    </StTaskWrapper>
-  );
-};
-
+/** History Task CSS */
 const StTaskWrapper = styled.div`
   display: flex;
   gap: 1.6rem;
@@ -224,50 +229,4 @@ const StTaskIndex = styled.span`
 
 const StTask = styled.span`
   ${({ theme }) => theme.fonts.body_14_regular};
-`;
-
-const HistoryList = ({ krList, objCategory, objPeriod, objProgress, objTitle }: IObjective) => {
-  const [isShowKR, setIsShowKR] = useState(false);
-
-  const handleShowKR = () => {
-    setIsShowKR((prev) => !prev);
-  };
-
-  return (
-    <>
-      <HistoryObjectiveItem
-        category={objCategory}
-        objective={objTitle}
-        progress={objProgress}
-        period={objPeriod}
-        isShowKR={isShowKR}
-        onClick={handleShowKR}
-      >
-        <div css={addGapBetweenItems}>
-          {krList.map(({ krIdx, krProgress, krTitle, taskList }) => (
-            <HistoryKeyResultItem
-              key={`${krTitle}-${krIdx}`}
-              index={krIdx}
-              keyResult={krTitle}
-              progress={krProgress}
-            >
-              {taskList.map(({ taskIdx, taskTitle }) => (
-                <HistoryTaskItem key={`${taskTitle}-${taskIdx}`} index={taskIdx} task={taskTitle} />
-              ))}
-            </HistoryKeyResultItem>
-          ))}
-        </div>
-      </HistoryObjectiveItem>
-    </>
-  );
-};
-
-export default HistoryList;
-
-const addGapBetweenItems = css`
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  justify-content: center;
-  margin-bottom: 3rem;
 `;

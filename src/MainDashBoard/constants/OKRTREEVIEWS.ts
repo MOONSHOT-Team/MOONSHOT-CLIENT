@@ -1,1 +1,1 @@
-export const OKRTREEVIEWS = ['viewOkrTree', 'editOkrTree'];
+export const OKR_TREE_VIEWS = { VIEWOKRTREE: 'view', EDITOKRTREE: 'edit' };

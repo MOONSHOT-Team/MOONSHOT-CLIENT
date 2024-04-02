@@ -39,6 +39,7 @@ const StModalDialog = styled.dialog`
   left: 50%;
   width: fit-content;
   height: fit-content;
+  overflow: visible; /* dialog 위로 datepicker 달력 나올수 있도록 수정 */
   background: ${({ theme }) => theme.colors.gray_550};
   border: none;
   border-radius: 10px;

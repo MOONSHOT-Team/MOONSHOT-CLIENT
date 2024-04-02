@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-import { OKRTREEVIEWS } from '../../constants/OKRTREEVIEWS';
+import { OKR_TREE_VIEWS } from '../../constants/OKRTREEVIEWS';
 
 const EditBtn = ({
-  state,
-  setState,
+  viewMode,
+  setViewMode,
 }: {
-  state: string;
-  setState: Dispatch<SetStateAction<string>>;
+  viewMode: string;
+  setViewMode: Dispatch<SetStateAction<string>>;
 }) => {
   const handleRadio = (e: ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value);
+    setViewMode(e.target.value);
   };
 
   return (
@@ -21,9 +21,9 @@ const EditBtn = ({
           id="view"
           type="radio"
           name="isEdit"
-          value={OKRTREEVIEWS[0]}
+          value={OKR_TREE_VIEWS['VIEWOKRTREE']}
           onChange={handleRadio}
-          checked={state == OKRTREEVIEWS[0]}
+          checked={viewMode == OKR_TREE_VIEWS['VIEWOKRTREE']}
         />
         <StRadioSpanLeft>View</StRadioSpanLeft>
       </StRadioLabel>
@@ -32,9 +32,9 @@ const EditBtn = ({
           id="edit"
           type="radio"
           name="isEdit"
-          value={OKRTREEVIEWS[1]}
+          value={OKR_TREE_VIEWS['EDITOKRTREE']}
           onChange={handleRadio}
-          checked={state == OKRTREEVIEWS[1]}
+          checked={viewMode == OKR_TREE_VIEWS['EDITOKRTREE']}
         />
         <StRadioSpanRight>Edit</StRadioSpanRight>
       </StRadioLabel>

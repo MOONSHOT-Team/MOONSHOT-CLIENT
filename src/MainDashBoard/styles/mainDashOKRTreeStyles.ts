@@ -1,4 +1,4 @@
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
 
 export const StMainDashObjP = styled.p`
   min-width: 21rem;

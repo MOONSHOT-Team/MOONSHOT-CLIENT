@@ -22,8 +22,8 @@ interface IMainEditKrNodesProps {
   krId: number | undefined;
   handleAddTask: (krId: number | undefined) => void;
   objId: number;
-  state: string;
-  setState: Dispatch<SetStateAction<string>>;
+  viewMode: string;
+  setViewMode: Dispatch<SetStateAction<string>>;
 }
 
 export const EditKrNodes = ({
@@ -32,8 +32,8 @@ export const EditKrNodes = ({
   krId,
   handleAddTask,
   objId,
-  state,
-  setState,
+  viewMode,
+  setViewMode,
 }: IMainEditKrNodesProps) => {
   const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ export const EditKrNodes = ({
     try {
       await deletOkrInstance(`/v1/key-result/${krId}`);
       mutate();
-      setState(state);
+      setViewMode(viewMode);
     } catch {
       navigate('/error');
     }

@@ -31,8 +31,8 @@ interface IEditTaskProps {
   taskList: ITaskTypes[];
   editKrId: number | undefined;
   objId: number;
-  state: string;
-  setState: Dispatch<SetStateAction<string>>;
+  viewMode: string;
+  setViewMode: Dispatch<SetStateAction<string>>;
 }
 
 export const EditTaskNodes = ({
@@ -41,8 +41,8 @@ export const EditTaskNodes = ({
   taskList,
   editKrId,
   objId,
-  state,
-  setState,
+  viewMode,
+  setViewMode,
 }: IEditTaskProps) => {
   const navigate = useNavigate();
 
@@ -78,7 +78,7 @@ export const EditTaskNodes = ({
         taskIdx: taskIdx,
       });
       mutate();
-      setState(state);
+      setViewMode(viewMode);
     } catch {
       navigate('error');
     }
@@ -89,7 +89,7 @@ export const EditTaskNodes = ({
     try {
       await deletOkrInstance(`/v1/task/${task.taskId}`);
       mutate();
-      setState(state);
+      setViewMode(viewMode);
     } catch {
       navigate('/error');
     }

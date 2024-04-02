@@ -16,7 +16,12 @@ const OnboardingFooter = () => {
         loading="lazy"
       />
       <StFooterText to="/team-moonshot">TEAM moonshot</StFooterText>
-      <StFooterText to="#">개인정보 처리방침</StFooterText>
+      <StFooterText
+        to="https://moonshot-.notion.site/moonshot-1-0-0cdb3499765349e9aba64474fbba933e"
+        target="_blank"
+      >
+        개인정보 처리방침
+      </StFooterText>
       <StCopyRightText>Copyright 2024. TEAM moonshot All rights reserved.</StCopyRightText>
     </StFooter>
   );

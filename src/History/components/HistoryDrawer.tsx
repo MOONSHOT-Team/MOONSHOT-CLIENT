@@ -1,15 +1,16 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { selectedThemeTypes } from '..';
 import { IcCheck } from '../assets/icons';
 import { HISTORY_THEME } from '../constants/HISTORY_THEME';
 import { IObjectiveDataProps } from '../type/okrTypes';
 
 interface ICategoriesProps {
   label: string;
-  categories: string[];
+  categories: selectedThemeTypes[];
   selectedCategory: string | undefined;
-  onClick: (category: string) => void;
+  onClick: (category: selectedThemeTypes) => void;
   historyCategories?: string[];
 }
 
@@ -35,7 +36,7 @@ const Categories = ({
               isHavingCategoryData={isHavingCategoryData}
               disabled={!isHavingCategoryData}
               onClick={() => {
-                onClick(String(category));
+                onClick(category);
               }}
             >
               {category === selectedCategory ? <IcCheck /> : null}

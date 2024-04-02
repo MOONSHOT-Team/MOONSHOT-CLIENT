@@ -11,18 +11,18 @@ import HistoryDrawer from './components/HistoryDrawer';
 import { Group, IObjective } from './type/okrTypes';
 
 export type filterOptionTypes = '최신순' | '오래된 순' | '달성률 순';
-// export type selectedThemeTypes =
-//   | '성장'
-//   | '건강'
-//   | '생산성'
-//   | '라이프스타일'
-//   | '경제'
-//   | '셀프케어'
-//   | null;
+export type selectedThemeTypes =
+  | '성장'
+  | '건강'
+  | '생산성'
+  | '라이프스타일'
+  | '경제'
+  | '셀프케어'
+  | undefined;
 
 const History = () => {
   const [selectedFilter, setSelectedFilter] = useState<filterOptionTypes>('최신순');
-  const [selectedTheme, setSelectedTheme] = useState<string | undefined>(undefined);
+  const [selectedTheme, setSelectedTheme] = useState<selectedThemeTypes>(undefined);
   const [historyAllCategories, setHistoryAllCategories] = useState<string[]>([]);
 
   const { data, isLoading } = useSWR(
@@ -38,7 +38,7 @@ const History = () => {
   if (isLoading) return <Loading />;
 
   const historyGroup = data?.data.data.groups;
-  const handleSelectTheme = (selectedNewTheme: string) => {
+  const handleSelectTheme = (selectedNewTheme: selectedThemeTypes) => {
     if (selectedNewTheme === selectedTheme) return setSelectedTheme(undefined);
 
     setSelectedTheme(selectedNewTheme);
@@ -55,7 +55,6 @@ const History = () => {
         selectedTheme={selectedTheme}
         onSelectTheme={handleSelectTheme}
       />
-
       <section css={dropDownSection}>
         <ListOrder selectedFilter={selectedFilter} onFilterSelection={handleSelectFilter} />
         {historyGroup?.map(({ year, objList }: Group) => (

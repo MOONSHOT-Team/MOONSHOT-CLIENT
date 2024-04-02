@@ -1,3 +1,5 @@
+import { selectedThemeTypes } from '..';
+
 export interface IObjective {
   objId: number;
   objTitle: string;
@@ -30,5 +32,5 @@ export interface Group {
 export interface IObjectiveDataProps {
   historyCategories: string[];
   selectedTheme: string | undefined;
-  onSelectTheme: (selectedTheme: string) => void;
+  onSelectTheme: (selectedTheme: selectedThemeTypes) => void;
 }

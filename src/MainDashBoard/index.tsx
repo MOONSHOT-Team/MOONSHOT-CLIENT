@@ -57,7 +57,7 @@ const MainDashBoard = () => {
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
-  const { data: treeData, isLoading, mutate } = useSWR(url, getDashBoardData);
+  const { data: treeData, isLoading, mutate } = useSWR([url, 'index'], getDashBoardData);
   const okrTreeData = treeData?.data.tree;
   const goalListTreeData = treeData?.data.objList;
 

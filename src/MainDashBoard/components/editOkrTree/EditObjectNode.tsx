@@ -33,7 +33,7 @@ const EditObjectNode = ({
   const { objTitle, objId } = objInfo;
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR(url, getDashBoardData);
+  const { mutate } = useSWR([url, 'MAINDASH'], getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 

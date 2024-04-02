@@ -38,7 +38,7 @@ export const EditKrNodes = ({
   const navigate = useNavigate();
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR(url, getDashBoardData);
+  const { mutate } = useSWR([url, 'MAINDASH'], getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -56,14 +56,7 @@ export const EditKrNodes = ({
   };
 
   useEffect(() => {
-    if (krList.taskList.length >= 3) {
-      setIsntFull(false);
-      return;
-    }
-    if (krList.taskList.length < 3) {
-      setIsntFull(true);
-      return;
-    }
+    krList.taskList.length < 3 ? setIsntFull(true) : setIsntFull(false);
   }, [krList]);
 
   if (!krList) return;

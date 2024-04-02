@@ -29,7 +29,6 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const url = currentOkrData?.objId
     ? `/v1/objective?objectiveId=${currentOkrData?.objId}`
     : '/v1/objective';
-  console.log(url, 'mainDash');
   const { data } = useSWR([url, 'MAINDASH'], getDashBoardData);
 
   useEffect(() => {

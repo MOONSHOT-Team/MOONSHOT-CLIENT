@@ -1,11 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface IDynamicInputProps {
   value?: string;
   handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  minWidth?: number;
   maxLength?: number;
   isAutoFocus?: boolean;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -14,25 +13,13 @@ interface IDynamicInputProps {
 const DynamicInput = ({
   value,
   handleChangeValue,
-  minWidth,
   maxLength,
   isAutoFocus = false,
   onKeyDown,
 }: IDynamicInputProps) => {
-  const [width, setWidth] = useState(minWidth ? minWidth : 10);
-
-  const mirrorRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!mirrorRef.current) return;
-    setWidth(mirrorRef.current.offsetWidth);
-  }, [value]);
-
-  useEffect(() => {
-    if (!mirrorRef.current) return;
-    setWidth(mirrorRef.current.offsetWidth);
-
     if (!isAutoFocus) return;
     if (inputRef.current) inputRef.current.focus();
   }, [isAutoFocus]);
@@ -41,7 +28,6 @@ const DynamicInput = ({
     <div css={dynamicInputContainerStyle}>
       <StDynamicInput
         type="text"
-        $width={width}
         value={value}
         onChange={handleChangeValue}
         ref={inputRef}
@@ -49,10 +35,9 @@ const DynamicInput = ({
         onKeyDown={(e) => {
           onKeyDown?.(e);
         }}
+        size={1}
       />
-      <StInputMirror ref={mirrorRef} aria-hidden>
-        {value}
-      </StInputMirror>
+      <StInputMirror aria-hidden>{value}</StInputMirror>
     </div>
   );
 };
@@ -60,13 +45,11 @@ const DynamicInput = ({
 export default DynamicInput;
 
 const dynamicInputContainerStyle = css`
-  display: flex;
-  flex-direction: column;
+  display: table;
 `;
 
-const StDynamicInput = styled.input<{ $width: number }>`
-  width: ${({ $width }) => $width / 10}rem;
-  min-width: 1rem;
+const StDynamicInput = styled.input`
+  width: 100%;
   color: ${({ theme }) => theme.colors.gray_000};
   text-align: center;
   background-color: transparent;
@@ -86,7 +69,7 @@ const StDynamicInput = styled.input<{ $width: number }>`
 `;
 
 const StInputMirror = styled.div`
-  display: inline-block;
+  display: block;
   width: fit-content;
   min-width: 1rem;
   height: 0;

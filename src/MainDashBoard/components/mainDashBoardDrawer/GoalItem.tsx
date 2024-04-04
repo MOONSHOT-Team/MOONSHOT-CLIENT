@@ -114,7 +114,6 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   });
 
   drag(drop(ref));
-  console.log(currentGoalId, id);
   return (
     <StGoalItemLi
       bgColor={currentGoalId === id || currentGoalId === undefined}

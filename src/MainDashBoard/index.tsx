@@ -17,6 +17,7 @@ import DrawerModal from './components/mainDashboardModal/DrawerModal';
 import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
 import SideSheet from './components/sideSheet/SideSheet';
 import { MAINDASHBOARD_MODAL_CASE } from './constants/MAINDASHBOARD_MODAL_CASE';
+import { INDEX_KEY } from './constants/mainDashConstants';
 
 const DASHBOARD_SHOW_STATE = ['OKR_TREE', 'ADD_SELECT_METHOD', 'CONGRATE'];
 
@@ -57,7 +58,7 @@ const MainDashBoard = () => {
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
-  const { data: treeData, isLoading, mutate } = useSWR(url, getDashBoardData);
+  const { data: treeData, isLoading, mutate } = useSWR([url, INDEX_KEY], getDashBoardData);
   const okrTreeData = treeData?.data.tree;
   const goalListTreeData = treeData?.data.objList;
 

@@ -14,6 +14,7 @@ import useSWR from 'swr';
 
 import { deletOkrInstance, getDashBoardData } from '../../apis/fetcher';
 import { IcAdd, IcDrag, IcTrashPurple } from '../../assets/icons';
+import { MAINDASHBOARD_KEY } from '../../constants/mainDashConstants';
 import DeleteKrModal from '../editModeModal/DeleteKrModal';
 
 interface IMainEditKrNodesProps {
@@ -22,8 +23,8 @@ interface IMainEditKrNodesProps {
   krId: number | undefined;
   handleAddTask: (krId: number | undefined) => void;
   objId: number;
-  state: string;
-  setState: Dispatch<SetStateAction<string>>;
+  viewMode: string;
+  setViewMode: Dispatch<SetStateAction<string>>;
 }
 
 export const EditKrNodes = ({
@@ -32,13 +33,13 @@ export const EditKrNodes = ({
   krId,
   handleAddTask,
   objId,
-  state,
-  setState,
+  viewMode,
+  setViewMode,
 }: IMainEditKrNodesProps) => {
   const navigate = useNavigate();
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR(url, getDashBoardData);
+  const { mutate } = useSWR([url, MAINDASHBOARD_KEY], getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -49,21 +50,14 @@ export const EditKrNodes = ({
     try {
       await deletOkrInstance(`/v1/key-result/${krId}`);
       mutate();
-      setState(state);
+      setViewMode(viewMode);
     } catch {
       navigate('/error');
     }
   };
 
   useEffect(() => {
-    if (krList.taskList.length >= 3) {
-      setIsntFull(false);
-      return;
-    }
-    if (krList.taskList.length < 3) {
-      setIsntFull(true);
-      return;
-    }
+    krList.taskList.length < 3 ? setIsntFull(true) : setIsntFull(false);
   }, [krList]);
 
   if (!krList) return;
@@ -107,7 +101,7 @@ const StEditKrKrBoxWrapper = styled(StKrBoxWrapper)`
 `;
 
 const StyledIcDrag = styled(IcDrag)`
-  margin: 0 0.5rem 0 0.6rem;
+  margin: 0 0.5rem 0.6rem;
 `;
 
 const StEditKrBox = styled(StKrBox)`

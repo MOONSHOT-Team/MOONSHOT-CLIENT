@@ -6,7 +6,7 @@ import { IPatchGoalIdxReqType } from '../type/goalItemTypes';
 import { IPatchCheckInReqType } from '../type/mainReqTypes';
 import { IPostLogResType } from '../type/mainResTypes';
 
-export const getDashBoardData = async (url: string) => {
+export const getDashBoardData = async ([url, _uniqueKey]: [string, string?]) => {
   const response = await instance.get(url);
   return response.data;
 };

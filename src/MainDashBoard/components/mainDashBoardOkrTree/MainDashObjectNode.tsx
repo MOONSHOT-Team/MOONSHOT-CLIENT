@@ -1,6 +1,5 @@
 import { CommonObjNode } from '@components/okrTree/nodes/CommonObjNode';
-
-import { StMainDashObjP } from '../../styles/mainDashOKRTreeStyles';
+import styled from '@emotion/styled';
 export interface IMainBoardObjNodeProps {
   objValue?: string;
   objStroke: string;
@@ -15,3 +14,11 @@ const MainDashObjectNode = ({ objValue, objStroke }: IMainBoardObjNodeProps) => 
 };
 
 export default MainDashObjectNode;
+
+export const StMainDashObjP = styled.p`
+  min-width: 21rem;
+  color: ${({ theme }) => theme.colors.gray_000};
+  ${({ theme }) => theme.fonts.body_13_medium};
+
+  word-break: break-all;
+`;

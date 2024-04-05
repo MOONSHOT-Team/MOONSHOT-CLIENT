@@ -23,16 +23,10 @@ export const MainDashKrNodes = ({ krIdx, krList, onShowSideSheet }: IMainDashKrN
   return (
     <StNodesContainer>
       <StKrLabel>KR {krIdx + 1}</StKrLabel>
-      <StMainDashKrBoxWrapper>
+      <StMainDashKrBoxWrapper onClick={() => onShowSideSheet(krId)}>
         <StraightLine />
         <StyledIcDrag />
-        <StMainDashBox
-          onClick={() => {
-            onShowSideSheet(krId);
-          }}
-        >
-          {krTitle}
-        </StMainDashBox>
+        <StMainDashBox>{krTitle}</StMainDashBox>
         {krList.taskList.length !== 0 && <StraightLine />}
       </StMainDashKrBoxWrapper>
     </StNodesContainer>
@@ -50,7 +44,5 @@ const StyledIcDrag = styled(IcDrag)`
 
 const StMainDashBox = styled(StKrBox)`
   color: ${({ theme }) => theme.colors.gray_000};
-  cursor: pointer;
-
   ${({ theme }) => theme.fonts.body_13_medium};
 `;

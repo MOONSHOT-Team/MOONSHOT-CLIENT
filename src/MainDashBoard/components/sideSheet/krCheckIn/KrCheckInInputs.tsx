@@ -4,9 +4,9 @@ import { limitMaxLength } from '@utils/limitMaxLength';
 import axios from 'axios';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useSWR from 'swr';
+import { useSWRConfig } from 'swr';
 
-import { getDashBoardData, patchCheckIn, postCheckIn } from '../../../apis/fetcher';
+import { patchCheckIn, postCheckIn } from '../../../apis/fetcher';
 import { StErrorMSG } from '../../../styles/mainDashBoardStyles';
 
 const CHECK_IN_PLACEHOLDER =
@@ -73,7 +73,7 @@ export const 진척정도입력하기 = ({
   onCancel,
   keyResultId,
   handleChangeState,
-  // objId,
+  objId,
 }: IKrCheckInProps) => {
   const [logNum, setLogNum] = useState('');
   const [logContent, setLogContent] = useState('');
@@ -81,7 +81,7 @@ export const 진척정도입력하기 = ({
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isMaxNum, setIsMaxNum] = useState(false);
 
-  const { mutate } = useSWR([`/v1/key-result/${keyResultId}`], getDashBoardData);
+  const { mutate } = useSWRConfig();
 
   const navigate = useNavigate();
 
@@ -136,7 +136,8 @@ export const 진척정도입력하기 = ({
 
     try {
       const response = await postCheckIn('/v1/log', data);
-      mutate();
+      await mutate(`/v1/key-result/${keyResultId}`);
+      await mutate(`/v1/objective?objectiveId=${objId}`);
       if (response.status === 200) {
         //축하모션
         handleChangeState?.(2);
@@ -193,7 +194,7 @@ export const KR수정하기 = ({
   target = 0,
   metric,
   handleChangeState,
-  // objId,
+  objId,
 }: IKrCheckInProps) => {
   const [targetValue, setTarget] = useState('');
   const [logContent, setLogContent] = useState('');
@@ -203,7 +204,7 @@ export const KR수정하기 = ({
   const [isSame, setIsSame] = useState(false);
   const navigator = useNavigate();
 
-  const { mutate } = useSWR([`/v1/key-result/${keyResultId}`], getDashBoardData);
+  const { mutate } = useSWRConfig();
 
   const handleTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsSame(false);
@@ -250,7 +251,8 @@ export const KR수정하기 = ({
 
     try {
       const response = await patchCheckIn('/v1/key-result', data);
-      mutate();
+      await mutate(`/v1/key-result/${keyResultId}`);
+      await mutate(`/v1/objective?objectiveId=${objId}`);
       if (response?.data) {
         handleChangeState?.(2);
       }

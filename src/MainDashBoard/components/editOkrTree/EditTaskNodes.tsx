@@ -23,6 +23,7 @@ import {
 } from '../../../PreviewOkr/components/PreviewOkrTreeNodes/PreviewTaskNodes';
 import { deletOkrInstance, getDashBoardData, postAddTask } from '../../apis/fetcher';
 import { IcDrag, IcTrashPurple } from '../../assets/icons';
+import { MAINDASHBOARD_KEY } from '../../constants/mainDashConstants';
 import DeleteTaskModal from '../editModeModal/DeleteTaskModal';
 
 interface IEditTaskProps {
@@ -47,7 +48,7 @@ export const EditTaskNodes = ({
   const navigate = useNavigate();
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR([url, 'MAINDASH'], getDashBoardData);
+  const { mutate } = useSWR([url, MAINDASHBOARD_KEY], getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 

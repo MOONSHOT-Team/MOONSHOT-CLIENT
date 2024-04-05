@@ -7,6 +7,7 @@ import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
 import { imgNoneOkr } from '../../assets/images';
+import { MAINDASHBOARD_KEY } from '../../constants/mainDashConstants';
 import { OKR_TREE_VIEWS } from '../../constants/OKRTREEVIEWS';
 import { IMainData } from '../../type/mainDashboardDataType';
 import { EditKrNodes } from '../editOkrTree/EditKrNodes';
@@ -29,7 +30,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const url = currentOkrData?.objId
     ? `/v1/objective?objectiveId=${currentOkrData?.objId}`
     : '/v1/objective';
-  const { data } = useSWR([url, 'MAINDASH'], getDashBoardData);
+  const { data } = useSWR([url, MAINDASHBOARD_KEY], getDashBoardData);
 
   useEffect(() => {
     setViewMode(OKR_TREE_VIEWS['VIEWOKRTREE']);

@@ -12,6 +12,7 @@ import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
 import { IcAdd } from '../../assets/icons';
+import { MAINDASHBOARD_KEY } from '../../constants/mainDashConstants';
 import { StMainDashObjP } from '../../styles/mainDashOKRTreeStyles';
 import AddKrModal from '../editModeModal/AddKrModal';
 import { IMainBoardObjNodeProps } from '../mainDashBoardOkrTree/MainDashObjectNode';
@@ -33,7 +34,7 @@ const EditObjectNode = ({
   const { objTitle, objId } = objInfo;
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR([url, 'MAINDASH'], getDashBoardData);
+  const { mutate } = useSWR([url, MAINDASHBOARD_KEY], getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 

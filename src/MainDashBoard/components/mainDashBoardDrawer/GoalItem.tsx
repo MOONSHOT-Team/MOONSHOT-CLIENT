@@ -114,10 +114,9 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   });
 
   drag(drop(ref));
-
   return (
     <StGoalItemLi
-      bgColor={currentGoalId === id}
+      bgColor={currentGoalId === id || currentGoalId === undefined}
       onClick={handleOnClick}
       ref={ref}
       isDragging={isDragging}
@@ -143,7 +142,9 @@ const GoalItem: React.FC<IGoalItemProps> = ({
           <StGoalItemTitle>{title}</StGoalItemTitle>
           <i>{currentGoalId === id ? <IcDropUp /> : <IcDropDown />}</i>
         </article>
-        {currentGoalId === id && <StGoalItemContent>{content}</StGoalItemContent>}
+        {(currentGoalId === id || currentGoalId === undefined) && (
+          <StGoalItemContent>{content}</StGoalItemContent>
+        )}
       </StGoalItemContainer>
       <footer css={ProgressBarContainer}>
         <MainDashProgressBar

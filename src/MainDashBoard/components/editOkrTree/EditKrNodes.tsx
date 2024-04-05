@@ -14,6 +14,7 @@ import useSWR from 'swr';
 
 import { deletOkrInstance, getDashBoardData } from '../../apis/fetcher';
 import { IcAdd, IcDrag, IcTrashPurple } from '../../assets/icons';
+import { MAINDASHBOARD_KEY } from '../../constants/mainDashConstants';
 import DeleteKrModal from '../editModeModal/DeleteKrModal';
 
 interface IMainEditKrNodesProps {
@@ -38,7 +39,7 @@ export const EditKrNodes = ({
   const navigate = useNavigate();
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR(url, getDashBoardData);
+  const { mutate } = useSWR([url, MAINDASHBOARD_KEY], getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -56,14 +57,7 @@ export const EditKrNodes = ({
   };
 
   useEffect(() => {
-    if (krList.taskList.length >= 3) {
-      setIsntFull(false);
-      return;
-    }
-    if (krList.taskList.length < 3) {
-      setIsntFull(true);
-      return;
-    }
+    krList.taskList.length < 3 ? setIsntFull(true) : setIsntFull(false);
   }, [krList]);
 
   if (!krList) return;

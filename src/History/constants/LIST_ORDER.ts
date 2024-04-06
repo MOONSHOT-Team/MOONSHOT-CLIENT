@@ -1,9 +1,12 @@
-interface ListOrderType {
-  label: string;
-  options: string[];
+import { filterOptionTypes } from '../type/historyData';
+
+interface filtersTypes {
+  label: filterOptionTypes;
+  options: filterOptionTypes[];
 }
-export const LIST_ORDER: ListOrderType[] = [
+
+export const FILTERS: filtersTypes[] = [
   { label: '최신순', options: ['오래된 순', '달성률 순'] },
   { label: '달성률 순', options: ['최신순', '오래된 순'] },
-  { label: '오래된 순', options: ['달성률순', '최신순'] },
+  { label: '오래된 순', options: ['달성률 순', '최신순'] },
 ];

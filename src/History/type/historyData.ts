@@ -1,4 +1,15 @@
-export interface IObjective {
+export type filterOptionTypes = '최신순' | '오래된 순' | '달성률 순';
+
+export type selectedThemeTypes =
+  | '성장'
+  | '건강'
+  | '생산성'
+  | '라이프스타일'
+  | '경제'
+  | '셀프케어'
+  | undefined;
+
+export type ObjectiveTypes = {
   objId: number;
   objTitle: string;
   objCategory: string;
@@ -7,32 +18,23 @@ export interface IObjective {
   objIdx?: number;
   isLast?: boolean;
   krList: IKeyResult[];
-}
-export interface IKeyResult {
+};
+
+type IKeyResult = {
   krId: number;
   krIdx: number;
   krTitle: string;
   krProgress: number;
   taskList: ITask[];
-}
+};
 
-export interface ITask {
+type ITask = {
   taskId: number;
   taskIdx: number;
   taskTitle: string;
-}
+};
 
-export interface Group {
+export type GroupTypes = {
   year: number;
-  objList: IObjective[];
-}
-
-export interface IObjectiveDataProps {
-  groups: Group[];
-  years: { year: number; count: number }[] | null;
-  fixedYears: { year: number; count: number }[] | null;
-  categories: string[];
-  fixedCategories: string[];
-  onThemeSelect: (selectedTheme: string) => void;
-  onYearSelect: (selectedYear: number) => void;
-}
+  objList: ObjectiveTypes[];
+};

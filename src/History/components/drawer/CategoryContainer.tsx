@@ -37,7 +37,7 @@ const CategoryContainer = ({
                 onCategorySelect(category);
               }}
             >
-              {category === selectedCategory ? <IcCheck /> : null}
+              {category === selectedCategory && <IcCheck />}
               <span>{category}</span>
             </StCategory>
           );
@@ -67,11 +67,7 @@ const StTitle = styled.label`
   ${({ theme }) => theme.fonts.body_12_regular};
 `;
 
-interface IStCategoryProps {
-  isHavingCategoryData?: boolean;
-}
-
-const StCategory = styled.button<IStCategoryProps>`
+const StCategory = styled.button<{ isHavingCategoryData?: boolean }>`
   display: flex;
   gap: 0.4rem;
   align-items: center;

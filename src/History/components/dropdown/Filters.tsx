@@ -28,7 +28,9 @@ const Filters = ({ selectedFilter, onFilterSelection }: IFiltersProps) => {
     <div css={filterContainer}>
       <StDropDown onClick={handleCurrentFilterClick}>
         <span>{selectedFilter}</span>
-        <StIcon isDropdownOpen={isDropdownOpen} />
+        <StIcon isDropdownOpen={isDropdownOpen}>
+          <IcSmallDropDown />
+        </StIcon>
       </StDropDown>
       {isDropdownOpen && (
         <StRestFiltersWrapper>
@@ -64,7 +66,9 @@ const StDropDown = styled.button`
   ${({ theme }) => theme.fonts.body_12_medium};
 `;
 
-const StIcon = styled(IcSmallDropDown)<{ isDropdownOpen: boolean }>`
+const StIcon = styled.div<{ isDropdownOpen: boolean }>`
+  width: 1.6rem;
+  height: 1.6rem;
   transition: all 0.3s ease;
   transform: ${({ isDropdownOpen }) => (isDropdownOpen ? 'rotate(-180deg)' : '')};
 `;
@@ -79,7 +83,7 @@ const StRestFiltersWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.gray_400};
   border-radius: 6px;
 
-  button:first-child {
+  button:first-of-type {
     position: relative;
 
     &::after {

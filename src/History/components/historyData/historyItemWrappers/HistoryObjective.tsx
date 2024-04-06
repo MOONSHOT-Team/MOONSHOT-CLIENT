@@ -30,7 +30,9 @@ const HistoryObjective = ({
     <>
       <StWrapper isShowKR={isShowKR} {...props}>
         <div css={objectiveItemContentLeft}>
-          <StDropDownIcon isShowKR={isShowKR} />
+          <StDropDownIcon isShowKR={isShowKR}>
+            <IcDropDown />
+          </StDropDownIcon>
           <StCategory>{category}</StCategory>
           <StObjective>{objective}</StObjective>
         </div>
@@ -75,7 +77,9 @@ const StWrapper = styled.div<IShowKRType>`
   border-radius: 6px;
 `;
 
-const StDropDownIcon = styled(IcDropDown)<IShowKRType>`
+const StDropDownIcon = styled.div<IShowKRType>`
+  width: 2.4rem;
+  height: 2.4rem;
   transition: all 0.5s ease;
   transform: ${({ isShowKR }) => (isShowKR ? 'rotate(-180deg)' : '')};
 `;

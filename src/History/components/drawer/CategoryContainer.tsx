@@ -24,9 +24,7 @@ const CategoryContainer = ({
       <StTitle>{label}</StTitle>
       <div css={sortCategories}>
         {allCategories?.map((category) => {
-          const isHavingCategoryData = historyCategories
-            ? historyCategories.includes(category)
-            : true;
+          const isHavingCategoryData = historyCategories.includes(category);
 
           return (
             <StCategory

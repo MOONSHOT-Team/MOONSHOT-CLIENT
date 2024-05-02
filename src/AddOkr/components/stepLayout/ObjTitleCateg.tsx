@@ -28,6 +28,14 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
   **/
   // 카테고리 태그 선택 핸들러
   const handleClickObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const currSelectedCateg = e.currentTarget.id;
+
+    // 카테고리 재선택시 취소
+    if (currSelectedCateg === selectedObjCateg) {
+      setObjInfo({ ...objInfo, objCategory: '' });
+      return;
+    }
+
     setObjInfo({ ...objInfo, objCategory: e.currentTarget.id });
   };
 

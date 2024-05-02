@@ -1,8 +1,10 @@
-export const HISTORY_THEME = [
-  { category: '성장' },
-  { category: '건강' },
-  { category: '생산성' },
-  { category: '라이프스타일' },
-  { category: '경제' },
-  { category: '셀프케어' },
+import { selectedThemeTypes } from '../type/historyData';
+
+export const HISTORY_THEME: selectedThemeTypes[] = [
+  '성장',
+  '건강',
+  '생산성',
+  '라이프스타일',
+  '경제',
+  '셀프케어',
 ];

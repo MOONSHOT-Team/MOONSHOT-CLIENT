@@ -1,5 +1,5 @@
-import CheckIcon from './CheckIcon.svg?react';
-import DropDownIcon from './DropDownIcon.svg?react';
-import FilteringIcon from './FilteringIcon.svg?react';
+import IcCheck from './icCheck.svg?react';
+import IcDropDown from './icDropDown.svg?react';
+import IcSmallDropDown from './icSmallDropDown.svg?react';
 
-export { CheckIcon, DropDownIcon, FilteringIcon };
+export { IcCheck, IcDropDown, IcSmallDropDown };

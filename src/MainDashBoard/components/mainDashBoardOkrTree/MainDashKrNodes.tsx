@@ -59,7 +59,7 @@ const StMainDashBox = styled(StKrBox)<{ isActive: boolean }>`
   color: ${({ theme }) => theme.colors.gray_000};
   cursor: pointer;
   background-color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.transparent_purple : '#242424'};
+    isActive ? theme.colors.transparent_purple : theme.colors.gray_600};
 
   ${({ theme }) => theme.fonts.body_13_medium};
 `;

@@ -8,12 +8,10 @@ import { NAV_ITEMS } from '../../constants/NAV_ITEMS';
 const OnboardingHeader = () => {
   return (
     <StHeader>
-      <Link to="/">
-        <picture>
-          <source srcSet={webpLogo} type="image/webp" />
-          <img src={imgLogo} alt="logo-img" width={126} height={28} />
-        </picture>
-      </Link>
+      <picture>
+        <source srcSet={webpLogo} type="image/webp" />
+        <img src={imgLogo} alt="logo-img" width={126} height={28} />
+      </picture>
       <nav>
         <StNavItem>
           {NAV_ITEMS.map(({ text, path }) => (

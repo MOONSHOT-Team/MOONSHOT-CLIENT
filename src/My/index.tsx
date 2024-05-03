@@ -7,6 +7,7 @@ import useSWR from 'swr';
 
 import { getUserInfo } from './apis/fetcher';
 import profileImg from './assets/images/profileImg.png';
+import Footer from './components/Footer';
 import { ITEM_LIST } from './constants/ITEM_LIST';
 
 interface IAcquiredItemList {
@@ -31,35 +32,38 @@ const My = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <section css={myPageUi}>
-      <StUserInfoContainer>
-        <StUserProfileImg
-          src={userInfo?.data.data.profileImgUrl ? userInfo?.data.data.profileImgUrl : profileImg}
-          alt="사용자 사진"
-        />
-        <StUserNickName>{userInfo?.data.data.nickname}</StUserNickName>
-        <StUserIdentification>
-          {userInfo?.data.data.socialPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
-        </StUserIdentification>
-        <StWithdrawalButton onClick={handleWithdrawal}>회원탈퇴</StWithdrawalButton>
-      </StUserInfoContainer>
-      <section css={pageCenter}>
-        <div>
-          <StAcquiredItemsText>획득한 아이템</StAcquiredItemsText>
-          <StAcquiredItemImgWrapper>
-            {ITEM_LIST.map(({ src, title, subTitle }: IAcquiredItemList) => (
-              <StAcquiredItemList key={title}>
-                <img src={src} alt="획득한 아이템 사진" width={184} height={240} />
-                <StAcquiredItemTitle>
-                  <StAcquiredItemMainTitle>{title}</StAcquiredItemMainTitle>
-                  <StAcquiredItemSubTitle>{subTitle}</StAcquiredItemSubTitle>
-                </StAcquiredItemTitle>
-              </StAcquiredItemList>
-            ))}
-          </StAcquiredItemImgWrapper>
-        </div>
+    <>
+      <section css={myPageUi}>
+        <StUserInfoContainer>
+          <StUserProfileImg
+            src={userInfo?.data.data.profileImgUrl ? userInfo?.data.data.profileImgUrl : profileImg}
+            alt="사용자 사진"
+          />
+          <StUserNickName>{userInfo?.data.data.nickname}</StUserNickName>
+          <StUserIdentification>
+            {userInfo?.data.data.socialPlatform === 'kakao' ? '카카오' : '구글'} 로그인 유저입니다.
+          </StUserIdentification>
+          <StWithdrawalButton onClick={handleWithdrawal}>회원탈퇴</StWithdrawalButton>
+        </StUserInfoContainer>
+        <section css={pageCenter}>
+          <div>
+            <StAcquiredItemsText>획득한 아이템</StAcquiredItemsText>
+            <StAcquiredItemImgWrapper>
+              {ITEM_LIST.map(({ src, title, subTitle }: IAcquiredItemList) => (
+                <StAcquiredItemList key={title}>
+                  <img src={src} alt="획득한 아이템 사진" width={184} height={240} />
+                  <StAcquiredItemTitle>
+                    <StAcquiredItemMainTitle>{title}</StAcquiredItemMainTitle>
+                    <StAcquiredItemSubTitle>{subTitle}</StAcquiredItemSubTitle>
+                  </StAcquiredItemTitle>
+                </StAcquiredItemList>
+              ))}
+            </StAcquiredItemImgWrapper>
+          </div>
+        </section>
       </section>
-    </section>
+      <Footer />
+    </>
   );
 };
 
@@ -76,7 +80,7 @@ const pageCenter = css`
 
 const myPageUi = css`
   display: flex;
-  height: 100%;
+  height: calc(100% - 9rem);
 `;
 
 const StUserInfoContainer = styled.section`

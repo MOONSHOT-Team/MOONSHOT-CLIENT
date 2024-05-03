@@ -21,9 +21,14 @@ import { MainDashTaskNodes } from './MainDashTaskNodes';
 interface IMainDashboardOKRTreeProps {
   currentOkrData: IMainData;
   onShowSideSheet: (krId: number | undefined) => void;
+  currentKrId: number;
 }
 
-const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
+const MainDashboardOKRTree = ({
+  onShowSideSheet,
+  currentOkrData,
+  currentKrId,
+}: IMainDashboardOKRTreeProps) => {
   const [viewMode, setViewMode] = useState(OKR_TREE_VIEWS['VIEWOKRTREE']);
   const [editKrId, setEditKrId] = useState<number | undefined>();
   const [editKrList, setEditKrList] = useState<IKeyResultTypes[]>(currentOkrData?.krList);
@@ -77,6 +82,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                     krIdx={krIdx}
                     krList={editKrList[krIdx]}
                     onShowSideSheet={onShowSideSheet}
+                    currentKrId={currentKrId}
                   />
                 )}
                 TaskNodes={(isFirstChild, krIdx, taskIdx) => (

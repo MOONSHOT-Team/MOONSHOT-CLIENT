@@ -131,6 +131,7 @@ const MainDashBoard = () => {
 
   const handleCloseSideSheet = () => {
     setShowSideSheet(false);
+    setCurrentKrId(-1);
   };
 
   /** 

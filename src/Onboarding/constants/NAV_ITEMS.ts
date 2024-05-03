@@ -1,10 +1,6 @@
 export const NAV_ITEMS = [
   {
-    text: '홈',
+    text: '서비스 소개',
     path: '/',
-  },
-  {
-    text: 'Team moonshot',
-    path: '/team-moonshot',
   },
 ];

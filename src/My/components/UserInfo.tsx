@@ -16,7 +16,7 @@ const UserInfo = () => {
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('REFRESH_TOKEN');
 
-    navigate('/');
+    navigate('/sign-in');
   };
 
   if (isLoading) return <Loading />;

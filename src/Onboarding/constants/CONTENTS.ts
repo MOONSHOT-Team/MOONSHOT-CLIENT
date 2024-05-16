@@ -1,13 +1,13 @@
 import { ColorsTypes } from '@styles/theme';
 
-interface IContentsProps {
+type ContentsTypes = {
   title: string;
   subTitleColor?: keyof ColorsTypes;
   subTitle?: string;
   description?: string;
-}
+};
 
-export const CONTENTS: IContentsProps[] = [
+export const CONTENTS: ContentsTypes[] = [
   {
     title: '당신의 모든 도전을\n하나의 대시보드에서 관리, 추적, 달성.',
   },

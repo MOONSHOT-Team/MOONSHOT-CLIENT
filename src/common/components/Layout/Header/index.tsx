@@ -14,7 +14,7 @@ const Header = () => {
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('REFRESH_TOKEN');
 
-    navigate('/');
+    navigate('/sign-in');
   };
 
   return (

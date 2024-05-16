@@ -9,6 +9,7 @@ import webpFrame3GradientBackground from '../../assets/frame/webpFrame3GradientB
 import webpFrame3Question1 from '../../assets/frame/webpFrame3Question1.webp';
 import webpFrame3Question2 from '../../assets/frame/webpFrame3Question2.webp';
 import webpFrame3Question3 from '../../assets/frame/webpFrame3Question3.webp';
+import { CONTENTS } from '../../constants/CONTENTS';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -21,10 +22,10 @@ const Frame3 = () => {
   return (
     <section css={section} ref={element}>
       <TextField
-        subTitle="목표 설정"
-        subTitleColor="sub_pink"
-        title={`목표와 핵심 지표들을\n더욱 쉽고, 바르고, 의미있게`}
-        description="고민의 시간들이 모여 도전적인 목표를 이룰 수 있도록, 추적을 통해 성장으로 이어지는 경험을 문샷과 함께하세요"
+        subTitle={CONTENTS[2].subTitle!}
+        subTitleColor={CONTENTS[2].subTitleColor!}
+        title={CONTENTS[2].title}
+        description={CONTENTS[2].description!}
       />
       {active && (
         <div css={imgContainer}>

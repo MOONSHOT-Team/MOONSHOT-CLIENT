@@ -11,6 +11,7 @@ import imgFrame1SideSheetRight from '../../assets/frame/imgFrame1SideSheetRight.
 import webpFrame1MainDashboard from '../../assets/frame/webpFrame1MainDashboard.webp';
 import webpFrame1ObjectiveItem from '../../assets/frame/webpFrame1ObjectiveItem.webp';
 import webpFrame1SideSheetRight from '../../assets/frame/webpFrame1SideSheetRight.webp';
+import { CONTENTS } from '../../constants/CONTENTS';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -36,7 +37,7 @@ const Frame1 = () => {
           </p>
         ))}
       </StRollingTextBox>
-      <StMainText>{`그토록 찾아 헤매던\n일상 생산성의 끝`}</StMainText>
+      <StMainText>{CONTENTS[0].title}</StMainText>
       <StCtaLink to="https://tally.so/r/n0Ol0N" target="_blank" className="tally-link-button">
         서비스 신청하기
       </StCtaLink>

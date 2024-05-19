@@ -51,4 +51,6 @@ const StDescription = styled.p`
   font-weight: 500;
   line-height: 2.4rem;
   color: ${({ theme }) => theme.colors.gray_200};
+  text-align: center;
+  white-space: pre-line;
 `;

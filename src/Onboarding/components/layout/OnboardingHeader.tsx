@@ -3,6 +3,7 @@ import webpLogo from '@assets/images/webpLogo.webp';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 
+import { APPLY_CBT_TALLY_LINK } from '../../constants/APPLY_LINK';
 import { NAV_ITEMS } from '../../constants/NAV_ITEMS';
 
 const OnboardingHeader = () => {
@@ -22,8 +23,8 @@ const OnboardingHeader = () => {
             </li>
           ))}
           <li>
-            <StCTALink to="https://tally.so/r/n0Ol0N" target="_blank" className="tally-link-button">
-              서비스 신청하기
+            <StCTALink to={APPLY_CBT_TALLY_LINK} target="_blank" className="tally-link-button">
+              베타테스트 신청
             </StCTALink>
           </li>
         </StNavItem>

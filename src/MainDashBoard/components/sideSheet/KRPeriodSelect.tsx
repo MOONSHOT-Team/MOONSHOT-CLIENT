@@ -30,7 +30,9 @@ const KRPeriodSelect = ({
     _values: [Dayjs | null, Dayjs | null] | null,
     formatString: [string, string],
   ) => {
+    if (!formatString[0] || !formatString[1]) return;
     formatString[0] && formatString[1] ? setPeriod(formatString) : {};
+
     const data = {
       keyResultId: keyResultId,
       krStartAt: formatDate(formatString[0]),

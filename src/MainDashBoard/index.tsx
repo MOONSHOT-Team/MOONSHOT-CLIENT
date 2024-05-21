@@ -37,7 +37,7 @@ const MainDashBoard = () => {
 
   const [showSideSheet, setShowSideSheet] = useState<boolean>(false);
   const [currentGoalId, setCurrentGoalId] = useState<number>();
-  const [currentKrId, setCurrentKrId] = useState<number>(0);
+  const [currentKrId, setCurrentKrId] = useState<number>(-1);
 
   const [showState, setShowState] = useState(DASHBOARD_SHOW_STATE[0]);
   const [targetModal, setTargetModal] = useState<string | null>(null);
@@ -85,7 +85,7 @@ const MainDashBoard = () => {
     setShowState(DASHBOARD_SHOW_STATE[1]);
   };
 
-  const handleCurrentGoalId = (id: number | number) => {
+  const handleCurrentGoalId = (id: number) => {
     if (!id) return;
     setCurrentGoalId(id);
   };
@@ -130,6 +130,7 @@ const MainDashBoard = () => {
 
   const handleCloseSideSheet = () => {
     setShowSideSheet(false);
+    setCurrentKrId(-1);
   };
 
   /** 
@@ -159,6 +160,7 @@ const MainDashBoard = () => {
               <MainDashboardOKRTree
                 onShowSideSheet={handleShowSideSheet}
                 currentOkrData={okrTreeData}
+                currentKrId={currentKrId}
               />
             </section>
             {showSideSheet && (

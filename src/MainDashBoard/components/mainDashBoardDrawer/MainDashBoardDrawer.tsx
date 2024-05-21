@@ -38,12 +38,10 @@ const MainDashBoardDrawer = ({
   handleClickDelObjBtn,
   handleClickCompleteObjBtn,
 }: IDrawerProps) => {
-  const [, setCurrentGoalId] = useState(objId);
   const [goals, setGoals] = useState(objList);
   // const [isRightClick, setIsRightClick] = useState(false);
 
   const handleClickGoal = (id: number) => {
-    setCurrentGoalId(id);
     onChangeCurrentGoalId(id);
   };
 

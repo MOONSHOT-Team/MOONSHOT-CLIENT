@@ -57,8 +57,8 @@ const MainDashBoard = () => {
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
-  const { data: treeData, isLoading, mutate } = useSWR(url, getDashBoardData);
-  const okrTreeData = treeData?.data.tree;
+  const { data: treeData, isLoading } = useSWR(url, getDashBoardData);
+  const okrTreeData = treeData?.data?.tree;
   const goalListTreeData = treeData?.data.objList;
 
   if (treeData?.tree?.objIsExpired) {
@@ -105,7 +105,7 @@ const MainDashBoard = () => {
     setTargetModal(null);
     try {
       await deletOkrInstance(`/v1/objective/${rightClickState.rightClickId}`);
-      mutate();
+      window.location.reload();
     } catch {
       navigate('/error');
     }

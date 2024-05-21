@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 import imgFrame2TreeGraph from '../../assets/frame/imgFrame2TreeGraph.png';
 import webpFrame2TreeGraph from '../../assets/frame/webpFrame2TreeGraph.webp';
+import { CONTENTS } from '../../constants/CONTENTS';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -13,10 +14,10 @@ const Frame2 = () => {
   return (
     <section css={section} ref={element}>
       <TextField
-        subTitle="OKR tree"
-        subTitleColor="main_purple"
-        title={`흩어져 있는 할 일을\n하나의 북극성 아래`}
-        description="파편화된 할 일들을 단 3개의 우선순위로 정렬시켜 핵심 지표를 달성하는데 집중하세요"
+        subTitle={CONTENTS[1].subTitle!}
+        subTitleColor={CONTENTS[1].subTitleColor!}
+        title={CONTENTS[1].title}
+        description={CONTENTS[1].description!}
       />
       {active && (
         <picture>

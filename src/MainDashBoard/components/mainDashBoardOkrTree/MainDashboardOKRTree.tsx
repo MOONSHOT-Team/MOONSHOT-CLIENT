@@ -20,10 +20,17 @@ import { MainDashTaskNodes } from './MainDashTaskNodes';
 interface IMainDashboardOKRTreeProps {
   currentOkrData: IMainData;
   onShowSideSheet: (krId: number | undefined) => void;
+  currentKrId: number;
 }
 
-const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
-  const [state, setState] = useState(OKRTREEVIEWS[0]);
+// const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
+//   const [state, setState] = useState(OKRTREEVIEWS[0]);
+const MainDashboardOKRTree = ({
+  onShowSideSheet,
+  currentOkrData,
+  currentKrId,
+}: IMainDashboardOKRTreeProps) => {
+  const [viewMode, setViewMode] = useState(OKRTREEVIEWS[0]);
   const [editKrId, setEditKrId] = useState<number | undefined>();
   const [editKrList, setEditKrList] = useState<IKeyResultTypes[]>(currentOkrData?.krList);
   const url = currentOkrData?.objId
@@ -32,7 +39,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   const { data } = useSWR(url, getDashBoardData);
 
   useEffect(() => {
-    setState(OKRTREEVIEWS[0]);
+    setViewMode(OKRTREEVIEWS[0]);
     setEditKrList(currentOkrData?.krList);
   }, [currentOkrData]);
 
@@ -60,11 +67,11 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
   };
 
   const renderOKRTree = () => {
-    switch (state) {
+    switch (viewMode) {
       case OKRTREEVIEWS[0]:
         return (
           <article css={okrTreeContainer}>
-            <EditBtn state={state} setState={setState} />
+            <EditBtn state={viewMode} setState={setViewMode} />
             <div css={okrTree}>
               <OkrTreeTemplate
                 ObjNode={() => (
@@ -76,6 +83,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                     krIdx={krIdx}
                     krList={currentOkrData?.krList[krIdx]}
                     onShowSideSheet={onShowSideSheet}
+                    currentKrId={currentKrId}
                   />
                 )}
                 TaskNodes={(isFirstChild, krIdx, taskIdx) => (
@@ -93,7 +101,7 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
       case OKRTREEVIEWS[1]:
         return (
           <article css={okrTreeContainer}>
-            <EditBtn state={state} setState={setState} />
+            <EditBtn state={viewMode} setState={setViewMode} />
             <div css={okrTree}>
               <OkrTreeTemplate
                 ObjNode={() => (
@@ -106,8 +114,8 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                       objTitle: currentOkrData?.objTitle,
                     }}
                     krListLen={currentOkrData?.krList.length}
-                    state={state}
-                    setState={setState}
+                    state={viewMode}
+                    setState={setViewMode}
                   />
                 )}
                 keyResultList={editKrList}
@@ -118,8 +126,8 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                     handleAddTask={handleAddTask}
                     krId={editKrList[krIdx].krId}
                     objId={currentOkrData?.objId}
-                    state={state}
-                    setState={setState}
+                    state={viewMode}
+                    setState={setViewMode}
                   />
                 )}
                 TaskNodes={(isFirstChild, krIdx, taskIdx) => (
@@ -129,8 +137,8 @@ const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboar
                     taskList={editKrList[krIdx]?.taskList}
                     editKrId={editKrId}
                     objId={currentOkrData?.objId}
-                    state={state}
-                    setState={setState}
+                    state={viewMode}
+                    setState={setViewMode}
                   />
                 )}
               />

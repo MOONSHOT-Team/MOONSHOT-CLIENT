@@ -65,6 +65,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   };
 
   const handleOnClick = () => {
+    if (rightClickState.isRightClick) return;
     onClickGoal?.(id);
     handleChangeState?.(0);
   };

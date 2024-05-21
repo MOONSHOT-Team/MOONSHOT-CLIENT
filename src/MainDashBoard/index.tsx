@@ -57,7 +57,8 @@ const MainDashBoard = () => {
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
-  const { data: treeData, isLoading } = useSWR(url, getDashBoardData);
+  const { data: treeData, isLoading, mutate } = useSWR(url, getDashBoardData);
+  // const { mutate } = useSWR(`/v1/objective?objectiveId=${currentGoalId}`, getDashBoardData);
   const okrTreeData = treeData?.data?.tree;
   const goalListTreeData = treeData?.data.objList;
 
@@ -93,6 +94,7 @@ const MainDashBoard = () => {
   //우클릭의 삭제 버튼 클릭 시의 핸들러
   const handleClickDelObjBtn = () => {
     setTargetModal(MAINDASHBOARD_MODAL_CASE.OBJ.DEL);
+    return;
   };
 
   //우클릭의 완료 버튼 클릭 시의 핸들러
@@ -102,10 +104,16 @@ const MainDashBoard = () => {
 
   //목표 삭제 모달 -> 삭제 버튼 클릭 시의 핸들러
   const handleComfirmDelObj = async () => {
+    const targetDelId = rightClickState.rightClickId;
+
+    // 현재 활성화 된 아이템의 삭제 시 mutate 되도록 currentGoalId 초기화
+    if (currentGoalId === targetDelId || okrTreeData?.objId === targetDelId)
+      setCurrentGoalId(undefined);
+
     setTargetModal(null);
     try {
-      await deletOkrInstance(`/v1/objective/${rightClickState.rightClickId}`);
-      window.location.reload();
+      await deletOkrInstance(`/v1/objective/${targetDelId}`);
+      mutate();
     } catch {
       navigate('/error');
     }

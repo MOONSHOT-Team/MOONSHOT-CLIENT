@@ -8,6 +8,7 @@ import imgFrame5HistoryTask from '../../assets/frame/imgFrame5HistoryTask.png';
 import imgFrame5List2 from '../../assets/frame/imgFrame5List2.png';
 import imgFrame5List3 from '../../assets/frame/imgFrame5List3.png';
 import imgFrame5List4 from '../../assets/frame/imgFrame5List4.png';
+import { CONTENTS } from '../../constants/CONTENTS';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -28,10 +29,10 @@ const Frame5 = () => {
   return (
     <section css={section} ref={element}>
       <TextField
-        subTitle="History"
-        subTitleColor="sub_blue"
-        title="나의 모든 우주 여정을 여기에"
-        description="꾸준함으로 쌓인 발자취를 확인하며 앞으로의 미래를 향해 다시 나아가세요"
+        subTitle={CONTENTS[4].subTitle!}
+        subTitleColor={CONTENTS[4].subTitleColor!}
+        title={CONTENTS[4].title}
+        description={CONTENTS[4].description!}
       />
       {active && (
         <StImgContainer>

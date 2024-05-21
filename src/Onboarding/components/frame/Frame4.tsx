@@ -7,6 +7,7 @@ import imgFrame4SideSheetRight from '../../assets/frame/imgFrame4SideSheetRight.
 import webpFrame4DashboardDark from '../../assets/frame/webpFrame4DashboardDark.webp';
 import webpFrame4SideSheetLeft from '../../assets/frame/webpFrame4SideSheetLeft.webp';
 import webpFrame4SideSheetRight from '../../assets/frame/webpFrame4SideSheetRight.webp';
+import { CONTENTS } from '../../constants/CONTENTS';
 import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
@@ -18,10 +19,10 @@ const Frame4 = () => {
   return (
     <section css={section} ref={element}>
       <TextField
-        subTitle="KR 체크인"
-        subTitleColor="sub_mint"
-        title={`달에 쏘아올릴 도전적인 목표와\n실패가 용인되는 유연한 여정`}
-        description="북극성을 따라 성취를 기록하고, 환경에 따라 수정하며 끊임없이 나아가세요"
+        subTitle={CONTENTS[3].subTitle!}
+        subTitleColor={CONTENTS[3].subTitleColor!}
+        title={CONTENTS[3].title}
+        description={CONTENTS[3].description!}
       />
       {active && (
         <div css={imgContainer}>

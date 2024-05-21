@@ -31,7 +31,7 @@ const SideSheet = ({
   onClose,
   handleChangeState,
 }: ISideSheetProps) => {
-  const { data: sideSheetData } = useSWR([`/v1/key-result/${keyResultId}`], getDashBoardData);
+  const { data: sideSheetData } = useSWR(`/v1/key-result/${keyResultId}`, getDashBoardData);
   const krDetailData = sideSheetData?.data;
   const modalRef = useRef<HTMLDivElement>(null);
 

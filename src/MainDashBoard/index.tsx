@@ -17,7 +17,6 @@ import DrawerModal from './components/mainDashboardModal/DrawerModal';
 import MainDashboardOKRTree from './components/mainDashBoardOkrTree/MainDashboardOKRTree';
 import SideSheet from './components/sideSheet/SideSheet';
 import { MAINDASHBOARD_MODAL_CASE } from './constants/MAINDASHBOARD_MODAL_CASE';
-import { INDEX_KEY } from './constants/mainDashConstants';
 
 const DASHBOARD_SHOW_STATE = ['OKR_TREE', 'ADD_SELECT_METHOD', 'CONGRATE'];
 
@@ -58,8 +57,8 @@ const MainDashBoard = () => {
 
   //동적 파라미터 url
   const url = currentGoalId ? `/v1/objective?objectiveId=${currentGoalId}` : '/v1/objective';
-  const { data: treeData, isLoading, mutate } = useSWR([url, INDEX_KEY], getDashBoardData);
-  const okrTreeData = treeData?.data.tree;
+  const { data: treeData, isLoading, mutate } = useSWR(url, getDashBoardData);
+  const okrTreeData = treeData?.data?.tree;
   const goalListTreeData = treeData?.data.objList;
 
   if (treeData?.tree?.objIsExpired) {
@@ -94,6 +93,7 @@ const MainDashBoard = () => {
   //우클릭의 삭제 버튼 클릭 시의 핸들러
   const handleClickDelObjBtn = () => {
     setTargetModal(MAINDASHBOARD_MODAL_CASE.OBJ.DEL);
+    return;
   };
 
   //우클릭의 완료 버튼 클릭 시의 핸들러
@@ -103,9 +103,14 @@ const MainDashBoard = () => {
 
   //목표 삭제 모달 -> 삭제 버튼 클릭 시의 핸들러
   const handleComfirmDelObj = async () => {
+    const targetDelId = rightClickState.rightClickId;
+
+    // 클릭해서 현재 활성화 된 아이템(즉, currentGoalId가 있을 때)의 삭제 시 올바른 url로 mutate 되도록 currentGoalId 초기화
+    if (currentGoalId === targetDelId) setCurrentGoalId(undefined);
+
     setTargetModal(null);
     try {
-      await deletOkrInstance(`/v1/objective/${rightClickState.rightClickId}`);
+      await deletOkrInstance(`/v1/objective/${targetDelId}`);
       mutate();
     } catch {
       navigate('/error');

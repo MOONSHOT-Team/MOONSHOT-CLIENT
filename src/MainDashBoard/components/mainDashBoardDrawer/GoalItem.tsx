@@ -65,6 +65,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   };
 
   const handleOnClick = () => {
+    if (rightClickState.isRightClick) return;
     onClickGoal?.(id);
     handleChangeState?.(0);
   };
@@ -114,9 +115,10 @@ const GoalItem: React.FC<IGoalItemProps> = ({
   });
 
   drag(drop(ref));
+
   return (
     <StGoalItemLi
-      bgColor={currentGoalId === id || currentGoalId === undefined}
+      bgColor={currentGoalId === id}
       onClick={handleOnClick}
       ref={ref}
       isDragging={isDragging}
@@ -142,9 +144,7 @@ const GoalItem: React.FC<IGoalItemProps> = ({
           <StGoalItemTitle>{title}</StGoalItemTitle>
           <i>{currentGoalId === id ? <IcDropUp /> : <IcDropDown />}</i>
         </article>
-        {(currentGoalId === id || currentGoalId === undefined) && (
-          <StGoalItemContent>{content}</StGoalItemContent>
-        )}
+        {currentGoalId === id && <StGoalItemContent>{content}</StGoalItemContent>}
       </StGoalItemContainer>
       <footer css={ProgressBarContainer}>
         <MainDashProgressBar

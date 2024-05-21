@@ -1,4 +1,3 @@
-import Header from '@components/Layout/Header';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +9,6 @@ const Error = () => {
 
   return (
     <>
-      <Header />
       <div css={errorContainer}>
         <img
           css={imgBottomMargin}

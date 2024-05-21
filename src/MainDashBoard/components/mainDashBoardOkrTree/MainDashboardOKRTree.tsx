@@ -23,8 +23,6 @@ interface IMainDashboardOKRTreeProps {
   currentKrId: number;
 }
 
-// const MainDashboardOKRTree = ({ onShowSideSheet, currentOkrData }: IMainDashboardOKRTreeProps) => {
-//   const [state, setState] = useState(OKRTREEVIEWS[0]);
 const MainDashboardOKRTree = ({
   onShowSideSheet,
   currentOkrData,

@@ -105,9 +105,8 @@ const MainDashBoard = () => {
   const handleComfirmDelObj = async () => {
     const targetDelId = rightClickState.rightClickId;
 
-    // 현재 활성화 된 아이템의 삭제 시 mutate 되도록 currentGoalId 초기화
-    if (currentGoalId === targetDelId || okrTreeData?.objId === targetDelId)
-      setCurrentGoalId(undefined);
+    // 클릭해서 현재 활성화 된 아이템(즉, currentGoalId가 있을 때)의 삭제 시 올바른 url로 mutate 되도록 currentGoalId 초기화
+    if (currentGoalId === targetDelId) setCurrentGoalId(undefined);
 
     setTargetModal(null);
     try {

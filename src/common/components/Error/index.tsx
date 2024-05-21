@@ -1,7 +1,7 @@
 import Header from '@components/Layout/Header';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import imgSymbolBlack from './assets/imgSymbolBlack.png';
 
@@ -27,10 +27,7 @@ const Error = () => {
           <br />
           입력하신 페이지의 주소가 정확한지 다시 한 번 확인해주세요
         </StErrorText>
-        <StBtns>
-          <StBackToPrev onClick={() => navigate(-1)}>이전으로 돌아가기</StBackToPrev>
-          <StBackToHomeLink to="/">홈페이지 돌아가기</StBackToHomeLink>
-        </StBtns>
+        <StBackToHomeButton onClick={() => navigate(-1)}>이전으로 돌아가기</StBackToHomeButton>
       </div>
     </>
   );
@@ -62,27 +59,7 @@ const StErrorText = styled.p`
   color: ${({ theme }) => theme.colors.gray_000};
 `;
 
-const StBtns = styled.div`
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StBackToPrev = styled.button`
-  ${({ theme }) => theme.fonts.body_14_semibold};
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 15.5rem;
-  height: 4rem;
-  color: ${({ theme }) => theme.colors.gray_000};
-  background-color: ${({ theme }) => theme.colors.gray_550};
-  border-radius: 6px;
-`;
-
-const StBackToHomeLink = styled(Link)`
+const StBackToHomeButton = styled.button`
   ${({ theme }) => theme.fonts.body_14_semibold};
 
   display: inline-flex;

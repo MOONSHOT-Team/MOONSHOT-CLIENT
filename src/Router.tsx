@@ -1,5 +1,5 @@
-import { lazy } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { lazy, useEffect } from 'react';
+import { createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import Onboarding from './Onboarding';
 import OnboardingLayout from './Onboarding/components/layout/OnboardingLayout';
@@ -16,31 +16,30 @@ const MainLayout = lazy(() => import('@components/Layout/MainLayout'));
 const My = lazy(() => import('./My'));
 const Nickname = lazy(() => import('./Nickname'));
 const TeamMoonshot = lazy(() => import('./Onboarding/components/teamMoonshot/TeamMoonshot'));
-// const PreviewOkr = lazy(() => import('./PreviewOkr'));
 const SignIn = lazy(() => import('./SignIn'));
 const Social = lazy(() => import('./Social'));
 
+const RoutingHomePage = () => {
+  const isLoggedIn = localStorage.getItem('ACCESS_TOKEN') != undefined;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.getItem('ACCESS_TOKEN') != undefined ? navigate('/dashboard') : navigate('/about');
+  }, [isLoggedIn, navigate]);
+
+  return <></>;
+};
+
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <OnboardingLayout />,
-    errorElement: <Error />,
-    children: [
-      {
-        index: true,
-        element: <Onboarding />,
-      },
-      {
-        path: 'team-moonshot',
-        element: <TeamMoonshot />,
-      },
-    ],
-  },
   {
     path: '/',
     element: <MainLayout />,
     errorElement: <Error />,
     children: [
+      {
+        index: true,
+        element: <RoutingHomePage />,
+      },
       {
         path: 'history',
         element: <History />,
@@ -60,17 +59,9 @@ const router = createBrowserRouter([
         path: 'social',
         element: <Social />,
       },
-      // {
-      //   path: 'preview-okr',
-      //   element: <PreviewOkr />,
-      // },
       {
         path: 'dashboard',
         element: <MainDashBoard />,
-      },
-      {
-        path: 'add-okr',
-        element: <AddOkr />,
       },
       {
         path: 'add-okr',
@@ -83,6 +74,21 @@ const router = createBrowserRouter([
       {
         path: 'error',
         element: <Error />,
+      },
+    ],
+  },
+  {
+    path: '/about',
+    element: <OnboardingLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Onboarding />,
+      },
+      {
+        path: 'team-moonshot',
+        element: <TeamMoonshot />,
       },
     ],
   },

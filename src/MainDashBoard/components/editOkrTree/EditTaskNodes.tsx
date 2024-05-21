@@ -23,7 +23,6 @@ import {
 } from '../../../PreviewOkr/components/PreviewOkrTreeNodes/PreviewTaskNodes';
 import { deletOkrInstance, getDashBoardData, postAddTask } from '../../apis/fetcher';
 import { IcDrag, IcTrashPurple } from '../../assets/icons';
-import { MAINDASHBOARD_KEY } from '../../constants/mainDashConstants';
 import DeleteTaskModal from '../editModeModal/DeleteTaskModal';
 
 interface IEditTaskProps {
@@ -32,8 +31,8 @@ interface IEditTaskProps {
   taskList: ITaskTypes[];
   editKrId: number | undefined;
   objId: number;
-  viewMode: string;
-  setViewMode: Dispatch<SetStateAction<string>>;
+  state: string;
+  setState: Dispatch<SetStateAction<string>>;
 }
 
 export const EditTaskNodes = ({
@@ -42,13 +41,13 @@ export const EditTaskNodes = ({
   taskList,
   editKrId,
   objId,
-  viewMode,
-  setViewMode,
+  state,
+  setState,
 }: IEditTaskProps) => {
   const navigate = useNavigate();
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR([url, MAINDASHBOARD_KEY], getDashBoardData);
+  const { mutate } = useSWR(url, getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -79,7 +78,7 @@ export const EditTaskNodes = ({
         taskIdx: taskIdx,
       });
       mutate();
-      setViewMode(viewMode);
+      setState(state);
     } catch {
       navigate('error');
     }
@@ -90,7 +89,7 @@ export const EditTaskNodes = ({
     try {
       await deletOkrInstance(`/v1/task/${task.taskId}`);
       mutate();
-      setViewMode(viewMode);
+      setState(state);
     } catch {
       navigate('/error');
     }

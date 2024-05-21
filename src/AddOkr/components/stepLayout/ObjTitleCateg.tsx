@@ -28,6 +28,14 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
   **/
   // 카테고리 태그 선택 핸들러
   const handleClickObjCateg = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const currSelectedCateg = e.currentTarget.id;
+
+    // 카테고리 재선택시 취소
+    if (currSelectedCateg === selectedObjCateg) {
+      setObjInfo({ ...objInfo, objCategory: '' });
+      return;
+    }
+
     setObjInfo({ ...objInfo, objCategory: e.currentTarget.id });
   };
 
@@ -54,9 +62,14 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
     setHoverObjPlaceHolder(targetPlaceholder);
   };
 
-  // 이미 선택된 obj가 있을때, mouseleave시 선택 된 obj의 placeholder로 유지되도록
   const handleMouseLeaveObjCateg = () => {
-    if (!selectedObjCateg) return;
+    // 선택 취소 or 선택된 obj가 없을때, mouseleave 시 기본 placeholder 보여주도록
+    if (!selectedObjCateg) {
+      setHoverObjPlaceHolder(GUIDE_DEFAULT_PLACEHOLDER);
+      return;
+    }
+
+    // 이미 선택된 obj가 있을때, mouseleave시 선택 된 obj의 placeholder로 유지되도록
     const { placeholder: targetPlaceholder } = GUIDE_OBJ_TITLE_PLACEHOLDER.filter(
       (tag) => tag.id === selectedObjCateg,
     )[0];

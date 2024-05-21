@@ -12,29 +12,21 @@ import useSWR from 'swr';
 
 import { getDashBoardData } from '../../apis/fetcher';
 import { IcAdd } from '../../assets/icons';
-import { MAINDASHBOARD_KEY } from '../../constants/mainDashConstants';
-import { StMainDashObjP } from '../../styles/mainDashOKRTreeStyles';
 import AddKrModal from '../editModeModal/AddKrModal';
-import { IMainBoardObjNodeProps } from '../mainDashBoardOkrTree/MainDashObjectNode';
+import { IMainBoardObjNodeProps, StMainDashObjP } from '../mainDashBoardOkrTree/MainDashObjectNode';
 
 interface IEditObjectNode extends IMainBoardObjNodeProps {
   objInfo: { objId: number; objStartAt: string; objExpireAt: string; objTitle: string };
   krListLen: number;
-  viewMode: string;
-  setViewMode: Dispatch<SetStateAction<string>>;
+  state: string;
+  setState: Dispatch<SetStateAction<string>>;
 }
 
-const EditObjectNode = ({
-  objStroke,
-  objInfo,
-  krListLen,
-  viewMode,
-  setViewMode,
-}: IEditObjectNode) => {
+const EditObjectNode = ({ objStroke, objInfo, krListLen, state, setState }: IEditObjectNode) => {
   const { objTitle, objId } = objInfo;
 
   const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
-  const { mutate } = useSWR([url, MAINDASHBOARD_KEY], getDashBoardData);
+  const { mutate } = useSWR(url, getDashBoardData);
 
   const { modalRef, handleShowModal } = useModal();
 
@@ -42,11 +34,18 @@ const EditObjectNode = ({
 
   const mutateFcn = () => {
     mutate();
-    setViewMode(viewMode);
+    setState(state);
   };
 
   useEffect(() => {
-    krListLen < 3 ? setIsntFull(true) : setIsntFull(false);
+    if (krListLen >= 3) {
+      setIsntFull(false);
+      return;
+    }
+    if (krListLen < 3) {
+      setIsntFull(true);
+      return;
+    }
   }, [krListLen]);
 
   return (

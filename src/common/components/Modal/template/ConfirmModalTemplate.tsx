@@ -17,6 +17,9 @@ const ConfirmModalTemplate = ({
   cancelState,
   confirmState,
 }: IConfirmModalTemplateProps) => {
+  const classNameForGA =
+    title === 'KR 삭제하기' ? 'delKR_edit' : title === 'Task 삭제하기' ? 'deltask_edit' : '';
+
   // cancel function
   const handleClickCancel = () => {
     cancelState.onClick && cancelState.onClick();
@@ -41,7 +44,9 @@ const ConfirmModalTemplate = ({
           {cancelState.text}
         </StCancelBtn>
 
-        <StConfirmBtn onClick={handleClickConfirm}>{confirmState.text}</StConfirmBtn>
+        <StConfirmBtn onClick={handleClickConfirm} className={classNameForGA}>
+          {confirmState.text}
+        </StConfirmBtn>
       </div>
     </StConfirmModalTemplateWrapper>
   );

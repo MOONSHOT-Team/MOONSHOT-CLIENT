@@ -15,7 +15,9 @@ const OnboardingFooter = () => {
         height={25}
         loading="lazy"
       />
-      <StFooterText to="./team-moonshot">TEAM moonshot</StFooterText>
+      <StFooterText to="./team-moonshot" className="click_team">
+        TEAM moonshot
+      </StFooterText>
       <StFooterUserInfoTerm
         to="https://moonshot-.notion.site/moonshot-1-0-0cdb3499765349e9aba64474fbba933e"
         target="_blank"

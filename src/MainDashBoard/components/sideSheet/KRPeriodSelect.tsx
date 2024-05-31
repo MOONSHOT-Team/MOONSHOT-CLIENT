@@ -56,7 +56,7 @@ const KRPeriodSelect = ({
   };
 
   return (
-    <StKRPeriodContainer>
+    <StKRPeriodContainer className="alter_duration">
       <ConfigProvider
         theme={{
           token: {

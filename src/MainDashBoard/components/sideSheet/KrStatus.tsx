@@ -74,7 +74,12 @@ const KrStatus = ({ krStatus, keyResultId }: { krStatus: string; keyResultId: nu
       {isDrop && (
         <StStatusContainer>
           {KR_STATUS.filter(({ label }) => label !== krStatusLabel).map(({ icon, label }) => (
-            <StStateContainer key={label} type="button" onClick={() => handleKrStatus(label)}>
+            <StStateContainer
+              key={label}
+              type="button"
+              onClick={() => handleKrStatus(label)}
+              className="alter_state"
+            >
               <KrStatusItem icon={icon} label={label} />
             </StStateContainer>
           ))}

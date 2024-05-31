@@ -28,6 +28,13 @@ interface IPreviewOkrProps {
 
 //TODO: PreviewOkr이 AddOkr에 병합 되었으므로, 폴더 구조 변동 필요
 const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOkrProps) => {
+  const selectedMethodId = localStorage.getItem('selectedMethod');
+  const classNameForGA =
+    selectedMethodId === '직접 설정하기'
+      ? 'addOKR_brief'
+      : selectedMethodId === '가이드에 따라 설정하기'
+        ? 'addOKR_guide'
+        : '';
   // const location = useLocation();
   const navigate = useNavigate();
 
@@ -167,7 +174,12 @@ const PreviewOkr = ({ selectedMethod, setStep, objInfo, krListInfo }: IPreviewOk
           <StPrevBtn type="button" onClick={handleClickPrevBtn}>
             이전으로
           </StPrevBtn>
-          <StSaveBtn type="button" onClick={handleClickSaveOkrBtn} $isActiveSave={isActiveSave}>
+          <StSaveBtn
+            type="button"
+            onClick={handleClickSaveOkrBtn}
+            $isActiveSave={isActiveSave}
+            className={classNameForGA}
+          >
             저장하기
           </StSaveBtn>
         </StBtnWrapper>

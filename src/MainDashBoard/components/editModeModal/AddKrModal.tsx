@@ -165,6 +165,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
             type="button"
             $isActiveSave={isActiveSave}
             onClick={handleClickConfirmAddBtn}
+            className="addKR_edit"
           >
             추가하기
           </StAddKrConfirmAddBtn>

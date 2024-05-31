@@ -70,6 +70,8 @@ const MainDashBoard = () => {
    **/
   // step 0 - SELECT METHOD 관련 handler
   const handleClickMethodBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    localStorage.setItem('selectedMethod', e.currentTarget.id);
+
     setSelectedMethod(e.currentTarget.id);
     navigate('/add-okr', { state: { selectedMethod: e.currentTarget.id } });
   };

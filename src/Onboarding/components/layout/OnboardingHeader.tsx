@@ -23,7 +23,7 @@ const OnboardingHeader = () => {
             </li>
           ))}
           <li>
-            <StCTALink to={APPLY_CBT_TALLY_LINK} target="_blank" className="tally-link-button">
+            <StCTALink to={APPLY_CBT_TALLY_LINK} target="_blank" className="click_service">
               베타테스트 신청
             </StCTALink>
           </li>

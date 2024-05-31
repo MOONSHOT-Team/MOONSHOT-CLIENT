@@ -178,7 +178,12 @@ export const 진척정도입력하기 = ({
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
-        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn} onClick={submitCheckIn}>
+        <StEnterBtn1
+          isActiveBtn={isActiveBtn}
+          disabled={!isActiveBtn}
+          onClick={submitCheckIn}
+          className="check_record"
+        >
           체크인 완료
         </StEnterBtn1>
       </footer>
@@ -299,7 +304,12 @@ export const KR수정하기 = ({
       </article>
       <footer css={enterFooterStyles}>
         <StCnclBtn onClick={onCancel}>취소</StCnclBtn>
-        <StEnterBtn1 isActiveBtn={isActiveBtn} disabled={!isActiveBtn} onClick={submitCheckIn}>
+        <StEnterBtn1
+          isActiveBtn={isActiveBtn}
+          disabled={!isActiveBtn}
+          onClick={submitCheckIn}
+          className="check_adjust"
+        >
           체크인 완료
         </StEnterBtn1>
       </footer>

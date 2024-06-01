@@ -12,8 +12,6 @@ import SocialOKRTree from './components/socialOkrTree/SocialOKRTree';
 const Social = () => {
   const { data: socialData, isLoading } = useSWR('v1/objective/social', getSocialInfo);
 
-  // console.log(socialData);
-
   const navigate = useNavigate();
   const [currentIdx, setCurrentIdx] = useState(0);
 

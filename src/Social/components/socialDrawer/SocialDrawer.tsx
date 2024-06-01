@@ -2,10 +2,15 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { MOCK_SOCIAL_DATA } from '../../constants/MOCK_SOCIAL_DATA';
+import { ISocialDataType } from '../../types/socialDataType';
 import ProfileCard from './ProfileCard';
 
-const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number) => void }) => {
+interface ISocialDrawerProsp {
+  socialData: ISocialDataType[];
+  onHandleCurrentIdx: (idx: number) => void;
+}
+
+const SocialDrawer = ({ socialData, onHandleCurrentIdx }: ISocialDrawerProsp) => {
   const [currentUserIdx, setCurrentUserIdx] = useState(0);
 
   const handleClickCard = (idx: number) => {
@@ -17,7 +22,7 @@ const SocialDrawer = ({ onHandleCurrentIdx }: { onHandleCurrentIdx: (idx: number
       <div css={{ padding: '2.6rem 2.2rem 0' }}>
         <StDrawerHeader>공유 리스트</StDrawerHeader>
         <ul css={profileContainer}>
-          {MOCK_SOCIAL_DATA.map((data, idx) => (
+          {socialData.map((data, idx) => (
             <ProfileCard
               key={data.userName + idx}
               {...data}

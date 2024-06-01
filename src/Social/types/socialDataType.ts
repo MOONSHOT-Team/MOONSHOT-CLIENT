@@ -8,3 +8,12 @@ export interface IOkrTreeDataType {
   objExpireAt: string;
   krList: IKeyResultTypes[];
 }
+
+export interface ISocialDataType {
+  category: string;
+  userName: string;
+  userImg: string;
+  like: number;
+  userIntro: string;
+  okrTreeData: IOkrTreeDataType;
+}

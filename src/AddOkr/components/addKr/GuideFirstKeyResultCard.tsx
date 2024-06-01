@@ -20,9 +20,9 @@ interface IGuideFirstKeyResultCard {
 }
 
 const KR_TITLE_PLACEHOLDER = [
-  'ex) 월간 유지 사용자 수(MAU) 20% 증가',
-  'ex) 책 10권 완독',
-  'ex) 주 50시간 이하 근무 시간 유지',
+  'ex) 월간 유지 사용자 수(MAU) 증가',
+  'ex) 다양한 분야의 책 완독',
+  'ex) 현재보다 야근 시간 감소',
 ];
 
 const GuideFirstKeyResultCard = ({

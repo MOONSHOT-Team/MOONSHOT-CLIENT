@@ -19,7 +19,7 @@ interface ISocialTaskProps {
 export const SocialTaskNodes = ({ isFirstChild, taskIdx, taskList }: ISocialTaskProps) => {
   if (!taskList) return;
   const task = taskList[taskIdx];
-  console.log(taskList);
+
   return (
     <StNodesContainer>
       {isFirstChild && <StSocialTaskLabel>Tasks</StSocialTaskLabel>}

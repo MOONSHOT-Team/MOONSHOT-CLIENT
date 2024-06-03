@@ -1,6 +1,8 @@
 import { KR_TEXT_ERR_MSG } from '@constants/addKr/KR_ERR_MSG';
+import { KR_INPUT_DATA } from '@constants/addKr/KR_INPUT_DATA';
 import styled from '@emotion/styled';
 import { AddKrInputMsgWrapper, StAddKrErrMsg } from '@styles/addKr/CommonErrMsgBoxStyle';
+import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 
@@ -35,11 +37,14 @@ const GuideFirstKeyResultCard = ({
   console.log(cardIdx, '???');
   const { objStartAt, objExpireAt } = objInfo;
   const { krTitle, krStartAt, krExpireAt } = krListInfo[cardIdx];
+  const { INPUT_TITLE } = KR_INPUT_DATA.INPUT_NAME;
   //캘린더 보여주는 플래그
   const [isShowCalender, setIsShowCalender] = useState(
     krListInfo[cardIdx].krStartAt && krListInfo[cardIdx].krExpireAt ? true : false,
   );
-  const [isMaxTitle, setIsMaxTitle] = useState(false);
+  const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
+    [INPUT_TITLE]: false,
+  });
 
   useEffect(() => {
     // kr 선택 예외 처리) 날짜 기간을 입력 했으나, 앞에서 obj 기간을 수정한 경우 obj 기간으로 초기화
@@ -53,16 +58,17 @@ const GuideFirstKeyResultCard = ({
   }, []);
 
   const handleChangeTitleInput = (e: React.ChangeEvent<HTMLInputElement>, maxLength: number) => {
-    if (e.target.value.length === maxLength + 1) {
-      setIsMaxTitle(true);
-    }
+    const { newValue } = validMaxKrInputVal(e, maxLength, isValidMax, setIsValidMax);
+    // if (e.target.value.length === maxLength + 1) {
+    //   setIsMaxTitle(true);
+    // }
 
-    if (isMaxTitle) {
-      e.target.value = e.target.value.slice(0, maxLength);
-      setIsMaxTitle(false);
-    }
+    // if (isMaxTitle) {
+    //   e.target.value = e.target.value.slice(0, maxLength);
+    //   setIsMaxTitle(false);
+    // }
 
-    krListInfo[cardIdx].krTitle = e.target.value;
+    krListInfo[cardIdx].krTitle = newValue;
     setKrListInfo([...krListInfo]);
   };
 
@@ -113,10 +119,10 @@ const GuideFirstKeyResultCard = ({
             value={krTitle}
             placeholder={KR_TITLE_PLACEHOLDER[cardIdx]}
             onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
-            $isMax={isMaxTitle}
+            $isMax={isValidMax.INPUT_TITLE}
             autoComplete="off"
           />
-          {isMaxTitle && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
+          {isValidMax.INPUT_TITLE && <StAddKrErrMsg>{KR_TEXT_ERR_MSG}</StAddKrErrMsg>}
         </div>
       </StKrInputBox>
 

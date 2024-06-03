@@ -16,35 +16,39 @@ export const validMaxKrInputVal = (
   >,
 ) => {
   const targetInputName = e.target.name;
-  let parsedValue = e.target.value.replace(/[^-0-9]/g, '');
+  let limitOnlyNumValue = e.target.value.replace(/[^-0-9]/g, '');
+  let limitOnlyTextValue = e.target.value.replace(
+    /[^-ᄀ-ᄒᆨ-ᇂㄱ-ㅣ가-힣ᅡ-ᅵa-zA-Z !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/gi,
+    '',
+  );
   let newValue;
 
   switch (targetInputName) {
     case INPUT_TARGET:
-      if (parsedValue.length === maxLength + 1) {
+      if (limitOnlyNumValue.length === maxLength + 1) {
         setIsValidMax({ ...isValidMax, [targetInputName]: true });
       }
 
       if (isValidMax[targetInputName]) {
-        parsedValue = parsedValue.slice(0, maxLength);
+        limitOnlyNumValue = limitOnlyNumValue.slice(0, maxLength);
         setIsValidMax({ ...isValidMax, [targetInputName]: false });
       }
 
-      newValue = parsedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      newValue = limitOnlyNumValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       break;
 
     default:
-      //INPUT_Title, INPUT_METRIC의 경우
-      if (e.target.value.length > maxLength) {
+      //case INPUT_TITLE, INPUT_METRIC
+      if (limitOnlyTextValue.length > maxLength) {
         setIsValidMax({ ...isValidMax, [targetInputName]: true });
       }
 
       if (isValidMax[targetInputName] === true) {
-        e.target.value = e.target.value.slice(0, maxLength);
+        limitOnlyTextValue = limitOnlyTextValue.slice(0, maxLength);
         setIsValidMax({ ...isValidMax, [targetInputName]: false });
       }
 
-      newValue = e.target.value;
+      newValue = limitOnlyTextValue;
 
       break;
   }

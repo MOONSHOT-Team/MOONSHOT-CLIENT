@@ -19,7 +19,11 @@ interface IGuideFirstKeyResultCard {
   handleClickCloseBtn?: (cardIdx: number) => void;
 }
 
-const KR_TITLE_PLACEHOLDER = 'ex) 개발 관련 아티클 읽기';
+const KR_TITLE_PLACEHOLDER = [
+  'ex) 월간 유지 사용자 수(MAU) 증가',
+  'ex) 다양한 분야의 책 완독',
+  'ex) 현재보다 야근 시간 감소',
+];
 
 const GuideFirstKeyResultCard = ({
   objInfo,
@@ -28,6 +32,7 @@ const GuideFirstKeyResultCard = ({
   cardIdx,
   handleClickCloseBtn,
 }: IGuideFirstKeyResultCard) => {
+  console.log(cardIdx, '???');
   const { objStartAt, objExpireAt } = objInfo;
   const { krTitle, krStartAt, krExpireAt } = krListInfo[cardIdx];
   //캘린더 보여주는 플래그
@@ -106,7 +111,7 @@ const GuideFirstKeyResultCard = ({
         <div css={AddKrInputMsgWrapper}>
           <StKrSentenceInput
             value={krTitle}
-            placeholder={KR_TITLE_PLACEHOLDER}
+            placeholder={KR_TITLE_PLACEHOLDER[cardIdx]}
             onChange={(e) => handleChangeTitleInput(e, MAX_KR_TITLE)}
             $isMax={isMaxTitle}
             autoComplete="off"

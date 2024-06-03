@@ -7,6 +7,6 @@ export const KR_INPUT_DATA = {
   HINT_PLACHOLDER: {
     HINT_TITLE: 'ex) 개발 관련 아티클 읽기',
     HINT_TARGET: 'ex) 10',
-    HINT_METRIC: 'ex) 회',
+    HINT_METRIC: 'ex) 회 / % / kg 등',
   },
 };

@@ -1,13 +1,17 @@
+import Loading from '@components/Loading';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useSWR from 'swr';
 
+import { getSocialInfo } from './apis/getSocialFetcher';
 import SocialDrawer from './components/socialDrawer/SocialDrawer';
 import SocialOKRTree from './components/socialOkrTree/SocialOKRTree';
-import { MOCK_SOCIAL_DATA } from './constants/MOCK_SOCIAL_DATA';
 
 const Social = () => {
+  const { data: socialData, isLoading } = useSWR('v1/objective/social', getSocialInfo);
+
   const navigate = useNavigate();
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -19,11 +23,13 @@ const Social = () => {
     if (!localStorage.getItem('ACCESS_TOKEN')) navigate('sign-in');
   }, []);
 
+  if (isLoading) return <Loading />;
+
   return (
     <section css={mainSocialStyle}>
-      <SocialDrawer onHandleCurrentIdx={handleCurrentIdx} />
-      <SocialOKRTree okrTreeData={MOCK_SOCIAL_DATA[currentIdx]?.okrTreeData} />
-      <StUserName>{MOCK_SOCIAL_DATA[currentIdx]?.userName}님의 OKR</StUserName>
+      <SocialDrawer socialData={socialData} onHandleCurrentIdx={handleCurrentIdx} />
+      <SocialOKRTree okrTreeData={socialData[currentIdx]?.okrTreeData} />
+      <StUserName>{socialData[currentIdx]?.userName}님의 OKR</StUserName>
     </section>
   );
 };

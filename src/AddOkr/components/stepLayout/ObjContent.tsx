@@ -8,7 +8,7 @@ import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 
 // 기본 placeholder
 const OBJ_CONTENT_PLACEHOLDER =
-  'ex) 앞으로 한 달간 다양한 마케팅을 통해 더 많은 고객을 유치하고 매출을 늘리고 싶기 때문이다.';
+  'ex) 퇴근 후 누워있기만 하지 말고, 내가 원하는 일을 하며 시간을 알차게 쓰고 싶다.';
 
 const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
   const { objContent } = objInfo;

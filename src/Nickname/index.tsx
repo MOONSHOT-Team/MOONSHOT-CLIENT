@@ -17,7 +17,7 @@ const Nickname = () => {
   if (data?.data.data.nickname) navigate('/dashboard');
 
   const handleEnteredNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣]/g, ''));
+    setNickname(e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/g, ''));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

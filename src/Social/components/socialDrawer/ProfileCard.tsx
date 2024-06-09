@@ -91,6 +91,7 @@ const StImg = styled.img<{ isCurrent: boolean }>`
   background-color: '#ccc';
   border: ${({ theme, isCurrent }) => (isCurrent ? `1px solid ${theme.colors.gray_200}` : 'none')};
   border-radius: 40px;
+  object-fit: cover;
 `;
 
 const StUserName = styled.p`

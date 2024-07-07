@@ -24,7 +24,7 @@ const OnboardingHeader = () => {
           ))}
           <li>
             <StCTALink to={APPLY_CBT_TALLY_LINK} target="_blank" className="click_service">
-              베타테스트 신청
+              오픈 베타 신청하기
             </StCTALink>
           </li>
         </StNavItem>

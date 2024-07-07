@@ -3,7 +3,6 @@ import webpLogo from '@assets/images/webpLogo.webp';
 import styled from '@emotion/styled';
 import { Link, NavLink } from 'react-router-dom';
 
-import { APPLY_CBT_TALLY_LINK } from '../../constants/APPLY_LINK';
 import { NAV_ITEMS } from '../../constants/NAV_ITEMS';
 
 const OnboardingHeader = () => {
@@ -23,8 +22,8 @@ const OnboardingHeader = () => {
             </li>
           ))}
           <li>
-            <StCTALink to={APPLY_CBT_TALLY_LINK} target="_blank" className="click_service">
-              오픈 베타 신청하기
+            <StCTALink to="/sign-in" target="_blank" className="click_service">
+              오픈 베타 시작하기
             </StCTALink>
           </li>
         </StNavItem>

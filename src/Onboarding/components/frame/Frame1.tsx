@@ -11,7 +11,6 @@ import imgFrame1SideSheetRight from '../../assets/frame/imgFrame1SideSheetRight.
 import webpFrame1MainDashboard from '../../assets/frame/webpFrame1MainDashboard.webp';
 import webpFrame1ObjectiveItem from '../../assets/frame/webpFrame1ObjectiveItem.webp';
 import webpFrame1SideSheetRight from '../../assets/frame/webpFrame1SideSheetRight.webp';
-import { APPLY_CBT_TALLY_LINK } from '../../constants/APPLY_LINK';
 import { CONTENTS } from '../../constants/CONTENTS';
 import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
@@ -39,8 +38,8 @@ const Frame1 = () => {
         ))}
       </StRollingTextBox>
       <StMainText>{CONTENTS[0].title}</StMainText>
-      <StCtaLink to={APPLY_CBT_TALLY_LINK} target="_blank" className="click_service">
-        오픈 베타 신청하기
+      <StCtaLink to="/sign-in" target="_blank" className="click_service">
+        오픈 베타 시작하기
       </StCtaLink>
       <div css={imgContainer}>
         <div css={fixedBackground} />

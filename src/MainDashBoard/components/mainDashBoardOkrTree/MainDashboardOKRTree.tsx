@@ -39,7 +39,7 @@ const MainDashboardOKRTree = ({
   useEffect(() => {
     setViewMode(OKRTREEVIEWS[0]);
     setEditKrList(currentOkrData?.krList);
-  }, [currentOkrData]);
+  }, []);
 
   useEffect(() => {
     setEditKrList(data?.data?.tree?.krList);

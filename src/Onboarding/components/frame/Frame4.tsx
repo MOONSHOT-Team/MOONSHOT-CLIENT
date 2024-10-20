@@ -8,23 +8,25 @@ import webpFrame4DashboardDark from '../../assets/frame/webpFrame4DashboardDark.
 import webpFrame4SideSheetLeft from '../../assets/frame/webpFrame4SideSheetLeft.webp';
 import webpFrame4SideSheetRight from '../../assets/frame/webpFrame4SideSheetRight.webp';
 import { CONTENTS } from '../../constants/CONTENTS';
-import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 import TextField from './TextField';
 
-const Frame4 = () => {
-  const { active, element } = useScrollDetect();
+interface Frame4Props {
+  isInView: boolean;
+  refCallback: (elem: HTMLSelectElement) => void;
+}
 
+const Frame4 = ({ isInView, refCallback }: Frame4Props) => {
   return (
-    <section css={section} ref={element}>
+    <section id="frame4" css={section} ref={refCallback}>
       <TextField
         subTitle={CONTENTS[3].subTitle!}
         subTitleColor={CONTENTS[3].subTitleColor!}
         title={CONTENTS[3].title}
         description={CONTENTS[3].description!}
       />
-      {active && (
+      {isInView && (
         <div css={imgContainer}>
           <picture css={zIndex}>
             <source srcSet={webpFrame4SideSheetLeft} type="image/webp" />

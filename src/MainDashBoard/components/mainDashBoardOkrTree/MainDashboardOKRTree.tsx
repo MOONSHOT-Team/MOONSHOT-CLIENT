@@ -39,7 +39,7 @@ const MainDashboardOKRTree = ({
   useEffect(() => {
     setViewMode(OKRTREEVIEWS[0]);
     setEditKrList(currentOkrData?.krList);
-  }, [currentOkrData]);
+  }, []);
 
   useEffect(() => {
     setEditKrList(data?.data?.tree?.krList);
@@ -75,11 +75,11 @@ const MainDashboardOKRTree = ({
                 ObjNode={() => (
                   <MainDashObjectNode objValue={currentOkrData?.objTitle} objStroke="#7165CA" />
                 )}
-                keyResultList={currentOkrData?.krList}
+                keyResultList={editKrList}
                 KrNodes={(krIdx) => (
                   <MainDashKrNodes
                     krIdx={krIdx}
-                    krList={currentOkrData?.krList[krIdx]}
+                    krList={editKrList[krIdx]}
                     onShowSideSheet={onShowSideSheet}
                     currentKrId={currentKrId}
                   />
@@ -88,7 +88,7 @@ const MainDashboardOKRTree = ({
                   <MainDashTaskNodes
                     isFirstChild={isFirstChild}
                     taskIdx={taskIdx}
-                    taskList={currentOkrData?.krList[krIdx]?.taskList}
+                    taskList={editKrList[krIdx]?.taskList}
                   />
                 )}
               />
@@ -111,7 +111,7 @@ const MainDashboardOKRTree = ({
                       objExpireAt: currentOkrData?.objExpireAt,
                       objTitle: currentOkrData?.objTitle,
                     }}
-                    krListLen={currentOkrData?.krList.length}
+                    krListLen={editKrList.length}
                     state={viewMode}
                     setState={setViewMode}
                   />

@@ -14,7 +14,7 @@ interface IKrContainerProps {
 const KrContainer = ({ keyResultList, KrNodes, TaskNodes }: IKrContainerProps) => {
   return (
     <StKrContainer>
-      {keyResultList.map((kr) => {
+      {keyResultList?.map((kr) => {
         return (
           <StKrWrapper key={`$ya{kr.keyResultTitle}-${kr.krIdx}`}>
             <NodeLines />

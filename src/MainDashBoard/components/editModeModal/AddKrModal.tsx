@@ -7,8 +7,9 @@ import { validMaxKrInputVal } from '@utils/addKr/validMaxKrInputVal';
 import { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useSWR from 'swr';
 
-import { postAddKr } from '../../apis/fetcher';
+import { getDashBoardData, postAddKr } from '../../apis/fetcher';
 
 const { INPUT_TITLE, INPUT_TARGET, INPUT_METRIC } = KR_INPUT_DATA.INPUT_NAME;
 
@@ -33,6 +34,9 @@ interface IAddKrModalProps {
 const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) => {
   const navigate = useNavigate();
   const { objStartAt, objExpireAt, objId } = objInfo;
+
+  const url = objId ? `/v1/objective?objectiveId=${objId}` : '/v1/objective';
+  const { mutate } = useSWR(url, getDashBoardData);
 
   const [isValidMax, setIsValidMax] = useState<{ [key: string]: boolean }>({
     [INPUT_TITLE]: false,
@@ -118,6 +122,7 @@ const AddKrModal = ({ modalRef, objInfo, krIdx, mutateFcn }: IAddKrModalProps) =
     try {
       await postAddKr('/v1/key-result', reqData);
       resetKrData();
+      mutate();
       mutateFcn();
     } catch {
       navigate('/error');

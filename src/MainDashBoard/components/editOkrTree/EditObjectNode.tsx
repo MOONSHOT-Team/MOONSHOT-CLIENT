@@ -30,7 +30,7 @@ const EditObjectNode = ({ objStroke, objInfo, krListLen, state, setState }: IEdi
 
   const { modalRef, handleShowModal } = useModal();
 
-  const [isntFull, setIsntFull] = useState(false);
+  const [isKrFull, setIsKrFull] = useState(true);
 
   const mutateFcn = () => {
     mutate();
@@ -39,11 +39,11 @@ const EditObjectNode = ({ objStroke, objInfo, krListLen, state, setState }: IEdi
 
   useEffect(() => {
     if (krListLen >= 3) {
-      setIsntFull(false);
+      setIsKrFull(true);
       return;
     }
     if (krListLen < 3) {
-      setIsntFull(true);
+      setIsKrFull(false);
       return;
     }
   }, [krListLen]);
@@ -58,7 +58,7 @@ const EditObjectNode = ({ objStroke, objInfo, krListLen, state, setState }: IEdi
             <StMainDashObjP>{objTitle}</StMainDashObjP>
           </StObjectiveBox>
           <StraightLine />
-          {isntFull && (
+          {!isKrFull && (
             <StIcAdd
               onClick={() => {
                 //kr추가 모달띄우는 버튼

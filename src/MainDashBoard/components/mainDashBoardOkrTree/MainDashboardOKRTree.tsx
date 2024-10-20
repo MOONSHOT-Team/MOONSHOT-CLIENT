@@ -111,7 +111,7 @@ const MainDashboardOKRTree = ({
                       objExpireAt: currentOkrData?.objExpireAt,
                       objTitle: currentOkrData?.objTitle,
                     }}
-                    krListLen={currentOkrData?.krList.length}
+                    krListLen={editKrList.length}
                     state={viewMode}
                     setState={setViewMode}
                   />

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { MAX_OBJ_CONTENT } from '../../constants/OKR_MAX_LENGTH';
 import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
@@ -10,7 +10,7 @@ import { IAddObjFlowProps } from '../../types/ObjectInfoTypes';
 const OBJ_CONTENT_PLACEHOLDER =
   'ex) 퇴근 후 누워있기만 하지 말고, 내가 원하는 일을 하며 시간을 알차게 쓰고 싶다.';
 
-const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
+const ObjContent = ({ objInfo, setObjInfo, onValidNextStep }: IAddObjFlowProps) => {
   const { objContent } = objInfo;
   // 글자 수 저장 값
   const [currContentCnt, setCurrContentCnt] = useState(objContent ? objContent.length : 0);
@@ -23,6 +23,10 @@ const ObjContent = ({ objInfo, setObjInfo }: IAddObjFlowProps) => {
     if (contentTextareaCnt) setCurrContentCnt(contentTextareaCnt);
     setObjInfo({ ...objInfo, objContent: e.target.value });
   };
+
+  useEffect(() => {
+    onValidNextStep(!!objContent);
+  }, [objContent]);
 
   return (
     <section css={ObjContentContainer}>

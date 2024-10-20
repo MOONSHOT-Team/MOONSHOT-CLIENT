@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { AddOkrCardWrapper } from '../../styles/KeyResultCardStyle';
 import { IAddKrFlowProps } from '../../types/KrInfoTypes';
@@ -16,10 +16,24 @@ const AddGuideFirstKr = ({
   handleClickCloseBtn,
   krListInfo,
   setKrListInfo,
+  onValidateNextStep,
 }: IAddKrFlowProps) => {
   const { objTitle } = objInfo;
 
   const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);
+
+  useEffect(() => {
+    const isValid =
+      krListInfo.filter((kr) => {
+        return clickedCard.includes(kr.krIdx);
+      }).length ===
+      krListInfo.filter((kr) => {
+        const { krTitle, krStartAt, krExpireAt } = kr;
+        return krTitle && krStartAt && krExpireAt;
+      }).length;
+
+    onValidateNextStep(isValid);
+  }, [krListInfo, clickedCard]);
 
   return (
     <section css={AddGuideKrContainer}>

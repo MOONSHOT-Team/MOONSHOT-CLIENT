@@ -1,5 +1,5 @@
 import Error from '@components/Error';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import PreviewOkr from '../PreviewOkr/PreviewOkr';
@@ -52,13 +52,9 @@ const AddOkr = () => {
   const [isActiveNext, setIsActiveNext] = useState(false);
 
   const [objInfo, setObjInfo] = useState(resetObjInfoState);
-  const { objTitle, objCategory, objContent, objStartAt, objExpireAt } = objInfo;
-
   const [krListInfo, setKrListInfo] = useState<IKrListInfoTypes[]>(resetKrListInfo);
-
   // Step 2 ObjPeriod- 선택된 기간 버튼 관리 값
   const [selectedPeriod, setSelectedPeriod] = useState('');
-
   // step 4 - kr 카드 선택 여부 관리
   const [clickedCard, setClickedCard] = useState<number[]>([0]);
 
@@ -87,60 +83,8 @@ const AddOkr = () => {
     setKrListInfo([...krListInfo]);
   };
 
-  // 이전, 다음 버튼 활성화 / 비활성화 관리 함수
-  const validNextStep = () => {
-    switch (step) {
-      case 1:
-        objCategory && objTitle ? setIsActiveNext(true) : setIsActiveNext(false);
-        break;
-      case 2:
-        objStartAt && objExpireAt && selectedPeriod
-          ? setIsActiveNext(true)
-          : setIsActiveNext(false);
-        break;
-      case 3:
-        objContent ? setIsActiveNext(true) : setIsActiveNext(false);
-        break;
-      case 4:
-        // 가이드에 따라 설정 - 첫 번째 kr 카드일 때
-        if (selectedMethod === IS_GUIDE) {
-          krListInfo.filter((kr) => {
-            return clickedCard.includes(kr.krIdx);
-          }).length ===
-          krListInfo.filter((kr) => {
-            const { krTitle, krStartAt, krExpireAt } = kr;
-            return krTitle && krStartAt && krExpireAt;
-          }).length
-            ? setIsActiveNext(true)
-            : setIsActiveNext(false);
-        }
-
-        // 직접 설정하기 플로우일 때
-        if (selectedMethod !== IS_GUIDE) {
-          krListInfo.filter((kr) => {
-            return clickedCard.includes(kr.krIdx);
-          }).length ===
-          krListInfo.filter((kr) => {
-            const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = kr;
-            return krTitle && krTarget && krMetric && krStartAt && krExpireAt;
-          }).length
-            ? setIsActiveNext(true)
-            : setIsActiveNext(false);
-        }
-        break;
-      case 5:
-        //가이드에 따라 설정 - 두번째 kr 카드일 떄
-        krListInfo.filter((kr) => {
-          return clickedCard.includes(kr.krIdx);
-        }).length ===
-        krListInfo.filter((kr) => {
-          const { krTarget, krMetric } = kr;
-          return krTarget && krMetric;
-        }).length
-          ? setIsActiveNext(true)
-          : setIsActiveNext(false);
-        break;
-    }
+  const handleValidNextStep = (isValid: boolean) => {
+    setIsActiveNext(isValid);
   };
 
   // step에 따라 다른 layout 렌더링하는 함수
@@ -153,6 +97,7 @@ const AddOkr = () => {
             isGuide={selectedMethod === IS_GUIDE}
             objInfo={objInfo}
             setObjInfo={setObjInfo}
+            onValidNextStep={handleValidNextStep}
           />
         );
       case 2:
@@ -163,12 +108,19 @@ const AddOkr = () => {
             setObjInfo={setObjInfo}
             selectedPeriod={selectedPeriod}
             setSelectedPeriod={setSelectedPeriod}
+            onValidNextStep={handleValidNextStep}
           />
         );
 
       case 3:
         // step 3 - O 내용 설정
-        return <ObjContent objInfo={objInfo} setObjInfo={setObjInfo} />;
+        return (
+          <ObjContent
+            objInfo={objInfo}
+            setObjInfo={setObjInfo}
+            onValidNextStep={handleValidNextStep}
+          />
+        );
 
       case 4:
         // step 4 - KR 추가 (가이드에 따라 설정 첫번째 kr 카드 or 직접 설정하기)
@@ -180,6 +132,7 @@ const AddOkr = () => {
             handleClickCloseBtn={handleClickCloseBtn}
             krListInfo={krListInfo}
             setKrListInfo={setKrListInfo}
+            onValidateNextStep={handleValidNextStep}
           />
         ) : (
           <AddKr
@@ -189,6 +142,7 @@ const AddOkr = () => {
             handleClickCloseBtn={handleClickCloseBtn}
             krListInfo={krListInfo}
             setKrListInfo={setKrListInfo}
+            onValidateNextStep={handleValidNextStep}
           />
         );
       case 5:
@@ -201,6 +155,7 @@ const AddOkr = () => {
             handleClickCloseBtn={handleClickCloseBtn}
             krListInfo={krListInfo}
             setKrListInfo={setKrListInfo}
+            onValidateNextStep={handleValidNextStep}
           />
         );
       case 6:
@@ -217,11 +172,6 @@ const AddOkr = () => {
         return <Error />;
     }
   };
-
-  // 스텝에 따라 검증
-  useEffect(() => {
-    validNextStep();
-  }, [step, objInfo, krListInfo, clickedCard]);
 
   if (!location.state.selectedMethod) {
     return <Error />;

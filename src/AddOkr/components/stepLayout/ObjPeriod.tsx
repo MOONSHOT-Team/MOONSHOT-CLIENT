@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Dayjs } from 'dayjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CALE_END_DATE, CALE_START_DATE, TODAY } from '../../constants/ADD_OKR_DATES';
 import { OBJ_PERIOD_LIST } from '../../constants/OBJ_PERIOD_LIST';
@@ -17,7 +17,13 @@ interface IObjPeriodProps extends IAddObjFlowProps {
 
 const DEFAULT_SELECT_PERIOD = '1';
 
-const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: IObjPeriodProps) => {
+const ObjPeriod = ({
+  objInfo,
+  setObjInfo,
+  selectedPeriod,
+  setSelectedPeriod,
+  onValidNextStep,
+}: IObjPeriodProps) => {
   const { objStartAt, objExpireAt } = objInfo;
 
   // dayjs 캘린더에서 사용하는 선택된 기간 값
@@ -56,6 +62,10 @@ const ObjPeriod = ({ objInfo, setObjInfo, selectedPeriod, setSelectedPeriod }: I
       setObjInfo({ ...objInfo, objStartAt: formatString[0], objExpireAt: formatString[1] });
     }
   };
+
+  useEffect(() => {
+    onValidNextStep(!!objStartAt && !!objExpireAt && !!selectedPeriod);
+  }, [objInfo]);
 
   return (
     <section css={ObjPeriodContainer}>

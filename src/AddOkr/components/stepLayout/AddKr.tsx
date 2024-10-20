@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { AddOkrCardWrapper } from '../../styles/KeyResultCardStyle';
 import { IAddKrFlowProps } from '../../types/KrInfoTypes';
@@ -15,8 +15,22 @@ const AddKr = ({
   handleClickCloseBtn,
   krListInfo,
   setKrListInfo,
+  onValidateNextStep,
 }: IAddKrFlowProps) => {
   const { objTitle } = objInfo;
+
+  useEffect(() => {
+    const isValid =
+      krListInfo.filter((kr) => {
+        return clickedCard.includes(kr.krIdx);
+      }).length ===
+      krListInfo.filter((kr) => {
+        const { krTitle, krTarget, krMetric, krStartAt, krExpireAt } = kr;
+        return krTitle && krTarget && krMetric && krStartAt && krExpireAt;
+      }).length;
+
+    onValidateNextStep(isValid);
+  }, [krListInfo, clickedCard]);
 
   const renderKrCards = () => {
     const plusCardLength = Array.from({ length: MAX_KR_LENGTH - 1 }, (_, i) => i + 1);

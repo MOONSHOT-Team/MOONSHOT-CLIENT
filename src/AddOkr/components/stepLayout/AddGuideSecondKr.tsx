@@ -1,13 +1,33 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
 
 import { AddOkrCardWrapper, EmptyKeyResultCard } from '../../styles/KeyResultCardStyle';
 import { IAddKrFlowProps } from '../../types/KrInfoTypes';
 import GuideSecondKeyResultCard from '../addKr/GuideSecondKeyResultCard';
 
-const AddGuideSecondKr = ({ objInfo, clickedCard, krListInfo, setKrListInfo }: IAddKrFlowProps) => {
+const AddGuideSecondKr = ({
+  objInfo,
+  clickedCard,
+  krListInfo,
+  setKrListInfo,
+  onValidateNextStep,
+}: IAddKrFlowProps) => {
   const { objTitle } = objInfo;
   const secondKrList = [0, 1, 2];
+
+  useEffect(() => {
+    const isValid =
+      krListInfo.filter((kr) => {
+        return clickedCard.includes(kr.krIdx);
+      }).length ===
+      krListInfo.filter((kr) => {
+        const { krTarget, krMetric } = kr;
+        return krTarget && krMetric;
+      }).length;
+
+    onValidateNextStep(isValid);
+  }, [krListInfo, clickedCard]);
 
   return (
     <section css={AddGuideKrContainer}>

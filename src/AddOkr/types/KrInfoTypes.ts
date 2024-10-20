@@ -18,4 +18,5 @@ export interface IAddKrFlowProps {
   handleClickCloseBtn: (cardIdx: number) => void;
   krListInfo: IKrListInfoTypes[];
   setKrListInfo: React.Dispatch<React.SetStateAction<IKrListInfoTypes[]>>;
+  onValidateNextStep: (isValid: boolean) => void;
 }

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { limitMaxLength } from '@utils/limitMaxLength';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GUIDE_OBJ_TITLE_PLACEHOLDER } from '../../constants/GUIDE_OBJ_TITLE_PLACEHOLDER';
 import { OBJ_CATEG_LIST } from '../../constants/OBJ_CATEG_LIST';
@@ -16,7 +16,7 @@ interface IObjTitleCategProps extends IAddObjFlowProps {
 // 가이드에 따라 설정하기 기본 placeholder
 const GUIDE_DEFAULT_PLACEHOLDER = '목표를 입력하세요';
 
-const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) => {
+const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo, onValidNextStep }: IObjTitleCategProps) => {
   const { objCategory: selectedObjCateg, objTitle } = objInfo;
   //글자 수 관리 값
   const [currObjCount, setCurrObjCount] = useState(objTitle ? objTitle.length : 0);
@@ -76,6 +76,10 @@ const ObjTitleCateg = ({ isGuide, objInfo, setObjInfo }: IObjTitleCategProps) =>
 
     setHoverObjPlaceHolder(targetPlaceholder);
   };
+
+  useEffect(() => {
+    onValidNextStep(!!selectedObjCateg && !!objTitle);
+  }, [objInfo]);
 
   return (
     <section css={ObjTitleCategContainer}>

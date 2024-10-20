@@ -9,14 +9,17 @@ import imgFrame5List2 from '../../assets/frame/imgFrame5List2.png';
 import imgFrame5List3 from '../../assets/frame/imgFrame5List3.png';
 import imgFrame5List4 from '../../assets/frame/imgFrame5List4.png';
 import { CONTENTS } from '../../constants/CONTENTS';
-import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 import TextField from './TextField';
 
-const Frame5 = () => {
+interface Frame5Props {
+  isInView: boolean;
+  refCallback: (elem: HTMLSelectElement) => void;
+}
+
+const Frame5 = ({ isInView, refCallback }: Frame5Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { active, element } = useScrollDetect();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,14 +30,14 @@ const Frame5 = () => {
   }, []);
 
   return (
-    <section css={section} ref={element}>
+    <section id="frame5" css={section} ref={refCallback}>
       <TextField
         subTitle={CONTENTS[4].subTitle!}
         subTitleColor={CONTENTS[4].subTitleColor!}
         title={CONTENTS[4].title}
         description={CONTENTS[4].description!}
       />
-      {active && (
+      {isInView && (
         <StImgContainer>
           {isOpen && (
             <img src={imgFrame5HistoryOpen} alt="main-dashboard-img-1" width={1005} height={57} />

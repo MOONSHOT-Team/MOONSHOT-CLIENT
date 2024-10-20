@@ -16,7 +16,12 @@ import { TEXT_ROLLING } from '../../constants/TEXT_ROLLING';
 import { ImgPopUp, popUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 
-const Frame1 = () => {
+interface Frame1Props {
+  isInView: boolean;
+  refCallback: (elem: HTMLSelectElement) => void;
+}
+
+const Frame1 = ({ isInView, refCallback }: Frame1Props) => {
   const [textIdx, setTextIdx] = useState(0);
 
   useEffect(() => {
@@ -28,7 +33,7 @@ const Frame1 = () => {
   });
 
   return (
-    <section css={section}>
+    <section id="frame1" ref={refCallback} css={section}>
       <div css={imgSlide} />
       <StRollingTextBox>
         {TEXT_ROLLING.filter((_, idx) => idx === textIdx).map((text) => (
@@ -41,50 +46,52 @@ const Frame1 = () => {
       <StCtaLink to="/sign-in" target="_blank" className="click_service">
         오픈 베타 시작하기
       </StCtaLink>
-      <div css={imgContainer}>
-        <div css={fixedBackground} />
-        <picture>
-          <source srcSet={webpFrame1ObjectiveItem} type="image/webp" />
-          <StLeftLateImgPopUp
-            fromX={17.7}
-            fromY={0}
-            toX={17.7}
-            toY={-15.8}
-            delay={1}
-            src={imgFrame1ObjectiveItem}
-            alt="objective-img"
-            width={262}
-            height={235}
-          />
-        </picture>
-        <StDashboardContainer>
+      {isInView && (
+        <div css={imgContainer}>
+          <div css={fixedBackground} />
           <picture>
-            <source srcSet={webpFrame1MainDashboard} type="image/webp" />
-            <StImgDashboardPopUp
-              fromY={20}
-              toY={0}
-              src={imgFrame1MainDashboard}
-              alt="dashboard-img"
-              width={996}
-              height={560}
+            <source srcSet={webpFrame1ObjectiveItem} type="image/webp" />
+            <StLeftLateImgPopUp
+              fromX={17.7}
+              fromY={0}
+              toX={17.7}
+              toY={-15.8}
+              delay={1}
+              src={imgFrame1ObjectiveItem}
+              alt="objective-img"
+              width={262}
+              height={235}
             />
           </picture>
-        </StDashboardContainer>
-        <picture css={zIndex}>
-          <source srcSet={webpFrame1SideSheetRight} type="image/webp" />
-          <StRightLateImgPopUp
-            fromX={-18.7}
-            fromY={39}
-            toX={-18.7}
-            toY={19}
-            delay={1.5}
-            src={imgFrame1SideSheetRight}
-            alt="sidesheet-img"
-            width={272}
-            height={598}
-          />
-        </picture>
-      </div>
+          <StDashboardContainer>
+            <picture>
+              <source srcSet={webpFrame1MainDashboard} type="image/webp" />
+              <StImgDashboardPopUp
+                fromY={20}
+                toY={0}
+                src={imgFrame1MainDashboard}
+                alt="dashboard-img"
+                width={996}
+                height={560}
+              />
+            </picture>
+          </StDashboardContainer>
+          <picture css={zIndex}>
+            <source srcSet={webpFrame1SideSheetRight} type="image/webp" />
+            <StRightLateImgPopUp
+              fromX={-18.7}
+              fromY={39}
+              toX={-18.7}
+              toY={19}
+              delay={1.5}
+              src={imgFrame1SideSheetRight}
+              alt="sidesheet-img"
+              width={272}
+              height={598}
+            />
+          </picture>
+        </div>
+      )}
     </section>
   );
 };

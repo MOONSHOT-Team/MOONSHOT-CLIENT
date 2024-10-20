@@ -10,24 +10,26 @@ import webpFrame3Question1 from '../../assets/frame/webpFrame3Question1.webp';
 import webpFrame3Question2 from '../../assets/frame/webpFrame3Question2.webp';
 import webpFrame3Question3 from '../../assets/frame/webpFrame3Question3.webp';
 import { CONTENTS } from '../../constants/CONTENTS';
-import useScrollDetect from '../../hooks/useScrollDetect';
 import { ImgPopUp } from '../../styles/animation';
 import { sectionStyle } from '../../styles/common';
 import isWebPSupported from '../../utils/isWebPSupported';
 import TextField from './TextField';
 
-const Frame3 = () => {
-  const { active, element } = useScrollDetect();
+interface Frame3Props {
+  isInView: boolean;
+  refCallback: (elem: HTMLSelectElement) => void;
+}
 
+const Frame3 = ({ isInView, refCallback }: Frame3Props) => {
   return (
-    <section css={section} ref={element}>
+    <section id="frame3" css={section} ref={refCallback}>
       <TextField
         subTitle={CONTENTS[2].subTitle!}
         subTitleColor={CONTENTS[2].subTitleColor!}
         title={CONTENTS[2].title}
         description={CONTENTS[2].description!}
       />
-      {active && (
+      {isInView && (
         <div css={imgContainer}>
           <picture>
             <source srcSet={webpFrame3Question1} type="image/webp" />

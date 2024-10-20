@@ -75,11 +75,11 @@ const MainDashboardOKRTree = ({
                 ObjNode={() => (
                   <MainDashObjectNode objValue={currentOkrData?.objTitle} objStroke="#7165CA" />
                 )}
-                keyResultList={currentOkrData?.krList}
+                keyResultList={editKrList}
                 KrNodes={(krIdx) => (
                   <MainDashKrNodes
                     krIdx={krIdx}
-                    krList={currentOkrData?.krList[krIdx]}
+                    krList={editKrList[krIdx]}
                     onShowSideSheet={onShowSideSheet}
                     currentKrId={currentKrId}
                   />
@@ -88,7 +88,7 @@ const MainDashboardOKRTree = ({
                   <MainDashTaskNodes
                     isFirstChild={isFirstChild}
                     taskIdx={taskIdx}
-                    taskList={currentOkrData?.krList[krIdx]?.taskList}
+                    taskList={editKrList[krIdx]?.taskList}
                   />
                 )}
               />

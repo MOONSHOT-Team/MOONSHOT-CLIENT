@@ -9,6 +9,7 @@ interface IDynamicInputProps {
   maxLength?: number;
   isAutoFocus?: boolean;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleBlur?: () => void;
 }
 
 const DynamicInput = ({
@@ -18,6 +19,7 @@ const DynamicInput = ({
   maxLength,
   isAutoFocus = false,
   onKeyDown,
+  handleBlur,
 }: IDynamicInputProps) => {
   const [width, setWidth] = useState(minWidth ? minWidth : 10);
 
@@ -50,6 +52,7 @@ const DynamicInput = ({
           e.stopPropagation();
           onKeyDown?.(e);
         }}
+        onBlur={handleBlur}
       />
       <StInputMirror ref={mirrorRef} aria-hidden>
         {value}

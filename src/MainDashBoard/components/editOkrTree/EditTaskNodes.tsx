@@ -130,6 +130,7 @@ export const EditTaskNodes = ({
                       isAutoFocus={true}
                       maxLength={MAX_TASK_TITLE}
                       onKeyDown={handleKeyPress}
+                      handleBlur={() => postData()}
                     />
                   </StPreviewTaskBox>
                 ) : (
